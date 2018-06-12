@@ -16,13 +16,13 @@ tags:
 
 - [概述](#概述)
     - [服务治理](#服务治理)
-- [Dubbo 架构](#dubbo-架构)
-- [配置](#配置)
+- [Dubbo 配置](#dubbo-配置)
     - [配置方式](#配置方式)
     - [配置项](#配置项)
 - [Dubbo 支持的协议](#dubbo-支持的协议)
+- [Dubbo 架构](#dubbo-架构)
+    - [整体设计](#整体设计)
 - [资料](#资料)
-    - [Dubbo 官方资源](#dubbo-官方资源)
 
 <!-- /TOC -->
 
@@ -36,32 +36,7 @@ tags:
 
 以上问题可以归纳为服务治理问题，这也是 Dubbo 的核心功能。
 
-## Dubbo 架构
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo基本架构.png" width="600"/>
-</div>
-
-节点角色：
-
-| 节点      | 角色说明                               |
-| --------- | -------------------------------------- |
-| Provider  | 暴露服务的服务提供方                   |
-| Consumer  | 调用远程服务的服务消费方               |
-| Registry  | 服务注册与发现的注册中心               |
-| Monitor   | 统计服务的调用次数和调用时间的监控中心 |
-| Container | 服务运行容器                           |
-
-调用关系：
-
-1.  务容器负责启动，加载，运行服务提供者。
-2.  服务提供者在启动时，向注册中心注册自己提供的服务。
-3.  服务消费者在启动时，向注册中心订阅自己所需的服务。
-4.  注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者。
-5.  服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。
-6.  服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。
-
-## 配置
+## Dubbo 配置
 
 dubbo 所有配置最终都将转换为 URL 表示，并由服务提供方生成，经注册中心传递给消费方，各属性对应 URL 的参数，参见配置项一览表中的 "对应 URL 参数" 列。
 
@@ -149,7 +124,7 @@ dubbo.registry.address=10.20.153.10:9090
 #### 配置之间的关系
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo配置关系.jpg" width="300"/>
+<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo配置关系.jpg" width="600"/>
 </div>
 
 #### 配置覆盖关系
@@ -162,7 +137,7 @@ dubbo.registry.address=10.20.153.10:9090
 其中，服务提供方配置，通过 URL 经由注册中心传递给消费方。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo配置覆盖关系.jpg" width="400"/>
+<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo配置覆盖关系.jpg" width="500"/>
 </div>
 
 ## Dubbo 支持的协议
@@ -186,8 +161,66 @@ dubbo 协议是 dubbo 默认的协议。dubbo 协议采用单一长连接和 NIO
 
 > 更多详情请参考：[Dubbo 官方协议参考手册](https://dubbo.gitbooks.io/dubbo-user-book/references/protocol/introduction.html)
 
-## 资料
+## Dubbo 架构
 
-### Dubbo 官方资源
+<div align="center">
+<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo基本架构.png" width="500"/>
+</div>
+
+节点角色：
+
+| 节点      | 角色说明                               |
+| --------- | -------------------------------------- |
+| Provider  | 暴露服务的服务提供方                   |
+| Consumer  | 调用远程服务的服务消费方               |
+| Registry  | 服务注册与发现的注册中心               |
+| Monitor   | 统计服务的调用次数和调用时间的监控中心 |
+| Container | 服务运行容器                           |
+
+调用关系：
+
+1.  务容器负责启动，加载，运行服务提供者。
+2.  服务提供者在启动时，向注册中心注册自己提供的服务。
+3.  服务消费者在启动时，向注册中心订阅自己所需的服务。
+4.  注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者。
+5.  服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。
+6.  服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。
+
+### 整体设计
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo整体设计.jpg" />
+</div>
+
+图例说明：
+
+- 图中左边淡蓝背景的为服务消费方使用的接口，右边淡绿色背景的为服务提供方使用的接口，位于中轴线上的为双方都用到的接口。
+- 图中从下至上分为十层，各层均为单向依赖，右边的黑色箭头代表层之间的依赖关系，每一层都可以剥离上层被复用，其中，Service 和 Config 层为 API，其它各层均为 SPI。
+- 图中绿色小块的为扩展接口，蓝色小块为实现类，图中只显示用于关联各层的实现类。
+- 图中蓝色虚线为初始化过程，即启动时组装链，红色实线为方法调用过程，即运行时调时链，紫色三角箭头为继承，可以把子类看作父类的同一个节点，线上的文字为调用的方法。
+
+#### 各层说明
+
+* **config 配置层**：对外配置接口，以 ServiceConfig, ReferenceConfig 为中心，可以直接初始化配置类，也可以通过 spring 解析配置生成配置类
+* **proxy 服务代理层**：服务接口透明代理，生成服务的客户端 Stub 和服务器端 Skeleton, 以 ServiceProxy 为中心，扩展接口为 ProxyFactory
+* **registry 注册中心层**：封装服务地址的注册与发现，以服务 URL 为中心，扩展接口为 RegistryFactory, Registry, RegistryService
+* **cluster 路由层**：封装多个提供者的路由及负载均衡，并桥接注册中心，以 Invoker 为中心，扩展接口为 Cluster, Directory, Router, LoadBalance
+* **monitor 监控层**：RPC 调用次数和调用时间监控，以 Statistics 为中心，扩展接口为 MonitorFactory, Monitor, MonitorService
+* **protocol 远程调用层**：封装 RPC 调用，以 Invocation, Result 为中心，扩展接口为 Protocol, Invoker, Exporter
+* **exchange 信息交换层**：封装请求响应模式，同步转异步，以 Request, Response 为中心，扩展接口为 Exchanger, ExchangeChannel, ExchangeClient, ExchangeServer
+* **transport 网络传输层**：抽象 mina 和 netty 为统一接口，以 Message 为中心，扩展接口为 Channel, Transporter, Client, Server, Codec
+* **serialize 数据序列化层**：可复用的一些工具，扩展接口为 Serialization, ObjectInput, ObjectOutput, ThreadPool
+* **serialize 数据序列化层**：可复用的一些工具，扩展接口为 Serialization, ObjectInput, ObjectOutput, ThreadPool
+
+#### 各层关系说明
+
+* 在 RPC 中，Protocol 是核心层，也就是只要有 Protocol + Invoker + Exporter 就可以完成非透明的 RPC 调用，然后在 Invoker 的主过程上 Filter 拦截点。
+* 图中的 Consumer 和 Provider 是抽象概念，只是想让看图者更直观的了解哪些类分属于客户端与服务器端，不用 Client 和 Server 的原因是 Dubbo 在很多场景下都使用 Provider, Consumer, Registry, Monitor 划分逻辑拓普节点，保持统一概念。
+* 而 Cluster 是外围概念，所以 Cluster 的目的是将多个 Invoker 伪装成一个 Invoker，这样其它人只要关注 Protocol 层 Invoker 即可，加上 Cluster 或者去掉 Cluster 对其它层都不会造成影响，因为只有一个提供者时，是不需要 Cluster 的。
+* Proxy 层封装了所有接口的透明化代理，而在其它层都以 Invoker 为中心，只有到了暴露给用户使用时，才用 Proxy 将 Invoker 转成接口，或将接口实现转成 Invoker，也就是去掉 Proxy 层 RPC 是可以 Run 的，只是不那么透明，不那么看起来像调本地服务一样调远程服务。
+* 而 Remoting 实现是 Dubbo 协议的实现，如果你选择 RMI 协议，整个 Remoting 都不会用上，Remoting 内部再划为 Transport 传输层和 Exchange 信息交换层，Transport 层只负责单向消息传输，是对 Mina, Netty, Grizzly 的抽象，它也可以扩展 UDP 传输，而 Exchange 层是在传输层之上封装了 Request-Response 语义。
+* Registry 和 Monitor 实际上不算一层，而是一个独立的节点，只是为了全局概览，用层的方式画在一起。
+
+## 资料
 
 [Github](https://github.com/apache/incubator-dubbo) | [用户手册](https://dubbo.gitbooks.io/dubbo-user-book/content/) | [开发手册](https://dubbo.gitbooks.io/dubbo-dev-book/content/) | [管理员手册](https://dubbo.gitbooks.io/dubbo-admin-book/content/)
