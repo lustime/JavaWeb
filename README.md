@@ -10,10 +10,14 @@
 
 > 分布式技术
 
-- [分布式架构](docs/distributed/分布式架构.md)
-- [分布式技术实现](docs/distributed/分布式技术实现.md)
+- 分布式
+  - [x] [分布式架构](docs/distributed/分布式架构.md)
+  - [x] [分布式技术实现](docs/distributed/分布式技术实现.md)
 - RPC
-  - [Dubbo](docs/distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
+  - [x] [Dubbo](docs/distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
+- 消息队列
+  - [ ] [Kafka](docs/distributed/message/kafka.md)
+  - [ ] RocketMQ
 
 ## [工具](docs/tools/README.md)
 
