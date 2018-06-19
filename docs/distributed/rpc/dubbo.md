@@ -284,12 +284,12 @@ dubbo 协议是 dubbo 默认的协议。dubbo 协议采用单一长连接和 NIO
 <img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo集群容错.jpg" />
 </div>
 
-- Failover - 失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)。
-- Failfast - 快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。
-- Failsafe - 失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。
-- Failback - 失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。
-- Forking - 并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks="2" 来设置最大并行数。
-- Broadcast - 播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。
+- **Failover** - 失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)。
+- **Failfast** - 快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。
+- **Failsafe** - 失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。
+- **Failback** - 失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。
+- **Forking** - 并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks="2" 来设置最大并行数。
+- **Broadcast** - 播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。
 
 ### 负载均衡
 
@@ -313,8 +313,8 @@ dubbo 协议是 dubbo 默认的协议。dubbo 协议采用单一长连接和 NIO
 - 一致性 Hash，相同参数的请求总是发到同一提供者。
 - 当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。
 - 算法参见：http://en.wikipedia.org/wiki/Consistent_hashing
-- 缺省只对第一个参数 Hash，如果要修改，请配置 <dubbo:parameter key="hash.arguments" value="0,1" />
-- 缺省用 160 份虚拟节点，如果要修改，请配置 <dubbo:parameter key="hash.nodes" value="320" />
+- 缺省只对第一个参数 Hash，如果要修改，请配置 `<dubbo:parameter key="hash.arguments" value="0,1" />`
+- 缺省用 160 份虚拟节点，如果要修改，请配置 `<dubbo:parameter key="hash.nodes" value="320" />`
 
 ### 路由规则
 
@@ -328,16 +328,16 @@ Registry registry = registryFactory.getRegistry(URL.valueOf("zookeeper://10.20.1
 registry.register(URL.valueOf("condition://0.0.0.0/com.foo.BarService?category=routers&dynamic=false&rule=" + URL.encode("host = 10.20.153.10 => host = 10.20.153.11") + "));
 ```
 
-- condition:// 表示路由规则的类型，支持条件路由规则和脚本路由规则，可扩展，必填。
-- 0.0.0.0 表示对所有 IP 地址生效，如果只想对某个 IP 的生效，请填入具体 IP，必填。
-- com.foo.BarService 表示只对指定服务生效，必填。
-- category=routers 表示该数据为动态配置类型，必填。
-- dynamic=false 表示该数据为持久数据，当注册方退出时，数据依然保存在注册中心，必填。
-- enabled=true 覆盖规则是否生效，可不填，缺省生效。
-- force=false 当路由结果为空时，是否强制执行，如果不强制执行，路由结果为空的路由规则将自动失效，可不填，缺省为 flase。
-- runtime=false 是否在每次调用时执行路由规则，否则只在提供者地址列表变更时预先执行并缓存结果，调用时直接从缓存中获取路由结果。如果用了参数路由，必须设为 true，需要注意设置会影响调用的性能，可不填，缺省为 flase。
-- priority=1 路由规则的优先级，用于排序，优先级越大越靠前执行，可不填，缺省为 0。
-- rule=URL.encode("host = 10.20.153.10 => host = 10.20.153.11") 表示路由规则的内容，必填。
+- **condition://** - 表示路由规则的类型，支持条件路由规则和脚本路由规则，可扩展，必填。
+- **0.0.0.0** - 表示对所有 IP 地址生效，如果只想对某个 IP 的生效，请填入具体 IP，必填。
+- **com.foo.BarService** - 表示只对指定服务生效，必填。
+- **category=routers** - 表示该数据为动态配置类型，必填。
+- **dynamic=false** - 表示该数据为持久数据，当注册方退出时，数据依然保存在注册中心，必填。
+- **enabled=true** - 覆盖规则是否生效，可不填，缺省生效。
+- **force=false** - 当路由结果为空时，是否强制执行，如果不强制执行，路由结果为空的路由规则将自动失效，可不填，缺省为 flase。
+- **runtime=false** - 是否在每次调用时执行路由规则，否则只在提供者地址列表变更时预先执行并缓存结果，调用时直接从缓存中获取路由结果。如果用了参数路由，必须设为 true，需要注意设置会影响调用的性能，可不填，缺省为 flase。
+- **priority=1** - 路由规则的优先级，用于排序，优先级越大越靠前执行，可不填，缺省为 0。
+- **rule=URL.encode("host = 10.20.153.10 => host = 10.20.153.11")** - 表示路由规则的内容，必填。
 
 ### 服务降级
 
@@ -353,8 +353,8 @@ registry.register(URL.valueOf("override://0.0.0.0/com.foo.BarService?category=co
 
 其中：
 
-mock=force:return+null 表示消费方对该服务的方法调用都直接返回 null 值，不发起远程调用。用来屏蔽不重要服务不可用时对调用方的影响。
-还可以改为 mock=fail:return+null 表示消费方对该服务的方法调用在失败后，再返回 null 值，不抛异常。用来容忍不重要服务不稳定时对调用方的影响。
+**mock=force:return+null** 表示消费方对该服务的方法调用都直接返回 null 值，不发起远程调用。用来屏蔽不重要服务不可用时对调用方的影响。
+还可以改为 **mock=fail:return+null** 表示消费方对该服务的方法调用在失败后，再返回 null 值，不抛异常。用来容忍不重要服务不稳定时对调用方的影响。
 
 ### 访问控制
 
@@ -461,14 +461,14 @@ registry.register(URL.valueOf("override://0.0.0.0/com.foo.BarService?category=co
 
 其中：
 
-- override:// 表示数据采用覆盖方式，支持 override 和 absent，可扩展，必填。
-- 0.0.0.0 表示对所有 IP 地址生效，如果只想覆盖某个 IP 的数据，请填入具体 IP，必填。
-- com.foo.BarService 表示只对指定服务生效，必填。
-- category=configurators 表示该数据为动态配置类型，必填。
-- dynamic=false 表示该数据为持久数据，当注册方退出时，数据依然保存在注册中心，必填。
-- enabled=true 覆盖规则是否生效，可不填，缺省生效。
-- application=foo 表示只对指定应用生效，可不填，表示对所有应用生效。
-- timeout=1000 表示将满足以上条件的 timeout 参数的值覆盖为 1000。如果想覆盖其它参数，直接加在 override 的 URL 参数上。
+- **override://** - 表示数据采用覆盖方式，支持 override 和 absent，可扩展，必填。
+- **0.0.0.0** - 表示对所有 IP 地址生效，如果只想覆盖某个 IP 的数据，请填入具体 IP，必填。
+- **com.foo.BarService** - 表示只对指定服务生效，必填。
+- **category=configurators** - 表示该数据为动态配置类型，必填。
+- **dynamic=false** - 表示该数据为持久数据，当注册方退出时，数据依然保存在注册中心，必填。
+- **enabled=true** - 覆盖规则是否生效，可不填，缺省生效。
+- **application=foo** - 表示只对指定应用生效，可不填，表示对所有应用生效。
+- **timeout=1000** - 表示将满足以上条件的 timeout 参数的值覆盖为 1000。如果想覆盖其它参数，直接加在 override 的 URL 参数上。
 
 示例：
 
