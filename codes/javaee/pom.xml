@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+
+  <!-- [Part 1] BASIC SETTINGS BEGIN -->
+
+  <!-- MAVEN COORDINATE BEGIN -->
+  <groupId>io.github.dunwu</groupId>
+  <artifactId>javaee-notes</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <!-- MAVEN COORDINATE END -->
+
+  <!-- RELATIONSHIP SETTINGS BEGIN -->
+  <modules>
+    <module>parent</module>
+    <module>servlet</module>
+    <module>jsp</module>
+    <module>session</module>
+    <module>filter</module>
+    <module>listener</module>
+    <module>jstl</module>
+    <module>taglib</module>
+    <module>oss</module>
+    <module>websocket</module>
+  </modules>
+  <!-- RELATIONSHIP SETTINGS END -->
+
+  <!-- PROPERTIES BEGIN -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <!-- PROPERTIES END -->
+
+  <!-- [Part 1] BASIC SETTINGS END -->
+
+
+  <!-- [Part 2] BUILD SETTINGS BEGIN -->
+  <!-- [Part 2] BUILD SETTINGS END -->
+
+
+  <!-- [Part 3] PROJECT INFO BEGIN -->
+  <name>javaee-notes</name>
+  <description>javaee 学习笔记</description>
+  <url>https://github.com/dunwu/javaee-notes</url>
+  <inceptionYear>2016-2017</inceptionYear>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Zhang Peng</name>
+      <email>forbreak@163.com</email>
+      <timezone>+8</timezone>
+    </developer>
+  </developers>
+  <!-- [Part 3] PROJECT INFO END -->
+
+
+  <!-- [Part 4] ENVIRONMENT SETTINGS BEGIN -->
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/dunwu/javaee-notes/issues</url>
+  </issueManagement>
+  <scm>
+    <url>https://github.com/dunwu/javaee-notes</url>
+    <connection>scm:git:git://github.com/dunwu/javaee-notes.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:dunwu/javaee-notes.git</developerConnection>
+  </scm>
+  <!-- [Part 4] ENVIRONMENT SETTINGS END -->
+
+
+</project>
