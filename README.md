@@ -11,7 +11,7 @@
 - Platform
   - [x] [Spring](https://github.com/dunwu/spring-notes)
 - ORM
-  - [ ] Mybatis
+  - [ ] [Mybatis](docs/standalone/orm/mybatis.md)
   - [ ] Hibernate
 - 安全
   - [ ] [Shiro](docs/standalone/security/shiro.md) - 安全框架，具有认证、授权、加密、会话管理功能。
