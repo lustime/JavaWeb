@@ -173,7 +173,7 @@ Dubbo 支持多种配置方式：
 - Properties 最后，相当于缺省值，只有 XML 没有配置时，dubbo.properties 的相应配置项才会生效，通常用于共享公共配置，比如应用名。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo配置覆盖策略.jpg" width="300"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/dubbo/dubbo配置覆盖策略.jpg" width="300"/>
 </div>
 
 #### xml 配置
@@ -233,7 +233,7 @@ dubbo.registry.address=10.20.153.10:9090
 #### 配置之间的关系
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo配置关系.jpg" width="600"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/dubbo/dubbo配置关系.jpg" width="600"/>
 </div>
 
 #### 配置覆盖关系
@@ -246,7 +246,7 @@ dubbo.registry.address=10.20.153.10:9090
 其中，服务提供方配置，通过 URL 经由注册中心传递给消费方。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo配置覆盖关系.jpg" width="500"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/dubbo/dubbo配置覆盖关系.jpg" width="500"/>
 </div>
 
 ## Dubbo 支持的协议
@@ -281,7 +281,7 @@ dubbo 协议是 dubbo 默认的协议。dubbo 协议采用单一长连接和 NIO
 ### 集群容错
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo集群容错.jpg" />
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/dubbo/dubbo集群容错.jpg" />
 </div>
 
 - **Failover** - 失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)。
@@ -363,7 +363,7 @@ registry.register(URL.valueOf("override://0.0.0.0/com.foo.BarService?category=co
 在开发及测试环境下，经常需要绕过注册中心，只测试指定服务提供者，这时候可能需要点对点直连，点对点直联方式，将以服务接口为单位，忽略注册中心的提供者列表，A 接口配置点对点，不影响 B 接口从注册中心获取列表。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo访问控制-直连.jpg" />
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/dubbo/dubbo访问控制-直连.jpg" />
 </div>
 
 配置方式：
@@ -499,7 +499,7 @@ override://0.0.0.0/com.foo.BarService?category=configurators&dynamic=false&appli
 ## Dubbo 架构
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo基本架构.png" width="500"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/dubbo/dubbo基本架构.png" width="500"/>
 </div>
 
 节点角色：
@@ -524,7 +524,7 @@ override://0.0.0.0/com.foo.BarService?category=configurators&dynamic=false&appli
 ### 整体设计
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/rpc/dubbo/dubbo整体设计.jpg" />
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/dubbo/dubbo整体设计.jpg" />
 </div>
 
 图例说明：

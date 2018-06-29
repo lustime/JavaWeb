@@ -101,7 +101,7 @@ Message Queue 的通信模式：
 ### Kafka 核心 API
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-core-api.png" width="400"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-core-api.png" width="400"/>
 </div>
 
 - Producer - 允许应用程序将记录流发布到一个或多个 Kafka Topic。
@@ -118,7 +118,7 @@ Topic 是一个目录名，它保存着发布记录。kafka 的 Topic 始终是�
 在 Kafka 中，任意一个 Topic 维护一个 Partition 的日志，类似下图：
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-log-anatomy.png" width="400"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-log-anatomy.png" width="400"/>
 </div>
 
 每个 Partition 都是一个有序的，不可变的记录序列，不断追加到结构化的提交日志中。Partition 中的记录每个分配一个连续的 id 号，称为偏移量，用于唯一标识 Partition 内的每条记录。
@@ -126,7 +126,7 @@ Topic 是一个目录名，它保存着发布记录。kafka 的 Topic 始终是�
 Kafka 集群持久化保存（使用可配置的保留期限）所有发布记录——无论它们是否被消费。例如，如果保留期限被设置为两天，则在记录发布后的两天之内，它都可以被消费，超过时间后将被丢弃以释放空间。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-log-consumer.png" width="400"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-log-consumer.png" width="400"/>
 </div>
 
 实际上，保留在每个 Consumer 基础上的唯一元数据是该 Consumer 在日志中的抵消或位置。这个偏移量是由 Consumer 控制的：Consumer 通常会在读取记录时线性地推进其偏移量，但实际上，由于位置由 Consumer 控制，因此它可以按照喜欢的任何顺序消费记录。
@@ -151,7 +151,7 @@ Producer 将消息（记录）发送到 Kafka 节点（Broker），消息由称�
 随着 Topic 变得日益庞大，它们会被分割成更小的 Partition 以提高性能和可伸缩性。Kafka 保证 Partition 内的所有消息按照它们出现的顺序排序。区分特定消息的方式是通过它的偏移量，您可以将它看作普通数组索引，每个新消息都会增加一个序列号在一个 Partition 中。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-log-anatomy.png" width="400"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-log-anatomy.png" width="400"/>
 </div>
 
 Kafka 遵循发布/订阅模式。这意味着 Kafka 不会跟踪 Kafka 读取哪些记录并删除它们，而是将它们存储一段时间（例如一天）或直到满足某个大小阈值。Consumer 自己对 Kafka 进行新的消息调查并说出他们想要阅读的记录。这使得他们可以按照自己的意愿递增/递减偏移量，从而能够重播和重新处理事件。
@@ -161,7 +161,7 @@ Kafka 集群持久化保存（使用可配置的保留期限）所有发布记�
 值得注意的是，Consumer 实际上是内部拥有一个或多个 Consumer 流程的 Consumer 群体。为了避免两个进程读两次相同的消息，每个 Partition 仅与每个组的一个 Consumer 进程相关联。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-producer-consumer.png" width="640"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-producer-consumer.png" width="640"/>
 </div>
 
 ## 持久化
@@ -183,7 +183,7 @@ Kafka 实际上将其所有记录存储在磁盘中，并且不会将任何内�
 在任何时候，一个代理“拥有”一个分区，并且是应用程序通过该分区读写数据的节点。这被称为分区领导。它将它收到的数据复制到 N 个其他代理（称为追随者）。他们也存储数据，并准备在领导者节点死亡的情况下取代领导者。这就是典型的一主多从模式。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-replication.png" width="640"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-replication.png" width="640"/>
 </div>
 
 生产者/消费者如何知道分区的领导者是谁？
@@ -193,7 +193,7 @@ Kafka 实际上将其所有记录存储在磁盘中，并且不会将任何内�
 生产者和消费者都和 Zookeeper 连接并通信。Kafka 一直在摆脱这种耦合，自 0.8 和 0.9 版分别开始，客户端直接从 Kafka 经纪人那里获取元数据信息，他们自己与 Zookeeper 交谈。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-metadata-flow.png" width="640"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-metadata-flow.png" width="640"/>
 </div>
 
 ## 流处理
@@ -205,7 +205,7 @@ Kafka 实际上将其所有记录存储在磁盘中，并且不会将任何内�
 此 API 旨在用于您自己的代码库中，它不在代理上运行。它与消费者 API 类似，可帮助您扩展多个应用程序的流处理工作（类似于消费者群体）。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-stream-processor.png" width="640"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-stream-processor.png" width="640"/>
 </div>
 
 ### 无状态处理
@@ -221,13 +221,13 @@ Kafka 实际上将其所有记录存储在磁盘中，并且不会将任何内�
 Kafka 流可以用同样的方式解释 - 当从最终状态积累时的事件。这样的流聚合被保存在本地的 RocksDB 中（默认情况下），被称为 KTable。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-ktable.png" width="640"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-ktable.png" width="640"/>
 </div>
 
 可以将表格视为流中每个键的最新值的快照。以同样的方式，流记录可以产生一个表，表更新可以产生一个更新日志流。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-table-as-stream.png" width="640"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-table-as-stream.png" width="640"/>
 </div>
 
 ### 有状态处理
@@ -247,7 +247,7 @@ Kafka 流可以用同样的方式解释 - 当从最终状态积累时的事件�
 您甚至可以让远程数据库成为流的生产者，从而有效地广播更新日志，以便在本地重建表。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-stateful-process.png" width="640"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-stateful-process.png" width="640"/>
 </div>
 
 ## Kafka 应用场景
@@ -260,7 +260,7 @@ Kafka 流可以用同样的方式解释 - 当从最终状态积累时的事件�
 这意味着它非常适合用作系统架构的核心，充当连接不同应用程序的集中介质。 Kafka 可以成为事件驱动架构的核心部分，并允许您真正将应用程序彼此分离。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/java-web/master/images/distributed/mq/kafka/kafka-event-system.png" width="640"/>
+<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-event-system.png" width="640"/>
 </div>
 
 Kafka 允许您轻松分离不同（微）服务之间的通信。利用 Streams API，现在比以往更容易编写业务逻辑，丰富了 Kafka 主题数据以便服务消费。
