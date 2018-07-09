@@ -30,17 +30,19 @@
   - [x] [分布式原理](docs/distributed/分布式原理.md)
   - [x] [分布式架构](docs/distributed/分布式架构.md)
   - [x] [分布式技术实现](docs/distributed/分布式技术实现.md)
+  - [x] [负载均衡](docs/distributed/负载均衡.md)
 - 分布式缓存
+  - [x] [分布式缓存](docs/distributed/分布式缓存.md)
   - [ ] Redis
   - [ ] Memcached
-- 分布式服务
+- [分布式服务（rpc）](docs/distributed/rpc)
   - [x] [Dubbo](docs/distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
-- 分布式消息队列
-  - [ ] [Kafka](docs/distributed/mq/kafka.md) - 分布式的、可水平扩展的、基于发布/订阅模式的、支持容错的消息系统。
+- [分布式消息队列（MQ）](docs/distributed/mq)
+  - [x] [分布式消息队列](docs/distributed/mq/分布式消息队列.md)
+  - [x] [Kafka](docs/distributed/mq/kafka.md) - 分布式的、可水平扩展的、基于发布/订阅模式的、支持容错的消息系统。
   - [ ] RocketMQ
   - [ ] ActiveMQ
   - [ ] RabbitMQ
-  - [ ] 分布式消息队列概述
 - 分布式搜索引擎
   - [ ] ElasticSearch
 
