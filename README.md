@@ -31,6 +31,7 @@
   - [x] [分布式架构](docs/distributed/分布式架构.md)
   - [x] [分布式技术实现](docs/distributed/分布式技术实现.md)
   - [x] [负载均衡](docs/distributed/负载均衡.md)
+  - [x] [分布式技术面试题](docs/distributed/分布式技术面试题.md)
 - 分布式缓存
   - [x] [分布式缓存](docs/distributed/分布式缓存.md)
   - [ ] Redis
