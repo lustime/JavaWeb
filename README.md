@@ -37,6 +37,7 @@
   - [ ] Memcached
 - [分布式服务（rpc）](docs/distributed/rpc)
   - [x] [Dubbo](docs/distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
+  - [x] [ZooKeeper](docs/distributed/rpc/ZooKeeper.md) - 一个分布式应用协调系统，已经用到了许多分布式项目中，用来完成统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理等工作。
 - [分布式消息队列（MQ）](docs/distributed/mq)
   - [x] [分布式消息队列](docs/distributed/mq/分布式消息队列.md)
   - [x] [Kafka](docs/distributed/mq/kafka.md) - 分布式的、可水平扩展的、基于发布/订阅模式的、支持容错的消息系统。
