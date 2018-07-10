@@ -42,7 +42,7 @@
   - [x] [分布式消息队列](docs/distributed/mq/分布式消息队列.md)
   - [x] [Kafka](docs/distributed/mq/kafka.md) - 分布式的、可水平扩展的、基于发布/订阅模式的、支持容错的消息系统。
   - [ ] RocketMQ
-  - [ ] ActiveMQ
+  - [x] [ActiveMQ](docs/distributed/mq/ActiveMQ.md)
   - [ ] RabbitMQ
 - 分布式搜索引擎
   - [ ] ElasticSearch
