@@ -4,8 +4,10 @@ date: 2018/06/13
 categories:
 - 分布式
 tags:
+- java
+- javaweb
 - 分布式
-- message
+- mq
 ---
 
 # Kafka

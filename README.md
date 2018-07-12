@@ -38,11 +38,12 @@
   - [ ] Memcached
 - [分布式服务（rpc）](docs/distributed/rpc)
   - [x] [Dubbo](docs/distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
-  - [x] [ZooKeeper 基础篇](docs/distributed/rpc/zookeeper-basics.md)
-  - [x] [ZooKeeper 高级篇](docs/distributed/rpc/zookeeper-advanced.md)
+  - [x] [ZooKeeper 基础篇](docs/distributed/rpc/zookeeper-basics.md) - ZooKeeper 实战
+  - [x] [ZooKeeper 高级篇](docs/distributed/rpc/zookeeper-advanced.md) - ZooKeeper 工作原理
 - [分布式消息队列（MQ）](docs/distributed/mq)
   - [x] [分布式消息队列](docs/distributed/mq/分布式消息队列.md)
-  - [x] [Kafka](docs/distributed/mq/kafka.md) - 分布式的、可水平扩展的、基于发布/订阅模式的、支持容错的消息系统。
+  - [x] [Kafka 基础篇](docs/distributed/mq/kafka-basics.md) - Kafka 实战
+  - [x] [Kafka 高级篇](docs/distributed/mq/kafka-advanced.md) - Kafka 工作原理
   - [ ] RocketMQ
   - [x] [ActiveMQ](docs/distributed/mq/ActiveMQ.md)
   - [ ] RabbitMQ
