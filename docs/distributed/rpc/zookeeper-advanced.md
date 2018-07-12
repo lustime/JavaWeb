@@ -1,5 +1,5 @@
 ---
-title: ZooKeeper
+title: ZooKeeper 高级篇
 date: 2018/07/10
 categories:
 - 分布式
@@ -8,9 +8,11 @@ tags:
 - rpc
 ---
 
-# ZooKeeper
+# ZooKeeper 高级篇
 
 > ZooKeeper 是一个分布式应用协调系统，已经用到了许多分布式项目中，用来完成统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理等工作。
+>
+> 本文侧重于总结 ZooKeeper 工作原理。
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 
@@ -18,8 +20,8 @@ tags:
     - [1.1. ZooKeeper 是什么？](#11-zookeeper-是什么)
     - [1.2. ZooKeeper 提供了什么？](#12-zookeeper-提供了什么)
     - [1.3. Zookeeper 的特性](#13-zookeeper-的特性)
-    - [工作原理](#工作原理)
-    - [Server 工作状态](#server-工作状态)
+    - [1.4. 工作原理](#14-工作原理)
+    - [1.5. Server 工作状态](#15-server-工作状态)
 - [2. 文件系统](#2-文件系统)
     - [2.1. znode 类型](#21-znode-类型)
 - [3. 通知机制](#3-通知机制)
@@ -29,12 +31,12 @@ tags:
     - [4.3. 集群管理（Group Membership）](#43-集群管理group-membership)
     - [4.4. 分布式锁](#44-分布式锁)
     - [4.5. 队列管理](#45-队列管理)
-- [复制](#复制)
-- [选举流程](#选举流程)
-- [同步流程](#同步流程)
-- [5. 资源](#5-资源)
-    - [5.1. 官方资源](#51-官方资源)
-    - [5.2. 文章](#52-文章)
+- [5. 复制](#5-复制)
+- [6. 选举流程](#6-选举流程)
+- [7. 同步流程](#7-同步流程)
+- [8. 资源](#8-资源)
+    - [8.1. 官方资源](#81-官方资源)
+    - [8.2. 文章](#82-文章)
 
 <!-- /TOC -->
 
@@ -62,13 +64,13 @@ ZooKeeper 作为一个分布式的服务框架，主要用来解决分布式集�
 - 原子性：更新只能成功或者失败，没有中间状态。
 - 顺序性：包括全局有序和偏序两种：全局有序是指如果在一台服务器上消息 a 在消息 b 前发布，则在所有 Server 上消息 a 都将在消息 b 前被发布；偏序是指如果一个消息 b 在消息 a 后被同一个发送者发布，a 必将排在 b 前面。
 
-### 工作原理
+### 1.4. 工作原理
 
 ZooKeeper 的核心是原子广播，这个机制保证了各个 Server 之间的同步。实现这个机制的协议叫做 Zab 协议。Zab 协议有两种模式，它们分别是恢复模式（选主）和广播模式（同步）。当服务启动或者在领导者崩溃后，Zab 就进入了恢复模式，当领导者被选举出来，且大多数 Server 完成了和 leader 的状态同步以后，恢复模式就结束了。状态同步保证了 leader 和 Server 具有相同的系统状态。
 
 为了保证事务的顺序一致性，ZooKeeper 采用了递增的事务 id 号（zxid）来标识事务。所有的提议（proposal）都在被提出的时候加上了 zxid。实现中 zxid 是一个 64 位的数字，它高 32 位是 epoch 用来标识 leader 关系是否改变，每次一个 leader 被选出来，它都会有一个新的 epoch，标识当前属于那个 leader 的统治时期。低 32 位用于递增计数。
 
-### Server 工作状态
+### 1.5. Server 工作状态
 
 每个 Server 在工作过程中有三种状态：
 
@@ -164,7 +166,7 @@ ZooKeeper 可以处理两种类型的队列：
 
 创建一个父目录 /synchronizing，每个成员都监控标志（Set Watch）位目录 /synchronizing/start 是否存在，然后每个成员都加入这个队列，加入队列的方式就是创建 /synchronizing/member_i 的临时目录节点，然后每个成员获取 / synchronizing 目录的所有目录节点，也就是 member_i。判断 i 的值是否已经是成员的个数，如果小于成员个数等待 /synchronizing/start 的出现，如果已经相等就创建 /synchronizing/start。
 
-## 复制
+## 5. 复制
 
 ZooKeeper 作为一个集群提供一致的数据服务，自然，它要在所有机器间做数据复制。
 
@@ -175,7 +177,7 @@ ZooKeeper 作为一个集群提供一致的数据服务，自然，它要在所�
 
 对 ZooKeeper 来说，它采用的方式是写任意。通过增加机器，它的读吞吐能力和响应能力扩展性非常好，而写，随着机器的增多吞吐能力肯定下降（这也是它建立 observer 的原因），而响应能力则取决于具体实现方式，是延迟复制保持最终一致性，还是立即复制快速响应。
 
-## 选举流程
+## 6. 选举流程
 
 选举状态：
 
@@ -198,7 +200,7 @@ ZooKeeper 选举流程基于 Paxos 算法。
 
 述 Leader 选择过程中的状态变化，这是假设全部实例中均没有数据，假设服务器启动顺序分别为：A,B,C。
 
-## 同步流程
+## 7. 同步流程
 
 选完 Leader 以后，zk 就进入状态同步过程。
 
@@ -208,13 +210,13 @@ ZooKeeper 选举流程基于 Paxos 算法。
 4.  完成同步后通知 follower 已经成为 uptodate 状态；
 5.  Follower 收到 uptodate 消息后，又可以重新接受 client 的请求进行服务了。
 
-## 5. 资源
+## 8. 资源
 
-### 5.1. 官方资源
+### 8.1. 官方资源
 
 | [官网](http://zookeeper.apache.org/) | [官网文档](https://cwiki.apache.org/confluence/display/ZOOKEEPER) | [Github](https://github.com/apache/zookeeper) |
 
-### 5.2. 文章
+### 8.2. 文章
 
 [分布式服务框架 ZooKeeper -- 管理分布式环境中的数据](https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/index.html)
 [ZooKeeper 的功能以及工作原理](https://www.cnblogs.com/felixzh/p/5869212.html)

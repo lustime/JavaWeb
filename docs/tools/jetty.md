@@ -144,7 +144,7 @@ public class SplitFileServer
 
 代码行数有点多，不在这里贴代码了。
 
-[完整参考代码](https://github.com/atlantis1024/SpringNotes/tree/master/spring-helloworld)
+[完整参考代码](https://github.com/dunwu/spring-notes)
 
 ### Maven 插件方式
 
