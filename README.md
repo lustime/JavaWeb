@@ -26,29 +26,38 @@
 
 > 分布式技术（Distributed），典型的技术如：分布式缓存、分布式消息队列、分布式服务、分布式搜索引擎等。
 
-- 分布式
-  - [x] [分布式原理](docs/distributed/分布式原理.md)
-  - [x] [分布式架构](docs/distributed/分布式架构.md)
-  - [x] [分布式技术实现](docs/distributed/分布式技术实现.md)
-  - [x] [负载均衡](docs/distributed/负载均衡.md)
-  - [x] [分布式技术面试题](docs/distributed/分布式技术面试题.md)
-- 分布式缓存
-  - [x] [分布式缓存](docs/distributed/分布式缓存.md)
-  - [ ] Redis
-  - [ ] Memcached
-- [分布式服务（rpc）](docs/distributed/rpc)
-  - [x] [Dubbo](docs/distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
-  - [x] [ZooKeeper 基础篇](docs/distributed/rpc/zookeeper-basics.md) - ZooKeeper 实战
-  - [x] [ZooKeeper 高级篇](docs/distributed/rpc/zookeeper-advanced.md) - ZooKeeper 工作原理
-- [分布式消息队列（MQ）](docs/distributed/mq)
-  - [x] [分布式消息队列](docs/distributed/mq/分布式消息队列.md)
-  - [x] [Kafka 基础篇](docs/distributed/mq/kafka-basics.md) - Kafka 实战
-  - [x] [Kafka 高级篇](docs/distributed/mq/kafka-advanced.md) - Kafka 工作原理
-  - [ ] RocketMQ
-  - [x] [ActiveMQ](docs/distributed/mq/ActiveMQ.md)
-  - [ ] RabbitMQ
-- 分布式搜索引擎
-  - [ ] ElasticSearch
+### 分布式概述
+
+- [x] [分布式原理](docs/distributed/分布式原理.md)
+- [x] [分布式架构](docs/distributed/分布式架构.md)
+- [x] [分布式技术实现](docs/distributed/分布式技术实现.md)
+- [x] [负载均衡](docs/distributed/负载均衡.md)
+- [x] [分布式技术面试题](docs/distributed/分布式技术面试题.md)
+
+### [分布式缓存（CACHE）](docs/distributed/cache)
+
+- [x] [分布式缓存](docs/distributed/cache/分布式缓存.md)
+- [ ] [Redis](docs/distributed/cache/redis.md)
+- [ ] Memcached
+
+### [分布式服务（RPC）](docs/distributed/rpc)
+
+- [x] [Dubbo](docs/distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
+- [x] [ZooKeeper 实战篇](docs/distributed/rpc/zookeeper-basics.md)
+- [x] [ZooKeeper 原理篇](docs/distributed/rpc/zookeeper-advanced.md)
+
+### [分布式消息队列（MQ）](docs/distributed/mq)
+
+- [x] [分布式消息队列](docs/distributed/mq/分布式消息队列.md)
+- [x] [Kafka 实战篇](docs/distributed/mq/kafka-basics.md)
+- [x] [Kafka 原理篇](docs/distributed/mq/kafka-advanced.md)
+- [ ] RocketMQ
+- [x] [ActiveMQ 实战篇](docs/distributed/mq/ActiveMQ.md)
+- [ ] RabbitMQ
+
+### 分布式搜索引擎
+
+- [ ] ElasticSearch
 
 ## [工具](docs/tools/)
 
