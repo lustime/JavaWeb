@@ -327,7 +327,7 @@ public class SimpleTomcatServer {
 >
 > 这个示例中使用的是 Tomcat 默认的配置，但通常，我们需要对 Tomcat 配置进行一些定制和调优。为了加载配置文件，启动类就要稍微再复杂一些。这里不想再贴代码，有兴趣的同学可以参考：
 >
-> [**示例项目**](https://github.com/dunwu/java-stack/tree/master/codes/javatool/server)
+> [**示例项目**](https://github.com/dunwu/JavaStack/tree/master/codes/javatool/server)
 
 ##### 使用 maven 插件启动（不推荐）
 
@@ -374,7 +374,7 @@ public class SimpleTomcatServer {
 >
 > 个人认为这个插件不如 Eclipse 的 Tomcat 插件好用，Eclipse 的 Tomcat 插件支持对 Tomcat xml 配置文件进行配置。而这里，你只能自己去 Tomcat 安装路径下修改配置文件。
 
-文中的嵌入式启动示例可以参考[**我的示例项目**](https://github.com/dunwu/java-stack/tree/master/codes/javatool/server)
+文中的嵌入式启动示例可以参考[**我的示例项目**](https://github.com/dunwu/JavaStack/tree/master/codes/javatool/server)
 
 ## Tomcat 工作原理
 
