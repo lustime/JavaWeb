@@ -2,9 +2,15 @@
 
 > Java Web 开发之路经验总结
 
-| :one:             | :two:                     | :three:                   | :four:        |
-| ----------------- | ------------------------- | ------------------------- | ------------- |
+| :one:                 | :two:                         | :three:                         | :four:             |
+| --------------------- | ----------------------------- | ------------------------------- | ------------------ |
 | [JavaEE](#one-javaee) | [单点式技术](#two-单点式技术) | [分布式技术](#three-分布式技术) | [工具](#four-工具) |
+
+## :recycle: 架构设计
+
+> [架构设计](docs/architecture/) 整理架构设计方面的一些学习总结和心得。
+
+- [大型网站架构演化](docs/architecture/大型网站架构演化.md)
 
 ## :one: JavaEE
 
@@ -26,12 +32,6 @@
 
 > [分布式技术（Distributed）](docs/distributed/)，典型的技术如：分布式缓存、分布式消息队列、分布式服务、分布式搜索引擎等。
 
-### 分布式概述
-
-- [分布式原理](docs/distributed/分布式原理.md)
-- [分布式架构](docs/distributed/分布式架构.md)
-- [分布式技术实现](docs/distributed/分布式技术实现.md)
-- [负载均衡](docs/distributed/负载均衡.md)
 - [分布式技术面试题](docs/distributed/分布式技术面试题.md)
 
 ### [分布式缓存（CACHE）](docs/distributed/cache)
