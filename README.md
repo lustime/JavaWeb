@@ -12,6 +12,7 @@
 
 - [大型网站架构概述](docs/architecture/大型网站架构概述.md)
 - [网站的高性能架构](docs/architecture/网站的高性能架构.md)
+- [网站的高可用架构](docs/architecture/网站的高可用架构.md)
 
 ## :one: JavaEE
 
