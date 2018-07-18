@@ -11,6 +11,7 @@
 > [架构设计](docs/architecture/) 整理架构设计方面的一些学习总结和心得。
 
 - [大型网站架构概述](docs/architecture/大型网站架构概述.md)
+- [网站的高性能架构](docs/architecture/网站的高性能架构.md)
 
 ## :one: JavaEE
 
