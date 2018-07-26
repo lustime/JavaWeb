@@ -14,6 +14,7 @@
 - [网站的高性能架构](docs/architecture/网站的高性能架构.md)
 - [网站的高可用架构](docs/architecture/网站的高可用架构.md)
 - [网站的伸缩性架构](docs/architecture/网站的伸缩性架构.md)
+- [网站的可扩展架构](docs/architecture/网站的可扩展架构.md)
 
 ## :one: JavaEE
 
