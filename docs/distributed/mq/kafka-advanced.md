@@ -2,12 +2,12 @@
 title: Kafka
 date: 2018/06/13
 categories:
-- 分布式
+  - 分布式
 tags:
-- java
-- javaweb
-- 分布式
-- mq
+  - java
+  - javaweb
+  - 分布式
+  - mq
 ---
 
 # Kafka
@@ -17,35 +17,35 @@ tags:
 <!-- TOC depthFrom:2 depthTo:3 -->
 
 - [1. 概述](#1-概述)
-    - [1.1. 分布式](#11-分布式)
-    - [1.2. 容错](#12-容错)
-    - [1.3. 提交日志](#13-提交日志)
-    - [1.4. 消息队列](#14-消息队列)
-    - [1.5. 为什么要使用消息系统](#15-为什么要使用消息系统)
-    - [1.6. Kafka 的关键功能](#16-kafka-的关键功能)
-    - [1.7. Kafka 基本概念](#17-kafka-基本概念)
-    - [1.8. Kafka 核心 API](#18-kafka-核心-api)
-    - [1.9. Topic 和日志](#19-topic-和日志)
+  - [1.1. 分布式](#11-分布式)
+  - [1.2. 容错](#12-容错)
+  - [1.3. 提交日志](#13-提交日志)
+  - [1.4. 消息队列](#14-消息队列)
+  - [1.5. 为什么要使用消息系统](#15-为什么要使用消息系统)
+  - [1.6. Kafka 的关键功能](#16-kafka-的关键功能)
+  - [1.7. Kafka 基本概念](#17-kafka-基本概念)
+  - [1.8. Kafka 核心 API](#18-kafka-核心-api)
+  - [1.9. Topic 和日志](#19-topic-和日志)
 - [2. Kafka 工作原理](#2-kafka-工作原理)
 - [3. 持久化](#3-持久化)
 - [4. 复制](#4-复制)
 - [5. 流处理](#5-流处理)
-    - [5.1. 无状态处理](#51-无状态处理)
-    - [5.2. 有状态处理](#52-有状态处理)
+  - [5.1. 无状态处理](#51-无状态处理)
+  - [5.2. 有状态处理](#52-有状态处理)
 - [6. Kafka 应用场景](#6-kafka-应用场景)
 - [7. 幂等性](#7-幂等性)
-    - [7.1. 幂等性实现](#71-幂等性实现)
-    - [7.2. 幂等性的应用实例](#72-幂等性的应用实例)
+  - [7.1. 幂等性实现](#71-幂等性实现)
+  - [7.2. 幂等性的应用实例](#72-幂等性的应用实例)
 - [8. 事务](#8-事务)
-    - [8.1. 事务属性理解](#81-事务属性理解)
-    - [8.2. 引入事务目的](#82-引入事务目的)
-    - [8.3. 事务操作的 API](#83-事务操作的-api)
-    - [8.4. 事务属性的应用实例](#84-事务属性的应用实例)
-    - [8.5. 生产者事务的实现](#85-生产者事务的实现)
-    - [8.6. 其他思考](#86-其他思考)
+  - [8.1. 事务属性理解](#81-事务属性理解)
+  - [8.2. 引入事务目的](#82-引入事务目的)
+  - [8.3. 事务操作的 API](#83-事务操作的-api)
+  - [8.4. 事务属性的应用实例](#84-事务属性的应用实例)
+  - [8.5. 生产者事务的实现](#85-生产者事务的实现)
+  - [8.6. 其他思考](#86-其他思考)
 - [9. 资料](#9-资料)
-    - [9.1. 官方资料](#91-官方资料)
-    - [9.2. 第三方资料](#92-第三方资料)
+  - [9.1. 官方资料](#91-官方资料)
+  - [9.2. 第三方资料](#92-第三方资料)
 
 <!-- /TOC -->
 
@@ -280,7 +280,7 @@ Kafka 允许您轻松分离不同（微）服务之间的通信。利用 Streams
 
 ### 7.1. 幂等性实现
 
-#### PID 和 Sequence Number
+#### 7.1.1. PID 和 Sequence Number
 
 为了实现 Producer 的幂等性，Kafka 引入了 Producer ID（即 PID）和 Sequence Number。
 
@@ -295,7 +295,7 @@ Broker 端在缓存中保存了这 seq number，对于接收的每条消息，�
 
 ![2](http://www.heartthinkdo.com/wp-content/uploads/2018/05/2.png)
 
-#### 生成 PID 的流程
+#### 7.1.2. 生成 PID 的流程
 
 在执行创建事务时，如下：
 
@@ -470,7 +470,7 @@ producer 提供了 initTransactions, beginTransaction, sendOffsets, commitTransa
 
 只有 consumer 消费消息，这种操作其实没有什么意义，跟使用手动提交效果一样，而且也不是事务属性引入的目的，所以一般不会使用这种情况
 
-#### 相关属性配置
+#### 8.4.1. 相关属性配置
 
 使用 kafka 的事务 api 时的一些注意事项：
 
@@ -479,7 +479,7 @@ producer 提供了 initTransactions, beginTransaction, sendOffsets, commitTransa
 - 生产者不需要再配置 enable.idempotence，因为如果配置了 transaction.id，则此时 enable.idempotence 会被设置为 true
 - 消费者需要配置 Isolation.level。在 consume-trnasform-produce 模式下使用事务时，必须设置为 READ_COMMITTED。
 
-#### 只有写
+#### 8.4.2. 只有写
 
 创建一个事务，在这个事务操作中，只有生成消息操作。代码如下：
 
@@ -573,7 +573,7 @@ producer 提供了 initTransactions, beginTransaction, sendOffsets, commitTransa
     }
 ```
 
-#### 消费-生产并存（consume-transform-produce）
+#### 8.4.3. 消费-生产并存（consume-transform-produce）
 
 在一个事务中，既有生产消息操作又有消费消息操作，即常说的 Consume-tansform-produce 模式。如下实例代码
 
@@ -664,7 +664,7 @@ producer 提供了 initTransactions, beginTransaction, sendOffsets, commitTransa
     }
 ```
 
-#### 只有读
+#### 8.4.4. 只有读
 
 创建一个事务，在这个事务操作中，只有生成消息操作，如下代码。这种操作其实没有什么意义，跟使用手动提交效果一样，无法保证消费消息操作和提交偏移量操作在一个事务。
 
@@ -718,9 +718,9 @@ producer 提供了 initTransactions, beginTransaction, sendOffsets, commitTransa
 
 ### 8.5. 生产者事务的实现
 
-#### 相关配置
+#### 8.5.1. 相关配置
 
-#### 幂等性和事务性的关系
+#### 8.5.2. 幂等性和事务性的关系
 
 ##### 两者关系
 
@@ -770,7 +770,7 @@ org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an op
 
 - 跨 Session 的数据幂等发送。当具有相同 Transaction ID 的新的 Producer 实例被创建且工作时，旧的且拥有相同 Transaction ID 的 Producer 将不再工作【上面的实例可以验证】。kafka 保证了关联同一个事务的所有 producer（一个应用有多个实例）必须按照顺序初始化事务、和提交事务，否则就会有问题，这保证了同一事务 ID 中消息是有序的（不同实例得按顺序创建事务和提交事务）。
 
-#### 事务最佳实践-单实例的事务性
+#### 8.5.3. 事务最佳实践-单实例的事务性
 
 通过上面实例中可以看到 kafka 是跨 Session 的数据幂等发送，即如果应用部署多个实例时常会遇到上面的问题“_org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an operation with an old epoch. Either there is a newer producer with the same transactionalId, or the producer’s transaction has been expired by the broker_.”，必须保证这些实例生产者的提交事务顺序和创建顺序保持一致才可以，否则就无法成功。其实，在实践中，我们更多的是**如何实现对应用单实例的事务性**。可以通过 spring-kafaka 实现思路来学习，即**每次创建生产者都设置一个不同的 transactionId 的值**，如下代码：
 
@@ -832,7 +832,7 @@ protected Producer<K, V> createTransactionalProducer() {
 }
 ```
 
-#### Consume-transform-Produce 的流程
+#### 8.5.4. Consume-transform-Produce 的流程
 
 ![Snip20180504_56](http://www.heartthinkdo.com/wp-content/uploads/2018/05/Snip20180504_56.png)
 
@@ -969,7 +969,7 @@ Transaction Log 如下放置在“\_tranaction_state”主题下面，默认是 
 
 ![57646045](http://www.heartthinkdo.com/wp-content/uploads/2018/05/57646045.png)
 
-#### 消费读取事务消息(READ_COMMITED)
+#### 8.5.5. 消费读取事务消息(READ_COMMITED)
 
 Consumer 为了实现事务，新增了一个 isolation.level 配置，有两个值如下，
 
@@ -1141,4 +1141,4 @@ Broker 在缓存中维护了所有处于运行状态的事务对应的 initial o
 - [Kafka Manager](https://github.com/yahoo/kafka-manager) - Kafka 管理工具
 - [Kafka 剖析（一）：Kafka 背景及架构介绍](http://www.infoq.com/cn/articles/kafka-analysis-part-1)
 - [Thorough Introduction to Apache Kafka](https://hackernoon.com/thorough-introduction-to-apache-kafka-6fbf2989bbc1)
-- [Kafak(04) Kafka生产者事务和幂等](http://www.heartthinkdo.com/?p=2040#43)
+- [Kafak(04) Kafka 生产者事务和幂等](http://www.heartthinkdo.com/?p=2040#43)

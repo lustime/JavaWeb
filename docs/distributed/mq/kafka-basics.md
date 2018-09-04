@@ -2,12 +2,12 @@
 title: Kafka 实战篇
 date: 2018/07/12
 categories:
-- 分布式
+  - 分布式
 tags:
-- java
-- javaweb
-- 分布式
-- mq
+  - java
+  - javaweb
+  - 分布式
+  - mq
 ---
 
 # Kafka 实战篇
@@ -64,7 +64,7 @@ Kafka 是一个分布式的、可水平扩展的、基于发布/订阅模式的�
 
 ### 1.2. 系统结构和存储结构
 
-#### 系统结构
+#### 1.2.1. 系统结构
 
 producer 采用 push 方式向 broker 发送消息；customer 采用 pull 方式从 broker 接受消息。
 
@@ -77,7 +77,7 @@ producer 采用 push 方式向 broker 发送消息；customer 采用 pull 方式
 <img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka系统结构.png" />
 </div>
 
-#### Topic 的存储结构
+#### 1.2.2. Topic 的存储结构
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/topic存储结构.png" />
@@ -88,7 +88,7 @@ producer 采用 push 方式向 broker 发送消息；customer 采用 pull 方式
 - **Segment** - 是 Partition 目录下的文件，保存存储消息。
 - **索引** - 方便查询 segment
 
-#### Segment 文件格式
+#### 1.2.3. Segment 文件格式
 
 可以把 topic 当做一个数据表，表中每一个记录都是 key,value 形式，如下图。
 
@@ -108,13 +108,13 @@ producer 采用 push 方式向 broker 发送消息；customer 采用 pull 方式
 
 最新版本保存在 kafka 中，对应的主题是\_consumer_offsets。老版本是在 zookeeper 中。
 
-**（3）假设某一个消息处理业务逻辑失败了。是否还可以继续想下执行？如果可以的话，那么此时怎么保证这个消息还会继续被处理呢？**
+**（3）假设某一个消息处理业务逻辑失败了。是否还可以继续向下执行？如果可以的话，那么此时怎么保证这个消息还会继续被处理呢？**
 
 答案是：正常情况下无法再处理有问题的消息。
 
 这里举一个例子，如 M1->M2->M3->M4，假设第一次 poll 时，得到 M1 和 M2，M1 处理成功，M2 处理失败，我们采用提交方式为处理一个消息就提交一次，此时我们提交偏移量是 offset1，但是当我们第二次执行 poll 时，此时只会获取到 M3 和 M4，因为 poll 的时候是根据本地偏移量来获取的，不是 kafka 中保存的初始偏移量。解决这个问题方法是通过 seek 操作定位到 M2 的位置，此时再执行 poll 时就会获取到 M2 和 M3。
 
-**（4）当一个消费者执行了 close 之后，此时会执行再均衡，那么在均衡是在哪里发生的呢？其他同组的消费者如何感知到？**
+**（4）当一个消费者执行了 close 之后，此时会执行再均衡，那么再均衡是在哪里发生的呢？其他同组的消费者如何感知到？**
 
 是通过群组中成为群主的消费者执行再均衡，执行完毕之后,通过群组协调器把每一个消费者负责分区信息发送给消费者，每一个消费者只能知道它负责的分区信息。
 
@@ -298,7 +298,7 @@ Stream API 的 maven 依赖：
 
 ### 4.2. 发送消息方式
 
-#### 发送并忘记（fire-and-forget）
+#### 4.2.1. 发送并忘记（fire-and-forget）
 
 代码如下，直接通过 send 方法来发送
 
@@ -312,7 +312,7 @@ ProducerRecord<String, String> record =
 }
 ```
 
-#### 同步发送
+#### 4.2.2. 同步发送
 
 代码如下，与“发送并忘记”的方式区别在于多了一个 get()方法，会一直阻塞等待 broker 返回结果：
 
@@ -326,7 +326,7 @@ ProducerRecord<String, String> record =
 }
 ```
 
-#### 异步发送
+#### 4.2.3. 异步发送
 
 代码如下，异步方式相对于“发送并忘记”的方式的不同在于，在异步返回时可以执行一些操作，如记录错误或者成功日志。
 
@@ -351,7 +351,7 @@ ProducerRecord<String, String> record =
 producer.send(record, new DemoProducerCallback());
 ```
 
-#### 发送消息示例
+#### 4.2.4. 发送消息示例
 
 ```java
 import java.util.Properties;
@@ -404,7 +404,7 @@ public class ProducerDemo {
 
 ### 5.1. 消费者和消费者群组
 
-#### 消费者介绍
+#### 5.1.1. 消费者介绍
 
 消费者以**pull 方式**从 broker 拉取消息，消费者可以订阅一个或多个主题，然后按照消息生成顺序（**kafka 只能保证分区中消息的顺序**）读取消息。
 
@@ -414,7 +414,7 @@ public class ProducerDemo {
 <img src="http://upload-images.jianshu.io/upload_images/3101171-360a63cf628c7b3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 </div>
 
-#### 消费者分区组
+#### 5.1.2. 消费者分区组
 
 消费者群组可以实现并发的处理消息。一个消费者群组作为消费一个 topic 消息的单元，每一个 Partition 只能隶属于一个消费者群组中一个 customer，如下图
 
@@ -422,7 +422,7 @@ public class ProducerDemo {
 <img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/6-1-259x300.png" />
 </div>
 
-#### 消费者区组的再均衡
+#### 5.1.3. 消费者区组的再均衡
 
 当在群组里面 新增/移除消费者 或者 新增/移除 kafka 集群 broker 节点 时，群组协调器 Broker 会触发再均衡，重新为每一个 Partition 分配消费者。**再均衡期间，消费者无法读取消息，造成整个消费者群组一小段时间的不可用。**
 
@@ -448,7 +448,7 @@ public class ProducerDemo {
 
 ### 5.2. 消费消息流程
 
-#### 消费流程 demo
+#### 5.2.1. 消费流程 demo
 
 具体步骤如下
 
@@ -504,7 +504,7 @@ public Consumer buildCustomer() {
 }
 ```
 
-#### 消费消息方式
+#### 5.2.2. 消费消息方式
 
 分为订阅主题和指定分组两种方式：
 
@@ -557,7 +557,7 @@ public void consumeMessageForIndependentConsumer(String topic){
 }
 ```
 
-#### 轮询获取消息
+#### 5.2.3. 轮询获取消息
 
 通过 poll 来获取消息，但是获取消息时并不是立刻返回结果，需要考虑两个因素：
 
@@ -574,7 +574,7 @@ poll 处了获取消息外，还有其他作用，如下：
 
 ### 5.3. 提交偏移量
 
-#### 偏移量和提交
+#### 5.3.1. 偏移量和提交
 
 （1）偏移量
 
@@ -624,7 +624,7 @@ b. 手动提交
 
 除了自动提交，还可以进行手动提交，手动提交就是通过代码调用函数的方式提交，在使用手动提交时首先需要将 auto.commit.commit 设置为 false，目前有三种方式：同步提交、异步提交、同步和异步结合。
 
-#### 同步提交
+#### 5.3.2. 同步提交
 
 可以通过 commitSync 来进行提交，**同步提交会一直提交直到成功**。如下
 
@@ -658,7 +658,7 @@ public void customerMessageWithSyncCommit(String topic) {
 }
 ```
 
-#### 异步提交
+#### 5.3.3. 异步提交
 
 同步提交一个缺点是，在进行提交 commitAysnc()会阻塞整个下面流程。所以引入了异步提交 commitAsync()，如下代码，这里定义了 OffsetCommitCallback，也可以只进行 commitAsync()，不设置任何参数。
 
@@ -695,7 +695,7 @@ public void customerMessageWithAsyncCommit(String topic) {
 }
 ```
 
-#### 同步和异步提交
+#### 5.3.4. 同步和异步提交
 
 代码如下：
 
@@ -819,9 +819,9 @@ Zookeeper 保存的就是节点信息和节点状态，不会保存 kafka 的消
 <img src="http://upload-images.jianshu.io/upload_images/3101171-8074b42933b41d33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 </div>
 
-#### 5.1. 1 broker
+#### 7.1.1. broker
 
-1、Topic 的注册信息
+（1）Topic 的注册信息
 
 作用：在创建 zookeeper 时，注册 topic 的 Partition 信息，包括每一个分区的复制节点 id。
 
@@ -847,7 +847,7 @@ Example:
 }
 ```
 
-2、分区信息
+（2）分区信息
 
 作用：记录分区信息，如分区的 leader 信息
 
@@ -880,7 +880,7 @@ Example:
 }
 ```
 
-3 broker 信息
+（3）broker 信息
 
 作用：在 borker 启动时，向 zookeeper 注册节点信息
 
@@ -907,19 +907,19 @@ Example:
 }
 ```
 
-#### 5.1.2 controller 和 controller_epoch
+#### 7.1.2. controller 和 controller_epoch
 
-1、 控制器的 epoch:
+（1）控制器的 epoch:
 
 /controller_epoch -> int (epoch)
 
-2、控制器的注册信息:
+（2）控制器的注册信息:
 
 /controller -> int (broker id of the controller)
 
-#### 5.1.3 consumer
+#### 7.1.3. consumer
 
-1.消费者注册信息:
+（1）消费者注册信息:
 
 路径：/consumers/[groupId]/ids/[consumerId]
 
@@ -958,9 +958,9 @@ A blacklist subscription:
 }
 ```
 
-#### 5.1.4 admin
+#### 7.1.4. admin
 
-\1. Re-assign partitions
+（1）Re-assign partitions
 
 路径：/admin/reassign_partitions
 
@@ -1018,7 +1018,7 @@ Example:
 }
 ```
 
-\2. Preferred replication election
+（2）Preferred replication election
 
 路径：/admin/preferred_replica_election
 
@@ -1074,13 +1074,13 @@ Example:
 }
 ```
 
-\3. Delete topics
+（3）Delete topics
 
 /admin/delete_topics/[topic_to_be_deleted] (the value of the path in empty)
 
-#### 5.1.5 config
+#### 7.1.5. config
 
-1 Topic Configuration
+Topic Configuration
 
 /config/topics/[topic_name]
 
