@@ -25,7 +25,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <!--核心库版本-->
-    <jetty.version>9.3.2.v20150730</jetty.version>
+    <jetty.version>9.4.12.v20180830</jetty.version>
   </properties>
   <dependencies>
     <!-- log begin -->

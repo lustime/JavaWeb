@@ -135,7 +135,7 @@
       <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>fastjson</artifactId>
-        <version>1.2.7</version>
+        <version>1.2.31</version>
       </dependency>
       <dependency>
         <groupId>com.google.code.gson</groupId>
@@ -318,12 +318,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- 核心库版本 -->
-    <jetty.version>9.3.2.v20150730</jetty.version>
+    <jetty.version>9.4.12.v20180830</jetty.version>
     <spring.version>4.1.4.RELEASE</spring.version>
     <shiro.version>1.4.0</shiro.version>
     <junit.version>4.12</junit.version>
 
-    <fasterxml.jackson>2.9.0</fasterxml.jackson>
+    <fasterxml.jackson>2.9.5</fasterxml.jackson>
   </properties>
   <!-- PROPERTIES END -->
 

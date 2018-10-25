@@ -26,7 +26,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <!--核心库版本-->
-    <jetty.version>9.3.2.v20150730</jetty.version>
+    <jetty.version>9.4.12.v20180830</jetty.version>
   </properties>
   <dependencies>
     <!-- log begin -->
@@ -123,7 +123,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.2.8</version>
+      <version>1.2.31</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -133,7 +133,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.5.1</version>
+      <version>2.9.5</version>
     </dependency>
     <!-- json end -->
 
