@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import io.github.dunwu.javaee.filter.wrapper.UploadRequestWrapper;
 
 /**
- * @author Zhang Peng
- * @date 2017/4/4.
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
+ * @since 2017-04-04
  */
 public class UploadFilter extends MyFilter {
     @Override

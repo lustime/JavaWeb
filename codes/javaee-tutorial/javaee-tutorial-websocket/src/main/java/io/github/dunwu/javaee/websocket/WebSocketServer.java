@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Websocket 消息处理中心
  * @see https://github.com/jetty-project/embedded-jetty-websocket-examples
- * @author Zhang Peng
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  */
 @ServerEndpoint(value = "/auth/user/{id}", configurator = WebSocketServerConfigurator.class)
 public class WebSocketServer {

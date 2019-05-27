@@ -14,8 +14,8 @@ import java.util.Map;
 /**
  * 单点登录处理类
  *
- * @author Zhang Peng
- * @date 2017/4/4.
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
+ * @since 2017-04-04
  */
 public class LoginSessionListener implements HttpSessionAttributeListener {
 

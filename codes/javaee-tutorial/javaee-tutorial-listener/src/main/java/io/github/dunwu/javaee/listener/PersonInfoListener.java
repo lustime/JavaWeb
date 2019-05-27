@@ -12,12 +12,16 @@ import javax.servlet.http.HttpSessionEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
+ * @since 2017-04-04
+ */
 public class PersonInfoListener implements HttpSessionActivationListener,
 		HttpSessionBindingListener, Serializable {
 
 	private static final long serialVersionUID = -4780592776386225973L;
 
-	Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private String name;
 
@@ -42,20 +46,20 @@ public class PersonInfoListener implements HttpSessionActivationListener,
 	// 从硬盘加载后
 	public void sessionDidActivate(HttpSessionEvent se) {
 		HttpSession session = se.getSession();
-		log.info(this + "已经成功从硬盘中加载。sessionId: " + session.getId());
+		logger.info(this + "已经成功从硬盘中加载。sessionId: " + session.getId());
 	}
 
 	// 即将被钝化到硬盘时
 	public void sessionWillPassivate(HttpSessionEvent se) {
 		HttpSession session = se.getSession();
-		log.info(this + "即将保存到硬盘。sessionId: " + session.getId());
+		logger.info(this + "即将保存到硬盘。sessionId: " + session.getId());
 	}
 
 	// 被放进session前
 	public void valueBound(HttpSessionBindingEvent event) {
 		HttpSession session = event.getSession();
 		String name = event.getName();
-		log.info(this + "被绑定到session \"" + session.getId() + "\"的" + name
+		logger.info(this + "被绑定到session \"" + session.getId() + "\"的" + name
 				+ "属性上");
 
 		// 记录放到session中的时间
@@ -66,7 +70,7 @@ public class PersonInfoListener implements HttpSessionActivationListener,
 	public void valueUnbound(HttpSessionBindingEvent event) {
 		HttpSession session = event.getSession();
 		String name = event.getName();
-		log.info(this + "被从session \"" + session.getId() + "\"的" + name
+		logger.info(this + "被从session \"" + session.getId() + "\"的" + name
 				+ "属性上移除");
 	}
 

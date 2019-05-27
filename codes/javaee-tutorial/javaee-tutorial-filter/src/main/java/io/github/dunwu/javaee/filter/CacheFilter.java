@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import io.github.dunwu.javaee.filter.wrapper.CacheResponseWrapper;
 
 /**
- * @author Zhang Peng
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  * @date 2017/3/27.
  */
 public class CacheFilter extends MyFilter {

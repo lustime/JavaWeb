@@ -1,23 +1,19 @@
-/**
- * The Apache License 2.0 Copyright (c) 2017 Zhang Peng
- */
 package io.github.dunwu.javaee.listener;
-
-import java.util.Date;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 
 import io.github.dunwu.javaee.listener.util.ApplicationConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import java.util.Date;
+
 /**
- * ServletContextListener接口用于监听ServletContext对象的创建和销毁事件。
+ * ServletContextListener 接口用于监听 ServletContext 对象的创建和销毁事件。
  *
- * @author Zhang Peng
- * @date 2017/4/4.
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
+ * @since 2017-04-04
  */
 public class MyServletContextListener implements ServletContextListener {
 

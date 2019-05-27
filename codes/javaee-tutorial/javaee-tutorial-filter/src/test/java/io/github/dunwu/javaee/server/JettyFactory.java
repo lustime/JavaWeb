@@ -12,7 +12,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
  * JettyFactory 可以工作在 Eclipse 和 Intellij 中，用来启动 jetty 服务。 Intellij
  * 并不支持jetty，所以要想类似eclipse一样的使用jetty，需要配置webdefault.xml。
  *
- * @author Zhang Peng
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  */
 @SuppressWarnings("unused")
 public class JettyFactory {

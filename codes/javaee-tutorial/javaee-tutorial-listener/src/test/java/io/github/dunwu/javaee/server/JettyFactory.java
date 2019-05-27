@@ -1,35 +1,44 @@
 package io.github.dunwu.javaee.server;
 
-import java.util.ArrayList;
-
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppClassLoader;
 import org.eclipse.jetty.webapp.WebAppContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * JettyFactory 可以工作在 Eclipse 和 Intellij 中，用来启动 jetty 服务。 Intellij
- * 并不支持jetty，所以要想类似eclipse一样的使用jetty，需要配置webdefault.xml。
+ * JettyFactory 可以工作在 Eclipse 和 Intellij 中，用来启动 jetty 服务。 Intellij 并不支持jetty，所以要想类似eclipse一样的使用jetty，需要配置webdefault.xml。
  *
- * @author Zhang Peng
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class JettyFactory {
-    private static final int PORT = 8080;
+    private static final int PORT = 9527;
     private static final String CONTEXT = "/";
     private static final String RESOURCE_BASE_PATH = "src/main/webapp";
     private static final String WEB_XML_PATH = "/WEB-INF/web.xml";
-    private static final String[] TLD_JAR_NAMES =
-            new String[]{"sitemesh", "spring-webmvc", "shiro-web", "tiles"};
+    private static final String[] TLD_JAR_NAMES = new String[] {"sitemesh", "spring-webmvc", "tiles"};
     private static final String WINDOWS_WEBDEFAULT_PATH = "jetty/webdefault.xml";
 
     public static final int IDE_ECLIPSE = 0;
     public static final int IDE_INTELLIJ = 1;
 
+    public static final String ACTIVE_PROFILE = "spring.profiles.active";
+    public static final String DEFAULT_PROFILE = "spring.profiles.default";
+    public static final String DEVELOPMENT = "development";
+
+    /**
+     * 在Spring启动前，设置profile的环境变量。
+     */
+    public static void setProfileAsSystemProperty(String profile) {
+        System.setProperty(ACTIVE_PROFILE, profile);
+    }
+
 
     public static Server initServer() {
-        Profiles.setProfileAsSystemProperty(Profiles.DEVELOPMENT);
+        setProfileAsSystemProperty(DEVELOPMENT);
         WebAppContext webAppContext = new WebAppContext();
         Server server = new Server(PORT);
         server.setHandler(webAppContext);
@@ -75,8 +84,8 @@ public class JettyFactory {
 
     public static String getAbsolutePath() {
         String path = null;
-        String folderPath = JettyFactory.class.getProtectionDomain().getCodeSource().getLocation()
-                .getPath().substring(1);
+        String folderPath =
+            JettyFactory.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1);
         if (folderPath.indexOf("target") > 0) {
             path = folderPath.substring(0, folderPath.indexOf("target"));
         }
@@ -88,21 +97,25 @@ public class JettyFactory {
         // This webapp will use jsps and jstl. We need to enable the AnnotationConfiguration in
         // order to correctly set up the jsp container
         org.eclipse.jetty.webapp.Configuration.ClassList classlist =
-                org.eclipse.jetty.webapp.Configuration.ClassList.setServerDefault(server);
+            org.eclipse.jetty.webapp.Configuration.ClassList.setServerDefault(server);
         classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration",
-                "org.eclipse.jetty.annotations.AnnotationConfiguration");
+            "org.eclipse.jetty.annotations.AnnotationConfiguration");
         // Set the ContainerIncludeJarPattern so that jetty examines these container-path jars for
         // tlds, web-fragments etc.
         // If you omit the jar that contains the jstl .tlds, the jsp engine will scan for them
         // instead.
-        ArrayList jarNameExprssions = Lists.newArrayList(".*/[^/]*servlet-api-[^/]*\\.jar$",
-                ".*/javax.servlet.jsp.jstl-.*\\.jar$", ".*/[^/]*taglibs.*\\.jar$");
+
+        List<String> list = new ArrayList<>();
+        list.add(".*/[^/]*servlet-api-[^/]*\\.jar$");
+        list.add(".*/javax.servlet.jsp.jstl-.*\\.jar$");
+        list.add(".*/[^/]*taglibs.*\\.jar$");
 
         for (String jarName : jarNames) {
-            jarNameExprssions.add(".*/" + jarName + "-[^/]*\\.jar$");
+            String str = ".*/" + jarName + "-[^/]*\\.jar$";
+            list.add(str);
         }
 
         context.setAttribute("org.eclipse.jetty.io.github.dunwu.javaee.server.webapp.ContainerIncludeJarPattern",
-                StringUtils.join(jarNameExprssions, '|'));
+            StringUtils.join(list, '|'));
     }
 }

@@ -1,19 +1,16 @@
-/**
- * The Apache License 2.0 Copyright (c) 2017 Zhang Peng
- */
 package io.github.dunwu.javaee.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
-
 import javax.servlet.ServletRequestAttributeEvent;
 import javax.servlet.ServletRequestAttributeListener;
 
 /**
- * @author Zhang Peng
- * @date 2017/4/4.
+ * ServletContextAttributeListener 用于监听 ServletRequest 中的属性变化
+ *
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
+ * @since 2017-04-04
  */
 public class MyServletRequestAttributeListener implements ServletRequestAttributeListener {
 
@@ -31,7 +28,6 @@ public class MyServletRequestAttributeListener implements ServletRequestAttribut
 
     @Override
     public void attributeReplaced(ServletRequestAttributeEvent srae) {
-        logger.debug("ServletRequest域对象中替换了属性:{}，原值是:{}， 现值是:{}",
-                srae.getName(), srae.getSource(), srae.getValue());
+        logger.debug("ServletRequest域对象中替换了属性:{}，原值是:{}， 现值是:{}", srae.getName(), srae.getSource(), srae.getValue());
     }
 }

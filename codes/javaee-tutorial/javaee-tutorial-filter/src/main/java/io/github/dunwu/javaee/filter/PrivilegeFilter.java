@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import io.github.dunwu.javaee.filter.exception.AccountException;
 
 /**
- * @author Zhang Peng
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  * @date 2017/3/27.
  */
 public class PrivilegeFilter extends MyFilter {

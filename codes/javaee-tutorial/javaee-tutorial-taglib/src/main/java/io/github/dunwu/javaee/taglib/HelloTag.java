@@ -4,7 +4,7 @@
 package io.github.dunwu.javaee.taglib;
 
 /**
- * @author Zhang Peng
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  * @date 2017/4/3.
  */
 

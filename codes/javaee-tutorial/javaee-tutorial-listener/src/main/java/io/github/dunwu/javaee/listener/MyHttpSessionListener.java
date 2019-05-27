@@ -1,6 +1,3 @@
-/**
- * The Apache License 2.0 Copyright (c) 2017 Zhang Peng
- */
 package io.github.dunwu.javaee.listener;
 
 import java.util.Date;
@@ -14,8 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Zhang Peng
- * @date 2017/4/4.
+ * HttpSessionListener 接口用于监听 HttpSession 对象的创建和销毁。
+ * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
+ * @since 2017-04-04
  */
 public class MyHttpSessionListener implements HttpSessionListener {
     private final Logger logger = LoggerFactory.getLogger(getClass());
