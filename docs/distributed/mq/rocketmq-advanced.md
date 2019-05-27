@@ -1,14 +1,3 @@
----
-title: RocketMQ 原理篇
-date: 2018/07/17
-categories:
-- javaweb
-tags:
-- java
-- javaweb
-- mq
----
-
 # RocketMQ 原理篇
 
 <!-- TOC depthFrom:2 depthTo:3 -->
@@ -200,11 +189,11 @@ RocketMQ 除了支持普通消息，顺序消息，另外还支持事务消息�
 
 假设这样的场景：
 
-![image.png](https://upload-images.jianshu.io/upload_images/3101171-253d8bd65736694f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<div align="center"><img src="https://upload-images.jianshu.io/upload_images/3101171-253d8bd65736694f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"/></div>
 
 图中执行本地事务（Bob 账户扣款）和发送异步消息应该保证同时成功或者同时失败，也就是扣款成功了，发送消息一定要成功，如果扣款失败了，就不能再发送消息。那问题是：我们是先扣款还是先发送消息呢？
 
-![image](http://upload-images.jianshu.io/upload_images/3101171-088dc074c4ecd192?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<div align="center"><img src="http://upload-images.jianshu.io/upload_images/3101171-088dc074c4ecd192?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"/></div>
 
 RocketMQ 分布式事务步骤：
 

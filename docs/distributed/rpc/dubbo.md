@@ -1,13 +1,3 @@
----
-title: Dubbo
-date: 2018/06/12
-categories:
-- 分布式
-tags:
-- 分布式
-- rpc
----
-
 # Dubbo
 
 > Dubbo 是一个基于 Java 开发的高性能 RPC 框架。

@@ -1,14 +1,3 @@
----
-title: RocketMQ 实战篇
-date: 2018/07/17
-categories:
-- javaweb
-tags:
-- java
-- javaweb
-- mq
----
-
 # RocketMQ 实战篇
 
 <!-- TOC depthFrom:2 depthTo:3 -->

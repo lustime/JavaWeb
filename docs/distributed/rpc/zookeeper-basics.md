@@ -1,13 +1,3 @@
----
-title: ZooKeeper 基础篇
-date: 2018/07/12
-categories:
-- 分布式
-tags:
-- 分布式
-- rpc
----
-
 # ZooKeeper 基础篇
 
 > ZooKeeper 是一个针对大型分布式系统的可靠协调系统，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。
