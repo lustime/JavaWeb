@@ -7,7 +7,7 @@ import org.eclipse.jetty.server.Server;
  *
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  */
-public class QuickStartServer {
+public class FilterDemosBootstrap {
     // private static int STARTUP_TYPE = JettyFactory.IDE_ECLIPSE;
     private static int STARTUP_TYPE = JettyFactory.IDE_INTELLIJ;
 
