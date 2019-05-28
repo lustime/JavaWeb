@@ -1,25 +1,92 @@
-# JavaEE 之 Listener 指南
-
-> 监听器是一个专门用于对其他对象身上发生的事件或状态改变进行监听和相应处理的对象，当被监视的对象发生情况时，立即采取相应的行动。监听器其实就是一个实现特定接口的普通 java 程序，这个程序专门用于监听另一个 java 对象的方法调用或属性改变，当被监听对象发生上述事件后，监听器某个方法立即被执行。
+# JavaEE 之 Filter 和 Listener
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 
-- [简介](#简介)
-- [监听器的分类](#监听器的分类)
+- [Filter](#filter)
+    - [过滤器方法](#过滤器方法)
+    - [过滤器配置](#过滤器配置)
+- [Listener](#listener)
+    - [监听器的分类](#监听器的分类)
     - [监听对象的创建和销毁](#监听对象的创建和销毁)
     - [监听对象的属性变化](#监听对象的属性变化)
     - [监听 Session 内的对象](#监听-session-内的对象)
+- [示例代码](#示例代码)
 - [参考资料](#参考资料)
 
 <!-- /TOC -->
 
-## 简介
+## Filter
+
+过滤器（Filter）用于在 Servlet 之外对 request 或 response 进行修改。Filter 提供了过滤链（Filter Chain）的概念，一个过滤链包括多个 Filter。客户端请求 request 在抵达 Servlet 之前会经过过滤链的所有 Filter，服务器响应 response 从 Servlet 抵达客户端浏览器之前也会经过过滤链的所有 FIlter。
+
+<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/1559054413341.png" style="width: 300px"/></div>
+
+### 过滤器方法
+
+Filter 接口有三个方法：
+
+- init
+- destroy
+- doFilter
+
+`init` 和 `destroy` 方法只会被调用一次；doFilter 每次有客户端请求都会被调用一次。
+
+```java
+public interface Filter {
+
+	/**
+	 * web 程序启动时调用此方法, 用于初始化该 Filter
+	 * @param config
+	 *            可以从该参数中获取初始化参数以及ServletContext信息等
+	 * @throws ServletException
+	 */
+	public void init(FilterConfig config) throws ServletException;
+
+	/**
+	 * 客户请求服务器时会经过
+	 *
+	 * @param request
+	 *            客户请求
+	 * @param response
+	 *            服务器响应
+	 * @param chain
+	 *            过滤链, 通过 chain.doFilter(request, response) 将请求传给下个 Filter 或
+	 *            Servlet
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws ServletException, IOException;
+
+	/**
+	 * web 程序关闭时调用此方法, 用于销毁一些资源
+	 */
+	public void destroy();
+
+}
+```
+
+### 过滤器配置
+
+`Filter` 需要配置在 `web.xml` 中才能生效。一个 `Filter` 需要配置 `<filter>` 与 `<filter-mapping>` 标签。
+
+- `<filter>` 配置 Filter 名称，实现类以及初始化参数。
+- `<filter-mapping>` 配置什么规则下使用该 Filter。
+- `<filter>` 的 filterName 与 `<filter-mapping>` 的 filterName 必须匹配。
+- `<url-pattern>` 配置 URL 的规则，可以配置多个，可以使用通配符（`*`）。
+- `<dispatcher>` 配置到达 Servlet 的方式，有 4 种取值：REQUEST、FORWARD、INCLUDE、ERROR。可以同时配置多个 `<dispatcher>`。如果没有配置任何 `<dispatcher>`，默认为 REQUEST。
+  - REQUEST - 表示仅当直接请求 Servlet 时才生效。
+  - FORWARD - 表示仅当某 Servlet 通过 FORWARD 到该 Servlet 时才生效。
+  - INCLUDE - JSP 中可以通过 `<jsp:include>` 请求某 Servlet。仅在这种情况表有效。
+  - ERROR - JSP 中可以通过 `<%@ page errorPage="error.jsp" %>` 指定错误处理页面。仅在这种情况表有效。
+
+## Listener
 
 > 监听器（`Listener`）用于监听 web 应用程序中的`ServletContext`, `HttpSession`和 `ServletRequest`等域对象的创建与销毁事件，以及监听这些域对象中的属性发生修改的事件。
 
 使用 Listener 不需要关注该类事件时怎样触发或者怎么调用相应的 Listener，只要记住该类事件触发时一定会调用相应的 Listener，遵循 Servlet 规范的服务器会自动完成相应工作。
 
-## 监听器的分类
+### 监听器的分类
 
 在 Servlet 规范中定义了多种类型的监听器，它们用于监听的事件源分别为`ServletContext`，`HttpSession`和`ServletRequest`这三个域对象
 Servlet 规范针对这三个对象上的操作，又把多种类型的监听器划分为三种类型：
@@ -130,12 +197,8 @@ Servlet 规范中定义了两个特殊的监听器接口 `HttpSessionBindingList
 
 ## 示例代码
 
-以上各种 `Listener` 的示例源码：[源码](https://github.com/dunwu/javaweb/tree/master/codes/javaee-tutorial/javaee-tutorial-listener)
-
-使用方法：
-
-1. 运行 `io.github.dunwu.javaee.server.ListenerDemosBootstrap#main`
-2. 访问 http://localhost:9527/
+- `Filter` 的示例源码：[源码](https://github.com/dunwu/javaweb/tree/master/codes/javaee-tutorial/javaee-tutorial-filter)
+- `Listener` 的示例源码：[源码](https://github.com/dunwu/javaweb/tree/master/codes/javaee-tutorial/javaee-tutorial-listener)
 
 ## 参考资料
 

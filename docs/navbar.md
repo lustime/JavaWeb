@@ -1,5 +1,4 @@
 - [JavaEE](javaee/README.md)
   - [JavaEE 之 Servlet 指南](javaee/servlet.md)
   - [JavaEE 之 Jsp 指南](javaee/jsp.md)
-  - [JavaEE 之 Listener 指南](javaee/listener.md)
-  - [JavaEE 之 Filter 指南](javaee/filter.md)
+  - [JavaEE 之 Filter 和 Listener](javaee/filter-and-listener.md)
