@@ -1395,7 +1395,7 @@ Apache Tomcat 安装 JSTL 库步骤如下：
 
 接下来我们在 web.xml 文件中添加以下配置：
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4"
     xmlns="http://java.sun.com/xml/ns/j2ee"
@@ -1493,7 +1493,7 @@ JSTL 格式化标签用来格式化并输出文本、日期、时间、数字。
 
 JSTL SQL 标签库提供了与关系型数据库（Oracle，MySQL，SQL Server 等等）进行交互的标签。引用 SQL 标签库的语法如下：
 
-```
+```jsp
 <%@ taglib prefix="sql"
            uri="http://java.sun.com/jsp/jstl/sql" %>
 ```
@@ -1581,13 +1581,13 @@ JSP 标签扩展可以让你创建新的标签并且可以直接插入到一个 
 
 接下来，我们想创建一个自定义标签叫作<ex:Hello>，标签格式为：
 
-```
+```jsp
 <ex:Hello />
 ```
 
 要创建自定义的 JSP 标签，你首先必须创建处理标签的 Java 类。所以，让我们创建一个 HelloTag 类，如下所示：
 
-```
+```java
 package com.runoob;
 
 import javax.servlet.jsp.tagext.*;
@@ -1607,7 +1607,7 @@ public class HelloTag extends SimpleTagSupport {
 
 编译以上类，并将其复制到环境变量 CLASSPATH 目录中。最后创建如下标签库：`<Tomcat安装目录>webapps\ROOT\WEB-INF\custom.tld`。
 
-```
+```xml
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>2.0</jsp-version>
@@ -1622,7 +1622,7 @@ public class HelloTag extends SimpleTagSupport {
 
 接下来，我们就可以在 JSP 文件中使用 Hello 标签：
 
-```
+```jsp
 <%@ taglib prefix="ex" uri="WEB-INF/custom.tld"%>
 <html>
   <head>
@@ -1652,7 +1652,7 @@ Hello Custom Tag!
 
 我们可以修改标签处理类文件，代码如下：
 
-```
+```java
 package com.runoob;
 
 import javax.servlet.jsp.tagext.*;
@@ -1674,7 +1674,7 @@ public class HelloTag extends SimpleTagSupport {
 
 接下来我们需要修改 TLD 文件，如下所示：
 
-```
+```xml
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>2.0</jsp-version>
@@ -1689,7 +1689,7 @@ public class HelloTag extends SimpleTagSupport {
 
 现在我们可以在 JSP 使用修改后的标签，如下所示:
 
-```
+```jsp
 <%@ taglib prefix="ex" uri="WEB-INF/custom.tld"%>
 <html>
   <head>
@@ -1713,7 +1713,7 @@ This is message body
 
 你可以在自定义标准中设置各种属性，要接收属性，值自定义标签类必须实现 setter 方法， JavaBean 中的 setter 方法如下所示：
 
-```
+```java
 package com.runoob;
 
 import javax.servlet.jsp.tagext.*;
@@ -1750,7 +1750,7 @@ public class HelloTag extends SimpleTagSupport {
 
 属性的名称是"message"，所以 setter 方法是的 setMessage()。现在让我们在 TLD 文件中使用的<attribute>元素添加此属性：
 
-```
+```xml
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>2.0</jsp-version>
@@ -1768,7 +1768,7 @@ public class HelloTag extends SimpleTagSupport {
 
 现在我们就可以在 JSP 文件中使用 message 属性了，如下所示：
 
-```
+```jsp
 <%@ taglib prefix="ex" uri="WEB-INF/custom.tld"%>
 <html>
   <head>
@@ -1799,7 +1799,7 @@ This is custom tag
 
 以下是指定相关的属性实例：
 
-```
+```xml
 .....
     <attribute>
       <name>attribute_name</name>
@@ -1812,7 +1812,7 @@ This is custom tag
 
 如果你使用了两个属性，修改 TLD 文件，如下所示：
 
-```
+```xml
 .....
     <attribute>
       <name>attribute_name1</name>

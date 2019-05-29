@@ -33,10 +33,11 @@
 
 > [JavaEE](javaee/) 技术——Java Web 的基石
 
-- [JavaEE 之 Servlet 指南](javaee/servlet.md)
-- [JavaEE 之 Jsp 指南](javaee/jsp.md)
-- [JavaEE 之 Filter 和 Listener](javaee/filter-and-listener.md)
-- [JavaEE 之 Cookie 和 Session](javaee/cookie-and-sesion.md)
+- [JavaEE 面经](javaee/javaee-interview.md)
+- [JavaEE 之 Servlet 指南](javaee/javaee-servlet.md)
+- [JavaEE 之 Jsp 指南](javaee/javaee-jsp.md)
+- [JavaEE 之 Filter 和 Listener](javaee/javaee-filter-listener.md)
+- [JavaEE 之 Cookie 和 Session](javaee/javaee-cookie-sesion.md)
 
 ## 主流技术
 
