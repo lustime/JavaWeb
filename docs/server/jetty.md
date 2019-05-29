@@ -1,15 +1,4 @@
----
-title: Jetty 使用小结
-date: 2017/11/08
-categories:
-- javatool
-tags:
-- java
-- javatool
-- server
----
-
-# Jetty 使用小结
+# Jetty 应用指南
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 

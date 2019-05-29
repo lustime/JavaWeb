@@ -1,11 +1,4 @@
----
-title: Cookie 和 Session
-categories: ['java', 'javaweb', 'javaee']
-tags: ['java', 'javaweb', 'javaee', 'cookie', 'session']
-date: 2017-11-08
----
-
-# Cookie 和 Session
+# JavaEE 之 Cookie 和 Session
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 

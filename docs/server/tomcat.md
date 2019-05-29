@@ -1,15 +1,4 @@
----
-title: Tomcat 快速入门
-date: 2018/01/08
-categories:
-- javatool
-tags:
-- java
-- javatool
-- server
----
-
-# Tomcat 快速入门
+# Tomcat 应用指南
 
 > 版本说明
 >
