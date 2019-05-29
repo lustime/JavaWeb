@@ -1,12 +1,13 @@
 # JavaWeb
 
-> Java Web 开发之路经验总结
+> JavaWeb 开发之路经验总结。
 >
-> 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](https://turnon.gitee.io/javaweb/)
+> - :repeat: 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
+> - :book: 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
 
-| :beginner:    | :recycle:             | :coffee:          | :eye:                 | :eyes:                    | :globe_with_meridians:    | :computer:        |
-| ------------- | --------------------- | ----------------- | --------------------- | ------------------------- | ------------------------- | ----------------- |
-| [准备](#准备) | [架构设计](#架构设计) | [JavaEE](#javaee) | [主流技术](#主流技术) | [分布式技术](#分布式技术) | [计算机网络](#计算机网络) | [服务器](#服务器) |
+| :beginner:    | :recycle:             | :coffee:          | :eye:                 | :eyes:                    | :globe_with_meridians: | :computer:        |
+| ------------- | --------------------- | ----------------- | --------------------- | ------------------------- | ---------------------- | ----------------- |
+| [准备](#准备) | [架构设计](#架构设计) | [JavaEE](#javaee) | [主流技术](#主流技术) | [分布式技术](#分布式技术) | [网络通信](#网络通信)  | [服务器](#服务器) |
 
 <!-- TOC -->
 
@@ -78,7 +79,7 @@
   - [ActiveMQ 实战篇](docs/distributed/mq/ActiveMQ.md)
   - RabbitMQ - 待补充。。。
 
-## 计算机网络
+## 网络通信
 
 - **网络分层**
   - [计算机网络概述](docs/network/network-guide.md)
@@ -88,9 +89,12 @@
   - [计算机网络之传输层](docs/network/network-transport.md)
   - [计算机网络之应用层](docs/network/network-application.md)
 - **重要协议**
-  - [网络协议之 HTTP](docs/network/protocol/http.md)
-  - [网络协议之 DNS](docs/network/protocol/dns.md)
-  - [网络协议之 ICMP](docs/network/protocol/icmp.md)
+  - [网络协议之 HTTP](docs/network/http.md)
+  - [网络协议之 DNS](docs/network/dns.md)
+  - [网络协议之 ICMP](docs/network/icmp.md)
+- **网络技术**
+
+  - [CDN 详解](docs/network/cdn.md)
 
 ## 服务器
 
