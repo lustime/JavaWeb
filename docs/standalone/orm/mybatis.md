@@ -64,7 +64,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 > 核心 API 请参考：「 [Mybatis 官方文档之 Java API](http://www.mybatis.org/mybatis-3/zh/java-api.html) 」
 
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/1556022483200.png"/></div>
+<div align="center"><img src="https://gitee.com/turnon/images/raw/master/snap/1556022483200.png"/></div>
 
 ### SqlSessionFactoryBuilder
 
@@ -72,7 +72,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 **`SqlSessionFactoryBuilder` 负责创建 `SqlSessionFactory` 实例。而 `SqlSessionFactoryBuilder` 则可以从 XML 配置文件或一个预先定制的 `Configuration` 的实例构建出 `SqlSessionFactory` 的实例。**
 
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/1556072725320.png"/></div>
+<div align="center"><img src="https://gitee.com/turnon/images/raw/master/snap/1556072725320.png"/></div>
 
 - **SqlSessionFactoryBuilder 生命周期**
 
@@ -84,7 +84,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 **SqlSessionFactory 负责创建 SqlSession 实例。**
 
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/1556074378879.png"/></div>
+<div align="center"><img src="https://gitee.com/turnon/images/raw/master/snap/1556074378879.png"/></div>
 
 - **SqlSessionFactory 生命周期**
 
@@ -92,7 +92,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 ### SqlSession
 
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/1556105326238.png"/></div>
+<div align="center"><img src="https://gitee.com/turnon/images/raw/master/snap/1556105326238.png"/></div>
 
 - **SqlSession 职责**
 
@@ -180,7 +180,7 @@ Mybatis 支持诸如 @Insert、@Update、@Delete、@Select、@Result 等注解�
 
 ### MyBatis 的架构
 
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/1556104494030.png"/></div>
+<div align="center"><img src="https://gitee.com/turnon/images/raw/master/snap/1556104494030.png"/></div>
 
 ### 接口层
 

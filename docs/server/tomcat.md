@@ -94,7 +94,7 @@ Tomcat 8.5 要求 JDK 版本为 1.7 以上。
 
 下面的示例以 8.5.24 版本为例，包含了下载、解压、启动操作。
 
-```sh
+```bash
 # 下载解压到本地
 wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.5.24/bin/apache-tomcat-8.5.24.tar.gz
 tar -zxf apache-tomcat-8.5.24.tar.gz

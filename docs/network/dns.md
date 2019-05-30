@@ -99,7 +99,7 @@ DNS 中，常见的资源记录类型有：
 
 示例：
 
-```sh
+```bash
 $ hostname
 AY1307311912260196fcZ
 ```
@@ -112,7 +112,7 @@ AY1307311912260196fcZ
 
 示例：
 
-```sh
+```bash
 [root@localhost ~]# nslookup www.jsdig.com
 Server:         202.96.104.15
 Address:        202.96.104.15#53
