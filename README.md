@@ -86,11 +86,13 @@
   - [计算机网络之网络层](docs/network/network-network.md)
   - [计算机网络之传输层](docs/network/network-transport.md)
   - [计算机网络之应用层](docs/network/network-application.md)
-- **重要协议**
-  - [网络协议之 HTTP](docs/network/http.md)
-  - [网络协议之 DNS](docs/network/dns.md)
-  - [网络协议之 ICMP](docs/network/icmp.md)
-- **网络技术**
+- **重要技术**
+  - [超文本传输协议 HTTP](docs/network/http.md)
+  - [域名系统 DNS](docs/network/dns.md)
+  - [传输控制协议 TCP](docs/network/tcp.md)
+  - [用户数据报协议 UDP](docs/network/udp.md)
+  - [网际控制报文协议 ICMP](docs/network/icmp.md)
+  - [网络协议之 WebSocket](docs/network/websocket.md)
   - [CDN 详解](docs/network/cdn.md)
 
 ## 服务器
