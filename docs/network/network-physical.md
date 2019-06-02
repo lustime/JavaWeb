@@ -21,7 +21,7 @@
 
 ## 通信系统模型
 
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/images/network/physical/数据通信系统的模型.png"/></div>
+<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/physical/数据通信系统的模型.png"/></div>
 
 通信系统模型分为三大部分：源系统（包括信源和发送器）、传输系统、目的系统（包括信宿接收器）。
 
@@ -34,7 +34,7 @@
 
 ## 通信方式
 
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/images/network/physical/通信方式.jpg"/></div>
+<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/physical/通信方式.jpg"/></div>
 
 有三种通信方式：
 
@@ -67,7 +67,7 @@
 
 ### 基本带通调制方法
 
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/master/images/network/physical/基本调制方法.png"/></div>
+<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/physical/基本调制方法.png"/></div>
 
 如果你收听过广播，一定经常听到 AM、FM 这两个关键词，这是什么意思呢？答案如下：
 
