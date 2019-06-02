@@ -104,7 +104,7 @@ tar -zxf apache-tomcat-8.5.24.tar.gz
 
 启动后，访问 http://localhost:8080 ，可以看到 Tomcat 安装成功的测试页面。
 
-![tomcat.png](https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/tomcat.png)
+![tomcat.png](https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/tomcat.png)
 
 ### 配置
 
@@ -357,7 +357,7 @@ public class SimpleTomcatServer {
 - 设置启动应用的端口、JVM 参数、启动浏览器等。
 - 成功后，可以访问 http://localhost:8080/（当然，你也可以在 url 中设置上下文名称）。
 
-![](https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/tomcat-intellij-run-config.png)
+![](https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/tomcat-intellij-run-config.png)
 
 > **说明**
 >
@@ -370,7 +370,7 @@ public class SimpleTomcatServer {
 ### Tomcat 主要组件
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/Tomcat主要组件.jpg" width="500" >
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/Tomcat主要组件.jpg" width="500" >
 </div>
 
 - **Server** - 指的就是整个 Tomcat 服 务器，包含多组服务，负责管理和 启动各个 Service，同时监听 8005 端口发过来的 shutdown 命令，用 于关闭整个容器。
@@ -387,7 +387,7 @@ public class SimpleTomcatServer {
 #### Container 组件
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/Tomcat-Container组件.jpg" width="400" >
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/Tomcat-Container组件.jpg" width="400" >
 </div>
 
 - **Engine** - Servlet 的顶层容器，包含一 个或多个 Host 子容器；
@@ -404,7 +404,7 @@ Tomcat 为了方便管理组件和容器的生命周期，定义了从创建、�
 比如执行初始化操作时，会判断当前状态是否 New，如果不是则抛出生命周期异常；是的 话则设置当前状态为 Initializing，并执行 initInternal 方法，由子类实现，方法执行成功则设置当 前状态为 Initialized，执行失败则设置为 Failed 状态；
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/Tomcat生命周期.jpg" width="600">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/Tomcat生命周期.jpg" width="600">
 </div>
 
 Tomcat 的生命周期管理引入了事件机制，在组件或容器的生命周期状态发生变化时会通 知事件监听器，监听器通过判断事件的类型来进行相应的操作。
@@ -419,7 +419,7 @@ Tomcat 各类容器的配置过程就是通过添加 listener 的方式来进行
 #### Tomcat 的启动过程
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/Tomcat启动过程.jpg" width="600">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/Tomcat启动过程.jpg" width="600">
 </div>
 
 启动从 Tomcat 提供的 start.sh 脚本开始，shell 脚本会调用 Bootstrap 的 main 方法，实际 调用了 Catalina 相应的 load、start 方法。
@@ -486,7 +486,7 @@ ContextConfig 解析 web.xml 顺序：
 #### 请求处理过程
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/请求处理过程.png" width="600">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/请求处理过程.png" width="600">
 </div>
 
 1.  根据 server.xml 配置的指定的 connector 以及端口监听 http、或者 ajp 请求
@@ -497,7 +497,7 @@ ContextConfig 解析 web.xml 顺序：
 #### Pipeline 与 Valve
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/Pipeline与Valve.png" width="600">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/Pipeline与Valve.png" width="600">
 </div>
 
 Pipeline 可以理解为现实中的管道,Valve 为管道中的阀门,Request 和 Response 对象在管道中 经过各个阀门的处理和控制。
@@ -511,25 +511,25 @@ Valve 中主要的三个方法:setNext、getNext、invoke;valve 之间的关系�
 ### Connector
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/connector.png" width="600">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/connector.png" width="600">
 </div>
 
 #### 阻塞 IO
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/阻塞IO.png" width="600">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/阻塞IO.png" width="600">
 </div>
 
 #### 非阻塞 IO
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/非阻塞IO.png" width="600">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/非阻塞IO.png" width="600">
 </div>
 
 ####  IO 多路复用
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/IO多路复用.png" width="600">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/IO多路复用.png" width="600">
 </div>
 
 阻塞与非阻塞的区别在于进行读操作和写操作的系统调用时，如果此时内核态没有数据可读或者没有缓冲空间可写时，是否阻塞。
@@ -539,7 +539,7 @@ IO 多路复用的好处在于可同时监听多个 socket 的可读和可写事
 #### Tomcat 各类 Connector 对比
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/Tomcat各类Connector对比.jpg" width="500"> 
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/Tomcat各类Connector对比.jpg" width="500"> 
 </div>
 
 - JIO：用 java.io 编写的 TCP 模块，阻塞 IO
@@ -560,7 +560,7 @@ Apache Portable Runtime 是一个高度可移植的库，它是 Apache HTTP Serv
 **NIO 处理相关类**
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/NIO处理相关类.jpg" width="500"> 
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/NIO处理相关类.jpg" width="500"> 
 </div>
 
 Poller 线程从 EventQueue 获取 PollerEvent，并执行 PollerEvent 的 run 方法，调用 Selector 的 select 方法，如果有可读的 Socket 则创建 Http11NioProcessor，放入到线程池中执行；
@@ -593,7 +593,7 @@ Note：
 ### 异步 Servlet
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/传统Servlet处理流程.png" > 
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/传统Servlet处理流程.png" > 
 </div>
 
 传统流程：
@@ -603,7 +603,7 @@ Note：
 - 最后，根据处理的结果提交响应，Servlet 线程结束
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/tools/tomcat/异步Servlet处理流程.png" > 
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/tools/tomcat/异步Servlet处理流程.png" > 
 </div>
 
 异步处理流程：

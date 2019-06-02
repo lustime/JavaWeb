@@ -37,7 +37,7 @@
 ZooKeeper 作为一个分布式的服务框架，主要用来解决分布式集群中应用系统的一致性问题，它能提供基于类似于文件系统的目录节点树方式的数据存储，但是 ZooKeeper 并不是用来专门存储数据的，它的作用主要是用来维护和监控你存储的数据的状态变化。通过监控这些数据状态的变化，从而可以达到基于数据的集群管理。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/zookeeper/zookeeper-service.png" />
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/zookeeper-service.png" />
 </div>
 
 ### 1.2. ZooKeeper 提供了什么？
@@ -73,7 +73,7 @@ ZooKeeper 的核心是原子广播，这个机制保证了各个 Server 之间�
 ZooKeeper 会维护一个具有层次关系的数据结构，它非常类似于一个标准的文件系统，如下图所示：
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/zookeeper/Zookeeper数据结构.gif" />
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/Zookeeper数据结构.gif" />
 </div>
 
 ZooKeeper 这种数据结构有如下这些特点：
@@ -111,7 +111,7 @@ Name Service 已经是 ZooKeeper 内置的功能，你只要调用 ZooKeeper 的
 像这样的配置信息完全可以交给 ZooKeeper 来管理，将配置信息保存在 ZooKeeper 的某个目录节点中，然后将所有需要修改的应用机器监控配置信息的状态，一旦配置信息发生变化，每台应用机器就会收到 ZooKeeper 的通知，然后从 ZooKeeper 获取新的配置信息应用到系统中。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/zookeeper/Zookeeper配置管理.gif" />
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/Zookeeper配置管理.gif" />
 </div>
 
 ### 4.3. 集群管理（Group Membership）
@@ -125,7 +125,7 @@ ZooKeeper 不仅能够帮你维护当前的集群中机器的服务状态，而�
 ZooKeeper 如何实现 Leader Election，也就是选出一个 Master Server。和前面的一样每台 Server 创建一个 EPHEMERAL 目录节点，不同的是它还是一个 SEQUENTIAL 目录节点，所以它是个 EPHEMERAL_SEQUENTIAL 目录节点。之所以它是 EPHEMERAL_SEQUENTIAL 目录节点，是因为我们可以给每台 Server 编号，我们可以选择当前是最小编号的 Server 为 Master，假如这个最小编号的 Server 死去，由于是 EPHEMERAL 节点，死去的 Server 对应的节点也被删除，所以当前的节点列表中又出现一个最小编号的节点，我们就选择这个节点为当前 Master。这样就实现了动态选择 Master，避免了传统意义上单 Master 容易出现单点故障的问题。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/zookeeper/Zookeeper集群管理结构.gif" />
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/Zookeeper集群管理结构.gif" />
 </div>
 
 ### 4.4. 分布式锁
@@ -179,7 +179,7 @@ ZooKeeper 作为一个集群提供一致的数据服务，自然，它要在所�
 ZooKeeper 选举流程基于 Paxos 算法。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/rpc/zookeeper/ZooKeeper选举流程图.jpg" width="640"/>
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/ZooKeeper选举流程图.jpg" width="640"/>
 </div>
 
 1.  选举线程由当前 Server 发起选举的线程担任，其主要功能是对投票结果进行统计，并选出推荐的 Server；

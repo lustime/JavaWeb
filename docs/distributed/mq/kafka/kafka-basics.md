@@ -74,13 +74,13 @@ producer 采用 push 方式向 broker 发送消息；customer 采用 pull 方式
 - **Broker** - Kafka 集群包含一个或多个服务器，这种服务器被称为 broker
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka系统结构.png" />
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka系统结构.png" />
 </div>
 
 #### 1.2.2. Topic 的存储结构
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/topic存储结构.png" />
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/topic存储结构.png" />
 </div>
 
 - **Topic** - 每条发布到 Kafka 集群的消息都有一个类别，这个类别被称为 Topic。（物理上不同 Topic 的消息分开存储，逻辑上一个 Topic 的消息虽然保存于一个或多个 broker 上，但用户只需指定消息的 Topic 即可生产或消费数据而不必关心数据存于何处）。
@@ -95,7 +95,7 @@ producer 采用 push 方式向 broker 发送消息；customer 采用 pull 方式
 注意： 必须要有一个 key，如果没有，则默认会生成一个 key，可以把 key 当做一个消息的标识，同一个 key 可能有多条数据。
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dunwu/JavaWeb/master/images/distributed/mq/kafka/kafka-segment结构.png" />
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-segment结构.png" />
 </div>
 
 ### 1.3. 小结
