@@ -43,7 +43,7 @@
 > [主流技术](standalone/)，典型的技术如：SSM 框架、SSH 框架。
 
 - MVC
-  - [spring-tutorial](https://dunwu.gitbooks.io/spring-tutorial/) - Spring 教程
+  - [spring-tutorial](https://dunwu.github.io/spring-tutorial/) - Spring 教程
   - [spring-boot-tutorial](https://dunwu.github.io/spring-boot-tutorial/) - Spring Boot 教程
 - ORM
   - [Mybatis](standalone/orm/mybatis.md) - 一个支持普通 SQL 查询，存储过程和高级映射的优秀持久层框架。
@@ -56,26 +56,27 @@
 
 - [分布式技术面试题](distributed/分布式技术面试题.md)
 
-- [分布式缓存（CACHE）](distributed/cache)
+- [缓存（CACHE）](distributed/cache)
   - [分布式缓存](distributed/cache/分布式缓存.md)
   - [Redis](distributed/cache/redis.md)
   - Memcached
-- [分布式服务（RPC）](distributed/rpc)
+- [微服务（RPC）](distributed/rpc)
   - [Dubbo](distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
   - [ZooKeeper 实战篇](distributed/rpc/zookeeper-basics.md)
   - [ZooKeeper 原理篇](distributed/rpc/zookeeper-advanced.md)
-- [分布式消息队列（MQ）](distributed/mq)
-
-  - 原理
-    - [分布式消息队列](distributed/mq/分布式消息队列.md)
-  - Kafka
-    - [Kafka 实战篇](distributed/mq/kafka/kafka-basics.md)
-    - [Kafka 原理篇](distributed/mq/kafka/kafka-advanced.md)
-    - [Kafka Cheat Sheet](distributed/mq/kafka/kafka-cheat-sheet.md)
+- [消息队列（MQ）](distributed/mq)
+  - [消息队列面试夺命连环问](distributed/mq/mq-interview.md)
+  - [分布式消息队列](distributed/mq/分布式消息队列.md)
+  - [Kafka 实战篇](distributed/mq/kafka/kafka-basics.md)
+  - [Kafka 原理篇](distributed/mq/kafka/kafka-advanced.md)
+  - [Kafka Cheat Sheet](distributed/mq/kafka/kafka-cheat-sheet.md)
   - [RocketMQ 实战篇](distributed/mq/rocketmq-basics.md)
   - [RocketMQ 原理篇](distributed/mq/rocketmq-basics.md)
   - [ActiveMQ 实战篇](distributed/mq/ActiveMQ.md)
   - RabbitMQ - 待补充。。。
+- [分布式锁](distributed/distributed-lock.md)
+- [分布式会话](distributed/distributed-session.md)
+- [分布式事务](distributed/distributed-transaction.md)
 
 ## 🕸 网络通信
 

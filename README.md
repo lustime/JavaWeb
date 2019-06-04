@@ -43,7 +43,7 @@
 > [主流技术](docs/standalone/)，典型的技术如：SSM 框架、SSH 框架。
 
 - MVC
-  - [spring-tutorial](https://dunwu.gitbooks.io/spring-tutorial/) - Spring 教程
+  - [spring-tutorial](https://dunwu.github.io/spring-tutorial/) - Spring 教程
   - [spring-boot-tutorial](https://dunwu.github.io/spring-boot-tutorial/) - Spring Boot 教程
 - ORM
   - [Mybatis](docs/standalone/orm/mybatis.md) - 一个支持普通 SQL 查询，存储过程和高级映射的优秀持久层框架。
