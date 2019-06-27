@@ -211,3 +211,4 @@ HTTP 状态码由三个十进制数字组成，第一个十进制数字定义了
 - http://blog.csdn.net/gueter/article/details/1524447
 - http://www.runoob.com/http/http-intro.html
 - https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+- https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS

@@ -5,9 +5,9 @@
 > - :repeat: 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
 > - :book: 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
 
-|        🔰         |            🏗            |          ☕          |            ⭐️            |              ✨              |            🕸            |          💻          |
-| :---------------: | :---------------------: | :------------------: | :-----------------------: | :--------------------------: | :---------------------: | :------------------: |
-| [准备](#🔰️-准备) | [架构设计](#🏗-架构设计) | [JavaEE](#☕-javaee) | [主流技术](#⭐️-主流技术) | [分布式技术](#✨-分布式技术) | [网络通信](#🕸-网络通信) | [服务器](#💻-服务器) |
+|        🔰         |            🏗            |          ☕          |            ✨            |             ⭐️             |            🕸            |
+| :---------------: | :---------------------: | :------------------: | :----------------------: | :-------------------------: | :---------------------: |
+| [准备](#🔰️-准备) | [架构设计](#🏗-架构设计) | [JavaEE](#☕-javaee) | [系统原理](#✨-系统原理) | [分布式技术](#⭐️-主流技术) | [网络通信](#🕸-网络通信) |
 
 ## 🔰️ 准备
 
@@ -18,7 +18,7 @@
 
 ## 🏗 架构设计
 
-> [架构设计](architecture/) 整理架构设计方面的一些学习总结和心得。
+> [架构设计](architecture) 整理架构设计方面的一些学习总结和心得。
 
 - [大型网站架构概述](architecture/大型网站架构概述.md)
 - [网站的高性能架构](architecture/网站的高性能架构.md)
@@ -30,7 +30,7 @@
 
 ## ☕ JavaEE
 
-> [JavaEE](javaee/) 技术——Java Web 的基石
+> [JavaEE](javaee) 技术——Java Web 的基石
 
 - [JavaEE 面经](javaee/javaee-interview.md)
 - [JavaEE 之 Servlet 指南](javaee/javaee-servlet.md)
@@ -38,45 +38,64 @@
 - [JavaEE 之 Filter 和 Listener](javaee/javaee-filter-listener.md)
 - [JavaEE 之 Cookie 和 Session](javaee/javaee-cookie-sesion.md)
 
+## ✨ 系统原理
+
+> [分布式技术（Distributed）](theory)，典型的技术如：分布式缓存、分布式消息队列、分布式服务、分布式搜索引擎等。
+
+- [分布式技术面试题](theory/distributed-interview.md)
+- [分布式基础理论](theory/distributed-base.md)
+- [分布式会话](theory/distributed-session.md)
+- [分布式事务](theory/distributed-transaction.md)
+- [分布式缓存](theory/distributed-cache.md)
+- [分布式锁](theory/distributed-lock.md)
+- [负载均衡](theory/load-balance.md)
+
 ## ⭐️ 主流技术
 
-> [主流技术](standalone/)，典型的技术如：SSM 框架、SSH 框架。
+### Web 框架
 
-- MVC
-  - [spring-tutorial](https://dunwu.github.io/spring-tutorial/) - Spring 教程
-  - [spring-boot-tutorial](https://dunwu.github.io/spring-boot-tutorial/) - Spring Boot 教程
-- ORM
-  - [Mybatis](standalone/orm/mybatis.md) - 一个支持普通 SQL 查询，存储过程和高级映射的优秀持久层框架。
-- Security
-  - [Shiro](standalone/security/shiro.md) - 安全框架，具有认证、授权、加密、会话管理功能。
+- [Spring 教程](https://dunwu.github.io/spring-tutorial/) 📚
+- [Spring Boot 教程](https://dunwu.github.io/spring-boot-tutorial/) 📚
 
-## ✨ 分布式技术
+### 服务器
 
-> [分布式技术（Distributed）](distributed/)，典型的技术如：分布式缓存、分布式消息队列、分布式服务、分布式搜索引擎等。
+- [Tomcat 应用指南](technology/server/tomcat.md)
+- [Jetty 应用指南](technology/server/jetty.md)
+- [Nginx 简易教程](https://github.com/dunwu/nginx-tutorial) 📚
 
-- [分布式技术面试题](distributed/分布式技术面试题.md)
+### 消息队列
 
-- [缓存（CACHE）](distributed/cache)
-  - [分布式缓存](distributed/cache/分布式缓存.md)
-  - [Redis](distributed/cache/redis.md)
-  - Memcached
-- [微服务（RPC）](distributed/rpc)
-  - [Dubbo](distributed/rpc/dubbo.md) - 基于 Java 开发的高性能 RPC 框架。
-  - [ZooKeeper 实战篇](distributed/rpc/zookeeper-basics.md)
-  - [ZooKeeper 原理篇](distributed/rpc/zookeeper-advanced.md)
-- [消息队列（MQ）](distributed/mq)
-  - [消息队列面试夺命连环问](distributed/mq/mq-interview.md)
-  - [分布式消息队列](distributed/mq/分布式消息队列.md)
-  - [Kafka 实战篇](distributed/mq/kafka/kafka-basics.md)
-  - [Kafka 原理篇](distributed/mq/kafka/kafka-advanced.md)
-  - [Kafka Cheat Sheet](distributed/mq/kafka/kafka-cheat-sheet.md)
-  - [RocketMQ 实战篇](distributed/mq/rocketmq-basics.md)
-  - [RocketMQ 原理篇](distributed/mq/rocketmq-basics.md)
-  - [ActiveMQ 实战篇](distributed/mq/ActiveMQ.md)
-  - RabbitMQ - 待补充。。。
-- [分布式锁](distributed/distributed-lock.md)
-- [分布式会话](distributed/distributed-session.md)
-- [分布式事务](distributed/distributed-transaction.md)
+- [消息队列原理](technology/mq/mq-theory.md)
+- Kafka
+  - [Kafka 实战篇](technology/mq/kafka/kafka-basics.md)
+  - [Kafka 原理篇](technology/mq/kafka/kafka-advanced.md)
+  - [Kafka Cheat Sheet](technology/mq/kafka/kafka-cheat-sheet.md)
+- [RocketMQ 实战篇](technology/mq/rocketmq-basics.md)
+- [RocketMQ 原理篇](technology/mq/rocketmq-basics.md)
+- [ActiveMQ 实战篇](technology/mq/ActiveMQ.md)
+
+### 缓存
+
+- [缓存面经](technology/cache/cache-interview.md)
+- [缓存原理](technology/cache/cache-theory.md)
+- [Redis](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis)
+- Ehcache
+
+### RPC
+
+- [ZooKeeper 应用指南](technology/rpc/zookeeper.md)
+- [Dubbo 应用指南](technology/rpc/dubbo.md)
+- Spring Cloud
+
+### 安全
+
+- [系统安全原理](technology/security/security-theory.md)
+- [Shiro 应用指南](technology/security/shiro.md)
+- [Spring Security 应用指南](technology/security/spring-security.md)
+
+### ORM
+
+- [Mybatis 应用指南](technology/orm/mybatis.md)
 
 ## 🕸 网络通信
 
@@ -97,11 +116,3 @@
   - [网际控制报文协议 ICMP](network/icmp.md)
   - [网络协议之 WebSocket](network/websocket.md)
   - [CDN 详解](network/cdn.md)
-
-## 💻 服务器
-
-> [服务器](server/) 章节总结 Java Web 领域主流服务器技术。
-
-- [Nginx 简易教程](https://github.com/dunwu/nginx-tutorial) - 轻量级的 Web 服务器、反向代理服务器及电子邮件（IMAP/POP3）代理服务器，支持负载均衡。
-- [Tomcat 应用指南](server/tomcat.md) - 轻量级的应用服务器
-- [Jetty 应用指南](server/jetty.md) - 比 Tomcat 更轻量级的应用服务器

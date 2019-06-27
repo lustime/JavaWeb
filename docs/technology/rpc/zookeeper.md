@@ -1,43 +1,98 @@
-# ZooKeeper 基础篇
+# ZooKeeper 应用指南
 
-> ZooKeeper 是一个针对大型分布式系统的可靠协调系统，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。
+> ZooKeeper 是一个分布式应用协调系统，已经用到了许多分布式项目中，用来完成统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理等工作。
 >
-> ZooKeeper 的目标就是封装好复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。
->
-> 本文旨在快速入门 ZooKeeper，侧重于介绍如何使用。
+> 本文侧重于总结 ZooKeeper 工作原理。
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 
-- [1. 安装](#1-安装)
-    - [1.1. 下载解压 ZooKeeper](#11-下载解压-zookeeper)
-    - [1.2. 创建配置文件](#12-创建配置文件)
-    - [1.3. 启动 ZooKeeper 服务器](#13-启动-zookeeper-服务器)
-    - [1.4. 启动 CLI](#14-启动-cli)
-    - [1.5. 停止 ZooKeeper 服务器](#15-停止-zookeeper-服务器)
-- [2. CLI](#2-cli)
-    - [2.1. 创建 Znodes](#21-创建-znodes)
-    - [2.2. 获取数据](#22-获取数据)
-    - [2.3. Watch（监视）](#23-watch监视)
-    - [2.4. 设置数据](#24-设置数据)
-    - [2.5. 创建子项/子节点](#25-创建子项子节点)
-    - [2.6. 列出子项](#26-列出子项)
-    - [2.7. 检查状态](#27-检查状态)
-    - [2.8. 移除 Znode](#28-移除-znode)
-- [3. API](#3-api)
-    - [3.1. ZooKeeper API 的基础知识](#31-zookeeper-api-的基础知识)
-    - [3.2. Java 绑定](#32-java-绑定)
-    - [3.3. 连接到 ZooKeeper 集合](#33-连接到-zookeeper-集合)
-    - [3.4. 创建 Znode](#34-创建-znode)
-    - [3.5. Exists - 检查 Znode 的存在](#35-exists---检查-znode-的存在)
-    - [3.6. getData 方法](#36-getdata-方法)
-    - [3.7. setData 方法](#37-setdata-方法)
-    - [3.8. getChildren 方法](#38-getchildren-方法)
-    - [3.9. 删除 Znode](#39-删除-znode)
-- [4. 资源](#4-资源)
+- [概述](#概述)
+    - [ZooKeeper 是什么？](#zookeeper-是什么)
+    - [ZooKeeper 提供了什么？](#zookeeper-提供了什么)
+    - [Zookeeper 的特性](#zookeeper-的特性)
+    - [工作原理](#工作原理)
+    - [Server 工作状态](#server-工作状态)
+- [安装](#安装)
+    - [下载解压 ZooKeeper](#下载解压-zookeeper)
+    - [创建配置文件](#创建配置文件)
+    - [启动 ZooKeeper 服务器](#启动-zookeeper-服务器)
+    - [启动 CLI](#启动-cli)
+    - [停止 ZooKeeper 服务器](#停止-zookeeper-服务器)
+- [文件系统](#文件系统)
+- [通知机制](#通知机制)
+- [应用场景](#应用场景)
+    - [统一命名服务（Name Service）](#统一命名服务name-service)
+    - [配置管理（Configuration Management）](#配置管理configuration-management)
+    - [集群管理（Group Membership）](#集群管理group-membership)
+    - [分布式锁](#分布式锁)
+    - [队列管理](#队列管理)
+- [复制](#复制)
+- [选举流程](#选举流程)
+- [同步流程](#同步流程)
+- [CLI](#cli)
+    - [创建 Znodes](#创建-znodes)
+    - [获取数据](#获取数据)
+    - [Watch（监视）](#watch监视)
+    - [设置数据](#设置数据)
+    - [创建子项/子节点](#创建子项子节点)
+    - [列出子项](#列出子项)
+    - [检查状态](#检查状态)
+    - [移除 Znode](#移除-znode)
+- [API](#api)
+    - [ZooKeeper API 的基础知识](#zookeeper-api-的基础知识)
+    - [Java 绑定](#java-绑定)
+    - [连接到 ZooKeeper 集合](#连接到-zookeeper-集合)
+    - [创建 Znode](#创建-znode)
+    - [Exists - 检查 Znode 的存在](#exists---检查-znode-的存在)
+    - [getData 方法](#getdata-方法)
+    - [setData 方法](#setdata-方法)
+    - [getChildren 方法](#getchildren-方法)
+    - [删除 Znode](#删除-znode)
+- [资源](#资源)
+    - [官方资源](#官方资源)
+    - [文章](#文章)
 
 <!-- /TOC -->
 
-## 1. 安装
+## 概述
+
+### ZooKeeper 是什么？
+
+ZooKeeper 作为一个分布式的服务框架，主要用来解决分布式集群中应用系统的一致性问题，它能提供基于类似于文件系统的目录节点树方式的数据存储，但是 ZooKeeper 并不是用来专门存储数据的，它的作用主要是用来维护和监控你存储的数据的状态变化。通过监控这些数据状态的变化，从而可以达到基于数据的集群管理。
+
+<div align="center">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/zookeeper-service.png" />
+</div>
+
+### ZooKeeper 提供了什么？
+
+1.  文件系统
+2.  通知机制
+
+### Zookeeper 的特性
+
+- 最终一致性：client 不论连接到哪个 Server，展示给它都是同一个视图，这是 zookeeper 最重要的性能。
+- 可靠性：具有简单、健壮、良好的性能，如果消息被到一台服务器接受，那么它将被所有的服务器接受。
+- 实时性：Zookeeper 保证客户端将在一个时间间隔范围内获得服务器的更新信息，或者服务器失效的信息。但由于网络延时等原因，Zookeeper 不能保证两个客户端能同时得到刚更新的数据，如果需要最新数据，应该在读数据之前调用 sync()接口。
+- 等待无关（wait-free）：慢的或者失效的 client 不得干预快速的 client 的请求，使得每个 client 都能有效的等待。
+- 原子性：更新只能成功或者失败，没有中间状态。
+- 顺序性：包括全局有序和偏序两种：全局有序是指如果在一台服务器上消息 a 在消息 b 前发布，则在所有 Server 上消息 a 都将在消息 b 前被发布；偏序是指如果一个消息 b 在消息 a 后被同一个发送者发布，a 必将排在 b 前面。
+
+### 工作原理
+
+ZooKeeper 的核心是原子广播，这个机制保证了各个 Server 之间的同步。实现这个机制的协议叫做 Zab 协议。Zab 协议有两种模式，它们分别是恢复模式（选主）和广播模式（同步）。当服务启动或者在领导者崩溃后，Zab 就进入了恢复模式，当领导者被选举出来，且大多数 Server 完成了和 leader 的状态同步以后，恢复模式就结束了。状态同步保证了 leader 和 Server 具有相同的系统状态。
+
+为了保证事务的顺序一致性，ZooKeeper 采用了递增的事务 id 号（zxid）来标识事务。所有的提议（proposal）都在被提出的时候加上了 zxid。实现中 zxid 是一个 64 位的数字，它高 32 位是 epoch 用来标识 leader 关系是否改变，每次一个 leader 被选出来，它都会有一个新的 epoch，标识当前属于那个 leader 的统治时期。低 32 位用于递增计数。
+
+### Server 工作状态
+
+每个 Server 在工作过程中有三种状态：
+
+- LOOKING - 当前 Server 不知道 leader 是谁，正在搜寻
+- LEADING - 当前 Server 即为选举出来的 leader
+- FOLLOWING - leader 已经选举出来，当前 Server 与之同步
+
+## 安装
 
 在安装 ZooKeeper 之前，请确保你的系统是在以下任一操作系统上运行：
 
@@ -49,7 +104,7 @@
 
 安装步骤如下：
 
-### 1.1. 下载解压 ZooKeeper
+### 下载解压 ZooKeeper
 
 进入官方下载地址：http://zookeeper.apache.org/releases.html#download ，选择合适版本。
 
@@ -60,7 +115,7 @@ $ tar -zxf zookeeper-3.4.6.tar.gz
 $ cd zookeeper-3.4.6
 ```
 
-### 1.2. 创建配置文件
+### 创建配置文件
 
 你必须创建 `conf/zoo.cfg` 文件，否则启动时会提示你没有此文件。
 
@@ -70,7 +125,7 @@ $ cd zookeeper-3.4.6
 $ cp conf/zoo_sample.cfg conf/zoo.cfg
 ```
 
-### 1.3. 启动 ZooKeeper 服务器
+### 启动 ZooKeeper 服务器
 
 执行以下命令
 
@@ -86,7 +141,7 @@ $ Using config: /Users/../zookeeper-3.4.6/bin/../conf/zoo.cfg
 $ Starting zookeeper ... STARTED
 ```
 
-### 1.4. 启动 CLI
+### 启动 CLI
 
 键入以下命令
 
@@ -109,7 +164,7 @@ WatchedEvent state:SyncConnected type: None path:null
 [zk: localhost:2181(CONNECTED) 0]
 ```
 
-### 1.5. 停止 ZooKeeper 服务器
+### 停止 ZooKeeper 服务器
 
 连接服务器并执行所有操作后，可以使用以下命令停止 zookeeper 服务器。
 
@@ -119,7 +174,139 @@ $ bin/zkServer.sh stop
 
 > 本节安装内容参考：[Zookeeper 安装](https://www.w3cschool.cn/zookeeper/zookeeper_installation.html)
 
-## 2. CLI
+## 文件系统
+
+ZooKeeper 会维护一个具有层次关系的数据结构，它非常类似于一个标准的文件系统，如下图所示：
+
+<div align="center">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/Zookeeper数据结构.gif" />
+</div>
+
+ZooKeeper 这种数据结构有如下这些特点：
+
+- 每个子目录项如 NameService 都被称作为 znode，这个 znode 是被它所在的路径唯一标识，如 Server1 这个 znode 的标识为 /NameService/Server1
+- znode 可以有子节点目录，并且每个 znode 可以存储数据，注意 EPHEMERAL 类型的目录节点不能有子节点目录
+- znode 是有版本的，每个 znode 中存储的数据可以有多个版本，也就是一个访问路径中可以存储多份数据
+- znode 可以是临时节点，一旦创建这个 znode 的客户端与服务器失去联系，这个 znode 也将自动删除，ZooKeeper 的客户端和服务器通信采用长连接方式，每个客户端和服务器通过心跳来保持连接，这个连接状态称为 session，如果 znode 是临时节点，这个 session 失效，znode 也就删除了
+- znode 的目录名可以自动编号，如 App1 已经存在，再创建的话，将会自动命名为 App2
+- znode 可以被监控，包括这个目录节点中存储的数据的修改，子节点目录的变化等，一旦变化可以通知设置监控的客户端，这个是 ZooKeeper 的核心特性，ZooKeeper 的很多功能都是基于这个特性实现的，后面在典型的应用场景中会有实例介绍
+
+znode 类型：
+
+1.  PERSISTENT(持久化目录节点) - 客户端与 zookeeper 断开连接后，该节点依旧存在
+2.  PERSISTENT_SEQUENTIAL(持久化顺序编号目录节点) - 客户端与 zookeeper 断开连接后，该节点依旧存在，只是 Zookeeper 给该节点名称进行顺序编号
+3.  EPHEMERAL(临时目录节点) - 客户端与 zookeeper 断开连接后，该节点被删除
+4.  EPHEMERAL_SEQUENTIAL(临时顺序编号目录节点) - 客户端与 zookeeper 断开连接后，该节点被删除，只是 Zookeeper 给该节点名称进行顺序编号
+
+## 通知机制
+
+客户端注册监听它关心的目录节点，当目录节点发生变化（数据改变、被删除、子目录节点增加删除）时，zookeeper 会通知客户端。
+
+## 应用场景
+
+### 统一命名服务（Name Service）
+
+分布式应用中，通常需要有一套完整的命名规则，既能够产生唯一的名称又便于人识别和记住，通常情况下用树形的名称结构是一个理想的选择，树形的名称结构是一个有层次的目录结构，既对人友好又不会重复。说到这里你可能想到了 JNDI，没错 ZooKeeper 的 Name Service 与 JNDI 能够完成的功能是差不多的，它们都是将有层次的目录结构关联到一定资源上，但是 ZooKeeper 的 Name Service 更加是广泛意义上的关联，也许你并不需要将名称关联到特定资源上，你可能只需要一个不会重复名称，就像数据库中产生一个唯一的数字主键一样。
+
+Name Service 已经是 ZooKeeper 内置的功能，你只要调用 ZooKeeper 的 API 就能实现。如调用 create 接口就可以很容易创建一个目录节点。
+
+### 配置管理（Configuration Management）
+
+配置的管理在分布式应用环境中很常见，例如同一个应用系统需要多台 PC Server 运行，但是它们运行的应用系统的某些配置项是相同的，如果要修改这些相同的配置项，那么就必须同时修改每台运行这个应用系统的 PC Server，这样非常麻烦而且容易出错。
+
+像这样的配置信息完全可以交给 ZooKeeper 来管理，将配置信息保存在 ZooKeeper 的某个目录节点中，然后将所有需要修改的应用机器监控配置信息的状态，一旦配置信息发生变化，每台应用机器就会收到 ZooKeeper 的通知，然后从 ZooKeeper 获取新的配置信息应用到系统中。
+
+<div align="center">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/Zookeeper配置管理.gif" />
+</div>
+
+### 集群管理（Group Membership）
+
+ZooKeeper 能够很容易的实现集群管理的功能，如有多台 Server 组成一个服务集群，那么必须要一个“总管”知道当前集群中每台机器的服务状态，一旦有机器不能提供服务，集群中其它集群必须知道，从而做出调整重新分配服务策略。同样当增加集群的服务能力时，就会增加一台或多台 Server，同样也必须让“总管”知道。
+
+ZooKeeper 不仅能够帮你维护当前的集群中机器的服务状态，而且能够帮你选出一个“总管”，让这个总管来管理集群，这就是 ZooKeeper 的另一个功能 Leader Election。
+
+它们的实现方式都是在 ZooKeeper 上创建一个 EPHEMERAL 类型的目录节点，然后每个 Server 在它们创建目录节点的父目录节点上调用 getChildren(String path, boolean watch) 方法并设置 watch 为 true，由于是 EPHEMERAL 目录节点，当创建它的 Server 死去，这个目录节点也随之被删除，所以 Children 将会变化，这时 getChildren 上的 Watch 将会被调用，所以其它 Server 就知道已经有某台 Server 死去了。新增 Server 也是同样的原理。
+
+ZooKeeper 如何实现 Leader Election，也就是选出一个 Master Server。和前面的一样每台 Server 创建一个 EPHEMERAL 目录节点，不同的是它还是一个 SEQUENTIAL 目录节点，所以它是个 EPHEMERAL_SEQUENTIAL 目录节点。之所以它是 EPHEMERAL_SEQUENTIAL 目录节点，是因为我们可以给每台 Server 编号，我们可以选择当前是最小编号的 Server 为 Master，假如这个最小编号的 Server 死去，由于是 EPHEMERAL 节点，死去的 Server 对应的节点也被删除，所以当前的节点列表中又出现一个最小编号的节点，我们就选择这个节点为当前 Master。这样就实现了动态选择 Master，避免了传统意义上单 Master 容易出现单点故障的问题。
+
+<div align="center">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/Zookeeper集群管理结构.gif" />
+</div>
+
+### 分布式锁
+
+ZooKeeper 实现分布式锁的步骤：
+
+1.  创建一个目录 mylock；
+2.  线程 A 想获取锁就在 mylock 目录下创建临时顺序节点；
+3.  获取 mylock 目录下所有的子节点，然后获取比自己小的兄弟节点，如果不存在，则说明当前线程顺序号最小，获得锁；
+4.  线程 B 获取所有节点，判断自己不是最小节点，设置监听比自己次小的节点；
+5.  线程 A 处理完，删除自己的节点，线程 B 监听到变更事件，判断自己是不是最小的节点，如果是则获得锁。
+
+ZooKeeper 版本的分布式锁问题相对比较来说少。
+
+- 锁的占用时间限制：redis 就有占用时间限制，而 ZooKeeper 则没有，最主要的原因是 redis 目前没有办法知道已经获取锁的客户端的状态，是已经挂了呢还是正在执行耗时较长的业务逻辑。而 ZooKeeper 通过临时节点就能清晰知道，如果临时节点存在说明还在执行业务逻辑，如果临时节点不存在说明已经执行完毕释放锁或者是挂了。由此看来 redis 如果能像 ZooKeeper 一样添加一些与客户端绑定的临时键，也是一大好事。
+- 是否单点故障：redis 本身有很多中玩法，如客户端一致性 hash，服务器端 sentinel 方案或者 cluster 方案，很难做到一种分布式锁方式能应对所有这些方案。而 ZooKeeper 只有一种玩法，多台机器的节点数据是一致的，没有 redis 的那么多的麻烦因素要考虑。
+
+总体上来说 ZooKeeper 实现分布式锁更加的简单，可靠性更高。但 ZooKeeper 因为需要频繁的创建和删除节点，性能上不如 Redis 方式。
+
+### 队列管理
+
+ZooKeeper 可以处理两种类型的队列：
+
+1.  当一个队列的成员都聚齐时，这个队列才可用，否则一直等待所有成员到达，这种是同步队列。
+2.  队列按照 FIFO 方式进行入队和出队操作，例如实现生产者和消费者模型。
+
+同步队列用 ZooKeeper 实现的实现思路如下：
+
+创建一个父目录 /synchronizing，每个成员都监控标志（Set Watch）位目录 /synchronizing/start 是否存在，然后每个成员都加入这个队列，加入队列的方式就是创建 /synchronizing/member_i 的临时目录节点，然后每个成员获取 / synchronizing 目录的所有目录节点，也就是 member_i。判断 i 的值是否已经是成员的个数，如果小于成员个数等待 /synchronizing/start 的出现，如果已经相等就创建 /synchronizing/start。
+
+## 复制
+
+ZooKeeper 作为一个集群提供一致的数据服务，自然，它要在所有机器间做数据复制。
+
+从客户端读写访问的透明度来看，数据复制集群系统分下面两种：
+
+- 写主(WriteMaster) ：对数据的修改提交给指定的节点。读无此限制，可以读取任何一个节点。这种情况下客户端需要对读与写进行区别，俗称读写分离；
+- 写任意(Write Any)：对数据的修改可提交给任意的节点，跟读一样。这种情况下，客户端对集群节点的角色与变化透明。
+
+对 ZooKeeper 来说，它采用的方式是写任意。通过增加机器，它的读吞吐能力和响应能力扩展性非常好，而写，随着机器的增多吞吐能力肯定下降（这也是它建立 observer 的原因），而响应能力则取决于具体实现方式，是延迟复制保持最终一致性，还是立即复制快速响应。
+
+## 选举流程
+
+选举状态：
+
+- LOOKING，竞选状态。
+- FOLLOWING，随从状态，同步 leader 状态，参与投票。
+- OBSERVING，观察状态,同步 leader 状态，不参与投票。
+- LEADING，领导者状态。
+
+ZooKeeper 选举流程基于 Paxos 算法。
+
+<div align="center">
+<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/rpc/zookeeper/ZooKeeper选举流程图.jpg" width="640"/>
+</div>
+
+1.  选举线程由当前 Server 发起选举的线程担任，其主要功能是对投票结果进行统计，并选出推荐的 Server；
+2.  选举线程首先向所有 Server 发起一次询问(包括自己)；
+3.  选举线程收到回复后，验证是否是自己发起的询问(验证 zxid 是否一致)，然后获取对方的 id(myid)，并存储到当前询问对象列表中，最后获取对方提议的 leader 相关信息(id,zxid)，并将这些信息存储到当次选举的投票记录表中；
+4.  收到所有 Server 回复以后，就计算出 zxid 最大的那个 Server，并将这个 Server 相关信息设置成下一次要投票的 Server；
+5.  线程将当前 zxid 最大的 Server 设置为当前 Server 要推荐的 Leader，如果此时获胜的 Server 获得 n/2 + 1 的 Server 票数，设置当前推荐的 leader 为获胜的 Server，将根据获胜的 Server 相关信息设置自己的状态，否则，继续这个过程，直到 leader 被选举出来。 通过流程分析我们可以得出：要使 Leader 获得多数 Server 的支持，则 Server 总数必须是奇数 2n+1，且存活的 Server 的数目不得少于 n+1. 每个 Server 启动后都会重复以上流程。在恢复模式下，如果是刚从崩溃状态恢复的或者刚启动的 server 还会从磁盘快照中恢复数据和会话信息，zk 会记录事务日志并定期进行快照，方便在恢复时进行状态恢复。
+
+述 Leader 选择过程中的状态变化，这是假设全部实例中均没有数据，假设服务器启动顺序分别为：A,B,C。
+
+## 同步流程
+
+选完 Leader 以后，zk 就进入状态同步过程。
+
+1.  Leader 等待 server 连接；
+2.  Follower 连接 leader，将最大的 zxid 发送给 leader；
+3.  Leader 根据 follower 的 zxid 确定同步点；
+4.  完成同步后通知 follower 已经成为 uptodate 状态；
+5.  Follower 收到 uptodate 消息后，又可以重新接受 client 的请求进行服务了。
+
+## CLI
 
 ZooKeeper 命令行界面（CLI）用于与 ZooKeeper 集合进行交互以进行开发。它有助于调试和解决不同的选项。
 
@@ -136,7 +323,7 @@ ZooKeeper 命令行界面（CLI）用于与 ZooKeeper 集合进行交互以进�
 
 现在让我们用一个例子逐个了解上面的命令。
 
-### 2.1. 创建 Znodes
+### 创建 Znodes
 
 用给定的路径创建一个 znode。flag 参数指定创建的 znode 是临时的，持久的还是顺序的。默认情况下，所有 znode 都是持久的。
 
@@ -209,7 +396,7 @@ Created /SecondZnode
 
 记住当客户端断开连接时，临时节点将被删除。你可以通过退出 ZooKeeper CLI，然后重新打开 CLI 来尝试。
 
-### 2.2. 获取数据
+### 获取数据
 
 它返回 znode 的关联数据和指定 znode 的元数据。你将获得信息，例如上次修改数据的时间，修改的位置以及数据的相关信息。此 CLI 还用于分配监视器以显示数据相关的通知。
 
@@ -269,7 +456,7 @@ dataLength = 13
 numChildren = 0
 ```
 
-### 2.3. Watch（监视）
+### Watch（监视）
 
 当指定的 znode 或 znode 的子数据更改时，监视器会显示通知。你只能在 **get** 命令中设置**watch**。
 
@@ -305,7 +492,7 @@ numChildren = 0
 
 输出类似于普通的 **get** 命令，但它会等待后台等待 znode 更改。<从这里开始>
 
-### 2.4. 设置数据
+### 设置数据
 
 设置指定 znode 的数据。完成此设置操作后，你可以使用 **get** CLI 命令检查数据。
 
@@ -361,7 +548,7 @@ dataLength = 23
 numChildren = 0
 ```
 
-### 2.5. 创建子项/子节点
+### 创建子项/子节点
 
 创建子节点类似于创建新的 znode。唯一的区别是，子 znode 的路径也将具有父路径。
 
@@ -386,7 +573,7 @@ created /FirstZnode/Child1
 created /FirstZnode/Child2
 ```
 
-### 2.6. 列出子项
+### 列出子项
 
 此命令用于列出和显示 znode 的子项。
 
@@ -409,7 +596,7 @@ ls /MyFirstZnode
 [mysecondsubnode, myfirstsubnode]
 ```
 
-### 2.7. 检查状态
+### 检查状态
 
 状态描述指定的 znode 的元数据。它包含时间戳，版本号，ACL，数据长度和子 znode 等细项。
 
@@ -442,7 +629,7 @@ dataLength = 23
 numChildren = 0
 ```
 
-### 2.8. 移除 Znode
+### 移除 Znode
 
 移除指定的 znode 并递归其所有子节点。只有在这样的 znode 可用的情况下才会发生。
 
@@ -468,7 +655,7 @@ Node does not exist: /FirstZnode
 
 删除（delete/path）命令类似于 remove 命令，除了它只适用于没有子节点的 znode。
 
-## 3. API
+## API
 
 ZooKeeper 有一个绑定 Java 和 C 的官方 API。Zookeeper 社区为大多数语言（.NET，python 等）提供非官方 API。
 
@@ -478,7 +665,7 @@ ZooKeeper API 具有丰富的功能，以简单和安全的方式获得 ZooKeepe
 
 ZooKeeper 集合和 ZooKeeper API 在各个方面都完全相辅相成，对开发人员有很大的帮助。让我们在本章讨论 Java 绑定。
 
-### 3.1. ZooKeeper API 的基础知识
+### ZooKeeper API 的基础知识
 
 与 ZooKeeper 集合进行交互的应用程序称为 **ZooKeeper 客户端**。
 
@@ -491,7 +678,7 @@ Znode 是 ZooKeeper 集合的核心组件，ZooKeeper API 提供了一小组方�
 - 只要会话 ID 处于活动状态，就可以获取/设置 znode。
 - 所有任务完成后，断开与 ZooKeeper 集合的连接。如果客户端长时间不活动，则 ZooKeeper 集合将自动断开客户端。
 
-### 3.2. Java 绑定
+### Java 绑定
 
 让我们来了解本章中最重要的一组 ZooKeeper API。ZooKeeper API 的核心部分是**ZooKeeper 类**。它提供了在其构造函数中连接 ZooKeeper 集合的选项，并具有以下方法：
 
@@ -504,7 +691,7 @@ Znode 是 ZooKeeper 集合的核心组件，ZooKeeper API 提供了一小组方�
 - **delete** - 删除特定的 znode 及其所有子项
 - **close** - 关闭连接
 
-### 3.3. 连接到 ZooKeeper 集合
+### 连接到 ZooKeeper 集合
 
 ZooKeeper 类通过其构造函数提供 connect 功能。构造函数的签名如下 :
 
@@ -573,7 +760,7 @@ public class ZooKeeperConnection {
 
 保存上面的代码，它将在下一节中用于连接 ZooKeeper 集合。
 
-### 3.4. 创建 Znode
+### 创建 Znode
 
 ZooKeeper 类提供了在 ZooKeeper 集合中创建一个新的 znode 的**create**方法。 **create** 方法的签名如下：
 
@@ -647,7 +834,7 @@ bin/zkCli.sh
 >>> get /MyFirstZnode
 ```
 
-### 3.5. Exists - 检查 Znode 的存在
+### Exists - 检查 Znode 的存在
 
 ZooKeeper 类提供了 **exists** 方法来检查 znode 的存在。如果指定的 znode 存在，则返回一个 znode 的元数据。**exists**方法的签名如下：
 
@@ -710,7 +897,7 @@ public class ZKExists {
 Node exists and the node version is 1.
 ```
 
-### 3.6. getData 方法
+### getData 方法
 
 ZooKeeper 类提供 **getData** 方法来获取附加在指定 znode 中的数据及其状态。 **getData** 方法的签名如下：
 
@@ -821,7 +1008,7 @@ bin/zkCli.sh
 Hello
 ```
 
-### 3.7. setData 方法
+### setData 方法
 
 ZooKeeper 类提供 **setData** 方法来修改指定 znode 中附加的数据。 **setData** 方法的签名如下：
 
@@ -881,7 +1068,7 @@ bin/zkCli.sh
 >>> get /MyFirstZnode
 ```
 
-### 3.8. getChildren 方法
+### getChildren 方法
 
 ZooKeeper 类提供 **getChildren** 方法来获取特定 znode 的所有子节点。 **getChildren** 方法的签名如下：
 
@@ -957,7 +1144,7 @@ myfirstsubnode
 mysecondsubnode
 ```
 
-### 3.9. 删除 Znode
+### 删除 Znode
 
 ZooKeeper 类提供了 **delete** 方法来删除指定的 znode。 **delete** 方法的签名如下：
 
@@ -1001,6 +1188,13 @@ public class ZKDelete {
 }
 ```
 
-## 4. 资源
+## 资源
+
+### 官方资源
 
 | [官网](http://zookeeper.apache.org/) | [官网文档](https://cwiki.apache.org/confluence/display/ZOOKEEPER) | [Github](https://github.com/apache/zookeeper) |
+
+### 文章
+
+[分布式服务框架 ZooKeeper -- 管理分布式环境中的数据](https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/index.html)
+[ZooKeeper 的功能以及工作原理](https://www.cnblogs.com/felixzh/p/5869212.html)
