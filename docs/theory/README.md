@@ -6,4 +6,5 @@
 - [分布式事务](distributed-transaction.md)
 - [分布式缓存](distributed-cache.md)
 - [分布式锁](distributed-lock.md)
+- [分布式 ID](distributed-id.md)
 - [负载均衡](load-balance.md)

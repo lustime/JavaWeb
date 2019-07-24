@@ -5,9 +5,9 @@
 > - :repeat: 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
 > - :book: 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
 
-|        🔰         |            🏗            |          ☕          |            ✨            |             ⭐️             |            🕸            |
-| :---------------: | :---------------------: | :------------------: | :----------------------: | :-------------------------: | :---------------------: |
-| [准备](#🔰️-准备) | [架构设计](#🏗-架构设计) | [JavaEE](#☕-javaee) | [系统原理](#✨-系统原理) | [分布式技术](#⭐️-主流技术) | [网络通信](#🕸-网络通信) |
+|        🔰         |            🏗            |            ✨            |             ⭐️             |          ☕          |            🕸            |
+| :---------------: | :---------------------: | :----------------------: | :-------------------------: | :------------------: | :---------------------: |
+| [准备](#🔰️-准备) | [架构设计](#🏗-架构设计) | [系统原理](#✨-系统原理) | [分布式技术](#⭐️-主流技术) | [JavaEE](#☕-javaee) | [网络通信](#🕸-网络通信) |
 
 ## 🔰️ 准备
 
@@ -28,19 +28,9 @@
 - [网站的安全架构](architecture/网站的安全架构.md) - 关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书
 - [网站典型故障](architecture/网站典型故障.md)
 
-## ☕ JavaEE
-
-> [JavaEE](javaee) 技术——Java Web 的基石
-
-- [JavaEE 面经](javaee/javaee-interview.md)
-- [JavaEE 之 Servlet 指南](javaee/javaee-servlet.md)
-- [JavaEE 之 Jsp 指南](javaee/javaee-jsp.md)
-- [JavaEE 之 Filter 和 Listener](javaee/javaee-filter-listener.md)
-- [JavaEE 之 Cookie 和 Session](javaee/javaee-cookie-sesion.md)
-
 ## ✨ 系统原理
 
-> [分布式技术（Distributed）](theory)，典型的技术如：分布式缓存、分布式消息队列、分布式服务、分布式搜索引擎等。
+> [系统原理](theory) - 理论联系实际，分析系统问题的理论支持
 
 - [分布式技术面试题](theory/distributed-interview.md)
 - [分布式基础理论](theory/distributed-base.md)
@@ -48,6 +38,7 @@
 - [分布式事务](theory/distributed-transaction.md)
 - [分布式缓存](theory/distributed-cache.md)
 - [分布式锁](theory/distributed-lock.md)
+- [分布式 ID](theory/distributed-id.md)
 - [负载均衡](theory/load-balance.md)
 
 ## ⭐️ 主流技术
@@ -96,6 +87,16 @@
 ### ORM
 
 - [Mybatis 应用指南](technology/orm/mybatis.md)
+
+## ☕ JavaEE
+
+> [JavaEE](javaee) 技术——Java Web 的基石
+
+- [JavaEE 面经](javaee/javaee-interview.md)
+- [JavaEE 之 Servlet 指南](javaee/javaee-servlet.md)
+- [JavaEE 之 Jsp 指南](javaee/javaee-jsp.md)
+- [JavaEE 之 Filter 和 Listener](javaee/javaee-filter-listener.md)
+- [JavaEE 之 Cookie 和 Session](javaee/javaee-cookie-sesion.md)
 
 ## 🕸 网络通信
 
