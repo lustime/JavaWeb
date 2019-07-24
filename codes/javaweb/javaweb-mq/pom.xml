@@ -10,6 +10,7 @@
 
   <modules>
     <module>javaweb-mq-kafka</module>
+    <module>javaweb-mq-kafka-spring-boot</module>
     <module>javaweb-mq-rocketmq</module>
   </modules>
 </project>
