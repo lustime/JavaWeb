@@ -19,7 +19,7 @@
 
 过滤器（Filter）用于在 Servlet 之外对 request 或 response 进行修改。Filter 提供了过滤链（Filter Chain）的概念，一个过滤链包括多个 Filter。客户端请求 request 在抵达 Servlet 之前会经过过滤链的所有 Filter，服务器响应 response 从 Servlet 抵达客户端浏览器之前也会经过过滤链的所有 FIlter。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/snap/1559054413341.png" style="width: 300px"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559054413341.png!zp" style="width: 300px"/></div>
 
 ### 过滤器方法
 

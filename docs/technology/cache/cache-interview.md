@@ -61,7 +61,7 @@ redis 内部使用文件事件处理器 `file event handler`，这个文件事�
 
 来看客户端与 redis 的一次通信过程：
 
-[![redis-single-thread-model](https://github.com/doocs/advanced-java/raw/master/images/redis-single-thread-model.png)](https://github.com/doocs/advanced-java/blob/master/images/redis-single-thread-model.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/redis-single-thread-model.png"/></div>
 
 要明白，通信是通过 socket 来完成的，不懂的同学可以先去看一看 socket 网络编程。
 
@@ -306,11 +306,11 @@ redis cluster，主要是针对**海量数据+高并发+高可用**的场景。r
 
 **集中式**是将集群元数据（节点信息、故障等等）几种存储在某个节点上。集中式元数据集中存储的一个典型代表，就是大数据领域的 `storm`。它是分布式的大数据实时计算引擎，是集中式的元数据存储的结构，底层基于 zookeeper（分布式协调的中间件）对所有元数据进行存储维护。
 
-[![zookeeper-centralized-storage](https://github.com/doocs/advanced-java/raw/master/images/zookeeper-centralized-storage.png)](https://github.com/doocs/advanced-java/blob/master/images/zookeeper-centralized-storage.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/zookeeper-centralized-storage.png"/></div>
 
 redis 维护集群元数据采用另一个方式， `gossip` 协议，所有节点都持有一份元数据，不同的节点如果出现了元数据的变更，就不断将元数据发送给其它的节点，让其它节点也进行元数据的变更。
 
-[![redis-gossip](https://github.com/doocs/advanced-java/raw/master/images/redis-gossip.png)](https://github.com/doocs/advanced-java/blob/master/images/redis-gossip.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/redis-gossip.png"/></div>
 
 **集中式**的**好处**在于，元数据的读取和更新，时效性非常好，一旦元数据出现了变更，就立即更新到集中式的存储中，其它节点读取的时候就可以感知到；**不好**在于，所有的元数据的更新压力全部集中在一个地方，可能会导致元数据的存储有压力。
 
@@ -353,7 +353,7 @@ ping 时要携带一些元数据，如果很频繁，可能会加重网络负担
 
 来了一个 key，首先计算 hash 值，然后对节点数取模。然后打在不同的 master 节点上。一旦某一个 master 节点宕机，所有请求过来，都会基于最新的剩余 master 节点数去取模，尝试去取数据。这会导致**大部分的请求过来，全部无法拿到有效的缓存**，导致大量的流量涌入数据库。
 
-[![hash](https://github.com/doocs/advanced-java/raw/master/images/hash.png)](https://github.com/doocs/advanced-java/blob/master/images/hash.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/hash.png"/></div>
 
 #### 一致性 hash 算法
 
@@ -365,7 +365,7 @@ ping 时要携带一些元数据，如果很频繁，可能会加重网络负担
 
 燃鹅，一致性哈希算法在节点太少时，容易因为节点分布不均匀而造成**缓存热点**的问题。为了解决这种热点问题，一致性 hash 算法引入了虚拟节点机制，即对每一个节点计算多个 hash，每个计算结果位置都放置一个虚拟节点。这样就实现了数据的均匀分布，负载均衡。
 
-[![consistent-hashing-algorithm](https://github.com/doocs/advanced-java/raw/master/images/consistent-hashing-algorithm.png)](https://github.com/doocs/advanced-java/blob/master/images/consistent-hashing-algorithm.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/consistent-hashing-algorithm.png"/></div>
 
 #### redis cluster 的 hash slot 算法
 
@@ -375,7 +375,7 @@ redis cluster 中每个 master 都会持有部分 slot，比如有 3 个 master�
 
 任何一台机器宕机，另外两个节点，不影响的。因为 key 找的是 hash slot，不是机器。
 
-[![hash-slot](https://github.com/doocs/advanced-java/raw/master/images/hash-slot.png)](https://github.com/doocs/advanced-java/blob/master/images/hash-slot.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/hash-slot.png"/></div>
 
 ### redis cluster 的高可用与主备切换原理
 
@@ -436,7 +436,7 @@ redis cluster 的高可用的原理，几乎跟哨兵是类似的。
 
 问题：先更新数据库，再删除缓存。如果删除缓存失败了，那么会导致数据库中是新数据，缓存中是旧数据，数据就出现了不一致。
 
-[![redis-junior-inconsistent](https://github.com/doocs/advanced-java/raw/master/images/redis-junior-inconsistent.png)](https://github.com/doocs/advanced-java/blob/master/images/redis-junior-inconsistent.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/redis-junior-inconsistent.png"/></div>
 
 解决思路：先删除缓存，再更新数据库。如果数据库更新失败了，那么数据库中是旧数据，缓存中是空的，那么数据不会不一致。因为读的时候缓存没有，所以去读了数据库中的旧数据，然后更新到缓存中。
 
@@ -506,9 +506,9 @@ redis cluster 的高可用的原理，几乎跟哨兵是类似的。
 
 这就是缓存雪崩。
 
-[![redis-caching-avalanche](https://github.com/doocs/advanced-java/raw/master/images/redis-caching-avalanche.png)](https://github.com/doocs/advanced-java/blob/master/images/redis-caching-avalanche.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/redis-caching-avalanche.png"/></div>
 
-大约在 3 年前，国内比较知名的一个互联网公司，曾因为缓存事故，导致雪崩，后台系统全部崩溃，事故从当天下午持续到晚上凌晨 3~4 点，公司损失了几千万。
+大约在 3 年前，国内比较知名的一个互联网公司，曾因为缓存事故，导致雪崩，后台系统全部崩溃，事故从当天下午持续到晚上凌晨 3\~4 点，公司损失了几千万。
 
 缓存雪崩的事前事中事后的解决方案如下。
 
@@ -516,7 +516,7 @@ redis cluster 的高可用的原理，几乎跟哨兵是类似的。
 - 事中：本地 ehcache 缓存 + hystrix 限流&降级，避免 MySQL 被打死。
 - 事后：redis 持久化，一旦重启，自动从磁盘上加载数据，快速恢复缓存数据。
 
-[![redis-caching-avalanche-solution](https://github.com/doocs/advanced-java/raw/master/images/redis-caching-avalanche-solution.png)](https://github.com/doocs/advanced-java/blob/master/images/redis-caching-avalanche-solution.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/redis-caching-avalanche-solution.png"/></div>
 
 用户发送一个请求，系统 A 收到请求后，先查本地 ehcache 缓存，如果没查到再查 redis。如果 ehcache 和 redis 都没有，再查数据库，将数据库中的结果，写入 ehcache 和 redis 中。
 
@@ -536,7 +536,7 @@ redis cluster 的高可用的原理，几乎跟哨兵是类似的。
 
 举个栗子。数据库 id 是从 1 开始的，结果黑客发过来的请求 id 全部都是负数。这样的话，缓存中不会有，请求每次都“视缓存于无物”，直接查询数据库。这种恶意攻击场景的缓存穿透就会直接把数据库给打死。
 
-[![redis-caching-penetration](https://github.com/doocs/advanced-java/raw/master/images/redis-caching-penetration.png)](https://github.com/doocs/advanced-java/blob/master/images/redis-caching-penetration.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/redis-caching-penetration.png"/></div>
 
 解决方式很简单，每次系统 A 从数据库中只要没查到，就写一个空值到缓存里去，比如 `set -999 UNKNOWN`。然后设置一个过期时间，这样的话，下次有相同的 key 来访问的时候，在缓存失效之前，都可以直接从缓存中取数据。
 
@@ -550,7 +550,7 @@ redis cluster 的高可用的原理，几乎跟哨兵是类似的。
 
 某个时刻，多个系统实例都去更新某个 key。可以基于 zookeeper 实现分布式锁。每个系统通过 zookeeper 获取分布式锁，确保同一时间，只能有一个系统实例在操作某个 key，别人都不允许读和写。
 
-[![zookeeper-distributed-lock](https://github.com/doocs/advanced-java/raw/master/images/zookeeper-distributed-lock.png)](https://github.com/doocs/advanced-java/blob/master/images/zookeeper-distributed-lock.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/zookeeper-distributed-lock.png"/></div>
 
 你要写入缓存的数据，都是从 mysql 里查出来的，都得写入 mysql 中，写入 mysql 中的时候必须保存一个时间戳，从 mysql 查出来的时候，时间戳也查出来。
 

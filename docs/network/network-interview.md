@@ -24,14 +24,14 @@
 >
 > 这是学习计算机网络知识宏观层面必须要了解的核心点。知道了这些，对于网络的体系结构就基本上了解了。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/overview/network-layers.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/overview/network-layers.png!zp"/></div>
 
 计算机网络分层一般有三种划分体系：OSI 分层；五层协议分层；TCP/IP 协议分层。
 
 - OSI 的七层体系结构概念清楚，理论完整，但是比较复杂且不实用，所以并不流行。
 - 五层协议分层是一种折中方案，在现实中更为流行。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/overview/网络分层架构图.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/overview/网络分层架构图.png!zp"/></div>
 
 **物理层**
 
@@ -75,13 +75,13 @@
 - 主要协议：`TCP`、`UDP`。
 - 数据单元：报文段（segment）或用户数据报。
 
-~~**会话层**~~
+~\~**会话层**\~~
 
-> ~~会话层（Session Layer）不参与具体的传输，它提供包括访问验证和会话管理在内的建立和维护应用之间通信的机制。~~
+> \~~会话层（Session Layer）不参与具体的传输，它提供包括访问验证和会话管理在内的建立和维护应用之间通信的机制。\~~
 
-~~**表示层**~~
+~\~**表示层**\~~
 
-> ~~表示层（Presentation Layer）是为在应用过程之间传送的信息提供表示方法的服务，它关心的只是发出信息的语法与语义。表示层要完成某些特定的功能，主要有不同数据编码格式的转换，提供数据压缩、解压缩服务，对数据进行加密、解密。~~
+> \~~表示层（Presentation Layer）是为在应用过程之间传送的信息提供表示方法的服务，它关心的只是发出信息的语法与语义。表示层要完成某些特定的功能，主要有不同数据编码格式的转换，提供数据压缩、解压缩服务，对数据进行加密、解密。\~~
 
 **应用层**
 
@@ -131,7 +131,7 @@
 
 （2）什么是三次握手？
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/transport/三次握手.gif"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/transport/三次握手.gif!zp"/></div>
 
 如上图所示，三次握手流程如下：
 
@@ -163,7 +163,7 @@
 
 如上图所示，四次挥手流程如下：
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/transport/四次挥手.gif"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/transport/四次挥手.gif!zp"/></div>
 
 1. 第一次挥手 - 客户端向服务端发送一个 FIN 包，用来关闭客户端到服务端的数据传送。
 2. 第二次挥手 - 服务端收到这个 FIN 包，向客户端发送一个 ACK 包，确认序号为收到的序号加 1。和 SYN 一样，一个 FIN 将占用一个序号。
@@ -189,14 +189,14 @@ TCP 头里有一个字段叫 Window，又叫 Advertised-Window，这个字段是
 
 滑动窗口原理是什么？
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/snap/1559265819762.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559265819762.png!zp"/></div>
 
 1. 已发送已确认 - 数据流中最早的字节已经发送并得到确认。这些数据是站在发送端的角度来看的。上图中的 31 个字节已经发送并确认。
-2. 已发送但尚未确认 - 已发送但尚未得到确认的字节。发送方在确认之前，不认为这些数据已经被处理。上图中的 32 ~ 45 字节为第 2 类。
-3. 未发送而接收方已 Ready - 设备尚未将数据发出 ，但接收方根据最近一次关于发送方一次要发送多少字节确认自己有足够空间。发送方会立即尝试发送。上图中的 46 ~ 51 字节为第 3 类。
+2. 已发送但尚未确认 - 已发送但尚未得到确认的字节。发送方在确认之前，不认为这些数据已经被处理。上图中的 32 \~ 45 字节为第 2 类。
+3. 未发送而接收方已 Ready - 设备尚未将数据发出 ，但接收方根据最近一次关于发送方一次要发送多少字节确认自己有足够空间。发送方会立即尝试发送。上图中的 46 \~ 51 字节为第 3 类。
 4. 未发送而接收方 Not Ready - 由于接收方 not ready，还不允许将这部分数据发出。上图中的 52 以后的字节为第 4 类。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/snap/1559265927658.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559265927658.png!zp"/></div>
 
 这张图片相对于上一张图片，滑动窗口偏移了 5 个字节，意味着有 5 个已发送的字节得到了确认。
 

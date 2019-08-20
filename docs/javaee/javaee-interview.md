@@ -172,7 +172,7 @@ Servlet 生命周期如下：
 
 ### 3.2. get 请求和 post 请求的区别?
 
-![img](https://upload-images.jianshu.io/upload_images/7779232-5be5ae990207f9d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/814/format/webp)
+<div align="center"><img src="https://upload-images.jianshu.io/upload_images/7779232-5be5ae990207f9d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/814/format/webp"/></div>
 
 - GET：
   - 从服务器上获取数据，一般不能使用在写操作接口

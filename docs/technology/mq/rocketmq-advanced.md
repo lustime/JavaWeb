@@ -18,7 +18,7 @@
 ## 架构
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/rocketmq/rmq-basic-arc.png" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/rocketmq/rmq-basic-arc.png!zp" />
 </div
 
 RocketMQ 由四部分组成：NameServer、Broker、Producer、Consumer。其中任意一个组成都可以水平扩展为集群模式，以避免单点故障问题。
@@ -56,7 +56,7 @@ Broker 有几个重要的子模块：
 - Index 服务 - 按指定密钥构建消息索引，并提供快速消息查询。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/rocketmq/rmq-basic-component.png" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/rocketmq/rmq-basic-component.png!zp" />
 </div>
 
 ### Producer
@@ -81,7 +81,7 @@ Consumer 也支持 Push 和 Pull 模型中的分布式部署。它还支持群�
 假如生产者产生了 2 条消息：M1、M2，要保证这两条消息的顺序，应该怎样做？你脑中想到的可能是这样：
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-bb5ec534363e2fb4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-bb5ec534363e2fb4" />
 </div>
 
 假定 M1 发送到 S1，M2 发送到 S2，如果要保证 M1 先于 M2 被消费，那么需要 M1 到达消费端被消费后，通知 S2，然后 S2 再将 M2 发送到消费端。
@@ -89,7 +89,7 @@ Consumer 也支持 Push 和 Pull 模型中的分布式部署。它还支持群�
 这个模型存在的问题是，如果 M1 和 M2 分别发送到两台 Server 上，就不能保证 M1 先达到 MQ 集群，也不能保证 M1 被先消费。换个角度看，如果 M2 先于 M1 达到 MQ 集群，甚至 M2 被消费后，M1 才达到消费端，这时消息也就乱序了，说明以上模型是不能保证消息的顺序的。
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-5a6313fe906a678b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-5a6313fe906a678b" />
 </div>
 
 #### 第二种模型
@@ -101,7 +101,7 @@ Consumer 也支持 Push 和 Pull 模型中的分布式部署。它还支持群�
 这个模型也仅仅是理论上可以保证消息的顺序，在实际场景中可能会遇到下面的问题：
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-d430f5a3ec6c48ad?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-d430f5a3ec6c48ad" />
 </div>
 
 只要将消息从一台服务器发往另一台服务器，就会存在网络延迟问题。如上图所示，如果发送 M1 耗时大于发送 M2 的耗时，那么 M2 就仍将被先消费，仍然不能保证消息的顺序。即使 M1 和 M2 同时到达消费端，由于不清楚消费端 1 和消费端 2 的负载情况，仍然有可能出现 M2 先于 M1 被消费的情况。
@@ -111,7 +111,7 @@ Consumer 也支持 Push 和 Pull 模型中的分布式部署。它还支持群�
 这可能产生另外的问题：如果 M1 被发送到消费端后，消费端 1 没有响应，那是继续发送 M2 呢，还是重新发送 M1？一般为了保证消息一定被消费，肯定会选择重发 M1 到另外一个消费端 2，就如下图所示。
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-3c0e822d37a85e1e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-3c0e822d37a85e1e" />
 </div>
 
 这样的模型就严格保证消息的顺序，细心的你仍然会发现问题，消费端 1 没有响应 Server 时有两种情况，一种是 M1 确实没有到达(数据在网络传送中丢失)，另外一种消费端已经消费 M1 且已经发送响应消息，只是 MQ Server 端没有收到。如果是第二种情况，重发 M1，就会造成 M1 被重复消费。也就引入了我们要说的第二个问题，消息重复问题，这个后文会详细讲解。
@@ -189,11 +189,11 @@ RocketMQ 除了支持普通消息，顺序消息，另外还支持事务消息�
 
 假设这样的场景：
 
-<div align="center"><img src="https://upload-images.jianshu.io/upload_images/3101171-253d8bd65736694f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"/></div>
+<div align="center"><img src="https://upload-images.jianshu.io/upload_images/3101171-253d8bd65736694f.png"/></div>
 
 图中执行本地事务（Bob 账户扣款）和发送异步消息应该保证同时成功或者同时失败，也就是扣款成功了，发送消息一定要成功，如果扣款失败了，就不能再发送消息。那问题是：我们是先扣款还是先发送消息呢？
 
-<div align="center"><img src="http://upload-images.jianshu.io/upload_images/3101171-088dc074c4ecd192?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"/></div>
+<div align="center"><img src="http://upload-images.jianshu.io/upload_images/3101171-088dc074c4ecd192"/></div>
 
 RocketMQ 分布式事务步骤：
 

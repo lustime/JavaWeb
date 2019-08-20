@@ -31,7 +31,7 @@ RocketMQ 被阿里巴巴捐赠给 Apache，成为 Apache 的孵化项目。
 ### 核心概念
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/rocketmq/rmq-model.png" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/rocketmq/rmq-model.png!zp" />
 </div>
 
 RocketMQ 有以下核心概念：

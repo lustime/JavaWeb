@@ -1,6 +1,6 @@
 ---
 title: Kafka 实战篇
-date: 2018/07/12
+date: 2018-07-12
 categories:
   - 分布式
 tags:
@@ -74,13 +74,13 @@ producer 采用 push 方式向 broker 发送消息；customer 采用 pull 方式
 - **Broker** - Kafka 集群包含一个或多个服务器，这种服务器被称为 broker
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka系统结构.png" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka系统结构.png!zp" />
 </div>
 
 #### 1.2.2. Topic 的存储结构
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/topic存储结构.png" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/topic存储结构.png!zp" />
 </div>
 
 - **Topic** - 每条发布到 Kafka 集群的消息都有一个类别，这个类别被称为 Topic。（物理上不同 Topic 的消息分开存储，逻辑上一个 Topic 的消息虽然保存于一个或多个 broker 上，但用户只需指定消息的 Topic 即可生产或消费数据而不必关心数据存于何处）。
@@ -95,7 +95,7 @@ producer 采用 push 方式向 broker 发送消息；customer 采用 pull 方式
 注意： 必须要有一个 key，如果没有，则默认会生成一个 key，可以把 key 当做一个消息的标识，同一个 key 可能有多条数据。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-segment结构.png" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-segment结构.png!zp" />
 </div>
 
 ### 1.3. 小结
@@ -284,7 +284,7 @@ Stream API 的 maven 依赖：
 - 如果消息发送失败，可以进行重试，重试次数可以在配置中指定。
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-3cfae88715795068.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-3cfae88715795068.png" />
 </div>
 
 生产者在向 broker 发送消息时是怎么确定向哪一个 broker 发送消息？
@@ -293,7 +293,7 @@ Stream API 的 maven 依赖：
 - step2:生产者在发送消息时，会指定 Partition 或者通过 key 得到到一个 Partition，然后根据 Partition 从缓存中获取相应的 leader 信息。
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-3d7aab3ba2ba13f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-3d7aab3ba2ba13f8.png" />
 </div>
 
 ### 4.2. 发送消息方式
@@ -411,7 +411,7 @@ public class ProducerDemo {
 **一个消息消息只有在所有跟随者节点都进行了同步，才会被消费者获取到**。如下图，只能消费 Message0、Message1、Message2：
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-360a63cf628c7b3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-360a63cf628c7b3f.png" />
 </div>
 
 #### 5.1.2. 消费者分区组
@@ -443,7 +443,7 @@ public class ProducerDemo {
 4.  群组协调器再把这些信息发送给消费者。**每一个消费者只能看到自己的分配信息，只有群主知道所有消费者的分配信息**。
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-fd4ab296c5dbeb24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-fd4ab296c5dbeb24.png" />
 </div>
 
 ### 5.2. 消费消息流程
@@ -565,7 +565,7 @@ public void consumeMessageForIndependentConsumer(String topic){
 - broker 会等待累计一定量数据，然后发送给消费者。这样可以减少网络开销。
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-d7d111e7c7e7f504.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-d7d111e7c7e7f504.png" />
 </div>
 
 poll 处了获取消息外，还有其他作用，如下：
@@ -601,7 +601,7 @@ a. 重复处理
 当提交的偏移量小于客户端处理的最后一个消息的偏移量时，会出现重复处理消息的问题，如下图
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-75abe308f9cf21f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-75abe308f9cf21f8.png" />
 </div>
 
 b. 消息丢失
@@ -609,7 +609,7 @@ b. 消息丢失
 当提交的偏移量大于客户端处理的最后端最后一个消息的偏移量，会出现消息丢失的问题，如下图：
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-68b1e5fdc020d0f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-68b1e5fdc020d0f1.png" />
 </div>
 
 （5）提交方式
@@ -790,7 +790,7 @@ Kafka 在 0.8 以前的版本中，如果一个 broker 机器宕机了，其上�
 同一个 topic 的不同 Partition 会分布在多个 broker 上，而且一个 Partition 还会在其他的 broker 上面进行备份，Producer 在发布消息到某个 Partition 时，先找到该 Partition 的 Leader，然后向这个 leader 推送消息；每个 Follower 都从 Leader 拉取消息，拉取消息成功之后，向 leader 发送一个 ack 确认。如下一个流程图：
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-371ef1888b65edc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-371ef1888b65edc9.png" />
 </div>
 
 ### 6.3. 群组协调器
@@ -816,7 +816,7 @@ Zookeeper 保存的就是节点信息和节点状态，不会保存 kafka 的消
 - controller 和 controloer_epoch
 
 <div align="center">
-<img src="http://upload-images.jianshu.io/upload_images/3101171-8074b42933b41d33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img src="http://upload-images.jianshu.io/upload_images/3101171-8074b42933b41d33.png" />
 </div>
 
 #### 7.1.1. broker

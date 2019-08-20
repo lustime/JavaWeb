@@ -16,11 +16,11 @@ WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工�
 
 这种单向请求的特点，注定了如果服务器有连续的状态变化，客户端要获知就非常麻烦。大多数 Web 应用程序将通过频繁的异步 JavaScript 和 XML（AJAX）请求实现长轮询。轮询的效率低，非常浪费资源（因为必须不停连接，或者 HTTP 连接始终打开）。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/java/spring/web/ajax-long-polling.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/java/spring/web/ajax-long-polling.png!zp"/></div>
 
 因此，工程师们一直在思考，有没有更好的方法。WebSocket 就是这样发明的。WebSocket 连接允许客户端和服务器之间进行全双工通信，以便任一方都可以通过建立的连接将数据推送到另一端。WebSocket 只需要建立一次连接，就可以一直保持连接状态。这相比于轮询方式的不停建立连接显然效率要大大提高。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/java/spring/web/websockets-flow.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/java/spring/web/websockets-flow.png!zp"/></div>
 
 ### WebSocket 如何工作？
 

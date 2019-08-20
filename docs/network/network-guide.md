@@ -9,7 +9,7 @@ date: 2019-02-20 22:26
 
 > 计算机网络是指将地理位置不同的具有独立功能的多台计算机及其外部设备，通过通信线路连接起来，在网络操作系统，网络管理软件及网络通信协议的管理和协调下，实现资源共享和信息传递的计算机系统。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/network.jpg"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/network.jpg!zp"/></div>
 
 ## :bulb: 指南
 
@@ -53,7 +53,7 @@ date: 2019-02-20 22:26
 
 计算机网络的拓扑结构可分为：
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/overview/network-topological-structure.gif"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/overview/network-topological-structure.gif!zp"/></div>
 
 - 网型拓扑网型网（Mesh network）
 - 环型拓扑环型网（Ring network）
@@ -84,14 +84,14 @@ date: 2019-02-20 22:26
 >
 > 这是学习计算机网络知识宏观层面必须要了解的核心点。知道了这些，对于网络的体系结构就基本上了解了。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/overview/network-layers.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/overview/network-layers.png!zp"/></div>
 
 计算机网络分层一般有三种划分体系：OSI 分层；五层协议分层；TCP/IP 协议分层。
 
 - OSI 的七层体系结构概念清楚，理论完整，但是比较复杂且不实用，所以并不流行。
 - 五层协议分层是一种折中方案，在现实中更为流行。
 
-<div align="center"><img src="https://gitee.com/turnon/images/raw/master/images/network/overview/网络分层架构图.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/overview/网络分层架构图.png!zp"/></div>
 
 ### 物理层
 
@@ -135,13 +135,13 @@ date: 2019-02-20 22:26
 - 主要协议：`TCP`、`UDP`。
 - 数据单元：报文段（segment）或用户数据报。
 
-### ~~会话层~~
+### \~~会话层\~~
 
-> ~~会话层（Session Layer）不参与具体的传输，它提供包括访问验证和会话管理在内的建立和维护应用之间通信的机制。~~
+> \~~会话层（Session Layer）不参与具体的传输，它提供包括访问验证和会话管理在内的建立和维护应用之间通信的机制。\~~
 
-### ~~表示层~~
+### \~~表示层\~~
 
-> ~~表示层（Presentation Layer）是为在应用过程之间传送的信息提供表示方法的服务，它关心的只是发出信息的语法与语义。表示层要完成某些特定的功能，主要有不同数据编码格式的转换，提供数据压缩、解压缩服务，对数据进行加密、解密。~~
+> \~~表示层（Presentation Layer）是为在应用过程之间传送的信息提供表示方法的服务，它关心的只是发出信息的语法与语义。表示层要完成某些特定的功能，主要有不同数据编码格式的转换，提供数据压缩、解压缩服务，对数据进行加密、解密。\~~
 
 ### 应用层
 

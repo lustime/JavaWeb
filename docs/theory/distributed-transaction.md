@@ -23,7 +23,7 @@
 协调者询问参与者事务是否执行成功，参与者发回事务执行结果。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/architecture/分布式事务两阶段提交-01.jpg" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/分布式事务两阶段提交-01.jpg!zp" />
 </div>
 
 #### 提交阶段
@@ -31,7 +31,7 @@
 如果事务在每个参与者上都执行成功，事务协调者发送通知让参与者提交事务；否则，协调者发送通知让参与者回滚事务。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/architecture/分布式事务两阶段提交-02.jpg" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/分布式事务两阶段提交-02.jpg!zp" />
 </div>
 需要注意的是，在准备阶段，参与者执行了事务，但是还未提交。只有在提交阶段接收到协调者发来的通知后，才进行提交或者回滚。
 
@@ -87,7 +87,7 @@
 > 3.  在分布式事务操作的另一方从消息队列中读取一个消息，并执行消息中的操作。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/architecture/分布式事务本地消息.jpg" />
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/分布式事务本地消息.jpg!zp" />
 </div>
 
 这种方案遵循 BASE 理论，采用的是最终一致性。
@@ -128,7 +128,7 @@
 
 如果你要操作别人的服务的库，你必须是通过**调用别的服务的接口**来实现，绝对不允许交叉访问别人的数据库。
 
-[![distributed-transacion-XA](https://github.com/doocs/advanced-java/raw/master/images/distributed-transaction-XA.png)](https://github.com/doocs/advanced-java/blob/master/images/distributed-transaction-XA.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/distributed-transaction-XA.png"/></div>
 
 ### 本地消息表
 
@@ -145,7 +145,7 @@
 
 这个方案说实话最大的问题就在于**严重依赖于数据库的消息表来管理事务**啥的，如果是高并发场景咋办呢？咋扩展呢？所以一般确实很少用。
 
-[![distributed-transaction-local-message-table](https://github.com/doocs/advanced-java/raw/master/images/distributed-transaction-local-message-table.png)](https://github.com/doocs/advanced-java/blob/master/images/distributed-transaction-local-message-table.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/distributed-transaction-local-message-table.png"/></div>
 
 ### 可靠消息最终一致性方案
 
@@ -160,7 +160,7 @@
 5. 这个方案里，要是系统 B 的事务失败了咋办？重试咯，自动不断重试直到成功，如果实在是不行，要么就是针对重要的资金类业务进行回滚，比如 B 系统本地回滚后，想办法通知系统 A 也回滚；或者是发送报警由人工来手工回滚和补偿。
 6. 这个还是比较合适的，目前国内互联网公司大都是这么玩儿的，要不你举用 RocketMQ 支持的，要不你就自己基于类似 ActiveMQ？RabbitMQ？自己封装一套类似的逻辑出来，总之思路就是这样子的。
 
-[![distributed-transaction-reliable-message](https://github.com/doocs/advanced-java/raw/master/images/distributed-transaction-reliable-message.png)](https://github.com/doocs/advanced-java/blob/master/images/distributed-transaction-reliable-message.png)
+<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/distributed-transaction-reliable-message.png"/></div>
 
 ### 最大努力通知方案
 

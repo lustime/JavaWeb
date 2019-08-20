@@ -77,7 +77,7 @@ UUID 的缺点:
 
 利用 ZK 的 Znode 数据版本如下面的代码，每次都不获取期望版本号也就是每次都会成功，那么每次都会返回最新的版本号:
 
-![img](https://user-gold-cdn.xitu.io/2018/9/29/166243d8d5897f41?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+<div align="center"><img src="https://user-gold-cdn.xitu.io/2018/9/29/166243d8d5897f41?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/></div>
 
 Zookeeper 这个方案用得较少，严重依赖 Zookeeper 集群，并且性能不是很高，所以不予推荐。
 
@@ -85,7 +85,7 @@ Zookeeper 这个方案用得较少，严重依赖 Zookeeper 集群，并且性�
 
 这个方法在美团的 Leaf 中有介绍，详情可以参考美团技术团队的发布的技术文章:[Leaf——美团点评分布式 ID 生成系统](https://link.juejin.im?target=https%3A%2F%2Ftech.meituan.com%2FMT_Leaf.html),这个方案是将数据库主键自增进行优化。
 
-![img](https://user-gold-cdn.xitu.io/2018/9/29/1662445bec45eb5d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+<div align="center"><img src="https://user-gold-cdn.xitu.io/2018/9/29/1662445bec45eb5d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/></div>
 
 biz_tag 代表每个不同的业务，max_id 代表每个业务设置的大小，step 代表每个 proxyServer 缓存的步长。 之前我们的每个服务都访问的是数据库，现在不需要，每个服务直接和我们的 ProxyServer 做交互，减少了对数据库的依赖。我们的每个 ProxyServer 回去数据库中拿出步长的长度，比如 server1 拿到了 1-1000,server2 拿到来 1001-2000。如果用完会再次去数据库中拿。
 
@@ -109,7 +109,7 @@ biz_tag 代表每个不同的业务，max_id 代表每个业务设置的大小�
 
 Snowflake 是 Twitter 提出来的一个算法，其目的是生成一个 64bit 的整数:
 
-![img](https://user-gold-cdn.xitu.io/2018/9/29/16624602fd5d9c4c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+<div align="center"><img src="https://user-gold-cdn.xitu.io/2018/9/29/16624602fd5d9c4c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/></div>
 
 - 1bit:一般是符号位，不做处理
 - 41bit:用来记录时间戳，这里可以记录 69 年，如果设置好起始时间比如今年是 2018 年，那么可以用到 2089 年，到时候怎么办？要是这个系统能用 69 年，我相信这个系统早都重构了好多次了。
@@ -126,7 +126,7 @@ Snowflake 是 Twitter 提出来的一个算法，其目的是生成一个 64bit 
 
 机器三地部署我们可以用 3bit 总共 8 来表示机房位置，当前的机器 10 台，为了保证扩展到百台那么可以用 7bit 128 来表示，时间位依然是 41bit,那么还剩下 64-10-3-7-41-1 = 2bit,还剩下 2bit 可以用来进行扩展。
 
-![img](https://user-gold-cdn.xitu.io/2018/9/29/16624909d2007c22?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+<div align="center"><img src="https://user-gold-cdn.xitu.io/2018/9/29/16624909d2007c22?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/></div>
 
 适用场景:当我们需要无序不能被猜测的 ID，并且需要一定高性能，且需要 long 型，那么就可以使用我们雪花算法。比如常见的订单 ID，用雪花算法别人就无法猜测你每天的订单量是多少。
 
@@ -268,7 +268,7 @@ public static class DistributedId {
 
 通过上面的几种策略可以比较的防护我们的时钟回拨，防止出现回拨之后大量的异常出现。下面是修改之后的代码，这里修改了时钟回拨的逻辑:
 
-![img](https://user-gold-cdn.xitu.io/2018/9/29/166252f2a1edac10?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+<div align="center"><img src="https://user-gold-cdn.xitu.io/2018/9/29/166252f2a1edac10?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/></div>
 
 ## 参考资料
 

@@ -1,6 +1,6 @@
 ---
 title: Kafka
-date: 2018/06/13
+date: 2018-06-13
 categories:
   - 分布式
 tags:
@@ -112,7 +112,7 @@ Message Queue 的通信模式：
 ### 1.8. Kafka 核心 API
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-core-api.png" width="400"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-core-api.png!zp" width="400"/>
 </div>
 
 - Producer - 允许应用程序将记录流发布到一个或多个 Kafka Topic。
@@ -129,7 +129,7 @@ Topic 是一个目录名，它保存着发布记录。kafka 的 Topic 始终是�
 在 Kafka 中，任意一个 Topic 维护一个 Partition 的日志，类似下图：
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-log-anatomy.png" width="400"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-log-anatomy.png!zp" width="400"/>
 </div>
 
 每个 Partition 都是一个有序的，不可变的记录序列，不断追加到结构化的提交日志中。Partition 中的记录每个分配一个连续的 id 号，称为偏移量，用于唯一标识 Partition 内的每条记录。
@@ -137,7 +137,7 @@ Topic 是一个目录名，它保存着发布记录。kafka 的 Topic 始终是�
 Kafka 集群持久化保存（使用可配置的保留期限）所有发布记录——无论它们是否被消费。例如，如果保留期限被设置为两天，则在记录发布后的两天之内，它都可以被消费，超过时间后将被丢弃以释放空间。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-log-consumer.png" width="400"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-log-consumer.png!zp" width="400"/>
 </div>
 
 实际上，保留在每个 Consumer 基础上的唯一元数据是该 Consumer 在日志中的抵消或位置。这个偏移量是由 Consumer 控制的：Consumer 通常会在读取记录时线性地推进其偏移量，但实际上，由于位置由 Consumer 控制，因此它可以按照喜欢的任何顺序消费记录。
@@ -160,7 +160,7 @@ Producer 将消息（记录）发送到 Kafka 节点（Broker），消息由称�
 随着 Topic 变得日益庞大，它们会被分割成更小的 Partition 以提高性能和可伸缩性。Kafka 保证 Partition 内的所有消息按照它们出现的顺序排序。区分特定消息的方式是通过它的偏移量，您可以将它看作普通数组索引，每个新消息都会增加一个序列号在一个 Partition 中。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-log-anatomy.png" width="400"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-log-anatomy.png!zp" width="400"/>
 </div>
 
 Kafka 遵循发布/订阅模式。这意味着 Kafka 不会跟踪 Kafka 读取哪些记录并删除它们，而是将它们存储一段时间（例如一天）或直到满足某个大小阈值。Consumer 自己对 Kafka 进行新的消息调查并说出他们想要阅读的记录。这使得他们可以按照自己的意愿递增/递减偏移量，从而能够重播和重新处理事件。
@@ -170,7 +170,7 @@ Kafka 集群持久化保存（使用可配置的保留期限）所有发布记�
 值得注意的是，Consumer 实际上是内部拥有一个或多个 Consumer 流程的 Consumer 群体。为了避免两个进程读两次相同的消息，每个 Partition 仅与每个组的一个 Consumer 进程相关联。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-producer-consumer.png" width="640"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-producer-consumer.png!zp" width="640"/>
 </div>
 
 ## 3. 持久化
@@ -192,7 +192,7 @@ Kafka 实际上将其所有记录存储在磁盘中，并且不会将任何内�
 在任何时候，一个代理“拥有”一个分区，并且是应用程序通过该分区读写数据的节点。这被称为分区领导。它将它收到的数据复制到 N 个其他代理（称为追随者）。他们也存储数据，并准备在领导者节点死亡的情况下取代领导者。这就是典型的一主多从模式。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-replication.png" width="640"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-replication.png!zp" width="640"/>
 </div>
 
 生产者/消费者如何知道分区的领导者是谁？
@@ -202,7 +202,7 @@ Kafka 实际上将其所有记录存储在磁盘中，并且不会将任何内�
 生产者和消费者都和 Zookeeper 连接并通信。Kafka 一直在摆脱这种耦合，自 0.8 和 0.9 版分别开始，客户端直接从 Kafka 经纪人那里获取元数据信息，他们自己与 Zookeeper 交谈。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-metadata-flow.png" width="640"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-metadata-flow.png!zp" width="640"/>
 </div>
 
 ## 5. 流处理
@@ -214,7 +214,7 @@ Kafka 实际上将其所有记录存储在磁盘中，并且不会将任何内�
 此 API 旨在用于您自己的代码库中，它不在代理上运行。它与消费者 API 类似，可帮助您扩展多个应用程序的流处理工作（类似于消费者群体）。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-stream-processor.png" width="640"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-stream-processor.png!zp" width="640"/>
 </div>
 
 ### 5.1. 无状态处理
@@ -230,13 +230,13 @@ Kafka 实际上将其所有记录存储在磁盘中，并且不会将任何内�
 Kafka 流可以用同样的方式解释 - 当从最终状态积累时的事件。这样的流聚合被保存在本地的 RocksDB 中（默认情况下），被称为 KTable。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-ktable.png" width="640"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-ktable.png!zp" width="640"/>
 </div>
 
 可以将表格视为流中每个键的最新值的快照。以同样的方式，流记录可以产生一个表，表更新可以产生一个更新日志流。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-table-as-stream.png" width="640"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-table-as-stream.png!zp" width="640"/>
 </div>
 
 ### 5.2. 有状态处理
@@ -256,7 +256,7 @@ Kafka 流可以用同样的方式解释 - 当从最终状态积累时的事件�
 您甚至可以让远程数据库成为流的生产者，从而有效地广播更新日志，以便在本地重建表。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-stateful-process.png" width="640"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-stateful-process.png!zp" width="640"/>
 </div>
 
 ## 6. Kafka 应用场景
@@ -269,7 +269,7 @@ Kafka 流可以用同样的方式解释 - 当从最终状态积累时的事件�
 这意味着它非常适合用作系统架构的核心，充当连接不同应用程序的集中介质。 Kafka 可以成为事件驱动架构的核心部分，并允许您真正将应用程序彼此分离。
 
 <div align="center">
-<img src="https://gitee.com/turnon/javaweb/raw/master/images/distributed/mq/kafka/kafka-event-system.png" width="640"/>
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/kafka/kafka-event-system.png!zp" width="640"/>
 </div>
 
 Kafka 允许您轻松分离不同（微）服务之间的通信。利用 Streams API，现在比以往更容易编写业务逻辑，丰富了 Kafka 主题数据以便服务消费。
@@ -289,11 +289,11 @@ Kafka 允许您轻松分离不同（微）服务之间的通信。利用 Streams
 
 Broker 端在缓存中保存了这 seq number，对于接收的每条消息，如果其序号比 Broker 缓存中序号大于 1 则接受它，否则将其丢弃。这样就可以实现了消息重复提交了。但是，只能保证单个 Producer 对于同一个<Topic, Partition>的 Exactly Once 语义。不能保证同一个 Producer 一个 topic 不同的 partion 幂等。
 
-![1](http://www.heartthinkdo.com/wp-content/uploads/2018/05/1-1.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/1-1.png"/></div>
 
 实现幂等之后
 
-![2](http://www.heartthinkdo.com/wp-content/uploads/2018/05/2.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/2.png"/></div>
 
 #### 7.1.2. 生成 PID 的流程
 
@@ -740,11 +740,11 @@ producer 提供了 initTransactions, beginTransaction, sendOffsets, commitTransa
 
 **一个 app 有一个 tid，同一个应用的不同实例 PID 是一样的，只是 epoch 的值不同**。如：
 
-![3](http://www.heartthinkdo.com/wp-content/uploads/2018/05/3-1.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/3-1.png"/></div>
 
 同一份代码运行两个实例，分步执行如下：_在实例 1 没有进行提交事务前，开始执行实例 2 的初始化事务_
 
-![4](http://www.heartthinkdo.com/wp-content/uploads/2018/05/4-1-1024x458.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/4-1-1024x458.png"/></div>
 
 **step1 实例 1-初始化事务**。的打印出对应 productId 和 epoch，信息如下：
 
@@ -764,7 +764,7 @@ org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an op
 
 为了避免这种错误，同一个事务 ID，只有保证如下顺序 epch 小 producer 执行 init-transaction 和 committransaction，然后 epoch 较大的 procuder 才能开始执行 init-transaction 和 commit-transaction，如下顺序：
 
-![80061024](http://www.heartthinkdo.com/wp-content/uploads/2018/05/80061024.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/80061024.png"/></div>
 
 有了 transactionId 后，Kafka 可保证：
 
@@ -834,7 +834,7 @@ protected Producer<K, V> createTransactionalProducer() {
 
 #### 8.5.4. Consume-transform-Produce 的流程
 
-![Snip20180504_56](http://www.heartthinkdo.com/wp-content/uploads/2018/05/Snip20180504_56.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/Snip20180504_56.png"/></div>
 
 **流程 1** **：**查找 Tranaction Corordinator。
 
@@ -874,7 +874,7 @@ AddPartitionsToTxnRequest => TransactionalId PID Epoch [Topic [Partition]]
 
 生产者发送数据，虽然没有还没有执行 commit 或者 absrot，但是此时消息已经保存到 kafka 上，可以参考如下图断点位置处，此时已经可以查看到消息了，而且即使后面执行 abort，消息也不会删除，只是更改状态字段标识消息为 abort 状态。
 
-![62059279](http://www.heartthinkdo.com/wp-content/uploads/2018/05/62059279-1024x437.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/62059279-1024x437.png"/></div>
 
 **流程 4.3：** AddOffsetCommitsToTxnRequest
 
@@ -944,7 +944,7 @@ WriteTxnMarkersRequest => [CoorinadorEpoch PID Epoch Marker [Topic [Partition]]]
 
 kafka 文件主要包括 broker 的 data（主题：test）、事务协调器对应的 transaction_log（主题：\_\_tranaction_state）、偏移量信息（主题:\_consumer_offsets）三种类型。如下图
 
-![1](http://www.heartthinkdo.com/wp-content/uploads/2018/05/1-2-207x300.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/1-2-207x300.png"/></div>
 
 这三种文件类型其实都是 topic 的分区，所以对于每一个目录都包含*.log、*.index、_.timeindex、_.txnindex 文件（仅这个文件是为了实现事务属性引入的）。segment 和 segmengt 对应 index、timeindex、txnindex 文件命名中序号表示的是第几个消息。如下图中，00000000000000368769.index 和 00000000000000568769.log 中“368969”就是表示文件中存储的第一个消息是 468969 个消息。
 
@@ -953,7 +953,7 @@ kafka 文件主要包括 broker 的 data（主题：test）、事务协调器对
 - baseOffset：索引对应 segment 文件中的第几条 message。
 - position：在 segment 中的绝对位置。
 
-![67930538](http://www.heartthinkdo.com/wp-content/uploads/2018/05/67930538-300x179.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/67930538-300x179.png"/></div>
 
 查看文件内容：
 
@@ -967,7 +967,7 @@ Trasaction markers 就是 kafka 为了实现事务定义的 Controll Message。�
 
 Transaction Log 如下放置在“\_tranaction_state”主题下面，默认是 50 个分区，每一个分区中文件格式和 broker 存储消息是一样的,都有 log/index/timeindex 文件，如下：
 
-![57646045](http://www.heartthinkdo.com/wp-content/uploads/2018/05/57646045.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/57646045.png"/></div>
 
 #### 8.5.5. 消费读取事务消息(READ_COMMITED)
 
@@ -982,7 +982,7 @@ Consumer 为了实现事务，新增了一个 isolation.level 配置，有两个
 
 如下图中，按顺序保存到 broker 中消息有：事务 1 消息 T1-M1、对于事务 2 的消息有 T2-M1、事务 1 消息 T1-M2、非事务消息 M1，最终到达 client 端的循序是 M1-> T2-M1 -> T1-M1 -> T1-M2。
 
-![84999567](http://www.heartthinkdo.com/wp-content/uploads/2018/05/84999567.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/84999567.png"/></div>
 
 具体步骤如下：
 
@@ -1042,11 +1042,11 @@ ThrottleTime [TopicName [Partition ErrorCode HighwaterMarkOffset AbortedTransact
 
 - 存放数据的 log
 
-![1](http://www.heartthinkdo.com/wp-content/uploads/2018/05/1-3.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/1-3.png"/></div>
 
 - 存放 Absort Index 的内容如下：
 
-![3](http://www.heartthinkdo.com/wp-content/uploads/2018/05/3-2.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/3-2.png"/></div>
 
 执行读取数据流程如下：
 
@@ -1054,23 +1054,23 @@ ThrottleTime [TopicName [Partition ErrorCode HighwaterMarkOffset AbortedTransact
 
 - 首先，broker 读取 data log 中数据
 
-![11](http://www.heartthinkdo.com/wp-content/uploads/2018/05/11-1.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/11-1.png"/></div>
 
 - 然后，broker 依次读取 abort index 的内容，发现 LSO 大于等于 4 就停止。如上可以获取到 P2 对应的 offset 从 2 到 5 的消息都是被丢弃的：
 
-​ ![12](http://www.heartthinkdo.com/wp-content/uploads/2018/05/12-1.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/12-1.png"/></div>
 
 - 最后，broker 将上面 data log 和 abort index 中满足条件的数据返回给 consumer。
 
 **step2 ：**在 consumer 端根据 absrot index 中返回的内容，过滤丢弃的消息，最终给用户消息为
 
-![13](http://www.heartthinkdo.com/wp-content/uploads/2018/05/13-300x103.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/13-300x103.png"/></div>
 
 ##### Absorted Transaction Index
 
 在 broker 中数据中新增一个索引文件，保存 aborted tranasation 对应的 offsets，只有事务执行 abort 时，才会往这个文件新增一个记录，初始这个文件是不存在的，只有第一条 abort 时，才会创建这个文件。
 
-![2](http://www.heartthinkdo.com/wp-content/uploads/2018/05/2-1-300x149.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/2-1-300x149.png"/></div>
 
 这个索引文件结构的每一行结构是 TransactionEntry：
 
@@ -1090,11 +1090,11 @@ Broker 在缓存中维护了所有处于运行状态的事务对应的 initial o
 
 举例说明下 LSO 的计算，对于一个 data log 中内如如下
 
-![31](http://www.heartthinkdo.com/wp-content/uploads/2018/05/31.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/31.png"/></div>
 
 对应的 abort index 文件中内如如下：**LSO 是递增的**
 
-![32](http://www.heartthinkdo.com/wp-content/uploads/2018/05/32.png)
+<div align="center"><img src="http://www.heartthinkdo.com/wp-content/uploads/2018/05/32.png"/></div>
 
 (2)第二步 如果事务是提交状态，则在索引文件中新增 TransactionEntry。
 
