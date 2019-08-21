@@ -28,19 +28,6 @@
 - [网站的安全架构](docs/architecture/网站的安全架构.md) - 关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书
 - [网站典型故障](docs/architecture/网站典型故障.md)
 
-## ✨ 系统原理
-
-> [系统原理](docs/theory) - 理论联系实际，分析系统问题的理论支持
-
-- [分布式技术面试题](docs/theory/distributed-interview.md)
-- [分布式基础理论](docs/theory/distributed-base.md)
-- [分布式会话](docs/theory/distributed-session.md)
-- [分布式事务](docs/theory/distributed-transaction.md)
-- [分布式缓存](docs/theory/distributed-cache.md)
-- [分布式锁](docs/theory/distributed-lock.md)
-- [分布式 ID](docs/theory/distributed-id.md)
-- [负载均衡](docs/theory/load-balance.md)
-
 ## ⭐️ 主流技术
 
 ### Web 框架
