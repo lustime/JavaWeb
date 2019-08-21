@@ -18,7 +18,7 @@
 ## 架构
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/rocketmq/rmq-basic-arc.png!zp" />
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/rocketmq/rmq-basic-arc.png!zp" />
 </div
 
 RocketMQ 由四部分组成：NameServer、Broker、Producer、Consumer。其中任意一个组成都可以水平扩展为集群模式，以避免单点故障问题。
@@ -56,7 +56,7 @@ Broker 有几个重要的子模块：
 - Index 服务 - 按指定密钥构建消息索引，并提供快速消息查询。
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/mq/rocketmq/rmq-basic-component.png!zp" />
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/rocketmq/rmq-basic-component.png!zp" />
 </div>
 
 ### Producer

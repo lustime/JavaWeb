@@ -64,7 +64,7 @@ TCP 完整的通信分为三块：
 
 （2）什么是三次握手？
 
-<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/transport/三次握手.gif!zp"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/transport/三次握手.gif!zp"/></div>
 
 如上图所示，三次握手流程如下：
 
@@ -94,7 +94,7 @@ TCP 完整的通信分为三块：
 
 如上图所示，四次挥手流程如下：
 
-<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/transport/四次挥手.gif!zp"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/transport/四次挥手.gif!zp"/></div>
 
 1. 第一次挥手 - 客户端向服务端发送一个 FIN 包，用来关闭客户端到服务端的数据传送。
 2. 第二次挥手 - 服务端收到这个 FIN 包，向客户端发送一个 ACK 包，确认序号为收到的序号加 1。和 SYN 一样，一个 FIN 将占用一个序号。
