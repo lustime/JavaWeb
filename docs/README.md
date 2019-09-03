@@ -2,8 +2,8 @@
 
 > JavaWeb 开发之路经验总结。
 >
-> - :repeat: 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
-> - :book: 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
+> - 🔁 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
+> - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
 
 |        🔰         |            🏗            |            ✨            |             ⭐️             |          ☕          |            🕸            |
 | :---------------: | :---------------------: | :----------------------: | :-------------------------: | :------------------: | :---------------------: |
@@ -16,7 +16,7 @@
 - [JavaCore](https://dunwu.github.io/javacore/) - Java 核心技术
 - [前端技术指南](https://github.com/dunwu/frontend-tutorial) - 即使是后端工程师，也难免会接触到前端技术。前端技术五花八门，如：React、Vue、Angular、Webpack、ES6、Babel、Node.js 等等。不说掌握，至少也应该知道这些技术是什么。
 
-## 🏗 架构设计
+## 🎨 架构设计
 
 > [架构设计](architecture) 整理架构设计方面的一些学习总结和心得。
 
@@ -25,10 +25,12 @@
 - [网站的高可用架构](architecture/网站的高可用架构.md)
 - [网站的伸缩性架构](architecture/网站的伸缩性架构.md)
 - [网站的可扩展架构](architecture/网站的可扩展架构.md)
-- [网站的安全架构](architecture/网站的安全架构.md) - 关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书
+- [网站的安全架构](architecture/网站的安全架构.md)
 - [网站典型故障](architecture/网站典型故障.md)
 
 ## ⭐️ 主流技术
+
+> [主流技术](technology) 汇集 JavaWeb 开发常用的各种主流技术。
 
 ### Web 框架
 
@@ -54,10 +56,12 @@
 
 ### 缓存
 
-- [缓存面经](technology/cache/cache-interview.md)
-- [缓存原理](technology/cache/cache-theory.md)
-- [Redis](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis)
-- Ehcache
+- [缓存面经](technology/cache/cache-interview.md) 🎯
+- [全面理解缓存原理](technology/cache/cache-theory.md)
+- [Redis](technology/cache/redis.md)
+- Memcache
+- [Ehcache](technology/cache/ehcache.md)
+- [Caffeine](technology/cache/caffeine.md)
 
 ### RPC
 
@@ -79,16 +83,16 @@
 
 > [JavaEE](javaee) 技术——Java Web 的基石
 
-- [JavaEE 面经](javaee/javaee-interview.md)
+- [JavaEE 面经](javaee/javaee-interview.md) 🎯
 - [JavaEE 之 Servlet 指南](javaee/javaee-servlet.md)
 - [JavaEE 之 Jsp 指南](javaee/javaee-jsp.md)
 - [JavaEE 之 Filter 和 Listener](javaee/javaee-filter-listener.md)
 - [JavaEE 之 Cookie 和 Session](javaee/javaee-cookie-sesion.md)
 
-## 🕸 网络通信
+## 🌏 网络通信
 
 - **面试**
-  - [网络通信面经](network/network-interview.md)
+  - [网络通信面经](network/network-interview.md) 🎯
 - **网络分层**
   - [计算机网络概述](network/network-guide.md)
   - [计算机网络之物理层](network/network-physical.md)
