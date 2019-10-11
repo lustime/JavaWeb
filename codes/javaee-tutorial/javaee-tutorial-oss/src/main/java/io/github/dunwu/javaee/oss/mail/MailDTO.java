@@ -11,85 +11,95 @@ import javax.mail.internet.MimeMultipart;
  * @date 2016/12/22.
  */
 public class MailDTO {
-    private String from;
-    private String to; // 邮件的收件人
-    private String cc; // 邮件的抄送人
-    private String bcc; // 邮件的密送人
-    private String subject; // 邮件主题
-    private String type; // text或html两种类型
-    private String text; // 邮件文本内容
-    private String charset; // 邮件编码类型（如UTF-8、GBK等）
-    private MimeMultipart content;
 
-    public String getFrom() {
-        return from;
-    }
+	private String from;
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
+	private String to; // 邮件的收件人
 
-    public String getTo() {
-        return to;
-    }
+	private String cc; // 邮件的抄送人
 
-    public void setTo(String to) {
-        this.to = to;
-    }
+	private String bcc; // 邮件的密送人
 
-    public String getCc() {
-        return cc;
-    }
+	private String subject; // 邮件主题
 
-    public void setCc(String cc) {
-        this.cc = cc;
-    }
+	private String type; // text或html两种类型
 
-    public String getBcc() {
-        return bcc;
-    }
+	private String text; // 邮件文本内容
 
-    public void setBcc(String bcc) {
-        this.bcc = bcc;
-    }
+	private String charset; // 邮件编码类型（如UTF-8、GBK等）
 
-    public String getSubject() {
-        return subject;
-    }
+	private MimeMultipart content;
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
+	public String getFrom() {
+		return from;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setFrom(String from) {
+		this.from = from;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public String getTo() {
+		return to;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public void setTo(String to) {
+		this.to = to;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
+	public String getCc() {
+		return cc;
+	}
 
-    public String getCharset() {
-        return charset;
-    }
+	public void setCc(String cc) {
+		this.cc = cc;
+	}
 
-    public void setCharset(String charset) {
-        this.charset = charset;
-    }
+	public String getBcc() {
+		return bcc;
+	}
 
-    public MimeMultipart getContent() {
-        return content;
-    }
+	public void setBcc(String bcc) {
+		this.bcc = bcc;
+	}
 
-    public void setContent(MimeMultipart content) {
-        this.content = content;
-    }
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getCharset() {
+		return charset;
+	}
+
+	public void setCharset(String charset) {
+		this.charset = charset;
+	}
+
+	public MimeMultipart getContent() {
+		return content;
+	}
+
+	public void setContent(MimeMultipart content) {
+		this.content = content;
+	}
+
 }

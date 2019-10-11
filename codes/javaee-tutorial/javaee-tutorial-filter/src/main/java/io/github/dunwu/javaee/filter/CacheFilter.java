@@ -1,25 +1,12 @@
 package io.github.dunwu.javaee.filter;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.net.URLEncoder;
+import io.github.dunwu.javaee.filter.wrapper.CacheResponseWrapper;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import io.github.dunwu.javaee.filter.wrapper.CacheResponseWrapper;
+import java.io.*;
+import java.net.URLEncoder;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
@@ -105,4 +92,5 @@ public class CacheFilter extends MyFilter {
 		// 输出到客户端
 		httpServletResponse.getWriter().write(buffer.toString());
 	}
+
 }

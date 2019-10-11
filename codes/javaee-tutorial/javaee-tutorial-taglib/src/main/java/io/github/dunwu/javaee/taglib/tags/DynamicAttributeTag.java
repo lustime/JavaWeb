@@ -1,16 +1,14 @@
 package io.github.dunwu.javaee.taglib.tags;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.DynamicAttributes;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
-public class DynamicAttributeTag extends TagSupport implements
-		DynamicAttributes {
+public class DynamicAttributeTag extends TagSupport implements DynamicAttributes {
 
 	private static final long serialVersionUID = -1477571708507488373L;
 
@@ -45,16 +43,17 @@ public class DynamicAttributeTag extends TagSupport implements
 
 		try {
 			out.write(buffer.toString());
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 		}
 
 		return super.doEndTag();
 	}
 
 	@Override
-	public void setDynamicAttribute(String uri, String key, Object value)
-			throws JspException {
+	public void setDynamicAttribute(String uri, String key, Object value) throws JspException {
 
 		map.put(key, Double.parseDouble((String) value));
 	}
+
 }

@@ -9,58 +9,65 @@ package io.github.dunwu.javaee.oss.mail;
  * @date 2016/12/23.
  */
 public class MailConfigDTO {
-    private String smtpHost;
-    private String pop3Host;
-    private String mailDomain;
-    private String mailAccount;
-    private String mailPassword;
-    private String mailFromHost;
 
-    public String getSmtpHost() {
-        return smtpHost;
-    }
+	private String smtpHost;
 
-    public void setSmtpHost(String smtpHost) {
-        this.smtpHost = smtpHost;
-    }
+	private String pop3Host;
 
-    public String getPop3Host() {
-        return pop3Host;
-    }
+	private String mailDomain;
 
-    public void setPop3Host(String pop3Host) {
-        this.pop3Host = pop3Host;
-    }
+	private String mailAccount;
 
-    public String getMailDomain() {
-        return mailDomain;
-    }
+	private String mailPassword;
 
-    public void setMailDomain(String mailDomain) {
-        this.mailDomain = mailDomain;
-    }
+	private String mailFromHost;
 
-    public String getMailAccount() {
-        return mailAccount;
-    }
+	public String getSmtpHost() {
+		return smtpHost;
+	}
 
-    public void setMailAccount(String mailAccount) {
-        this.mailAccount = mailAccount;
-    }
+	public void setSmtpHost(String smtpHost) {
+		this.smtpHost = smtpHost;
+	}
 
-    public String getMailPassword() {
-        return mailPassword;
-    }
+	public String getPop3Host() {
+		return pop3Host;
+	}
 
-    public void setMailPassword(String mailPassword) {
-        this.mailPassword = mailPassword;
-    }
+	public void setPop3Host(String pop3Host) {
+		this.pop3Host = pop3Host;
+	}
 
-    public String getMailFromHost() {
-        return mailFromHost;
-    }
+	public String getMailDomain() {
+		return mailDomain;
+	}
 
-    public void setMailFromHost(String mailFromHost) {
-        this.mailFromHost = mailFromHost;
-    }
+	public void setMailDomain(String mailDomain) {
+		this.mailDomain = mailDomain;
+	}
+
+	public String getMailAccount() {
+		return mailAccount;
+	}
+
+	public void setMailAccount(String mailAccount) {
+		this.mailAccount = mailAccount;
+	}
+
+	public String getMailPassword() {
+		return mailPassword;
+	}
+
+	public void setMailPassword(String mailPassword) {
+		this.mailPassword = mailPassword;
+	}
+
+	public String getMailFromHost() {
+		return mailFromHost;
+	}
+
+	public void setMailFromHost(String mailFromHost) {
+		this.mailFromHost = mailFromHost;
+	}
+
 }

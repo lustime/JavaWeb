@@ -1,12 +1,11 @@
 package io.github.dunwu.javaee.filter.wrapper;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.zip.GZIPOutputStream;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
@@ -71,4 +70,5 @@ public class GZipOutputStream extends ServletOutputStream {
 	public void setWriteListener(WriteListener writeListener) {
 
 	}
+
 }

@@ -1,4 +1,4 @@
-<%@page contentType="image/jpeg"%>
+<%@page contentType="image/jpeg" %>
 <html>
 
 </html>

@@ -5,9 +5,10 @@ import io.github.dunwu.javaee.jsp.util.ip.IPSeeker;
 public class IpUtil {
 
 	public static String getIpAddress(String ip) {
-		try{
+		try {
 			return IPSeeker.getInstance().getAddress(ip);
-		}catch(Exception e){
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "δ֪����";

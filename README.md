@@ -2,8 +2,8 @@
 
 > JavaWeb 开发之路经验总结。
 >
-> - :repeat: 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
-> - :book: 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
+> - 🔁 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
+> - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
 
 |        🔰         |            🏗            |            ✨            |             ⭐️             |          ☕          |            🕸            |
 | :---------------: | :---------------------: | :----------------------: | :-------------------------: | :------------------: | :---------------------: |

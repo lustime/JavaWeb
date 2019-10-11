@@ -16,21 +16,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class KafkaProducer {
 
-    private final Logger log = LoggerFactory.getLogger(KafkaProducer.class);
+	private final Logger log = LoggerFactory.getLogger(KafkaProducer.class);
 
-    @Autowired
-    private KafkaTemplate template;
+	@Autowired
+	private KafkaTemplate template;
 
-    @Transactional(rollbackFor = RuntimeException.class)
-    public void sendTransactionMsg(String topic, String data) {
-        log.info("向kafka发送数据:[{}]", data);
-        template.executeInTransaction(t -> {
-            t.send(topic, "prepare");
-            if ("error".equals(data)) {
-                throw new RuntimeException("failed");
-            }
-            t.send(topic, "finish");
-            return true;
-        });
-    }
+	@Transactional(rollbackFor = RuntimeException.class)
+	public void sendTransactionMsg(String topic, String data) {
+		log.info("向kafka发送数据:[{}]", data);
+		template.executeInTransaction(t -> {
+			t.send(topic, "prepare");
+			if ("error".equals(data)) {
+				throw new RuntimeException("failed");
+			}
+			t.send(topic, "finish");
+			return true;
+		});
+	}
+
 }

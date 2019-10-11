@@ -22,15 +22,16 @@ public class LoopTag extends BodyTagSupport {
 
 			/** 只要 times > 0 就继续循环，同时 times 自减 */
 			try {
-				this.getPreviousOut()
-						.println(this.getBodyContent().getString());
+				this.getPreviousOut().println(this.getBodyContent().getString());
 
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 			}
 
 			return EVAL_BODY_AGAIN;
 
-		} else {
+		}
+		else {
 
 			/** 结束运行，同时复原 times */
 

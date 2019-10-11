@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
 <html>
 <head><title>JSP Scriptlets</title>
 </head>
 <body>
 <%
-	String param = request.getParameter("param");
+  String param = request.getParameter("param");
 %>
 昔我往矣，<br/>
 杨柳依依。<br/>
 今我来思，<br/>
 雨雪霏霏。<br/>
 <%
-	if("return".equals(param)){
-		return;
-	}
+  if ("return".equals(param)) {
+    return;
+  }
 %>
 青青子衿，<br/>
 悠悠我心，<br/>

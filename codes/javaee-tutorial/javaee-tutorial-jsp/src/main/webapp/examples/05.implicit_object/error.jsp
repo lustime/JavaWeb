@@ -4,7 +4,7 @@
 </head>
 <body>
 <%
-	out.println("程序拋出了一个异常："+ exception);
+  out.println("程序拋出了一个异常：" + exception);
 %>
 
 </body>

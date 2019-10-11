@@ -1,9 +1,8 @@
 package io.github.dunwu.javaee.taglib.tags;
 
-import java.util.Collection;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.util.Collection;
 
 public class IteratorTag extends TagSupport {
 
@@ -18,7 +17,8 @@ public class IteratorTag extends TagSupport {
 			for (Object obj : connection) {
 				this.pageContext.getOut().println(obj + ", <br/>");
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new JspException(e);
 		}
 

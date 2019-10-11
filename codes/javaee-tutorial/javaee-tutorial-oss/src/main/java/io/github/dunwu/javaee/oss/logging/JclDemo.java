@@ -14,15 +14,17 @@ import org.apache.commons.logging.LogFactory;
  * @date 2016/11/18.
  */
 public class JclDemo {
-    private static final Log log = LogFactory.getLog(JclDemo.class);
 
-    public static void main(String[] args) {
-        String msg = "print logging, current level: ";
-        log.trace(msg + "trace");
-        log.debug(msg + "debug");
-        log.info(msg + "info");
-        log.warn(msg + "warn");
-        log.error(msg + "error");
-        log.fatal(msg + "fatal");
-    }
+	private static final Log log = LogFactory.getLog(JclDemo.class);
+
+	public static void main(String[] args) {
+		String msg = "print logging, current level: ";
+		log.trace(msg + "trace");
+		log.debug(msg + "debug");
+		log.info(msg + "info");
+		log.warn(msg + "warn");
+		log.error(msg + "error");
+		log.fatal(msg + "fatal");
+	}
+
 }

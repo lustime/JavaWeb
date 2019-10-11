@@ -7,12 +7,10 @@
 <body>
 <br/>
 <%
-  Object[][] letters = {
-    {true, "恭喜您注册的信息已经生效", "e_inn@163.com", "forbreak@163.com", "2007-8-8"},
+  Object[][] letters = {{true, "恭喜您注册的信息已经生效", "e_inn@163.com", "forbreak@163.com", "2007-8-8"},
     {true, "JavaEE 7.0 release！", "admin@sun.com", "forbreak@163.com", "2007-6-24"},
     {false, "来信已经收到，下周来面谈", "foo@bar.com", "forbreak@163.com", "2007-5-20"},
-    {false, "您有新的邮件", "blog@foo.bar.com", "forbreak@163.com", "2007-3-2"},
-  };
+    {false, "您有新的邮件", "blog@foo.bar.com", "forbreak@163.com", "2007-3-2"},};
   String[] colors = {"#DDDDDD", "#AAAAAA",};
 %>
 <table border=0 cellspacing=1 cellpadding=2 width=700 align=center>

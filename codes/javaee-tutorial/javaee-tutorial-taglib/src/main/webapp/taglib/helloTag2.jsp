@@ -1,4 +1,4 @@
-<%@ taglib prefix="ex" uri="/WEB-INF/tld/hello2.tld"%>
+<%@ taglib prefix="ex" uri="/WEB-INF/tld/hello2.tld" %>
 <html>
 <head>
   <title>A sample custom tag</title>

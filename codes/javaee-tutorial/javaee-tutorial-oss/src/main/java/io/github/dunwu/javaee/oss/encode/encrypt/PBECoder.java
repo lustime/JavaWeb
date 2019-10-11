@@ -19,74 +19,75 @@ import java.security.SecureRandom;
  * @Date 2016年7月20日
  */
 public class PBECoder {
-    public static final String KEY_ALGORITHM = "PBEWITHMD5andDES";
 
-    public static final int ITERATION_COUNT = 100;
+	public static final String KEY_ALGORITHM = "PBEWITHMD5andDES";
 
-    private Key key;
-    private byte[] salt;
+	public static final int ITERATION_COUNT = 100;
 
-    public PBECoder(String password) throws Exception {
-        this.salt = initSalt();
-        this.key = initKey(password);
-    }
+	private Key key;
 
-    public byte[] encrypt(byte[] plaintext) throws Exception {
-        PBEParameterSpec paramSpec = new PBEParameterSpec(salt, ITERATION_COUNT);
-        Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, key, paramSpec);
-        return cipher.doFinal(plaintext);
-    }
+	private byte[] salt;
 
-    public byte[] decrypt(byte[] ciphertext) throws Exception {
-        PBEParameterSpec paramSpec = new PBEParameterSpec(salt, ITERATION_COUNT);
-        Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, key, paramSpec);
-        return cipher.doFinal(ciphertext);
-    }
+	public PBECoder(String password) throws Exception {
+		this.salt = initSalt();
+		this.key = initKey(password);
+	}
 
-    private byte[] initSalt() throws Exception {
-        SecureRandom secureRandom = new SecureRandom();
-        return secureRandom.generateSeed(8); // 盐长度必须为8字节
-    }
+	public static void main(String[] args) throws Exception {
+		PBECoder encode = new PBECoder("123456");
+		String message = "Hello World!";
+		byte[] ciphertext = encode.encrypt(message.getBytes());
+		byte[] plaintext = encode.decrypt(ciphertext);
 
-    private Key initKey(String password) throws Exception {
-        PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
-        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
-        return keyFactory.generateSecret(keySpec);
-    }
+		System.out.println("原文：" + message);
+		System.out.println("密文：" + Base64.encodeBase64String(ciphertext));
+		System.out.println("明文：" + new String(plaintext));
+	}
 
-    public static void main(String[] args) throws Exception {
-        PBECoder encode = new PBECoder("123456");
-        String message = "Hello World!";
-        byte[] ciphertext = encode.encrypt(message.getBytes());
-        byte[] plaintext = encode.decrypt(ciphertext);
+	public static void test1() throws Exception {
 
-        System.out.println("原文：" + message);
-        System.out.println("密文：" + Base64.encodeBase64String(ciphertext));
-        System.out.println("明文：" + new String(plaintext));
-    }
+		// 产生盐
+		SecureRandom secureRandom = new SecureRandom();
+		byte[] salt = secureRandom.generateSeed(8); // 盐长度必须为8字节
 
-    public static void test1() throws Exception {
+		// 产生Key
+		String password = "123456";
+		PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
+		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
+		SecretKey secretKey = keyFactory.generateSecret(keySpec);
 
-        // 产生盐
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] salt = secureRandom.generateSeed(8); // 盐长度必须为8字节
+		PBEParameterSpec paramSpec = new PBEParameterSpec(salt, ITERATION_COUNT);
+		Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
+		cipher.init(Cipher.ENCRYPT_MODE, secretKey, paramSpec);
 
-        // 产生Key
-        String password = "123456";
-        PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
-        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
-        SecretKey secretKey = keyFactory.generateSecret(keySpec);
+		byte[] plaintext = "Hello World".getBytes();
+		byte[] ciphertext = cipher.doFinal(plaintext);
+		new String(ciphertext);
+	}
 
+	public byte[] encrypt(byte[] plaintext) throws Exception {
+		PBEParameterSpec paramSpec = new PBEParameterSpec(salt, ITERATION_COUNT);
+		Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
+		cipher.init(Cipher.ENCRYPT_MODE, key, paramSpec);
+		return cipher.doFinal(plaintext);
+	}
 
-        PBEParameterSpec paramSpec = new PBEParameterSpec(salt, ITERATION_COUNT);
-        Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey, paramSpec);
+	public byte[] decrypt(byte[] ciphertext) throws Exception {
+		PBEParameterSpec paramSpec = new PBEParameterSpec(salt, ITERATION_COUNT);
+		Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
+		cipher.init(Cipher.DECRYPT_MODE, key, paramSpec);
+		return cipher.doFinal(ciphertext);
+	}
 
-        byte[] plaintext = "Hello World".getBytes();
-        byte[] ciphertext = cipher.doFinal(plaintext);
-        new String (ciphertext);
-    }
+	private byte[] initSalt() throws Exception {
+		SecureRandom secureRandom = new SecureRandom();
+		return secureRandom.generateSeed(8); // 盐长度必须为8字节
+	}
+
+	private Key initKey(String password) throws Exception {
+		PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
+		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
+		return keyFactory.generateSecret(keySpec);
+	}
 
 }

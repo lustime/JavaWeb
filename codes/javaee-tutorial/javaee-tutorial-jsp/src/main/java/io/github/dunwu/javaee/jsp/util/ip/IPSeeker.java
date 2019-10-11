@@ -20,8 +20,6 @@ package io.github.dunwu.javaee.jsp.util.ip;
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,9 +30,6 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-
-
-
 
 /**
  * <pre>
@@ -66,44 +61,22 @@ import java.util.List;
  * @author �����
  */
 public class IPSeeker {
-	/**
-	 * <pre>
-	 * ������װip�����Ϣ��Ŀǰֻ�������ֶΣ�ip���ڵĹ��Һ͵���
-	 * </pre>
-	 *
-	 * @author �����
-	 */
-	private class IPLocation {
-		public String country;
-		public String area;
-
-		public IPLocation() {
-		    country = area = "";
-		}
-
-		public IPLocation getCopy() {
-		    IPLocation ret = new IPLocation();
-		    ret.country = country;
-		    ret.area = area;
-		    return ret;
-		}
-	}
 
 	private static final File IP_FILE = new File(IPSeeker.class.getResource("").getFile(), "QQWry.dat");
-
 	// һЩ�̶������������¼���ȵȵ�
 	private static final int IP_RECORD_LENGTH = 7;
 	private static final byte AREA_FOLLOWED = 0x01;
 	private static final byte NO_AREA = 0x2;
-
- 	// ������Ϊcache����ѯһ��ipʱ���Ȳ鿴cache���Լ��ٲ���Ҫ���ظ�����
-	private Hashtable ipCache;
-	// ����ļ�������
-	private RandomAccessFile ipFile;
-	// �ڴ�ӳ���ļ�
-	private MappedByteBuffer mbb;
 	// ��һģʽʵ��
 	private static IPSeeker instance = new IPSeeker();
+	// ������Ϊcache����ѯһ��ipʱ���Ȳ鿴cache���Լ��ٲ���Ҫ���ظ�����
+	private Hashtable ipCache;
+
+	// ����ļ�������
+	private RandomAccessFile ipFile;
+
+	// �ڴ�ӳ���ļ�
+	private MappedByteBuffer mbb;
 	// ��ʼ�����Ŀ�ʼ�ͽ����ľ���ƫ��
 	private long ipBegin, ipEnd;
 	// Ϊ���Ч�ʶ����õ���ʱ����
@@ -115,7 +88,7 @@ public class IPSeeker {
 	/**
 	 * ˽�й��캯��
 	 */
-	private IPSeeker()  {
+	private IPSeeker() {
 		ipCache = new Hashtable();
 		loc = new IPLocation();
 		buf = new byte[100];
@@ -123,23 +96,25 @@ public class IPSeeker {
 		b3 = new byte[3];
 		try {
 			ipFile = new RandomAccessFile(IP_FILE, "r");
-		} catch (FileNotFoundException e) {
-                        System.out.println(IP_FILE.getAbsolutePath());
-                        System.out.println(IP_FILE);
+		}
+		catch (FileNotFoundException e) {
+			System.out.println(IP_FILE.getAbsolutePath());
+			System.out.println(IP_FILE);
 			System.out.println("IP��ַ��Ϣ�ļ�û���ҵ���IP��ʾ���ܽ��޷�ʹ��");
 			ipFile = null;
 
 		}
 		// ������ļ��ɹ�����ȡ�ļ�ͷ��Ϣ
-		if(ipFile != null) {
+		if (ipFile != null) {
 			try {
 				ipBegin = readLong4(0);
 				ipEnd = readLong4(4);
-				if(ipBegin == -1 || ipEnd == -1) {
+				if (ipBegin == -1 || ipEnd == -1) {
 					ipFile.close();
 					ipFile = null;
 				}
-			} catch (IOException e) {
+			}
+			catch (IOException e) {
 				System.out.println("IP��ַ��Ϣ�ļ���ʽ�д���IP��ʾ���ܽ��޷�ʹ��");
 				ipFile = null;
 			}
@@ -159,31 +134,31 @@ public class IPSeeker {
 	 * @return ����IPEntry���͵�List
 	 */
 	public List getIPEntriesDebug(String s) {
-	    List ret = new ArrayList();
-	    long endOffset = ipEnd + 4;
-	    for(long offset = ipBegin + 4; offset <= endOffset; offset += IP_RECORD_LENGTH) {
-	        // ��ȡ����IPƫ��
-	        long temp = readLong3(offset);
-	        // ���temp������-1����ȡIP�ĵص���Ϣ
-	        if(temp != -1) {
-	            IPLocation loc = getIPLocation(temp);
-	            // �ж��Ƿ�����ص����������s�Ӵ�����������ˣ���������¼��List�У����û�У�����
-	            if(loc.country.indexOf(s) != -1 || loc.area.indexOf(s) != -1) {
-	                IPEntry entry = new IPEntry();
-	                entry.country = loc.country;
-	                entry.area = loc.area;
-	                // �õ���ʼIP
-	    	        readIP(offset - 4, b4);
-	                entry.beginIp = Utils.getIpStringFromBytes(b4);
-	                // �õ�����IP
-	                readIP(temp, b4);
-	                entry.endIp = Utils.getIpStringFromBytes(b4);
-	                // ��Ӹü�¼
-	                ret.add(entry);
-	            }
-	        }
-	    }
-	    return ret;
+		List ret = new ArrayList();
+		long endOffset = ipEnd + 4;
+		for (long offset = ipBegin + 4; offset <= endOffset; offset += IP_RECORD_LENGTH) {
+			// ��ȡ����IPƫ��
+			long temp = readLong3(offset);
+			// ���temp������-1����ȡIP�ĵص���Ϣ
+			if (temp != -1) {
+				IPLocation loc = getIPLocation(temp);
+				// �ж��Ƿ�����ص����������s�Ӵ�����������ˣ���������¼��List�У����û�У�����
+				if (loc.country.indexOf(s) != -1 || loc.area.indexOf(s) != -1) {
+					IPEntry entry = new IPEntry();
+					entry.country = loc.country;
+					entry.area = loc.area;
+					// �õ���ʼIP
+					readIP(offset - 4, b4);
+					entry.beginIp = Utils.getIpStringFromBytes(b4);
+					// �õ�����IP
+					readIP(temp, b4);
+					entry.endIp = Utils.getIpStringFromBytes(b4);
+					// ��Ӹü�¼
+					ret.add(entry);
+				}
+			}
+		}
+		return ret;
 	}
 
 	/**
@@ -192,40 +167,41 @@ public class IPSeeker {
 	 * @return ����IPEntry���͵�List
 	 */
 	public List getIPEntries(String s) {
-	    List ret = new ArrayList();
-	    try {
-	        // ӳ��IP��Ϣ�ļ����ڴ���
-	        if(mbb == null) {
-			    FileChannel fc = ipFile.getChannel();
-	            mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, ipFile.length());
-	            mbb.order(ByteOrder.LITTLE_ENDIAN);
-	        }
+		List ret = new ArrayList();
+		try {
+			// ӳ��IP��Ϣ�ļ����ڴ���
+			if (mbb == null) {
+				FileChannel fc = ipFile.getChannel();
+				mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, ipFile.length());
+				mbb.order(ByteOrder.LITTLE_ENDIAN);
+			}
 
-		    int endOffset = (int)ipEnd;
-            for(int offset = (int)ipBegin + 4; offset <= endOffset; offset += IP_RECORD_LENGTH) {
-                int temp = readInt3(offset);
-                if(temp != -1) {
-    	            IPLocation loc = getIPLocation(temp);
-    	            // �ж��Ƿ�����ص����������s�Ӵ�����������ˣ���������¼��List�У����û�У�����
-    	            if(loc.country.indexOf(s) != -1 || loc.area.indexOf(s) != -1) {
-    	                IPEntry entry = new IPEntry();
-    	                entry.country = loc.country;
-    	                entry.area = loc.area;
-    	                // �õ���ʼIP
-    	    	        readIP(offset - 4, b4);
-    	                entry.beginIp = Utils.getIpStringFromBytes(b4);
-    	                // �õ�����IP
-    	                readIP(temp, b4);
-    	                entry.endIp = Utils.getIpStringFromBytes(b4);
-    	                // ��Ӹü�¼
-    	                ret.add(entry);
-    	            }
-                }
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        return ret;
+			int endOffset = (int) ipEnd;
+			for (int offset = (int) ipBegin + 4; offset <= endOffset; offset += IP_RECORD_LENGTH) {
+				int temp = readInt3(offset);
+				if (temp != -1) {
+					IPLocation loc = getIPLocation(temp);
+					// �ж��Ƿ�����ص����������s�Ӵ�����������ˣ���������¼��List�У����û�У�����
+					if (loc.country.indexOf(s) != -1 || loc.area.indexOf(s) != -1) {
+						IPEntry entry = new IPEntry();
+						entry.country = loc.country;
+						entry.area = loc.area;
+						// �õ���ʼIP
+						readIP(offset - 4, b4);
+						entry.beginIp = Utils.getIpStringFromBytes(b4);
+						// �õ�����IP
+						readIP(temp, b4);
+						entry.endIp = Utils.getIpStringFromBytes(b4);
+						// ��Ӹü�¼
+						ret.add(entry);
+					}
+				}
+			}
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return ret;
 	}
 
 	/**
@@ -234,8 +210,8 @@ public class IPSeeker {
 	 * @return
 	 */
 	private int readInt3(int offset) {
-	    mbb.position(offset);
-	    return mbb.getInt() & 0x00FFFFFF;
+		mbb.position(offset);
+		return mbb.getInt() & 0x00FFFFFF;
 	}
 
 	/**
@@ -243,7 +219,7 @@ public class IPSeeker {
 	 * @return
 	 */
 	private int readInt3() {
-	    return mbb.getInt() & 0x00FFFFFF;
+		return mbb.getInt() & 0x00FFFFFF;
 	}
 
 	/**
@@ -253,14 +229,16 @@ public class IPSeeker {
 	 */
 	public String getCountry(byte[] ip) {
 		// ���ip��ַ�ļ��Ƿ�����
-		if(ipFile == null) return "�����IP���ݿ��ļ�";
+		if (ipFile == null)
+			return "�����IP���ݿ��ļ�";
 		// ����ip��ת��ip�ֽ�����Ϊ�ַ�����ʽ
 		String ipStr = Utils.getIpStringFromBytes(ip);
 		// �ȼ��cache���Ƿ��Ѿ����������ip�Ľ����û���������ļ�
-		if(ipCache.containsKey(ipStr)) {
-			IPLocation loc = (IPLocation)ipCache.get(ipStr);
+		if (ipCache.containsKey(ipStr)) {
+			IPLocation loc = (IPLocation) ipCache.get(ipStr);
 			return loc.country;
-		} else {
+		}
+		else {
 			IPLocation loc = getIPLocation(ip);
 			ipCache.put(ipStr, loc.getCopy());
 			return loc.country;
@@ -273,7 +251,7 @@ public class IPSeeker {
 	 * @return �������ַ���
 	 */
 	public String getCountry(String ip) {
-	    return getCountry(Utils.getIpByteArrayFromString(ip));
+		return getCountry(Utils.getIpByteArrayFromString(ip));
 	}
 
 	/**
@@ -283,14 +261,16 @@ public class IPSeeker {
 	 */
 	public String getArea(byte[] ip) {
 		// ���ip��ַ�ļ��Ƿ�����
-		if(ipFile == null) return "�����IP���ݿ��ļ�";
+		if (ipFile == null)
+			return "�����IP���ݿ��ļ�";
 		// ����ip��ת��ip�ֽ�����Ϊ�ַ�����ʽ
 		String ipStr = Utils.getIpStringFromBytes(ip);
 		// �ȼ��cache���Ƿ��Ѿ����������ip�Ľ����û���������ļ�
-		if(ipCache.containsKey(ipStr)) {
-			IPLocation loc = (IPLocation)ipCache.get(ipStr);
+		if (ipCache.containsKey(ipStr)) {
+			IPLocation loc = (IPLocation) ipCache.get(ipStr);
 			return loc.area;
-		} else {
+		}
+		else {
 			IPLocation loc = getIPLocation(ip);
 			ipCache.put(ipStr, loc.getCopy());
 			return loc.area;
@@ -303,7 +283,7 @@ public class IPSeeker {
 	 * @return �������ַ���
 	 */
 	public String getArea(String ip) {
-	    return getArea(Utils.getIpByteArrayFromString(ip));
+		return getArea(Utils.getIpByteArrayFromString(ip));
 	}
 
 	/**
@@ -314,9 +294,9 @@ public class IPSeeker {
 	private IPLocation getIPLocation(byte[] ip) {
 		IPLocation info = null;
 		long offset = locateIP(ip);
-		if(offset != -1)
+		if (offset != -1)
 			info = getIPLocation(offset);
-		if(info == null) {
+		if (info == null) {
 			info = new IPLocation();
 			info.country = "δ֪����";
 			info.area = "δ֪����";
@@ -325,8 +305,7 @@ public class IPSeeker {
 	}
 
 	/**
-	 * ��offsetλ�ö�ȡ4���ֽ�Ϊһ��long����ΪjavaΪbig-endian��ʽ������û�취
-	 * ������ôһ����������ת��
+	 * ��offsetλ�ö�ȡ4���ֽ�Ϊһ��long����ΪjavaΪbig-endian��ʽ������û�취 ������ôһ����������ת��
 	 * @param offset
 	 * @return ��ȡ��longֵ������-1��ʾ��ȡ�ļ�ʧ��
 	 */
@@ -339,14 +318,14 @@ public class IPSeeker {
 			ret |= ((ipFile.readByte() << 16) & 0xFF0000);
 			ret |= ((ipFile.readByte() << 24) & 0xFF000000);
 			return ret;
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			return -1;
 		}
 	}
 
 	/**
-	 * ��offsetλ�ö�ȡ3���ֽ�Ϊһ��long����ΪjavaΪbig-endian��ʽ������û�취
-	 * ������ôһ����������ת��
+	 * ��offsetλ�ö�ȡ3���ֽ�Ϊһ��long����ΪjavaΪbig-endian��ʽ������û�취 ������ôһ����������ת��
 	 * @param offset
 	 * @return ��ȡ��longֵ������-1��ʾ��ȡ�ļ�ʧ��
 	 */
@@ -359,7 +338,8 @@ public class IPSeeker {
 			ret |= ((b3[1] << 8) & 0xFF00);
 			ret |= ((b3[2] << 16) & 0xFF0000);
 			return ret;
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			return -1;
 		}
 	}
@@ -376,7 +356,8 @@ public class IPSeeker {
 			ret |= ((b3[1] << 8) & 0xFF00);
 			ret |= ((b3[2] << 16) & 0xFF0000);
 			return ret;
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			return -1;
 		}
 	}
@@ -397,8 +378,9 @@ public class IPSeeker {
 			temp = ip[1];
 			ip[1] = ip[2];
 			ip[2] = temp;
-		} catch (IOException e) {
-		    System.out.println(e.getMessage());
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -409,8 +391,8 @@ public class IPSeeker {
 	 * @param ip
 	 */
 	private void readIP(int offset, byte[] ip) {
-	    mbb.position(offset);
-	    mbb.get(ip);
+		mbb.position(offset);
+		mbb.get(ip);
 		byte temp = ip[0];
 		ip[0] = ip[3];
 		ip[3] = temp;
@@ -426,9 +408,9 @@ public class IPSeeker {
 	 * @return ��ȷ���0��ip����beginIp�򷵻�1��С�ڷ���-1��
 	 */
 	private int compareIP(byte[] ip, byte[] beginIp) {
-		for(int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++) {
 			int r = compareByte(ip[i], beginIp[i]);
-			if(r != 0)
+			if (r != 0)
 				return r;
 		}
 		return 0;
@@ -441,17 +423,16 @@ public class IPSeeker {
 	 * @return ��b1����b2�򷵻�1����ȷ���0��С�ڷ���-1
 	 */
 	private int compareByte(byte b1, byte b2) {
-		if((b1 & 0xFF) > (b2 & 0xFF)) // �Ƚ��Ƿ����
+		if ((b1 & 0xFF) > (b2 & 0xFF)) // �Ƚ��Ƿ����
 			return 1;
-		else if((b1 ^ b2) == 0)// �ж��Ƿ����
+		else if ((b1 ^ b2) == 0)// �ж��Ƿ����
 			return 0;
 		else
 			return -1;
 	}
 
 	/**
-	 * �������������ip�����ݣ���λ���������ip���ҵ����ļ�¼��������һ������ƫ��
-	 * ����ʹ�ö��ַ����ҡ�
+	 * �������������ip�����ݣ���λ���������ip���ҵ����ļ�¼��������һ������ƫ�� ����ʹ�ö��ַ����ҡ�
 	 * @param ip Ҫ��ѯ��IP
 	 * @return ����ҵ��ˣ����ؽ���IP��ƫ�ƣ����û���ҵ�������-1
 	 */
@@ -461,32 +442,38 @@ public class IPSeeker {
 		// �Ƚϵ�һ��ip��
 		readIP(ipBegin, b4);
 		r = compareIP(ip, b4);
-		if(r == 0) return ipBegin;
-		else if(r < 0) return -1;
+		if (r == 0)
+			return ipBegin;
+		else if (r < 0)
+			return -1;
 		// ��ʼ��������
-		for(long i = ipBegin, j = ipEnd; i < j; ) {
+		for (long i = ipBegin, j = ipEnd; i < j;) {
 			m = getMiddleOffset(i, j);
 			readIP(m, b4);
 			r = compareIP(ip, b4);
 			// log.debug(Utils.getIpStringFromBytes(b));
-			if(r > 0)
+			if (r > 0)
 				i = m;
-			else if(r < 0) {
-				if(m == j) {
+			else if (r < 0) {
+				if (m == j) {
 					j -= IP_RECORD_LENGTH;
 					m = j;
-				} else
+				}
+				else
 					j = m;
-			} else
+			}
+			else
 				return readLong3(m + 4);
 		}
 		// ���ѭ�������ˣ���ôi��j�ض�����ȵģ������¼Ϊ����ܵļ�¼�����ǲ���
-		//     �϶����ǣ���Ҫ���һ�£�����ǣ��ͷ��ؽ�����ַ���ľ���ƫ��
+		// �϶����ǣ���Ҫ���һ�£�����ǣ��ͷ��ؽ�����ַ���ľ���ƫ��
 		m = readLong3(m + 4);
 		readIP(m, b4);
 		r = compareIP(ip, b4);
-		if(r <= 0) return m;
-		else return -1;
+		if (r <= 0)
+			return m;
+		else
+			return -1;
 	}
 
 	/**
@@ -498,7 +485,8 @@ public class IPSeeker {
 	private long getMiddleOffset(long begin, long end) {
 		long records = (end - begin) / IP_RECORD_LENGTH;
 		records >>= 1;
-		if(records == 0) records = 1;
+		if (records == 0)
+			records = 1;
 		return begin + records * IP_RECORD_LENGTH;
 	}
 
@@ -513,29 +501,33 @@ public class IPSeeker {
 			ipFile.seek(offset + 4);
 			// ��ȡ��һ���ֽ��ж��Ƿ��־�ֽ�
 			byte b = ipFile.readByte();
-			if(b == AREA_FOLLOWED) {
+			if (b == AREA_FOLLOWED) {
 				// ��ȡ����ƫ��
 				long countryOffset = readLong3();
 				// ��ת��ƫ�ƴ�
 				ipFile.seek(countryOffset);
 				// �ټ��һ�α�־�ֽڣ���Ϊ���ʱ������ط���Ȼ�����Ǹ��ض���
 				b = ipFile.readByte();
-				if(b == NO_AREA) {
+				if (b == NO_AREA) {
 					loc.country = readString(readLong3());
 					ipFile.seek(countryOffset + 4);
-				} else
+				}
+				else
 					loc.country = readString(countryOffset);
 				// ��ȡ������־
 				loc.area = readArea(ipFile.getFilePointer());
-			} else if(b == NO_AREA) {
+			}
+			else if (b == NO_AREA) {
 				loc.country = readString(readLong3());
 				loc.area = readArea(offset + 8);
-			} else {
+			}
+			else {
 				loc.country = readString(ipFile.getFilePointer() - 1);
 				loc.area = readArea(ipFile.getFilePointer());
 			}
 			return loc;
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			return null;
 		}
 	}
@@ -546,27 +538,30 @@ public class IPSeeker {
 	 */
 	private IPLocation getIPLocation(int offset) {
 		// ����4�ֽ�ip
-	    mbb.position(offset + 4);
+		mbb.position(offset + 4);
 		// ��ȡ��һ���ֽ��ж��Ƿ��־�ֽ�
 		byte b = mbb.get();
-		if(b == AREA_FOLLOWED) {
+		if (b == AREA_FOLLOWED) {
 			// ��ȡ����ƫ��
 			int countryOffset = readInt3();
 			// ��ת��ƫ�ƴ�
 			mbb.position(countryOffset);
 			// �ټ��һ�α�־�ֽڣ���Ϊ���ʱ������ط���Ȼ�����Ǹ��ض���
 			b = mbb.get();
-			if(b == NO_AREA) {
+			if (b == NO_AREA) {
 				loc.country = readString(readInt3());
 				mbb.position(countryOffset + 4);
-			} else
+			}
+			else
 				loc.country = readString(countryOffset);
 			// ��ȡ������־
 			loc.area = readArea(mbb.position());
-		} else if(b == NO_AREA) {
+		}
+		else if (b == NO_AREA) {
 			loc.country = readString(readInt3());
 			loc.area = readArea(offset + 8);
-		} else {
+		}
+		else {
 			loc.country = readString(mbb.position() - 1);
 			loc.area = readArea(mbb.position());
 		}
@@ -582,13 +577,14 @@ public class IPSeeker {
 	private String readArea(long offset) throws IOException {
 		ipFile.seek(offset);
 		byte b = ipFile.readByte();
-		if(b == 0x01 || b == 0x02) {
+		if (b == 0x01 || b == 0x02) {
 			long areaOffset = readLong3(offset + 1);
-			if(areaOffset == 0)
+			if (areaOffset == 0)
 				return "δ֪����";
 			else
 				return readString(areaOffset);
-		} else
+		}
+		else
 			return readString(offset);
 	}
 
@@ -599,13 +595,14 @@ public class IPSeeker {
 	private String readArea(int offset) {
 		mbb.position(offset);
 		byte b = mbb.get();
-		if(b == 0x01 || b == 0x02) {
+		if (b == 0x01 || b == 0x02) {
 			int areaOffset = readInt3();
-			if(areaOffset == 0)
+			if (areaOffset == 0)
 				return "δ֪����";
 			else
 				return readString(areaOffset);
-		} else
+		}
+		else
 			return readString(offset);
 	}
 
@@ -618,11 +615,13 @@ public class IPSeeker {
 		try {
 			ipFile.seek(offset);
 			int i;
-			for(i = 0, buf[i] = ipFile.readByte(); buf[i] != 0; buf[++i] = ipFile.readByte());
-			if(i != 0)
-			    return Utils.getString(buf, 0, i, "GBK");
-		} catch (IOException e) {
-		    System.out.println(e.getMessage());
+			for (i = 0, buf[i] = ipFile.readByte(); buf[i] != 0; buf[++i] = ipFile.readByte())
+				;
+			if (i != 0)
+				return Utils.getString(buf, 0, i, "GBK");
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
 		}
 		return "";
 	}
@@ -633,26 +632,52 @@ public class IPSeeker {
 	 * @return
 	 */
 	private String readString(int offset) {
-	    try {
+		try {
 			mbb.position(offset);
 			int i;
-			for(i = 0, buf[i] = mbb.get(); buf[i] != 0; buf[++i] = mbb.get());
-			if(i != 0)
-			    return Utils.getString(buf, 0, i, "GBK");
-	    } catch (IllegalArgumentException e) {
-	        System.out.println(e.getMessage());
-	    }
-	    return "";
+			for (i = 0, buf[i] = mbb.get(); buf[i] != 0; buf[++i] = mbb.get())
+				;
+			if (i != 0)
+				return Utils.getString(buf, 0, i, "GBK");
+		}
+		catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+		return "";
 	}
 
-	public String getAddress(String ip){
-		String country = getCountry(ip).equals(" CZ88.NET")?"":getCountry(ip);
-		String area = getArea(ip).equals(" CZ88.NET")?"":getArea(ip);
-        String address = country+" "+area;
+	public String getAddress(String ip) {
+		String country = getCountry(ip).equals(" CZ88.NET") ? "" : getCountry(ip);
+		String area = getArea(ip).equals(" CZ88.NET") ? "" : getArea(ip);
+		String address = country + " " + area;
 		return address.trim();
 	}
+
+
+	/**
+	 * <pre>
+	 * ������װip�����Ϣ��Ŀǰֻ�������ֶΣ�ip���ڵĹ��Һ͵���
+	 * </pre>
+	 *
+	 * @author �����
+	 */
+	private class IPLocation {
+
+		public String country;
+
+		public String area;
+
+		public IPLocation() {
+			country = area = "";
+		}
+
+		public IPLocation getCopy() {
+			IPLocation ret = new IPLocation();
+			ret.country = country;
+			ret.area = area;
+			return ret;
+		}
+
+	}
+
 }
-
-
-
-

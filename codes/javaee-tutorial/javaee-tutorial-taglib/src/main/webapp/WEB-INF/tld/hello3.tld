@@ -7,7 +7,7 @@
     <tag-class>io.github.dunwu.javaee.taglib.HelloTag3</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
-       <name>message</name>
+      <name>message</name>
     </attribute>
   </tag>
 </taglib>

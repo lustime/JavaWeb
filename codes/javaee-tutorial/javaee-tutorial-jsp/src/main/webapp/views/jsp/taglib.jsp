@@ -3,12 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>My JSP 'taglib.jsp' starting page</title>
+  <title>My JSP 'taglib.jsp' starting page</title>
 </head>
 
 <body>
-	<c:forEach var="item" items="${arrays}">
-		<c:out value="item"></c:out>
-	</c:forEach>
+<c:forEach var="item" items="${arrays}">
+  <c:out value="item"></c:out>
+</c:forEach>
 </body>
 </html>

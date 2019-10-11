@@ -15,4 +15,5 @@ public class UploadListener implements ProgressListener {
 		status.setContentLength(contentLength);
 		status.setItems(items);
 	}
+
 }

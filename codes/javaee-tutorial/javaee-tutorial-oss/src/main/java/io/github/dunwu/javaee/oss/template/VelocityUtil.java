@@ -17,30 +17,34 @@ import java.util.Properties;
  * @date 2016/12/23.
  */
 public class VelocityUtil {
-    private static VelocityEngine velocityEngine;
 
-    static {
-        Properties props = new Properties();
-        try {
-            props.load(VelocityUtil.class.getResourceAsStream("/template/velocity.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        velocityEngine = new VelocityEngine();
-        velocityEngine.init(props);
-    }
+	private static VelocityEngine velocityEngine;
 
-    public static String getMergeOutput(VelocityContext context, String templateName) {
-        Template template = velocityEngine.getTemplate(templateName);
+	static {
+		Properties props = new Properties();
+		try {
+			props.load(VelocityUtil.class.getResourceAsStream("/template/velocity.properties"));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		velocityEngine = new VelocityEngine();
+		velocityEngine.init(props);
+	}
 
-        StringWriter sw = new StringWriter();
-        template.merge(context, sw);
-        String output = sw.toString();
-        try {
-            sw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return output;
-    }
+	public static String getMergeOutput(VelocityContext context, String templateName) {
+		Template template = velocityEngine.getTemplate(templateName);
+
+		StringWriter sw = new StringWriter();
+		template.merge(context, sw);
+		String output = sw.toString();
+		try {
+			sw.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		return output;
+	}
+
 }

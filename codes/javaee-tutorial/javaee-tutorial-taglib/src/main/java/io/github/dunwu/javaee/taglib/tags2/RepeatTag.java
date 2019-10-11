@@ -4,14 +4,14 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class RepeatTag extends SimpleTagSupport {
 
-    private int times;
+	private int times;
 
-    public int getTimes() {
-        return times;
-    }
+	public int getTimes() {
+		return times;
+	}
 
-    public void setTimes(int times) {
-        this.times = times;
-    }
+	public void setTimes(int times) {
+		this.times = times;
+	}
 
 }

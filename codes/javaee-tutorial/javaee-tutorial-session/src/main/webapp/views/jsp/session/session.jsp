@@ -9,11 +9,9 @@
 <%
   response.setCharacterEncoding("UTF-8");
 
-  Person[] persons = {
-      new Person("Liu Jinghua", "password1", 34, dateFormat.parse("1982-01-01")),
-      new Person("Hello Kitty", "hellokitty", 23, dateFormat.parse("1984-02-25")),
-      new Person("Garfield", "garfield_pass", 23, dateFormat.parse("1994-09-12")),
-  };
+  Person[] persons = {new Person("Liu Jinghua", "password1", 34, dateFormat.parse("1982-01-01")),
+    new Person("Hello Kitty", "hellokitty", 23, dateFormat.parse("1984-02-25")),
+    new Person("Garfield", "garfield_pass", 23, dateFormat.parse("1994-09-12")),};
 
   String message = "";
 
@@ -21,8 +19,10 @@
 
     for (int i = 0; i < persons.length; i++) {
       // 如果 用户名正确 且 密码正确
-      if (persons[i].getName().equalsIgnoreCase(request.getParameter("username"))
-          && persons[i].getPassword().equals(request.getParameter("password"))) {
+      if (persons[i].getName().equalsIgnoreCase(request.getParameter("username")) && persons[i].getPassword()
+                                                                                               .equals(
+                                                                                                 request.getParameter(
+                                                                                                   "password"))) {
 
         // 登录成功, 设置将用户的信息以及登录时间保存到 Session
         session.setAttribute("person", persons[i]);

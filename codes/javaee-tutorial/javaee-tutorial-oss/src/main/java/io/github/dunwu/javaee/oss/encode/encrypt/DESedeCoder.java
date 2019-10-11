@@ -17,56 +17,58 @@ import java.security.Security;
  * @Date 2016年7月20日
  */
 public class DESedeCoder {
-    /**
-     * 加密算法
-     */
-    public static final String KEY_ALGORITHM = "DESede";
 
-    /**
-     * 算法名称/加密模式/填充方式
-     */
-    public static final String CIPHER_ALGORITHM = "DESede/ECB/PKCS5Padding";
+	/**
+	 * 加密算法
+	 */
+	public static final String KEY_ALGORITHM = "DESede";
 
-    /**
-     * 密钥
-     */
-    private Key key;
+	/**
+	 * 算法名称/加密模式/填充方式
+	 */
+	public static final String CIPHER_ALGORITHM = "DESede/ECB/PKCS5Padding";
 
-    public DESedeCoder() throws NoSuchAlgorithmException, NoSuchProviderException {
-        this.key = initKey();
-    }
+	/**
+	 * 密钥
+	 */
+	private Key key;
 
-    public byte[] encrypt(byte[] plaintext) throws Exception {
-        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, key);
-        return cipher.doFinal(plaintext);
-    }
+	public DESedeCoder() throws NoSuchAlgorithmException, NoSuchProviderException {
+		this.key = initKey();
+	}
 
-    public byte[] decrypt(byte[] ciphertext) throws Exception {
-        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, key);
-        return cipher.doFinal(ciphertext);
-    }
+	public static void main(String[] args) throws Exception {
+		DESedeCoder desedeCoder = new DESedeCoder();
+		String message = "Hello World!";
+		byte[] ciphertext = desedeCoder.encrypt(message.getBytes());
+		System.out.println(Base64.encodeBase64String(ciphertext));
 
-    private Key initKey() throws NoSuchAlgorithmException, NoSuchProviderException {
-        // 标准的密钥生成
-        // KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM);
-        // keyGen.init(112);
+		byte[] plaintext = desedeCoder.decrypt(ciphertext);
+		System.out.println(new String(plaintext));
+	}
 
-        // 标准的密钥生成不支持128位。如果要使用，需引入Bouncy Castle的加密算法，方法如下
-        Security.addProvider(new BouncyCastleProvider());
-        KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM, "BC");
-        keyGen.init(128);
-        return keyGen.generateKey();
-    }
+	public byte[] encrypt(byte[] plaintext) throws Exception {
+		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+		cipher.init(Cipher.ENCRYPT_MODE, key);
+		return cipher.doFinal(plaintext);
+	}
 
-    public static void main(String[] args) throws Exception {
-        DESedeCoder desedeCoder = new DESedeCoder();
-        String message = "Hello World!";
-        byte[] ciphertext = desedeCoder.encrypt(message.getBytes());
-        System.out.println(Base64.encodeBase64String(ciphertext));
+	public byte[] decrypt(byte[] ciphertext) throws Exception {
+		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+		cipher.init(Cipher.DECRYPT_MODE, key);
+		return cipher.doFinal(ciphertext);
+	}
 
-        byte[] plaintext = desedeCoder.decrypt(ciphertext);
-        System.out.println(new String(plaintext));
-    }
+	private Key initKey() throws NoSuchAlgorithmException, NoSuchProviderException {
+		// 标准的密钥生成
+		// KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM);
+		// keyGen.init(112);
+
+		// 标准的密钥生成不支持128位。如果要使用，需引入Bouncy Castle的加密算法，方法如下
+		Security.addProvider(new BouncyCastleProvider());
+		KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM, "BC");
+		keyGen.init(128);
+		return keyGen.generateKey();
+	}
+
 }

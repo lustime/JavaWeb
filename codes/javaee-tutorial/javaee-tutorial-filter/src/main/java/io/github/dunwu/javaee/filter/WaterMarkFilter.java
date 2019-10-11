@@ -1,22 +1,18 @@
 package io.github.dunwu.javaee.filter;
 
-import java.io.IOException;
+import io.github.dunwu.javaee.filter.wrapper.WaterMarkResponseWrapper;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import io.github.dunwu.javaee.filter.wrapper.WaterMarkResponseWrapper;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  * @date 2017/3/27.
  */
 public class WaterMarkFilter extends MyFilter {
+
 	// 水印图片，配置在初始化参数中
 	private String waterMarkFile;
 
@@ -28,8 +24,8 @@ public class WaterMarkFilter extends MyFilter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse res,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
 		logger.info("{} 开始做过滤处理", this.getClass().getName());
 
 		HttpServletRequest request = (HttpServletRequest) req;
@@ -40,8 +36,7 @@ public class WaterMarkFilter extends MyFilter {
 		String originImageFile = request.getServletContext().getRealPath("/") + requestURI;
 
 		// 自定义的response
-		WaterMarkResponseWrapper waterMarkRes = new WaterMarkResponseWrapper(
-				response, originImageFile, waterMarkFile);
+		WaterMarkResponseWrapper waterMarkRes = new WaterMarkResponseWrapper(response, originImageFile, waterMarkFile);
 
 		chain.doFilter(request, waterMarkRes);
 
@@ -50,4 +45,5 @@ public class WaterMarkFilter extends MyFilter {
 
 		logger.info("图片 {} 已添加水印图片 {}", originImageFile, waterMarkFile);
 	}
+
 }

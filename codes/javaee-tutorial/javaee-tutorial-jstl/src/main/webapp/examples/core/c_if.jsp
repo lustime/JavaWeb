@@ -9,6 +9,6 @@
 <c:set var="salary" scope="session" value="${2000*2}"/>
 <c:if test="${salary > 2000}">
 <p>我的工资为: <c:out value="${salary}"/><p>
-</c:if>
+  </c:if>
 </body>
 </html>

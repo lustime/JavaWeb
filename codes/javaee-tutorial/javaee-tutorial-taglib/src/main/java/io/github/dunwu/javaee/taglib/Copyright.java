@@ -3,60 +3,61 @@
  */
 package io.github.dunwu.javaee.taglib;
 
-import java.io.IOException;
-import java.util.ResourceBundle;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
+import java.io.IOException;
+import java.util.ResourceBundle;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  * @date 2017/4/3.
  */
 public class Copyright implements Tag {
-    private Tag parent;
 
-    private PageContext pageContext;
+	private Tag parent;
 
-    @Override
-    public int doEndTag() throws JspException {
-        JspWriter out = pageContext.getOut();
+	private PageContext pageContext;
 
-        try {
-            out.println("<div align=center style='line-height: 22px; font-size: 12px; '>");
-            out.println(ResourceBundle.getBundle("copyright").getString("copyright"));
-            out.println("</div>");
-        } catch (IOException e) {
-            throw new JspException(e);
-        }
+	@Override
+	public int doEndTag() throws JspException {
+		JspWriter out = pageContext.getOut();
 
-        return EVAL_PAGE;
-    }
+		try {
+			out.println("<div align=center style='line-height: 22px; font-size: 12px; '>");
+			out.println(ResourceBundle.getBundle("copyright").getString("copyright"));
+			out.println("</div>");
+		}
+		catch (IOException e) {
+			throw new JspException(e);
+		}
 
-    @Override
-    public int doStartTag() throws JspException {
-        return SKIP_BODY;
-    }
+		return EVAL_PAGE;
+	}
 
-    @Override
-    public Tag getParent() {
-        return this.parent;
-    }
+	@Override
+	public int doStartTag() throws JspException {
+		return SKIP_BODY;
+	}
 
-    @Override
-    public void release() {}
+	@Override
+	public Tag getParent() {
+		return this.parent;
+	}
 
-    @Override
-    public void setPageContext(PageContext pageContext) {
-        this.pageContext = pageContext;
-    }
+	@Override
+	public void setParent(Tag parent) {
+		this.parent = parent;
+	}
 
-    @Override
-    public void setParent(Tag parent) {
-        this.parent = parent;
-    }
+	@Override
+	public void release() {
+	}
+
+	@Override
+	public void setPageContext(PageContext pageContext) {
+		this.pageContext = pageContext;
+	}
 
 }
-

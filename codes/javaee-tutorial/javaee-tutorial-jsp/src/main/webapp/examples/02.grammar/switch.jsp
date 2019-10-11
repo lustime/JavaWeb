@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%! int day = 3; %>
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@
 <body>
 <h3>Sswitch...case示例</h3>
 <%
-  switch(day) {
+  switch (day) {
     case 0:
       out.println("星期天");
       break;

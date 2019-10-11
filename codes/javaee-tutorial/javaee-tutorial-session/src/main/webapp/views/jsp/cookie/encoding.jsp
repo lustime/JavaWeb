@@ -3,9 +3,7 @@
 <jsp:directive.page import="java.net.URLEncoder"/>
 <%
   // 使用中文的 Cookie. name 与 value 都使用 UTF-8 编码.
-  Cookie cookie = new Cookie(
-      URLEncoder.encode("姓名", "UTF-8"),
-      URLEncoder.encode("张三", "UTF-8"));
+  Cookie cookie = new Cookie(URLEncoder.encode("姓名", "UTF-8"), URLEncoder.encode("张三", "UTF-8"));
 
   // 发送到客户端
   response.addCookie(cookie);

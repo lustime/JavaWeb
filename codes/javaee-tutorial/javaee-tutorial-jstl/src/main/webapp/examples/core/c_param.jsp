@@ -8,7 +8,7 @@
 <body>
 <h1>&lt;c:param&gt; 实例</h1>
 <c:redirect url="http://www.baidu.com/s">
-  <c:param name="wd" value="音乐" ></c:param>
+  <c:param name="wd" value="音乐"></c:param>
   <c:param name="cl" value="3"></c:param>
 </c:redirect>
 <%--<c:url var="myURL" value="main.jsp">

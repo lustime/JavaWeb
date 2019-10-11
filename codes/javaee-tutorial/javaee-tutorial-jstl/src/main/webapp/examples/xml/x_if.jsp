@@ -30,11 +30,11 @@
 <x:if select="$output//book">
 Document has at least one
 <book> element.
-</x:if>
-<br/>
-<x:if select="$output/books[1]/book/price > 100">
-Book prices are very high
-</x:if>
+  </x:if>
+  <br/>
+  <x:if select="$output/books[1]/book/price > 100">
+  Book prices are very high
+  </x:if>
 
 </body>
 </html>

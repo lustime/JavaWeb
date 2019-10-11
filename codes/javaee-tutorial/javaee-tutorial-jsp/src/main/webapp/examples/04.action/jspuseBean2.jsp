@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>计数器</title>
-    <link rel='stylesheet' type='text/css' href='css/style.css'>
-    </head>
+  <link rel='stylesheet' type='text/css' href='css/style.css'>
+</head>
 <body><br/>
 
 <%-- 定义一个 session 范围内的计数器，记录个人的访问信息 --%>

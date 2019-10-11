@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>第一个Jsp程序</title>
+  <title>第一个Jsp程序</title>
 </head>
 <body>
 <%
-	out.println("你好！");
+  out.println("你好！");
 %>
 </body>
 </html>

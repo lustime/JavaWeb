@@ -16,16 +16,17 @@
         }
       }
     }
+
     function setCookie(name, value) {
       var expires = (arguments.length > 2) ? arguments[2] : null;
       var path = (arguments.length > 3) ? arguments[3] : null;
       var domain = (arguments.length > 4) ? arguments[4] : null;
       var secure = (arguments.length > 5) ? arguments[5] : false;
       document.cookie = name + "=" + encodeURI(value)
-          + ((expires == null) ? "" : ("; expires=" + expires.toGMTString()))
-          + ((path == null) ? "" : ("; path=" + path))
-          + ((domain == null) ? "" : ("; domain=" + domain))
-          + ((secure == true) ? "; secure" : "");
+        + ((expires == null) ? "" : ("; expires=" + expires.toGMTString()))
+        + ((path == null) ? "" : ("; path=" + path))
+        + ((domain == null) ? "" : ("; domain=" + domain))
+        + ((secure == true) ? "; secure" : "");
     }
   </script>
 </head>

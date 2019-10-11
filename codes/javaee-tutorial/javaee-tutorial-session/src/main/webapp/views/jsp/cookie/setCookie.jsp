@@ -20,15 +20,18 @@
 
     if (!isNull(name)) {
 
-      Cookie cookie = new Cookie(
-          URLEncoder.encode(name, "UTF-8"),
-          URLEncoder.encode(value, "UTF-8"));
+      Cookie cookie = new Cookie(URLEncoder.encode(name, "UTF-8"), URLEncoder.encode(value, "UTF-8"));
 
-      if (!isNull(maxAge)) cookie.setMaxAge(Integer.parseInt(maxAge));
-      if (!isNull(domain)) cookie.setDomain(domain);
-      if (!isNull(path)) cookie.setPath(path);
-      if (!isNull(comment)) cookie.setComment(comment);
-      if (!isNull(secure)) cookie.setSecure("true".equalsIgnoreCase(secure));
+      if (!isNull(maxAge))
+        cookie.setMaxAge(Integer.parseInt(maxAge));
+      if (!isNull(domain))
+        cookie.setDomain(domain);
+      if (!isNull(path))
+        cookie.setPath(path);
+      if (!isNull(comment))
+        cookie.setComment(comment);
+      if (!isNull(secure))
+        cookie.setSecure("true".equalsIgnoreCase(secure));
 
       response.addCookie(cookie);
     }

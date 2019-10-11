@@ -20,8 +20,7 @@ public class GZipTest {
 		double rate = new Double(lengthGzip) / lengthCommon;
 
 		System.out.println("网址: " + url);
-		System.out.println("压缩后: " + lengthGzip + " byte, \t压缩前: "
-				+ lengthCommon + " byte, \t比率: "
+		System.out.println("压缩后: " + lengthGzip + " byte, \t压缩前: " + lengthCommon + " byte, \t比率: "
 				+ NumberFormat.getPercentInstance().format(rate));
 		System.out.println();
 	}
@@ -31,4 +30,5 @@ public class GZipTest {
 		test("http://localhost:8080/filter/image.jsp");
 		test("http://localhost:8080/filter/winter.jpg");
 	}
+
 }

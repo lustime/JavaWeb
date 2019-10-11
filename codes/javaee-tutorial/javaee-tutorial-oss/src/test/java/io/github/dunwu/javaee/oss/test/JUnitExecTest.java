@@ -1,14 +1,9 @@
 package io.github.dunwu.javaee.oss.test; /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
- */
+											* The Apache License 2.0
+											* Copyright (c) 2016 Victor Zhang
+											*/
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.fail;
 
@@ -19,77 +14,79 @@ import static org.junit.Assert.fail;
  * @date 2016/11/18.
  */
 public class JUnitExecTest {
-    private static JUnitExecTest instance = new JUnitExecTest();
 
-    @BeforeClass
-    public static void beforeClass1() {
-        System.out.println("@beforeClass1");
-    }
+	private static JUnitExecTest instance = new JUnitExecTest();
 
-    @BeforeClass
-    public static void beforeClass2() {
-        System.out.println("@beforeClass2");
-    }
+	@BeforeClass
+	public static void beforeClass1() {
+		System.out.println("@beforeClass1");
+	}
 
-    @Before
-    public void before1() throws Exception {
-        System.out.println("@before1");
-    }
+	@BeforeClass
+	public static void beforeClass2() {
+		System.out.println("@beforeClass2");
+	}
 
-    @Before
-    public void before2() throws Exception {
-        System.out.println("@before2");
-    }
+	@AfterClass
+	public static void afterClass1() {
+		System.out.println("@afterClass1");
+	}
 
-    @Test
-    public void testAdd() {
-        System.out.println(1);
-    }
+	@AfterClass
+	public static void afterClass2() {
+		System.out.println("@afterClass2");
+	}
 
-    @Test
-    public void testSubstract() {
-        System.out.println(2);
-    }
+	@Before
+	public void before1() throws Exception {
+		System.out.println("@before1");
+	}
 
-    @Ignore("Multiply() Not yet implemented")
-    @Test
-    public void testMultiply() {
-        System.out.println(3);
-        fail("Not yet implemented");
-    }
+	@Before
+	public void before2() throws Exception {
+		System.out.println("@before2");
+	}
 
-    @Test
-    public void testDivide() {
-        System.out.println(4);
-    }
+	@Test
+	public void testAdd() {
+		System.out.println(1);
+	}
 
-    @Test(timeout = 1000)
-    public void testSquareRoot() {
-        System.out.println(5);
-    }
+	@Test
+	public void testSubstract() {
+		System.out.println(2);
+	}
 
-    @Test
-    public void divideByZero() {
-        System.out.println(6);
-    }
+	@Ignore("Multiply() Not yet implemented")
+	@Test
+	public void testMultiply() {
+		System.out.println(3);
+		fail("Not yet implemented");
+	}
 
-    @After
-    public void after1() {
-        System.out.println("@after1");
-    }
+	@Test
+	public void testDivide() {
+		System.out.println(4);
+	}
 
-    @After
-    public void after2() {
-        System.out.println("@after2");
-    }
+	@Test(timeout = 1000)
+	public void testSquareRoot() {
+		System.out.println(5);
+	}
 
-    @AfterClass
-    public static void afterClass1() {
-        System.out.println("@afterClass1");
-    }
+	@Test
+	public void divideByZero() {
+		System.out.println(6);
+	}
 
-    @AfterClass
-    public static void afterClass2() {
-        System.out.println("@afterClass2");
-    }
+	@After
+	public void after1() {
+		System.out.println("@after1");
+	}
+
+	@After
+	public void after2() {
+		System.out.println("@after2");
+	}
+
 }

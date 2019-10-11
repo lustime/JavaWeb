@@ -15,31 +15,33 @@ import java.io.Serializable;
  */
 public class MyHttpSessionActivationListener implements HttpSessionActivationListener, Serializable {
 
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private String name;
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Override
-    public void sessionWillPassivate(HttpSessionEvent se) {
+	private String name;
 
-        logger.debug(name + "和session一起被序列化到硬盘了，session的id是：" + se.getSession().getId());
-    }
+	public MyHttpSessionActivationListener(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public void sessionDidActivate(HttpSessionEvent se) {
-        logger.debug(name + "和session一起从硬盘反序列化回到内存了，session的id是：" + se.getSession().getId());
-    }
+	@Override
+	public void sessionWillPassivate(HttpSessionEvent se) {
 
-    public String getName() {
-        return name;
-    }
+		logger.debug(name + "和session一起被序列化到硬盘了，session的id是：" + se.getSession().getId());
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@Override
+	public void sessionDidActivate(HttpSessionEvent se) {
+		logger.debug(name + "和session一起从硬盘反序列化回到内存了，session的id是：" + se.getSession().getId());
+	}
 
-    public MyHttpSessionActivationListener(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

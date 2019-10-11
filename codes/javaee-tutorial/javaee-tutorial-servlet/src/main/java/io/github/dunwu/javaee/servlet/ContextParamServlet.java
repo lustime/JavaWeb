@@ -1,20 +1,18 @@
 package io.github.dunwu.javaee.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
- * 读取web.xml中的<context-param>
- * <init-param>配置在<servlet>中，只能让对应的servlet使用；
+ * 读取web.xml中的<context-param> <init-param>配置在<servlet>中，只能让对应的servlet使用；
  * <context-param>配置在全局中，可以让所有的servlet使用。
  */
 public class ContextParamServlet extends HttpServlet {
@@ -23,8 +21,7 @@ public class ContextParamServlet extends HttpServlet {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		logger.info("ContextParamServlet 读取 web.xml 中的<context-param>");
 
@@ -65,4 +62,5 @@ public class ContextParamServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+
 }

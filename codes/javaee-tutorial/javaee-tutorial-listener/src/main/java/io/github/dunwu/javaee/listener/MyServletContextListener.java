@@ -17,22 +17,23 @@ import java.util.Date;
  */
 public class MyServletContextListener implements ServletContextListener {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Override
-    public void contextInitialized(ServletContextEvent event) {
-        // 启动时，记录服务器启动时间
-        ApplicationConstants.START_DATE = new Date();
-        ServletContext servletContext = event.getServletContext();
-        logger.info("即将启动 {}", servletContext.getContextPath());
-    }
+	@Override
+	public void contextInitialized(ServletContextEvent event) {
+		// 启动时，记录服务器启动时间
+		ApplicationConstants.START_DATE = new Date();
+		ServletContext servletContext = event.getServletContext();
+		logger.info("即将启动 {}", servletContext.getContextPath());
+	}
 
-    @Override
-    public void contextDestroyed(ServletContextEvent event) {
-        // 关闭时，将结果清除。也可以将结果保存到硬盘上。
-        ApplicationConstants.START_DATE = null;
-        ApplicationConstants.MAX_ONLINE_COUNT_DATE = null;
-        ServletContext servletContext = event.getServletContext();
-        logger.info("即将关闭 {}", servletContext.getContextPath());
-    }
+	@Override
+	public void contextDestroyed(ServletContextEvent event) {
+		// 关闭时，将结果清除。也可以将结果保存到硬盘上。
+		ApplicationConstants.START_DATE = null;
+		ApplicationConstants.MAX_ONLINE_COUNT_DATE = null;
+		ServletContext servletContext = event.getServletContext();
+		logger.info("即将关闭 {}", servletContext.getContextPath());
+	}
+
 }

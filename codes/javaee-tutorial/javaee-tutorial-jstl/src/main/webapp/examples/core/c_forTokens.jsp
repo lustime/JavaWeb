@@ -8,6 +8,6 @@
 <body>
 <c:forTokens items="google,baidu,taobao" delims="," var="name">
 <c:out value="${name}"/><p>
-</c:forTokens>
+  </c:forTokens>
 </body>
 </html>

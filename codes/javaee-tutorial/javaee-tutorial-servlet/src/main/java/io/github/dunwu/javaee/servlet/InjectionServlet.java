@@ -1,29 +1,28 @@
 package io.github.dunwu.javaee.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class InjectionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -8526907492073769090L;
 
 	// 注入的 字符串
-	private @Resource(name="hello") String hello;
+	private @Resource(name = "hello") String hello;
+
 	// 注入的 整数
-	private @Resource(name="i") int i;
+	private @Resource(name = "i") int i;
 
 	// 注入更常见的写法
-	@Resource(name="persons")
+	@Resource(name = "persons")
 	private String persons;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
@@ -39,7 +38,7 @@ public class InjectionServlet extends HttpServlet {
 		out.println("<b>注入的整数</b>：<br/>&nbsp;&nbsp;-&nbsp;" + i + "<br/>");
 		out.println("<b>注入的字符串数组</b>：<br/>");
 
-		for(String person : persons.split(",")){
+		for (String person : persons.split(",")) {
 			out.println("&nbsp;&nbsp;-&nbsp;" + person + "<br/>");
 		}
 

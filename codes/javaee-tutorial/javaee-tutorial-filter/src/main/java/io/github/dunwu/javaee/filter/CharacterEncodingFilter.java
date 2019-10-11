@@ -3,15 +3,9 @@ package io.github.dunwu.javaee.filter;
 import io.github.dunwu.javaee.filter.wrapper.UploadRequestWrapper;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
@@ -20,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CharacterEncodingFilter extends MyFilter {
 
 	private String characterEncoding;
+
 	private boolean enabled;
 
 	@Override
@@ -27,13 +22,12 @@ public class CharacterEncodingFilter extends MyFilter {
 		super.init(config);
 
 		characterEncoding = config.getInitParameter("characterEncoding");
-		enabled = "true".equalsIgnoreCase(characterEncoding.trim())
-				|| "1".equalsIgnoreCase(characterEncoding.trim());
+		enabled = "true".equalsIgnoreCase(characterEncoding.trim()) || "1".equalsIgnoreCase(characterEncoding.trim());
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		logger.info("{} 开始做过滤处理", this.getClass().getName());
 
 		if (enabled || StringUtils.isNotBlank(characterEncoding)) {
@@ -45,25 +39,25 @@ public class CharacterEncodingFilter extends MyFilter {
 		chain.doFilter(request, response);
 	}
 
-    public static class UploadFilter implements Filter {
+	public static class UploadFilter implements Filter {
 
-        public void destroy() {
+		public void destroy() {
 
-        }
+		}
 
-        public void doFilter(ServletRequest request, ServletResponse response,
-                FilterChain chain) throws IOException, ServletException {
+		public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+				throws IOException, ServletException {
 
-            UploadRequestWrapper uploadRequest = new UploadRequestWrapper(
-                    (HttpServletRequest) request);
+			UploadRequestWrapper uploadRequest = new UploadRequestWrapper((HttpServletRequest) request);
 
-            chain.doFilter(uploadRequest, response);
+			chain.doFilter(uploadRequest, response);
 
-        }
+		}
 
-        public void init(FilterConfig filterConfig) throws ServletException {
+		public void init(FilterConfig filterConfig) throws ServletException {
 
-        }
+		}
 
-    }
+	}
+
 }

@@ -16,94 +16,91 @@ import java.io.PrintWriter;
  * @date 2016/12/23.
  */
 public class HelloServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
-    /**
-     * Constructor of the object.
-     */
-    public HelloServlet() {
-        super();
-    }
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Destruction of the servlet. <br>
-     */
-    public void destroy() {
-        super.destroy(); // Just puts "destroy" string in log
-        // Put your code here
-    }
+	/**
+	 * Constructor of the object.
+	 */
+	public HelloServlet() {
+		super();
+	}
 
-    /**
-     * The doGet method of the servlet. <br>
-     *
-     * This method is called when a form has its tag value method equals to get.
-     *
-     * @param request the request send by the client to the server
-     * @param response the response send by the server to the client
-     * @throws ServletException if an error occurred
-     * @throws IOException if an error occurred
-     */
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	/**
+	 * Destruction of the servlet. <br>
+	 */
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
 
-        // 设置 request，response 编码方式
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
+	/**
+	 * The doGet method of the servlet. <br>
+	 *
+	 * This method is called when a form has its tag value method equals to get.
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
+	 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 设置文档类型
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+		// 设置 request，response 编码方式
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 
-        // 输出到客户端浏览器
-        out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-        out.println("<HTML>");
-        out.println("<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">");
-        out.println("<HEAD><TITLE>A Servlet</TITLE></HEAD>");
-        out.println("  <BODY>");
+		// 设置文档类型
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 
-        String requestURI = request.getRequestURI();
-        out.println("<form action='" + requestURI + "' method='post'>");
-        out.println("请输入您的名字：<input type='text' name='name' />");
-        out.println("<input type='submit' />");
-        out.println("</form>");
-        out.println("");
+		// 输出到客户端浏览器
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">");
+		out.println("<HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
 
-        // 取浏览器提交的 name 参数
-        String name = request.getParameter("name");
+		String requestURI = request.getRequestURI();
+		out.println("<form action='" + requestURI + "' method='post'>");
+		out.println("请输入您的名字：<input type='text' name='name' />");
+		out.println("<input type='submit' />");
+		out.println("</form>");
+		out.println("");
 
-        // 如果 name 不为空且长度大于 0
-        if(name != null && name.trim().length() > 0){
-            out.println("您好, <b>" + name + "</b>. 欢迎来到 Java Web 世界. ");
-        }
+		// 取浏览器提交的 name 参数
+		String name = request.getParameter("name");
 
-        out.println("  </BODY>");
-        out.println("</HTML>");
-        out.flush();
-        out.close();
-    }
+		// 如果 name 不为空且长度大于 0
+		if (name != null && name.trim().length() > 0) {
+			out.println("您好, <b>" + name + "</b>. 欢迎来到 Java Web 世界. ");
+		}
 
-    /**
-     * The doPost method of the servlet. <br>
-     *
-     * This method is called when a form has its tag value method equals to post.
-     *
-     * @param request the request send by the client to the server
-     * @param response the response send by the server to the client
-     * @throws ServletException if an error occurred
-     * @throws IOException if an error occurred
-     */
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
+	}
 
-        this.doGet(request, response);
-    }
+	/**
+	 * The doPost method of the servlet. <br>
+	 *
+	 * This method is called when a form has its tag value method equals to post.
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    /**
-     * Initialization of the servlet. <br>
-     *
-     * @throws ServletException if an error occure
-     */
-    public void init() throws ServletException {
-        // Put your code here
-    }
+		this.doGet(request, response);
+	}
+
+	/**
+	 * Initialization of the servlet. <br>
+	 * @throws ServletException if an error occure
+	 */
+	public void init() throws ServletException {
+		// Put your code here
+	}
+
 }

@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%
-	out.getBufferSize();
-	
-	out.println(request);
-	
-	
-	
+  out.getBufferSize();
+
+  out.println(request);
+
+
 %>
 <html>
 <head><title>JSP Scriptlets</title>

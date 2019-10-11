@@ -23,6 +23,7 @@
       obj.pareneTableW = theObjTable.offsetWidth;
       obj.setCapture();
     }
+
     function MouseMoveToResize(obj) {
       if (!obj.mouseDownX) return false;
       var newWidth = obj.pareneTdW * 1 + event.clientX * 1 - obj.mouseDownX;
@@ -31,6 +32,7 @@
         theObjTable.style.width = obj.pareneTableW * 1 + event.clientX * 1 - obj.mouseDownX;
       }
     }
+
     function MouseUpToResize(obj) {
       obj.releaseCapture();
       obj.mouseDownX = 0;
@@ -38,6 +40,7 @@
       document.cookie = objId + '_width=' + obj.parentElement.style.width;
       document.cookie = theObjTable.id + '_width=' + theObjTable.style.width;
     }
+
     function readCookie(name) {
       var start1 = document.cookie.indexOf(name + "=");
       if (start1 == -1)

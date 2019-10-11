@@ -12,11 +12,13 @@ import org.junit.Test;
  * @date 2016/12/23.
  */
 public class VelocityUtilTest {
-    @Test
-    public void test() {
-        VelocityContext context = new VelocityContext();
-        context.put("name", "Victor Zhang");
-        context.put("project", "Velocity");
-        System.out.println(VelocityUtil.getMergeOutput(context, "template/hello.vm"));
-    }
+
+	@Test
+	public void test() {
+		VelocityContext context = new VelocityContext();
+		context.put("name", "Victor Zhang");
+		context.put("project", "Velocity");
+		System.out.println(VelocityUtil.getMergeOutput(context, "template/hello.vm"));
+	}
+
 }

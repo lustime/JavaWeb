@@ -1,18 +1,13 @@
 package io.github.dunwu.javaee.filter;
 
+import io.github.dunwu.javaee.filter.wrapper.HttpCharacterResponseWrapper;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
-
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
-
-import io.github.dunwu.javaee.filter.wrapper.HttpCharacterResponseWrapper;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
@@ -29,7 +24,8 @@ public class OutputReplaceFilter extends MyFilter {
 		String realPath = filterConfig.getServletContext().getRealPath(file);
 		try {
 			properties.load(new FileInputStream(realPath));
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -59,4 +55,5 @@ public class OutputReplaceFilter extends MyFilter {
 		out.write(output);
 		out.println("<!-- Generated at " + new java.util.Date() + " -->");
 	}
+
 }

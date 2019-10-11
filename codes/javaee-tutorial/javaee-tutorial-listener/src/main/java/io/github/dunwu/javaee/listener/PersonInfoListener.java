@@ -1,27 +1,21 @@
 package io.github.dunwu.javaee.listener;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionActivationListener;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-import javax.servlet.http.HttpSessionEvent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  * @since 2017-04-04
  */
-public class PersonInfoListener implements HttpSessionActivationListener,
-		HttpSessionBindingListener, Serializable {
+public class PersonInfoListener implements HttpSessionActivationListener, HttpSessionBindingListener, Serializable {
 
 	private static final long serialVersionUID = -4780592776386225973L;
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private String name;
 
@@ -59,8 +53,7 @@ public class PersonInfoListener implements HttpSessionActivationListener,
 	public void valueBound(HttpSessionBindingEvent event) {
 		HttpSession session = event.getSession();
 		String name = event.getName();
-		logger.info(this + "被绑定到session \"" + session.getId() + "\"的" + name
-				+ "属性上");
+		logger.info(this + "被绑定到session \"" + session.getId() + "\"的" + name + "属性上");
 
 		// 记录放到session中的时间
 		this.setDateCreated(new Date());
@@ -70,8 +63,7 @@ public class PersonInfoListener implements HttpSessionActivationListener,
 	public void valueUnbound(HttpSessionBindingEvent event) {
 		HttpSession session = event.getSession();
 		String name = event.getName();
-		logger.info(this + "被从session \"" + session.getId() + "\"的" + name
-				+ "属性上移除");
+		logger.info(this + "被从session \"" + session.getId() + "\"的" + name + "属性上移除");
 	}
 
 	@Override

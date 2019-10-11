@@ -13,157 +13,171 @@ import java.io.Serializable;
  * @date 2017/1/16.
  */
 public class ImageParamDTO implements Serializable {
-    public static String[] IMAGE_TYPES = {"png", "jpg", "jpeg", "bmp", "gif"};
 
-    private Integer width; // 宽度
-    private Integer height;  // 高度
-    private Double xscale; // 宽度比例
-    private Double yscale; // 高度比例
-    private Double scale; // 总比例，相当于将xscale和yscale都设为同比例
-    private Double rotate; // 旋转角度，范围为[0.0, 360.0]
-    private Double quality; // 压缩质量，范围为[0.0, 1.0]
-    private String format; // 图片格式，支持jpg,jpeg,png,bmp,gif
-    private WaterMark waterMark; // 水印信息
+	public static String[] IMAGE_TYPES = { "png", "jpg", "jpeg", "bmp", "gif" };
 
-    public Integer getWidth() {
-        return width;
-    }
+	private Integer width; // 宽度
 
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
+	private Integer height; // 高度
 
-    public Integer getHeight() {
-        return height;
-    }
+	private Double xscale; // 宽度比例
 
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
+	private Double yscale; // 高度比例
 
-    public Double getXscale() {
-        return xscale;
-    }
+	private Double scale; // 总比例，相当于将xscale和yscale都设为同比例
 
-    public void setXscale(Double xscale) {
-        this.xscale = xscale;
-    }
+	private Double rotate; // 旋转角度，范围为[0.0, 360.0]
 
-    public Double getYscale() {
-        return yscale;
-    }
+	private Double quality; // 压缩质量，范围为[0.0, 1.0]
 
-    public void setYscale(Double yscale) {
-        this.yscale = yscale;
-    }
+	private String format; // 图片格式，支持jpg,jpeg,png,bmp,gif
 
-    public Double getScale() {
-        return scale;
-    }
+	private WaterMark waterMark; // 水印信息
 
-    public void setScale(Double scale) {
-        this.scale = scale;
-    }
+	/**
+	 * 将位置类型码转换为 thumbnailator 可以识别的位置类型
+	 * @param code
+	 * @return
+	 */
+	public static Positions getPostionsByCode(Integer code) {
+		switch (code) {
+		case 1:
+			return Positions.TOP_LEFT;
+		case 2:
+			return Positions.TOP_CENTER;
+		case 3:
+			return Positions.TOP_RIGHT;
+		case 4:
+			return Positions.CENTER_LEFT;
+		case 5:
+			return Positions.CENTER;
+		case 6:
+			return Positions.CENTER_RIGHT;
+		case 7:
+			return Positions.BOTTOM_LEFT;
+		case 8:
+			return Positions.BOTTOM_CENTER;
+		case 9:
+			return Positions.BOTTOM_RIGHT;
+		default:
+			return null;
+		}
+	}
 
-    public Double getRotate() {
-        return rotate;
-    }
+	public Integer getWidth() {
+		return width;
+	}
 
-    public void setRotate(Double rotate) {
-        this.rotate = rotate;
-    }
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
 
-    public Double getQuality() {
-        return quality;
-    }
+	public Integer getHeight() {
+		return height;
+	}
 
-    public void setQuality(Double quality) {
-        this.quality = quality;
-    }
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
 
-    public String getFormat() {
-        return format;
-    }
+	public Double getXscale() {
+		return xscale;
+	}
 
-    public void setFormat(String format) {
-        this.format = format;
-    }
+	public void setXscale(Double xscale) {
+		this.xscale = xscale;
+	}
 
-    public WaterMark getWaterMark() {
-        return waterMark;
-    }
+	public Double getYscale() {
+		return yscale;
+	}
 
-    public void setWaterMark(WaterMark waterMark) {
-        this.waterMark = waterMark;
-    }
+	public void setYscale(Double yscale) {
+		this.yscale = yscale;
+	}
 
-    /**
-     * 将位置类型码转换为 thumbnailator 可以识别的位置类型
-     *
-     * @param code
-     * @return
-     */
-    public static Positions getPostionsByCode(Integer code) {
-        switch (code) {
-            case 1:
-                return Positions.TOP_LEFT;
-            case 2:
-                return Positions.TOP_CENTER;
-            case 3:
-                return Positions.TOP_RIGHT;
-            case 4:
-                return Positions.CENTER_LEFT;
-            case 5:
-                return Positions.CENTER;
-            case 6:
-                return Positions.CENTER_RIGHT;
-            case 7:
-                return Positions.BOTTOM_LEFT;
-            case 8:
-                return Positions.BOTTOM_CENTER;
-            case 9:
-                return Positions.BOTTOM_RIGHT;
-            default:
-                return null;
-        }
-    }
+	public Double getScale() {
+		return scale;
+	}
 
-    public static class WaterMark {
-        private Integer position;
-        private String image;
-        private Float opacity;
+	public void setScale(Double scale) {
+		this.scale = scale;
+	}
 
-        public WaterMark() {
-        }
+	public Double getRotate() {
+		return rotate;
+	}
 
-        public WaterMark(Integer position, String image, Float opacity) {
-            this.position = position;
-            this.image = image;
-            this.opacity = opacity;
-        }
+	public void setRotate(Double rotate) {
+		this.rotate = rotate;
+	}
 
-        public Integer getPosition() {
-            return position;
-        }
+	public Double getQuality() {
+		return quality;
+	}
 
-        public void setPosition(Integer position) {
-            this.position = position;
-        }
+	public void setQuality(Double quality) {
+		this.quality = quality;
+	}
 
-        public String getImage() {
-            return image;
-        }
+	public String getFormat() {
+		return format;
+	}
 
-        public void setImage(String image) {
-            this.image = image;
-        }
+	public void setFormat(String format) {
+		this.format = format;
+	}
 
-        public Float getOpacity() {
-            return opacity;
-        }
+	public WaterMark getWaterMark() {
+		return waterMark;
+	}
 
-        public void setOpacity(Float opacity) {
-            this.opacity = opacity;
-        }
-    }
+	public void setWaterMark(WaterMark waterMark) {
+		this.waterMark = waterMark;
+	}
+
+
+	public static class WaterMark {
+
+		private Integer position;
+
+		private String image;
+
+		private Float opacity;
+
+		public WaterMark() {
+		}
+
+		public WaterMark(Integer position, String image, Float opacity) {
+			this.position = position;
+			this.image = image;
+			this.opacity = opacity;
+		}
+
+		public Integer getPosition() {
+			return position;
+		}
+
+		public void setPosition(Integer position) {
+			this.position = position;
+		}
+
+		public String getImage() {
+			return image;
+		}
+
+		public void setImage(String image) {
+			this.image = image;
+		}
+
+		public Float getOpacity() {
+			return opacity;
+		}
+
+		public void setOpacity(Float opacity) {
+			this.opacity = opacity;
+		}
+
+	}
+
 }

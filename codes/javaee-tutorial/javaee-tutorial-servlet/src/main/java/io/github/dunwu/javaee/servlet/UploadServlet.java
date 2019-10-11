@@ -1,36 +1,28 @@
 package io.github.dunwu.javaee.servlet;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.util.List;
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
+import java.io.*;
+import java.net.URLEncoder;
+import java.util.List;
 
 public class UploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7523024737218332088L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().println("请以 POST 方式上传文件");
 	}
 
 	@SuppressWarnings("unchecked")
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		File file1 = null, file2 = null;
 		String description1 = null, description2 = null;
@@ -58,23 +50,23 @@ public class UploadServlet extends HttpServlet {
 			List<FileItem> list = diskFileUpload.parseRequest(request);
 			out.println("遍历所有的 FileItem ... <br/>");
 			// 遍历 list 中所有的 FileItem
-			for(FileItem fileItem : list){
-				if(fileItem.isFormField()){
+			for (FileItem fileItem : list) {
+				if (fileItem.isFormField()) {
 					// 如果是 文本域
-					if("description1".equals(fileItem.getFieldName())){
+					if ("description1".equals(fileItem.getFieldName())) {
 						// 如果该 FileItem 名称为 description1
 						out.println("遍历到 description1 ... <br/>");
 						description1 = new String(fileItem.getString().getBytes(), "UTF-8");
 					}
-					if("description2".equals(fileItem.getFieldName())){
+					if ("description2".equals(fileItem.getFieldName())) {
 						// 如果该 FileItem 名称为 description2
 						out.println("遍历到 description2 ... <br/>");
 						description2 = new String(fileItem.getString().getBytes(), "UTF-8");
 					}
 				}
-				else{
+				else {
 					// 否则，为文件域
-					if("file1".equals(fileItem.getFieldName())){
+					if ("file1".equals(fileItem.getFieldName())) {
 						// 客户端文件路径构建的 File 对象
 						File remoteFile = new File(new String(fileItem.getName().getBytes(), "UTF-8"));
 						out.println("遍历到 file1 ... <br/>");
@@ -88,18 +80,19 @@ public class UploadServlet extends HttpServlet {
 						InputStream ins = fileItem.getInputStream();
 						OutputStream ous = new FileOutputStream(file1);
 
-						try{
+						try {
 							byte[] buffer = new byte[1024];
 							int len = 0;
-							while((len=ins.read(buffer)) > -1)
+							while ((len = ins.read(buffer)) > -1)
 								ous.write(buffer, 0, len);
 							out.println("已保存文件" + file1.getAbsolutePath() + "<br/>");
-						}finally{
+						}
+						finally {
 							ous.close();
 							ins.close();
 						}
 					}
-					if("file2".equals(fileItem.getFieldName())){
+					if ("file2".equals(fileItem.getFieldName())) {
 						// 客户端文件路径构建的 File 对象
 						File remoteFile = new File(new String(fileItem.getName().getBytes(), "UTF-8"));
 						out.println("遍历到 file2 ... <br/>");
@@ -113,13 +106,14 @@ public class UploadServlet extends HttpServlet {
 						InputStream ins = fileItem.getInputStream();
 						OutputStream ous = new FileOutputStream(file2);
 
-						try{
+						try {
 							byte[] buffer = new byte[1024];
 							int len = 0;
-							while((len=ins.read(buffer)) > -1)
+							while ((len = ins.read(buffer)) > -1)
 								ous.write(buffer, 0, len);
 							out.println("已保存文件" + file2.getAbsolutePath() + "<br/>");
-						}finally{
+						}
+						finally {
 							ous.close();
 							ins.close();
 						}
@@ -127,7 +121,8 @@ public class UploadServlet extends HttpServlet {
 				}
 			}
 			out.println("Request 解析完毕");
-		} catch (FileUploadException e) {
+		}
+		catch (FileUploadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -135,24 +130,25 @@ public class UploadServlet extends HttpServlet {
 		out.println("			</div>");
 		out.println("		</div>");
 
-		if(file1 != null){
-		out.println("		<div class='line'>");
-		out.println("			<div align='left' class='leftDiv'>file1：</div>");
-		out.println("			<div align='left' class='rightDiv'>");
-		out.println("				<a href='" + request.getContextPath() + "/attachment/" + file1.getName() + "' target=_blank>" + file1.getName() +  "</a>"	);
-		out.println("			</div>");
-		out.println("		</div>");
+		if (file1 != null) {
+			out.println("		<div class='line'>");
+			out.println("			<div align='left' class='leftDiv'>file1：</div>");
+			out.println("			<div align='left' class='rightDiv'>");
+			out.println("				<a href='" + request.getContextPath() + "/attachment/" + file1.getName()
+					+ "' target=_blank>" + file1.getName() + "</a>");
+			out.println("			</div>");
+			out.println("		</div>");
 		}
 
-		if(file2 != null){
-		out.println("		<div class='line'>");
-		out.println("			<div align='left' class='leftDiv'>file2：</div>");
-		out.println("			<div align='left' class='rightDiv'>");
-		out.println("				<a href='" + request.getContextPath() + "/attachment/" + URLEncoder.encode(file2.getName(), "UTF-8") + "' target=_blank>" + file2.getName() +  "</a>"	);
-		out.println("			</div>");
-		out.println("		</div>");
+		if (file2 != null) {
+			out.println("		<div class='line'>");
+			out.println("			<div align='left' class='leftDiv'>file2：</div>");
+			out.println("			<div align='left' class='rightDiv'>");
+			out.println("				<a href='" + request.getContextPath() + "/attachment/"
+					+ URLEncoder.encode(file2.getName(), "UTF-8") + "' target=_blank>" + file2.getName() + "</a>");
+			out.println("			</div>");
+			out.println("		</div>");
 		}
-
 
 		out.println("		<div class='line'>");
 		out.println("			<div align='left' class='leftDiv'>description1：</div>");

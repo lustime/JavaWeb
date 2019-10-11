@@ -14,14 +14,16 @@ import org.slf4j.LoggerFactory;
  * @date 2016/11/18.
  */
 public class Slf4jDemo {
-    private static final Logger log = LoggerFactory.getLogger(Slf4jDemo.class);
 
-    public static void main(String[] args) {
-        String msg = "print log, current level: {}";
-        log.trace(msg, "trace");
-        log.debug(msg, "debug");
-        log.info(msg, "info");
-        log.warn(msg, "warn");
-        log.error(msg, "error");
-    }
+	private static final Logger log = LoggerFactory.getLogger(Slf4jDemo.class);
+
+	public static void main(String[] args) {
+		String msg = "print log, current level: {}";
+		log.trace(msg, "trace");
+		log.debug(msg, "debug");
+		log.info(msg, "info");
+		log.warn(msg, "warn");
+		log.error(msg, "error");
+	}
+
 }

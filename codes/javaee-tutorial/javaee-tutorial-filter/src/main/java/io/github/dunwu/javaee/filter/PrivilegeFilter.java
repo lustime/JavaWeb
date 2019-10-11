@@ -1,17 +1,12 @@
 package io.github.dunwu.javaee.filter;
 
+import io.github.dunwu.javaee.filter.exception.AccountException;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
-import io.github.dunwu.javaee.filter.exception.AccountException;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
@@ -29,7 +24,8 @@ public class PrivilegeFilter extends MyFilter {
 		String realPath = config.getServletContext().getRealPath(file);
 		try {
 			pp.load(new FileInputStream(realPath));
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			config.getServletContext().log("读取权限控制文件失败。", e);
 		}
 	}
@@ -80,4 +76,5 @@ public class PrivilegeFilter extends MyFilter {
 	public void destroy() {
 		pp = null;
 	}
+
 }

@@ -11,44 +11,48 @@ import java.security.MessageDigest;
  * @Date 2016年7月21日
  */
 public class ShaCoder {
-    /**
-     * JDK支持SHA1、SHA256、SHA384和SHA512几种SHA算法
-     */
-    public enum ShaTypeEn {
-        SHA1("SHA1"), SHA256("SHA-256"), SHA384("SHA-384"), SHA512("SHA-512");
 
-        private String name;
+	public static byte[] encode(byte[] input, ShaTypeEn type) throws Exception {
+		// 根据类型，初始化消息摘要对象
+		MessageDigest md5Digest = MessageDigest.getInstance(type.getName());
 
-        ShaTypeEn(String name) {
-            this.name = name;
-        }
+		// 更新要计算的内容
+		md5Digest.update(input);
 
-        public String getName() {
-            return this.name;
-        }
-    }
+		// 完成哈希计算，返回摘要
+		return md5Digest.digest();
+	}
 
-    public static byte[] encode(byte[] input, ShaTypeEn type) throws Exception {
-        // 根据类型，初始化消息摘要对象
-        MessageDigest md5Digest = MessageDigest.getInstance(type.getName());
+	public static byte[] encodeWithBase64(byte[] input, ShaTypeEn type) throws Exception {
+		return Base64.encodeBase64URLSafe(encode(input, type));
+	}
 
-        // 更新要计算的内容
-        md5Digest.update(input);
+	public static void main(String[] args) throws Exception {
+		String msg = "Hello World!";
+		byte[] encodeWithBase64 = ShaCoder.encodeWithBase64(msg.getBytes(), ShaTypeEn.SHA384);
 
-        // 完成哈希计算，返回摘要
-        return md5Digest.digest();
-    }
+		String result = String.format("%s摘要:%s", ShaTypeEn.SHA384.getName(), new String(encodeWithBase64));
+		System.out.println("原文: " + msg);
+		System.out.println(result);
+	}
 
-    public static byte[] encodeWithBase64(byte[] input, ShaTypeEn type) throws Exception {
-        return Base64.encodeBase64URLSafe(encode(input, type));
-    }
+	/**
+	 * JDK支持SHA1、SHA256、SHA384和SHA512几种SHA算法
+	 */
+	public enum ShaTypeEn {
 
-    public static void main(String[] args) throws Exception {
-        String msg = "Hello World!";
-        byte[] encodeWithBase64 = ShaCoder.encodeWithBase64(msg.getBytes(), ShaTypeEn.SHA384);
+		SHA1("SHA1"), SHA256("SHA-256"), SHA384("SHA-384"), SHA512("SHA-512");
 
-        String result = String.format("%s摘要:%s", ShaTypeEn.SHA384.getName(), new String(encodeWithBase64));
-        System.out.println("原文: " + msg);
-        System.out.println(result);
-    }
+		private String name;
+
+		ShaTypeEn(String name) {
+			this.name = name;
+		}
+
+		public String getName() {
+			return this.name;
+		}
+
+	}
+
 }

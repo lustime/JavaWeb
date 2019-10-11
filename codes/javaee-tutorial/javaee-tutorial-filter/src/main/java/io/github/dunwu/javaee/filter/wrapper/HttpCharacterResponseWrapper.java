@@ -1,11 +1,10 @@
 package io.github.dunwu.javaee.filter.wrapper;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
@@ -27,4 +26,5 @@ public class HttpCharacterResponseWrapper extends HttpServletResponseWrapper {
 	public CharArrayWriter getCharArrayWriter() {
 		return charArrayWriter;
 	}
+
 }
