@@ -78,6 +78,10 @@
 
 - [Mybatis 应用指南](docs/technology/orm/mybatis.md)
 
+### 分库分表
+
+- [分库分表原理](docs/technology/sharding/sharding-theory.md)
+
 ## ☕ JavaEE
 
 > [JavaEE](docs/javaee) 技术——Java Web 的基石
