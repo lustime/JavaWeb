@@ -1,13 +1,12 @@
 package io.github.dunwu.javaee.listener;
 
 import io.github.dunwu.javaee.listener.util.ApplicationConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.util.Date;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ServletContextListener 接口用于监听 ServletContext 对象的创建和销毁事件。

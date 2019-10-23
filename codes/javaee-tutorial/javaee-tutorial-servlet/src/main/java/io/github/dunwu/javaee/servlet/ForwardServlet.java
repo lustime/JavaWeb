@@ -1,16 +1,20 @@
 package io.github.dunwu.javaee.servlet;
 
+import java.io.IOException;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Date;
 
 public class ForwardServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -291840563095094360L;
+
+	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.doGet(request, response);
+	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -33,17 +37,11 @@ public class ForwardServlet extends HttpServlet {
 		else if ("servlet".equals(destination)) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/servlet/LifeCycleServlet");
 			dispatcher.forward(request, response);
-		}
-		else {
+		} else {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			response.getWriter().println("缺少参数。用法：" + request.getRequestURL() + "?destination=jsp 或者 file 或者 servlet ");
 		}
-
-	}
-
-	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doGet(request, response);
 	}
 
 }

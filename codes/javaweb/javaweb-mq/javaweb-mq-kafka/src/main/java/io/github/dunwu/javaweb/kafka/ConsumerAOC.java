@@ -1,12 +1,11 @@
 package io.github.dunwu.javaweb.kafka;
 
+import java.util.Arrays;
+import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-
-import java.util.Arrays;
-import java.util.Properties;
 
 /**
  * Kafka 消费者消费消息示例 消费者配置参考：https://kafka.apache.org/documentation/#consumerconfigs
@@ -23,9 +22,9 @@ public class ConsumerAOC {
 		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
 		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-				"org.apache.kafka.common.serialization.StringDeserializer");
+			"org.apache.kafka.common.serialization.StringDeserializer");
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-				"org.apache.kafka.common.serialization.StringDeserializer");
+			"org.apache.kafka.common.serialization.StringDeserializer");
 
 		// 2. 使用配置初始化 Kafka 消费者
 		KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);

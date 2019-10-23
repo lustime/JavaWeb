@@ -1,9 +1,9 @@
 package io.github.dunwu.javaee.util;
 
+import java.net.URLEncoder;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 
 public class Pagination {
 
@@ -22,24 +22,21 @@ public class Pagination {
 	public Pagination(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 		}
 
 		for (Cookie cookie : request.getCookies()) {
 			if ("pageSize".equals(cookie.getName())) {
 				try {
 					pageSize = Integer.parseInt(cookie.getValue());
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 				}
 			}
 		}
 
 		try {
 			pageSize = Integer.parseInt(request.getParameter("pageSize"));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 		}
 
 		Cookie cookie = new Cookie("pageSize", Integer.toString(pageSize));
@@ -63,20 +60,13 @@ public class Pagination {
 
 				try {
 					queryString.append(name + "=" + URLEncoder.encode(value, "UTF-8"));
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					queryString.append(name + "=" + value);
 				}
 			}
 		}
 
 		pageUrl = request.getRequestURI() + "?" + queryString.toString();
-	}
-
-	private void calculate() {
-		pageCount = (recordCount + pageSize - 1) / pageSize;
-
-		firstResult = (pageNum - 1) * pageSize;
 	}
 
 	/**
@@ -111,20 +101,20 @@ public class Pagination {
 		buffer.append("  &nbsp;  ");
 
 		buffer.append(pageCount == 0 || pageNum == 1 ? " 上一页 "
-				: " <a href='" + url + "&pageNum=" + (pageNum - 1) + "'>上一页</a> ");
+			: " <a href='" + url + "&pageNum=" + (pageNum - 1) + "'>上一页</a> ");
 
 		buffer.append("  &nbsp;  ");
 
 		buffer.append(pageCount == 0 || pageNum == pageCount ? " 下一页 "
-				: " <a href='" + url + "&pageNum=" + (pageNum + 1) + "'>下一页</a> ");
+			: " <a href='" + url + "&pageNum=" + (pageNum + 1) + "'>下一页</a> ");
 
 		buffer.append("  &nbsp;  ");
 
 		buffer.append(pageCount == 0 || pageNum == pageCount ? " 最后一页 "
-				: " <a href='" + url + "&pageNum=" + pageCount + "'>最后一页</a> ");
+			: " <a href='" + url + "&pageNum=" + pageCount + "'>最后一页</a> ");
 
 		buffer.append(" &nbsp;  转到第<input type='text' name='ibm_crl_scm_goto_input' "
-				+ " style='width:20px; font-size:12px; text-align:center; '>页 ");
+			+ " style='width:20px; font-size:12px; text-align:center; '>页 ");
 
 		buffer.append(" <input type='button' " + " name='ibm_crl_scm_goto_button' value='Go' class='button'>");
 
@@ -157,7 +147,12 @@ public class Pagination {
 		buffer.append("</script>");
 
 		return buffer.toString();
+	}
 
+	private void calculate() {
+		pageCount = (recordCount + pageSize - 1) / pageSize;
+
+		firstResult = (pageNum - 1) * pageSize;
 	}
 
 	public int getPageSize() {

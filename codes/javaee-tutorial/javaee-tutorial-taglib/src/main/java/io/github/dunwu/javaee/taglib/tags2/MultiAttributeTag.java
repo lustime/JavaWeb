@@ -1,10 +1,10 @@
 package io.github.dunwu.javaee.taglib.tags2;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import java.io.IOException;
-import java.io.StringWriter;
 
 public class MultiAttributeTag extends SimpleTagSupport {
 
@@ -39,7 +39,6 @@ public class MultiAttributeTag extends SimpleTagSupport {
 		this.getJspContext().getOut().print("3 次调用 body2 后的结果：" + writer2.getBuffer().toString() + "<br/><br/>");
 
 		this.getJspContext().getOut().print("5 次调用 body1 后的结果：" + writer1.getBuffer().toString() + "<br/><br/>");
-
 	}
 
 }

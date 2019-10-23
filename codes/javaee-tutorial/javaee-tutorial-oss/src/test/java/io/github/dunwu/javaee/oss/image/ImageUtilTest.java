@@ -1,38 +1,21 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.image;
 
 import io.github.dunwu.javaee.oss.image.dto.ImageParamDTO;
+import java.awt.image.BufferedImage;
 import net.sf.jmimemagic.MagicException;
 import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
-import java.io.*;
-
 /**
  * @author Victor Zhang
- * @date 2017/1/16.
+ * @since 2017/1/16.
  */
 public class ImageUtilTest {
-
-	private static byte[] toBytes(File file) throws IOException {
-		InputStream input = new FileInputStream(file);
-		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		byte[] buffer = new byte[1024];
-		int length = 0;
-		while ((length = input.read(buffer)) != -1) {
-			output.write(buffer, 0, length);
-		}
-		byte[] data = output.toByteArray();
-		output.close();
-		input.close();
-		return data;
-	}
 
 	@Test
 	public void testToFile() throws IOException {
@@ -60,11 +43,25 @@ public class ImageUtilTest {
 
 	@Test
 	public void testGetContentType()
-			throws MagicParseException, MagicException, MagicMatchNotFoundException, IOException {
+		throws MagicParseException, MagicException, MagicMatchNotFoundException, IOException {
 		final String oldFile = System.getProperty("user.dir") + "/src/test/resources/images/lion2.jpg";
 		byte[] bytes = toBytes(new File(oldFile));
 		String type = ImageUtil.getContentType(bytes);
 		Assert.assertEquals("image/jpeg", type);
+	}
+
+	private static byte[] toBytes(File file) throws IOException {
+		InputStream input = new FileInputStream(file);
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int length = 0;
+		while ((length = input.read(buffer)) != -1) {
+			output.write(buffer, 0, length);
+		}
+		byte[] data = output.toByteArray();
+		output.close();
+		input.close();
+		return data;
 	}
 
 }

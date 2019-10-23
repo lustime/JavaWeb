@@ -16,8 +16,7 @@ public class Messages {
 	public static String getString(String key) {
 		try {
 			return RESOURCE_BUNDLE.getString(key);
-		}
-		catch (MissingResourceException e) {
+		} catch (MissingResourceException e) {
 			return '!' + key + '!';
 		}
 	}
@@ -27,9 +26,7 @@ public class Messages {
 			String value = RESOURCE_BUNDLE.getString(key);
 
 			return MessageFormat.format(value, params);
-
-		}
-		catch (MissingResourceException e) {
+		} catch (MissingResourceException e) {
 			return '!' + key + '!';
 		}
 	}

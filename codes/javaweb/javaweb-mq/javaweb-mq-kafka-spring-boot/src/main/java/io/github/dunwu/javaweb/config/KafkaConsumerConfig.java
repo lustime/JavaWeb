@@ -1,5 +1,7 @@
 package io.github.dunwu.javaweb.config;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,15 +14,26 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Configuration
 @EnableKafka
 public class KafkaConsumerConfig {
 
 	@Value("${spring.kafka.bootstrap-servers}")
 	private String bootstrapServers;
+
+	@Bean(name = "kafkaListenerContainerFactory")
+	public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> kafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<String, String> factory =
+			new ConcurrentKafkaListenerContainerFactory<>();
+		factory.setConsumerFactory(consumerFactory("groupA"));
+		factory.setConcurrency(3);
+		factory.getContainerProperties().setPollTimeout(3000);
+		return factory;
+	}
+
+	public ConsumerFactory<String, String> consumerFactory(String consumerGroupId) {
+		return new DefaultKafkaConsumerFactory<>(consumerConfig(consumerGroupId));
+	}
 
 	public Map<String, Object> consumerConfig(String consumerGroupId) {
 		Map<String, Object> props = new HashMap<>();
@@ -35,22 +48,10 @@ public class KafkaConsumerConfig {
 		return props;
 	}
 
-	public ConsumerFactory<String, String> consumerFactory(String consumerGroupId) {
-		return new DefaultKafkaConsumerFactory<>(consumerConfig(consumerGroupId));
-	}
-
-	@Bean(name = "kafkaListenerContainerFactory")
-	public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> kafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(consumerFactory("groupA"));
-		factory.setConcurrency(3);
-		factory.getContainerProperties().setPollTimeout(3000);
-		return factory;
-	}
-
 	@Bean(name = "kafkaListenerContainerFactory1")
 	public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> kafkaListenerContainerFactory1() {
-		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+		ConcurrentKafkaListenerContainerFactory<String, String> factory =
+			new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory("groupB"));
 		factory.setConcurrency(3);
 		factory.getContainerProperties().setPollTimeout(3000);

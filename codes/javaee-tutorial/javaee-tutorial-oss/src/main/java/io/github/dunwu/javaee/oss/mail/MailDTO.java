@@ -1,6 +1,5 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.mail;
 
@@ -8,7 +7,7 @@ import javax.mail.internet.MimeMultipart;
 
 /**
  * @author Victor Zhang
- * @date 2016/12/22.
+ * @since 2016/12/22.
  */
 public class MailDTO {
 

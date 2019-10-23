@@ -3,11 +3,11 @@
 <html>
 
 <head>
-  <title>My JSP 'index.jsp' starting page</title>
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
-  <meta http-equiv="description" content="This is my page">
+	<title>My JSP 'index.jsp' starting page</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="description" content="This is my page">
 </head>
 
 <body>

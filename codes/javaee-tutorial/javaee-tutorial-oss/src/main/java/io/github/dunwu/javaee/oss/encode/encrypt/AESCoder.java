@@ -1,16 +1,18 @@
 package io.github.dunwu.javaee.oss.encode.encrypt;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.spec.IvParameterSpec;
 import org.bouncycastle.util.encoders.Base64;
 
-import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
-import java.security.*;
-
 /**
- * @Title AESCoder
- * @Description AES安全编码：对称加密算法。DES的替代方案。
- * @Author victor zhang
- * @Date 2016年7月14日
+ * AES安全编码：对称加密算法。DES的替代方案。
+ *
+ * @author Zhang Peng
+ * @since 2016年7月14日
  */
 public class AESCoder {
 
@@ -38,6 +40,24 @@ public class AESCoder {
 		this.transformation = CIPHER_AES_DEFAULT;
 	}
 
+	/**
+	 * 根据随机数种子生成一个密钥
+	 *
+	 * @return Key
+	 * @throws NoSuchAlgorithmException
+	 * @author Zhang Peng
+	 * @since 2016年7月14日
+	 */
+	private Key initKey() throws NoSuchAlgorithmException {
+		// 根据种子生成一个安全的随机数
+		SecureRandom secureRandom = null;
+		secureRandom = new SecureRandom(SEED.getBytes());
+
+		KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM_AES);
+		keyGen.init(secureRandom);
+		return keyGen.generateKey();
+	}
+
 	public AESCoder(String transformation) throws NoSuchAlgorithmException, NoSuchPaddingException {
 		this.key = initKey();
 		this.cipher = Cipher.getInstance(transformation);
@@ -60,67 +80,47 @@ public class AESCoder {
 	}
 
 	/**
-	 * @Title decrypt
-	 * @Description 解密
-	 * @Author victor zhang
-	 * @Date 2016年7月20日
-	 * @param input 密文
-	 * @return byte[] 明文
-	 * @throws InvalidKeyException
-	 * @throws IllegalBlockSizeException
-	 * @throws BadPaddingException
-	 * @throws InvalidAlgorithmParameterException
-	 */
-	public byte[] decrypt(byte[] input) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
-			InvalidAlgorithmParameterException {
-		if (transformation.equals(CIPHER_AES_CBC_PKCS5PADDING) || transformation.equals(CIPHER_AES_CBC_NOPADDING)) {
-			cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(getIV()));
-		}
-		else {
-			cipher.init(Cipher.DECRYPT_MODE, key);
-		}
-		return cipher.doFinal(input);
-	}
-
-	/**
-	 * @Title encrypt
-	 * @Description 加密
-	 * @Author victor zhang
-	 * @Date 2016年7月20日
+	 * 加密
+	 *
 	 * @param input 明文
 	 * @return byte[] 密文
 	 * @throws InvalidKeyException
 	 * @throws IllegalBlockSizeException
 	 * @throws BadPaddingException
 	 * @throws InvalidAlgorithmParameterException
+	 * @author Zhang Peng
+	 * @since 2016年7月20日
 	 */
 	public byte[] encrypt(byte[] input) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
-			InvalidAlgorithmParameterException {
+		InvalidAlgorithmParameterException {
 		if (transformation.equals(CIPHER_AES_CBC_PKCS5PADDING) || transformation.equals(CIPHER_AES_CBC_NOPADDING)) {
 			cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(getIV()));
-		}
-		else {
+		} else {
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 		}
 		return cipher.doFinal(input);
 	}
 
 	/**
-	 * @Title initKey
-	 * @Description 根据随机数种子生成一个密钥
-	 * @Author victor zhang
-	 * @Date 2016年7月14日
-	 * @return Key
-	 * @throws NoSuchAlgorithmException
+	 * 解密
+	 *
+	 * @param input 密文
+	 * @return byte[] 明文
+	 * @throws InvalidKeyException
+	 * @throws IllegalBlockSizeException
+	 * @throws BadPaddingException
+	 * @throws InvalidAlgorithmParameterException
+	 * @author Zhang Peng
+	 * @since 2016年7月20日
 	 */
-	private Key initKey() throws NoSuchAlgorithmException {
-		// 根据种子生成一个安全的随机数
-		SecureRandom secureRandom = null;
-		secureRandom = new SecureRandom(SEED.getBytes());
-
-		KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM_AES);
-		keyGen.init(secureRandom);
-		return keyGen.generateKey();
+	public byte[] decrypt(byte[] input) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
+		InvalidAlgorithmParameterException {
+		if (transformation.equals(CIPHER_AES_CBC_PKCS5PADDING) || transformation.equals(CIPHER_AES_CBC_NOPADDING)) {
+			cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(getIV()));
+		} else {
+			cipher.init(Cipher.DECRYPT_MODE, key);
+		}
+		return cipher.doFinal(input);
 	}
 
 	private byte[] getIV() {

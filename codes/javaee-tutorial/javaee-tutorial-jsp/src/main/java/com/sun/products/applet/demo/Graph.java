@@ -30,8 +30,6 @@ package com.sun.products.applet.demo;
  */
 
 import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
 import java.util.StringTokenizer;
 
 class Node {
@@ -66,31 +64,60 @@ class GraphPanel extends Panel implements Runnable, MouseListener, MouseMotionLi
 	 *
 	 */
 	private static final long serialVersionUID = -6414075534397495418L;
+
 	final Color fixedColor = Color.red;
+
 	final Color selectColor = Color.pink;
+
 	final Color edgeColor = Color.black;
+
 	final Color nodeColor = new Color(250, 220, 100);
+
 	final Color stressColor = Color.darkGray;
+
 	final Color arcColor1 = Color.black;
+
 	final Color arcColor2 = Color.pink;
+
 	final Color arcColor3 = Color.red;
+
 	Graph graph;
+
 	int nnodes;
+
 	Node nodes[] = new Node[100];
+
 	int nedges;
+
 	Edge edges[] = new Edge[200];
+
 	Thread relaxer;
+
 	boolean stress;
+
 	boolean random;
+
 	Node pick;
+
 	boolean pickfixed;
+
 	Image offscreen;
+
 	Dimension offscreensize;
+
 	Graphics offgraphics;
 
 	GraphPanel(Graph graph) {
 		this.graph = graph;
 		addMouseListener(this);
+	}
+
+	void addEdge(String from, String to, int len) {
+		Edge e = new Edge();
+		e.from = findNode(from);
+		e.to = findNode(to);
+		e.len = len;
+		edges[nedges++] = e;
 	}
 
 	int findNode(String lbl) {
@@ -111,14 +138,6 @@ class GraphPanel extends Panel implements Runnable, MouseListener, MouseMotionLi
 		return nnodes++;
 	}
 
-	void addEdge(String from, String to, int len) {
-		Edge e = new Edge();
-		e.from = findNode(from);
-		e.to = findNode(to);
-		e.len = len;
-		edges[nedges++] = e;
-	}
-
 	public void run() {
 		Thread me = Thread.currentThread();
 		while (relaxer == me) {
@@ -133,8 +152,7 @@ class GraphPanel extends Panel implements Runnable, MouseListener, MouseMotionLi
 			}
 			try {
 				Thread.sleep(100);
-			}
-			catch (InterruptedException e) {
+			} catch (InterruptedException e) {
 				break;
 			}
 		}
@@ -173,8 +191,7 @@ class GraphPanel extends Panel implements Runnable, MouseListener, MouseMotionLi
 				if (len == 0) {
 					dx += Math.random();
 					dy += Math.random();
-				}
-				else if (len < 100 * 100) {
+				} else if (len < 100 * 100) {
 					dx += vx / len;
 					dy += vy / len;
 				}
@@ -196,32 +213,18 @@ class GraphPanel extends Panel implements Runnable, MouseListener, MouseMotionLi
 			}
 			if (n.x < 0) {
 				n.x = 0;
-			}
-			else if (n.x > d.width) {
+			} else if (n.x > d.width) {
 				n.x = d.width;
 			}
 			if (n.y < 0) {
 				n.y = 0;
-			}
-			else if (n.y > d.height) {
+			} else if (n.y > d.height) {
 				n.y = d.height;
 			}
 			n.dx /= 2;
 			n.dy /= 2;
 		}
 		repaint();
-	}
-
-	public void paintNode(Graphics g, Node n, FontMetrics fm) {
-		int x = (int) n.x;
-		int y = (int) n.y;
-		g.setColor((n == pick) ? selectColor : (n.fixed ? fixedColor : nodeColor));
-		int w = fm.stringWidth(n.lbl) + 10;
-		int h = fm.getHeight() + 4;
-		g.fillRect(x - w / 2, y - h / 2, w, h);
-		g.setColor(Color.black);
-		g.drawRect(x - w / 2, y - h / 2, w - 1, h - 1);
-		g.drawString(n.lbl, x - (w - 10) / 2, (y - (h - 4) / 2) + fm.getAscent());
 	}
 
 	public synchronized void update(Graphics g) {
@@ -260,6 +263,18 @@ class GraphPanel extends Panel implements Runnable, MouseListener, MouseMotionLi
 			paintNode(offgraphics, nodes[i], fm);
 		}
 		g.drawImage(offscreen, 0, 0, null);
+	}
+
+	public void paintNode(Graphics g, Node n, FontMetrics fm) {
+		int x = (int) n.x;
+		int y = (int) n.y;
+		g.setColor((n == pick) ? selectColor : (n.fixed ? fixedColor : nodeColor));
+		int w = fm.stringWidth(n.lbl) + 10;
+		int h = fm.getHeight() + 4;
+		g.fillRect(x - w / 2, y - h / 2, w, h);
+		g.setColor(Color.black);
+		g.drawRect(x - w / 2, y - h / 2, w - 1, h - 1);
+		g.drawString(n.lbl, x - (w - 10) / 2, (y - (h - 4) / 2) + fm.getAscent());
 	}
 
 	// 1.1 event handling
@@ -363,7 +378,7 @@ public class Graph extends Applet implements ActionListener, ItemListener {
 		random.addItemListener(this);
 
 		String edges = getParameter("edges");
-		for (StringTokenizer t = new StringTokenizer(edges, ","); t.hasMoreTokens();) {
+		for (StringTokenizer t = new StringTokenizer(edges, ","); t.hasMoreTokens(); ) {
 			String str = t.nextToken();
 			int i = str.indexOf('-');
 			if (i > 0) {
@@ -426,16 +441,16 @@ public class Graph extends Applet implements ActionListener, ItemListener {
 				}
 			}
 		}
-
 	}
 
 	public void itemStateChanged(ItemEvent e) {
 		Object src = e.getSource();
 		boolean on = e.getStateChange() == ItemEvent.SELECTED;
-		if (src == stress)
+		if (src == stress) {
 			panel.stress = on;
-		else if (src == random)
+		} else if (src == random) {
 			panel.random = on;
+		}
 	}
 
 	public String getAppletInfo() {
@@ -443,9 +458,9 @@ public class Graph extends Applet implements ActionListener, ItemListener {
 	}
 
 	public String[][] getParameterInfo() {
-		String[][] info = { { "edges", "delimited string",
-				"A comma-delimited list of all the edges.  It takes the form of 'C-N1,C-N2,C-N3,C-NX,N1-N2/M12,N2-N3/M23,N3-NX/M3X,...' where C is the name of center node (see 'center' parameter) and NX is a node attached to the center node.  For the edges connecting nodes to eachother (and not to the center node) you may (optionally) specify a length MXY separated from the edge name by a forward slash." },
-				{ "center", "string", "The name of the center node." } };
+		String[][] info = {{"edges", "delimited string",
+			"A comma-delimited list of all the edges.  It takes the form of 'C-N1,C-N2,C-N3,C-NX,N1-N2/M12,N2-N3/M23,N3-NX/M3X,...' where C is the name of center node (see 'center' parameter) and NX is a node attached to the center node.  For the edges connecting nodes to eachother (and not to the center node) you may (optionally) specify a length MXY separated from the edge name by a forward slash."},
+			{"center", "string", "The name of the center node."}}
 		return info;
 	}
 

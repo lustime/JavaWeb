@@ -3,25 +3,26 @@
  */
 package io.github.dunwu.javaee.oss.mail;
 
-import org.apache.commons.lang3.StringUtils;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Victor Zhang
- * @date 2016/12/22.
+ * @since 2016/12/22.
  */
 public class MailUtil {
 
 	private static final String TYPE_TEXT = "text";
+
 	private static final String TYPE_HTML = "html";
+
 	private MailConfigDTO configDTO;
 
 	/**
@@ -31,20 +32,12 @@ public class MailUtil {
 		this.configDTO = initEmailConfig();
 	}
 
-	/**
-	 * 以自定义配置初始化邮件收发工具
-	 */
-	public MailUtil(MailConfigDTO configDTO) {
-		this.configDTO = configDTO;
-	}
-
 	private MailConfigDTO initEmailConfig() {
 		MailConfigDTO configDTO = new MailConfigDTO();
 		Properties p = new Properties();
 		try {
 			p.load(MailUtil.class.getResourceAsStream("/mail/mail.properties"));
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -58,7 +51,15 @@ public class MailUtil {
 	}
 
 	/**
+	 * 以自定义配置初始化邮件收发工具
+	 */
+	public MailUtil(MailConfigDTO configDTO) {
+		this.configDTO = configDTO;
+	}
+
+	/**
 	 * 发送邮件
+	 *
 	 * @param info
 	 * @throws MessagingException
 	 */
@@ -100,8 +101,7 @@ public class MailUtil {
 		// 邮件的发件人
 		if (StringUtils.isNotBlank(configDTO.getMailFromHost())) {
 			message.setFrom(new InternetAddress(configDTO.getMailFromHost()));
-		}
-		else {
+		} else {
 			System.out.println("发件人不能为空");
 			return false;
 		}
@@ -109,8 +109,7 @@ public class MailUtil {
 		// 邮件的收件人
 		if (StringUtils.isNotBlank(info.getTo())) {
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(info.getTo()));
-		}
-		else {
+		} else {
 			System.out.println("收件人不能为空");
 			return false;
 		}
@@ -128,8 +127,7 @@ public class MailUtil {
 		// 邮件的标题
 		if (StringUtils.isNotBlank(info.getCharset())) {
 			message.setSubject(info.getSubject(), info.getCharset());
-		}
-		else {
+		} else {
 			message.setSubject(info.getSubject());
 		}
 
@@ -147,13 +145,10 @@ public class MailUtil {
 		if (StringUtils.equals(info.getType(), TYPE_TEXT)) {
 			if (StringUtils.isNotBlank(info.getCharset())) {
 				message.setText(info.getText(), info.getCharset());
-			}
-			else {
+			} else {
 				message.setText(info.getText());
 			}
-
-		}
-		else if (StringUtils.equals(info.getType(), TYPE_HTML)) {
+		} else if (StringUtils.equals(info.getType(), TYPE_HTML)) {
 			String type = "text/html";
 			if (StringUtils.isNotBlank(info.getCharset())) {
 				type += ";charset=" + info.getCharset();

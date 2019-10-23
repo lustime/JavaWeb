@@ -1,12 +1,11 @@
 package io.github.dunwu.javaweb.rocketmq;
 
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.common.message.Message;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.common.message.Message;
 
 /**
  * 批量发送消息
@@ -38,7 +37,6 @@ public class BatchProducer {
 		// Shut down once the producer instance is not longer in use.
 		producer.shutdown();
 	}
-
 
 	public static class ListSplitter implements Iterator<List<Message>> {
 
@@ -81,11 +79,9 @@ public class BatchProducer {
 				}
 				if (tmpSize + totalSize > SIZE_LIMIT) {
 					break;
-				}
-				else {
+				} else {
 					totalSize += tmpSize;
 				}
-
 			}
 			List<Message> subList = messages.subList(currIndex, nextIndex);
 			currIndex = nextIndex;

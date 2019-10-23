@@ -1,13 +1,13 @@
 package io.github.dunwu.javaee.servlet;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public class AnnotationServlet extends HttpServlet {
 
@@ -36,12 +36,13 @@ public class AnnotationServlet extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
-	 *
+	 * <p>
 	 * This method is called when a form has its tag value method equals to get.
-	 * @param request the request send by the client to the server
+	 *
+	 * @param request  the request send by the client to the server
 	 * @param response the response send by the server to the client
 	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * @throws IOException      if an error occurred
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -64,6 +65,7 @@ public class AnnotationServlet extends HttpServlet {
 
 	/**
 	 * Initialization of the servlet. <br>
+	 *
 	 * @throws ServletException if an error occure
 	 */
 	public void init() throws ServletException {
@@ -75,7 +77,8 @@ public class AnnotationServlet extends HttpServlet {
 		this.log("postConstruct()");
 	}
 
-	public @PreDestroy void preDestroy() {
+	public @PreDestroy
+	void preDestroy() {
 		this.log("preDestroy()");
 	}
 

@@ -3,18 +3,18 @@
  */
 package io.github.dunwu.javaee.cookie;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/3/26.
+ * @since 2017/3/26.
  */
 @WebServlet("/servlet/DeleteCookies")
 public class DeleteCookies extends HttpServlet {
@@ -26,6 +26,14 @@ public class DeleteCookies extends HttpServlet {
 	 */
 	public DeleteCookies() {
 		super();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 	/**
@@ -44,7 +52,7 @@ public class DeleteCookies extends HttpServlet {
 		String title = "删除 Cookie 实例";
 		String docType = "<!DOCTYPE html>\n";
 		out.println(
-				docType + "<html>\n" + "<head><title>" + title + "</title></head>\n" + "<body bgcolor=\"#f0f0f0\">\n");
+			docType + "<html>\n" + "<head><title>" + title + "</title></head>\n" + "<body bgcolor=\"#f0f0f0\">\n");
 		if (cookies != null) {
 			out.println("<h2>Cookie 名称和值</h2>");
 			for (int i = 0; i < cookies.length; i++) {
@@ -57,20 +65,11 @@ public class DeleteCookies extends HttpServlet {
 				out.print("名称：" + cookie.getName() + "，");
 				out.print("值：" + cookie.getValue() + " <br/>");
 			}
-		}
-		else {
+		} else {
 			out.println("<h2 class=\"tutheader\">No Cookie founds</h2>");
 		}
 		out.println("</body>");
 		out.println("</html>");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

@@ -1,13 +1,12 @@
 package io.github.dunwu.javaweb.zookeeper;
 
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.ZooKeeper.States;
-
-import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * ZooKeeper 连接示例
@@ -15,7 +14,9 @@ import java.util.concurrent.CountDownLatch;
 public class ZKConnection {
 
 	private static final String HOST = "localhost";
+
 	final CountDownLatch connectedSignal = new CountDownLatch(1);
+
 	// declare zookeeper instance to access ZooKeeper ensemble
 	private ZooKeeper zoo;
 

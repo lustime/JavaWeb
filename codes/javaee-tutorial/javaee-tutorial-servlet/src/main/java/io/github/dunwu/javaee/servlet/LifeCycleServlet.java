@@ -1,12 +1,12 @@
 package io.github.dunwu.javaee.servlet;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public class LifeCycleServlet extends HttpServlet {
 
@@ -88,9 +88,7 @@ public class LifeCycleServlet extends HttpServlet {
 			out.println("</div><br/>");
 
 			out.println("<input type='button' onclick='history.go(-1);' value='纳税光荣 逃税可耻 返回'  class=button>");
-
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			out.println("请输入数值类型数据。<input type='button' onclick='history.go(-1);' value='返回'  class=button>");
 		}
 		out.println("</BODY>");
@@ -114,12 +112,12 @@ public class LifeCycleServlet extends HttpServlet {
 
 		out.println("<div style='line'>");
 		out.println(
-				"	<div class='leftDiv'>您的工资为</div><div align='left' class='rightDiv'><input type='text' name='income'> 单位：元</div>");
+			"	<div class='leftDiv'>您的工资为</div><div align='left' class='rightDiv'><input type='text' name='income'> 单位：元</div>");
 		out.println("</div><br/>");
 
 		out.println("<div style='line'>");
 		out.println(
-				"	<div class='leftDiv'></div><div align='left' class='rightDiv'><input type='submit' value='  计算个税  ' class=button></div>");
+			"	<div class='leftDiv'></div><div align='left' class='rightDiv'><input type='submit' value='  计算个税  ' class=button></div>");
 		out.println("</div>");
 
 		out.println("</form>");

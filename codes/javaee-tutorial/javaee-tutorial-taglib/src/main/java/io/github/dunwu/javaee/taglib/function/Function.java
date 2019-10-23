@@ -6,14 +6,16 @@ public class Function {
 
 	/**
 	 * 返回字节长度
+	 *
 	 * @param obj
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public static int length(Object obj) {
 
-		if (obj == null)
+		if (obj == null) {
 			return 0;
+		}
 
 		if (obj instanceof StringBuffer) {
 			return length(((StringBuffer) obj).toString());
@@ -32,8 +34,9 @@ public class Function {
 
 	public static String substring(String str, int byteLength) {
 
-		if (str == null)
+		if (str == null) {
 			return "";
+		}
 
 		StringBuffer buffer = new StringBuffer();
 
@@ -41,8 +44,7 @@ public class Function {
 			char ch = str.charAt(i);
 			if (length(buffer.toString() + ch) > byteLength) {
 				break;
-			}
-			else {
+			} else {
 				buffer.append(ch);
 			}
 		}
@@ -55,7 +57,6 @@ public class Function {
 		System.out.println(length("中文测试"));
 
 		System.out.println(substring("中文测试", 5));
-
 	}
 
 }

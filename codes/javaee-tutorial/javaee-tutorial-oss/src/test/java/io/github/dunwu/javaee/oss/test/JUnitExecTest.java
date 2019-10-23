@@ -1,9 +1,6 @@
 package io.github.dunwu.javaee.oss.test; /**
-											* The Apache License 2.0
-											* Copyright (c) 2016 Victor Zhang
-											*/
-
-import org.junit.*;
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
+ */
 
 import static org.junit.Assert.fail;
 
@@ -11,7 +8,7 @@ import static org.junit.Assert.fail;
  * JUnit4开始支持注解，本例展示一个单元测试执行过程中，各个注解的调用顺序
  *
  * @author Victor Zhang
- * @date 2016/11/18.
+ * @since 2016/11/18.
  */
 public class JUnitExecTest {
 

@@ -1,12 +1,11 @@
 package io.github.dunwu.javaee.listener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ServletRequestListener 接口用于监听 ServletRequest 对象的创建和销毁。
@@ -32,13 +31,14 @@ public class MyServletRequestListener implements ServletRequestListener {
 		String uri = request.getRequestURI();
 		uri = request.getQueryString() == null ? uri : (uri + "?" + request.getQueryString());
 		request.setAttribute("dateCreated", System.currentTimeMillis());
-		String[] suffix = { ".html", ".do", ".jsp", ".action" };
+		String[] suffix = {".html", ".do", ".jsp", ".action"}
 		for (int i = 0; i < suffix.length; i++) {
 			if (uri.endsWith(suffix[i])) {
 				break;
 			}
-			if (i == suffix.length - 1)
+			if (i == suffix.length - 1) {
 				return;
+			}
 		}
 
 		Integer activeTimes = (Integer) session.getAttribute("activeTimes");

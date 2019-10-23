@@ -1,27 +1,35 @@
 package io.github.dunwu.javaee.oss.encode.encrypt;
 
-import org.apache.commons.codec.binary.Base64;
-
-import javax.crypto.Cipher;
-import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import javax.crypto.Cipher;
+import org.apache.commons.codec.binary.Base64;
 
 /**
- * @Title RSACoder
- * @Description RSA安全编码：非对称加密算法。它既可以用来加密、解密，也可以用来做数字签名
- * @Author victor zhang
- * @Date 2016年7月20日
+ * RSA安全编码：非对称加密算法。它既可以用来加密、解密，也可以用来做数字签名
+ *
+ * @author Zhang Peng
+ * @since 2016年7月20日
  */
 public class RSACoder {
 
 	public final static String KEY_ALGORITHM = "RSA";
 
 	public final static String SIGN_ALGORITHM = "MD5WithRSA";
+
 	private KeyPair keyPair;
 
 	public RSACoder() throws Exception {
 		this.keyPair = initKeyPair();
+	}
+
+	private KeyPair initKeyPair() throws Exception {
+		// KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
+		KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+		// 初始化密钥对生成器，密钥大小为1024位
+		keyPairGen.initialize(1024);
+		// 生成一个密钥对
+		return keyPairGen.genKeyPair();
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -56,15 +64,6 @@ public class RSACoder {
 		System.out.println("验证结果：" + result);
 	}
 
-	public byte[] encryptByPublicKey(byte[] plaintext, byte[] key) throws Exception {
-		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(key);
-		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-		PublicKey publicKey = keyFactory.generatePublic(keySpec);
-		Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-		return cipher.doFinal(plaintext);
-	}
-
 	public byte[] encryptByPrivateKey(byte[] plaintext, byte[] key) throws Exception {
 		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(key);
 		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
@@ -81,6 +80,15 @@ public class RSACoder {
 		Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
 		cipher.init(Cipher.DECRYPT_MODE, publicKey);
 		return cipher.doFinal(ciphertext);
+	}
+
+	public byte[] encryptByPublicKey(byte[] plaintext, byte[] key) throws Exception {
+		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(key);
+		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+		PublicKey publicKey = keyFactory.generatePublic(keySpec);
+		Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+		return cipher.doFinal(plaintext);
 	}
 
 	public byte[] decryptByPrivateKey(byte[] ciphertext, byte[] key) throws Exception {
@@ -103,6 +111,10 @@ public class RSACoder {
 		return signature.sign();
 	}
 
+	public byte[] getPrivateKey() {
+		return keyPair.getPrivate().getEncoded();
+	}
+
 	public boolean verify(byte[] data, byte[] publicKey, byte[] sign, RsaSignTypeEn type) throws Exception {
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKey);
 		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
@@ -118,23 +130,9 @@ public class RSACoder {
 		return keyPair.getPublic().getEncoded();
 	}
 
-	public byte[] getPrivateKey() {
-		return keyPair.getPrivate().getEncoded();
-	}
-
-	private KeyPair initKeyPair() throws Exception {
-		// KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
-		KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-		// 初始化密钥对生成器，密钥大小为1024位
-		keyPairGen.initialize(1024);
-		// 生成一个密钥对
-		return keyPairGen.genKeyPair();
-	}
-
 	public enum RsaSignTypeEn {
 
 		MD2WithRSA, MD5WithRSA, SHA1WithRSA
-
 	}
 
 }

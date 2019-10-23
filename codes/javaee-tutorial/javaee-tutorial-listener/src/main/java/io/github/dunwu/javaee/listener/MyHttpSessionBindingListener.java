@@ -1,10 +1,9 @@
 package io.github.dunwu.javaee.listener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * HttpSessionBindingListener 接口的 JavaBean 对象可以感知自己被绑定或解绑定到 Session 中的事件。

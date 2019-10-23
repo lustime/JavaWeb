@@ -1,20 +1,18 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.template;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Properties;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 
 /**
  * @author Victor Zhang
- * @date 2016/12/23.
+ * @since 2016/12/23.
  */
 public class VelocityUtil {
 
@@ -24,8 +22,7 @@ public class VelocityUtil {
 		Properties props = new Properties();
 		try {
 			props.load(VelocityUtil.class.getResourceAsStream("/template/velocity.properties"));
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		velocityEngine = new VelocityEngine();
@@ -40,8 +37,7 @@ public class VelocityUtil {
 		String output = sw.toString();
 		try {
 			sw.close();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return output;

@@ -3,15 +3,13 @@
  */
 package io.github.dunwu.javaee.filter;
 
+import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.*;
-import java.io.IOException;
-
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/3/27.
+ * @since 2017/3/27.
  */
 public abstract class MyFilter implements Filter {
 
@@ -28,7 +26,7 @@ public abstract class MyFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+		throws IOException, ServletException {
 	}
 
 	@Override

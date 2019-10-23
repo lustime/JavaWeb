@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>jsp:include范例</title>
+	<meta charset="utf-8">
+	<title>jsp:include范例</title>
 </head>
 <body>
 <h2>include 动作实例</h2>

@@ -1,10 +1,10 @@
 package io.github.dunwu.javaee.servlet;
 
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class ThreadSafetyServlet extends HttpServlet {
 
@@ -18,8 +18,7 @@ public class ThreadSafetyServlet extends HttpServlet {
 
 		try {
 			Thread.sleep(5000);
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 		}
 
 		response.getWriter().println("您好, " + name + ". 您使用了 GET 方式提交数据");

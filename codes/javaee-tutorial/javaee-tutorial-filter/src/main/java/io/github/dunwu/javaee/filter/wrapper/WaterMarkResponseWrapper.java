@@ -1,19 +1,18 @@
 package io.github.dunwu.javaee.filter.wrapper;
 
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
-
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.IOException;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/3/27.
+ * @since 2017/3/27.
  */
 public class WaterMarkResponseWrapper extends HttpServletResponseWrapper {
 
@@ -29,7 +28,7 @@ public class WaterMarkResponseWrapper extends HttpServletResponseWrapper {
 	private WaterMarkOutputStream waterMarkOutputStream;
 
 	public WaterMarkResponseWrapper(HttpServletResponse response, String originFile, String waterMarkFile)
-			throws IOException {
+		throws IOException {
 		super(response);
 		this.response = response;
 		this.originFile = originFile;

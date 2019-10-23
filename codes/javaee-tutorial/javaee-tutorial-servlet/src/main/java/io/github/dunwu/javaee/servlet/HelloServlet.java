@@ -1,19 +1,18 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Zhang Peng
+ * The Apache License 2.0 Copyright (c) 2016 Zhang Peng
  */
 package io.github.dunwu.javaee.servlet;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2016/12/23.
+ * @since 2016/12/23.
  */
 public class HelloServlet extends HttpServlet {
 
@@ -35,13 +34,29 @@ public class HelloServlet extends HttpServlet {
 	}
 
 	/**
-	 * The doGet method of the servlet. <br>
+	 * The doPost method of the servlet. <br>
+	 * <p>
+	 * This method is called when a form has its tag value method equals to post.
 	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * @param request the request send by the client to the server
+	 * @param request  the request send by the client to the server
 	 * @param response the response send by the server to the client
 	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * @throws IOException      if an error occurred
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		this.doGet(request, response);
+	}
+
+	/**
+	 * The doGet method of the servlet. <br>
+	 * <p>
+	 * This method is called when a form has its tag value method equals to get.
+	 *
+	 * @param request  the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException      if an error occurred
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -82,21 +97,8 @@ public class HelloServlet extends HttpServlet {
 	}
 
 	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		this.doGet(request, response);
-	}
-
-	/**
 	 * Initialization of the servlet. <br>
+	 *
 	 * @throws ServletException if an error occure
 	 */
 	public void init() throws ServletException {

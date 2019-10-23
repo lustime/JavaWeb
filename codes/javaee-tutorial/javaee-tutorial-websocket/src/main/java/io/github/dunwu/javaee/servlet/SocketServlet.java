@@ -1,14 +1,13 @@
 package io.github.dunwu.javaee.servlet;
 
 import io.github.dunwu.javaee.websocket.WebSocketServer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SocketServlet信息示例
@@ -31,6 +30,10 @@ public class SocketServlet extends HttpServlet {
 		// Put your code here
 	}
 
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.doGet(request, response);
+	}
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// 设置 request，response 编码方式
@@ -43,14 +46,9 @@ public class SocketServlet extends HttpServlet {
 
 		if (id != null && id.length() > 0) {
 			WebSocketServer.send(id, text);
-		}
-		else {
+		} else {
 			WebSocketServer.sendAll(text);
 		}
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doGet(request, response);
 	}
 
 	public void init() throws ServletException {

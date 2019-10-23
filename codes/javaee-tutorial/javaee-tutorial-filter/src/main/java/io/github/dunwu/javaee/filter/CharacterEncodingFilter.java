@@ -1,15 +1,13 @@
 package io.github.dunwu.javaee.filter;
 
 import io.github.dunwu.javaee.filter.wrapper.UploadRequestWrapper;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/3/27.
+ * @since 2017/3/27.
  */
 public class CharacterEncodingFilter extends MyFilter {
 
@@ -27,7 +25,7 @@ public class CharacterEncodingFilter extends MyFilter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+		throws IOException, ServletException {
 		logger.info("{} 开始做过滤处理", this.getClass().getName());
 
 		if (enabled || StringUtils.isNotBlank(characterEncoding)) {
@@ -46,12 +44,11 @@ public class CharacterEncodingFilter extends MyFilter {
 		}
 
 		public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-				throws IOException, ServletException {
+			throws IOException, ServletException {
 
 			UploadRequestWrapper uploadRequest = new UploadRequestWrapper((HttpServletRequest) request);
 
 			chain.doFilter(uploadRequest, response);
-
 		}
 
 		public void init(FilterConfig filterConfig) throws ServletException {

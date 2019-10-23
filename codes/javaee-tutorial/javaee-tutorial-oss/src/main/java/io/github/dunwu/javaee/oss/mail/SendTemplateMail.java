@@ -1,22 +1,20 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.mail;
 
 import io.github.dunwu.javaee.oss.template.VelocityUtil;
-import org.apache.velocity.VelocityContext;
-
-import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.mail.MessagingException;
+import org.apache.velocity.VelocityContext;
 
 /**
  * @author Victor Zhang
- * @date 2016/12/23.
- * @see org.zp.javaee.tools.mail.MailUtil 注意：如果想要成功发送邮件，需要修改JavaParty项目
- * src\javaee\tools\src\main\resources\mail\mail.properties 中的 参数，请根据实际邮箱来配置。
+ * @see org.zp.javaee.tools.mail.MailUtil 注意：如果想要成功发送邮件，需要修改JavaParty项目 src\javaee\tools\src\main\resources\mail\mail.properties
+ * 中的 参数，请根据实际邮箱来配置。
+ * @since 2016/12/23.
  */
 public class SendTemplateMail {
 
@@ -38,7 +36,7 @@ public class SendTemplateMail {
 		list.add(item2);
 		context.put("links", list);
 		context.put("logo",
-				"http://images.cnblogs.com/cnblogs_com/jingmoxukong/709053/o_%e6%94%bb%e5%9f%8e%e7%8b%ae2.png");
+			"http://images.cnblogs.com/cnblogs_com/jingmoxukong/709053/o_%e6%94%bb%e5%9f%8e%e7%8b%ae2.png");
 
 		MailDTO info = new MailDTO();
 		info.setTo(DEFAULT_TO); // 收件人邮箱
@@ -50,7 +48,6 @@ public class SendTemplateMail {
 		MailUtil mailUtil = new MailUtil();
 		mailUtil.sendEmail(info);
 	}
-
 
 	public static class Hyperlink {
 

@@ -1,16 +1,14 @@
 package io.github.dunwu.javaee.servlet.upload;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.Iterator;
-import java.util.List;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 public class ProgressUploadServlet extends HttpServlet {
 
@@ -36,12 +34,11 @@ public class ProgressUploadServlet extends HttpServlet {
 		try {
 			List itemList = upload.parseRequest(request);
 
-			for (Iterator it = itemList.iterator(); it.hasNext();) {
+			for (Iterator it = itemList.iterator(); it.hasNext(); ) {
 				FileItem item = (FileItem) it.next();
 				if (item.isFormField()) {
 					System.out.println("FormField: " + item.getFieldName() + " = " + item.getString());
-				}
-				else {
+				} else {
 					System.out.println("File: " + item.getName());
 
 					// 统一 Linux 与 windows 的路径分隔符
@@ -67,8 +64,7 @@ public class ProgressUploadServlet extends HttpServlet {
 					response.getWriter().println("已保存文件：" + saved);
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			response.getWriter().println("上传发生错误：" + e.getMessage());
 		}
@@ -113,7 +109,7 @@ public class ProgressUploadServlet extends HttpServlet {
 
 		// 格式：百分比||已完成数(M)||文件总长度(M)||传输速率(K)||已用时间(s)||估计总时间(s)||估计剩余时间(s)||正在上传第几个文件
 		String value = percent + "||" + length + "||" + totalLength + "||" + velocity + "||" + time + "||" + totalTime
-				+ "||" + timeLeft + "||" + status.getItems();
+			+ "||" + timeLeft + "||" + status.getItems();
 
 		response.getWriter().println(value);
 	}

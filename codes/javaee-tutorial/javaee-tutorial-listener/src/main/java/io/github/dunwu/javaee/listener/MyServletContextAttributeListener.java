@@ -1,10 +1,9 @@
 package io.github.dunwu.javaee.listener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ServletContextAttributeListener 用于监听 ServletContext 中的属性变化

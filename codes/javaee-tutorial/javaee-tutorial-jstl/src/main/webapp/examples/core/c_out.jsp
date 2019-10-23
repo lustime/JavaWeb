@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+				 pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
-  <title>c:out 标签实例</title>
+	<title>c:out 标签实例</title>
 </head>
 <body>
 <html>
 <head>
-  <title>&lt;c:out&gt;实例</title>
+	<title>&lt;c:out&gt;实例</title>
 </head>
 <body>
 <h1>&lt;c:out&gt; 实例</h1>

@@ -1,14 +1,14 @@
 package io.github.dunwu.javaee.servlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class RedirectServlet extends HttpServlet {
 
@@ -34,8 +34,7 @@ public class RedirectServlet extends HttpServlet {
 			map.put(filename, ++hit);
 			// 重定向到文件
 			response.sendRedirect(request.getContextPath() + filename);
-		}
-		else {
+		} else {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
@@ -58,7 +57,7 @@ public class RedirectServlet extends HttpServlet {
 				out.println("	<td>" + entry.getKey() + "</td>");
 				out.println("	<td>" + entry.getValue() + "</td>");
 				out.println("	<td><a href='" + request.getRequestURI() + "?filename=" + entry.getKey()
-						+ "' target='_blank' onclick='location=location; '>下载</a></td>");
+					+ "' target='_blank' onclick='location=location; '>下载</a></td>");
 				out.println("</tr>");
 			}
 
@@ -69,7 +68,6 @@ public class RedirectServlet extends HttpServlet {
 			out.flush();
 			out.close();
 		}
-
 	}
 
 	@Override

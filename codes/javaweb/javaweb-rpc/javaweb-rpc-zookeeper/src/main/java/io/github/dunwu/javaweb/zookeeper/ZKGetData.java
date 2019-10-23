@@ -1,22 +1,19 @@
 package io.github.dunwu.javaweb.zookeeper;
 
+import java.util.concurrent.CountDownLatch;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 
-import java.util.concurrent.CountDownLatch;
-
 public class ZKGetData {
 
 	private static final String HOST = "localhost";
-	private static ZooKeeper zk;
-	private static ZKConnection conn;
 
-	public static Stat existsZnode(String path) throws KeeperException, InterruptedException {
-		return zk.exists(path, true);
-	}
+	private static ZooKeeper zk;
+
+	private static ZKConnection conn;
 
 	public static void main(String[] args) throws InterruptedException {
 		String path = "/MyFirstZnode";
@@ -33,13 +30,11 @@ public class ZKGetData {
 
 						if (we.getType() == Event.EventType.None) {
 							switch (we.getState()) {
-							case Expired:
-								connectedSignal.countDown();
-								break;
+								case Expired:
+									connectedSignal.countDown();
+									break;
 							}
-
-						}
-						else {
+						} else {
 							String path = "/MyFirstZnode";
 
 							try {
@@ -47,9 +42,7 @@ public class ZKGetData {
 								String data = new String(bn, "UTF-8");
 								System.out.println(data);
 								connectedSignal.countDown();
-
-							}
-							catch (Exception ex) {
+							} catch (Exception ex) {
 								System.out.println(ex.getMessage());
 							}
 						}
@@ -59,20 +52,20 @@ public class ZKGetData {
 				String data = new String(b, "UTF-8");
 				System.out.println(data);
 				connectedSignal.await();
-
-			}
-			else {
+			} else {
 				System.out.println("Node does not exists");
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
-		finally {
+		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
+	}
+
+	public static Stat existsZnode(String path) throws KeeperException, InterruptedException {
+		return zk.exists(path, true);
 	}
 
 }

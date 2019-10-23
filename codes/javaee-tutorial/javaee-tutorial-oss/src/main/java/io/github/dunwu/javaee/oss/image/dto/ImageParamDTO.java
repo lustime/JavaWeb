@@ -1,20 +1,18 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.image.dto;
 
-import net.coobird.thumbnailator.geometry.Positions;
-
 import java.io.Serializable;
+import net.coobird.thumbnailator.geometry.Positions;
 
 /**
  * @author Victor Zhang
- * @date 2017/1/16.
+ * @since 2017/1/16.
  */
 public class ImageParamDTO implements Serializable {
 
-	public static String[] IMAGE_TYPES = { "png", "jpg", "jpeg", "bmp", "gif" };
+	public static String[] IMAGE_TYPES = {"png", "jpg", "jpeg", "bmp", "gif"}
 
 	private Integer width; // 宽度
 
@@ -36,31 +34,32 @@ public class ImageParamDTO implements Serializable {
 
 	/**
 	 * 将位置类型码转换为 thumbnailator 可以识别的位置类型
+	 *
 	 * @param code
 	 * @return
 	 */
 	public static Positions getPostionsByCode(Integer code) {
 		switch (code) {
-		case 1:
-			return Positions.TOP_LEFT;
-		case 2:
-			return Positions.TOP_CENTER;
-		case 3:
-			return Positions.TOP_RIGHT;
-		case 4:
-			return Positions.CENTER_LEFT;
-		case 5:
-			return Positions.CENTER;
-		case 6:
-			return Positions.CENTER_RIGHT;
-		case 7:
-			return Positions.BOTTOM_LEFT;
-		case 8:
-			return Positions.BOTTOM_CENTER;
-		case 9:
-			return Positions.BOTTOM_RIGHT;
-		default:
-			return null;
+			case 1:
+				return Positions.TOP_LEFT;
+			case 2:
+				return Positions.TOP_CENTER;
+			case 3:
+				return Positions.TOP_RIGHT;
+			case 4:
+				return Positions.CENTER_LEFT;
+			case 5:
+				return Positions.CENTER;
+			case 6:
+				return Positions.CENTER_RIGHT;
+			case 7:
+				return Positions.BOTTOM_LEFT;
+			case 8:
+				return Positions.BOTTOM_CENTER;
+			case 9:
+				return Positions.BOTTOM_RIGHT;
+			default:
+				return null;
 		}
 	}
 
@@ -135,7 +134,6 @@ public class ImageParamDTO implements Serializable {
 	public void setWaterMark(WaterMark waterMark) {
 		this.waterMark = waterMark;
 	}
-
 
 	public static class WaterMark {
 

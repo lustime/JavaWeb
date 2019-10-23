@@ -1,15 +1,14 @@
 package io.github.dunwu.javaee.oss.jms;
 
+import javax.jms.*;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
-
-import javax.jms.*;
 
 /**
  * 消息的生产者
  *
  * @author Victor Zhang
- * @date 2016/11/28.
+ * @since 2016/11/28.
  */
 public class JMSSender {
 
@@ -29,7 +28,7 @@ public class JMSSender {
 		// TextMessage message;
 		// 构造ConnectionFactory实例对象，此处采用ActiveMq的实现jar
 		connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_USER,
-				ActiveMQConnection.DEFAULT_PASSWORD, ActiveMQConnection.DEFAULT_BROKER_URL);
+			ActiveMQConnection.DEFAULT_PASSWORD, ActiveMQConnection.DEFAULT_BROKER_URL);
 		try {
 			// 构造从工厂得到连接对象
 			connection = connectionFactory.createConnection();
@@ -46,22 +45,21 @@ public class JMSSender {
 			// 构造消息，此处写死，项目就是参数，或者方法获取
 			sendMessage(session, producer);
 			session.commit();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
-				if (null != connection)
+				if (null != connection) {
 					connection.close();
-			}
-			catch (Throwable ignore) {
+				}
+			} catch (Throwable ignore) {
 			}
 		}
 	}
 
 	/**
 	 * 发送消息
+	 *
 	 * @param session
 	 * @param messageProducer 消息生产者
 	 * @throws Exception
@@ -74,7 +72,6 @@ public class JMSSender {
 			// 通过消息生产者发出消息
 			messageProducer.send(message);
 		}
-
 	}
 
 }

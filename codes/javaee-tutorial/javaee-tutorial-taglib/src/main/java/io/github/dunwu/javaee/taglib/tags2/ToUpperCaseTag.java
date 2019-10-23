@@ -1,10 +1,10 @@
 package io.github.dunwu.javaee.taglib.tags2;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import java.io.IOException;
-import java.io.StringWriter;
 
 public class ToUpperCaseTag extends SimpleTagSupport {
 

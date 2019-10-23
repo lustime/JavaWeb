@@ -24,7 +24,7 @@ public class AsyncProducer {
 			final int index = i;
 			// Create a message instance, specifying topic, tag and message body.
 			Message msg = new Message("TopicTest", "TagA", "OrderID188",
-					"Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
+				"Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
 			producer.send(msg, new SendCallback() {
 				@Override
 				public void onSuccess(SendResult sendResult) {

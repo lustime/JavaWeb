@@ -14,8 +14,7 @@ public class HelloTag extends TagSupport {
 
 		try {
 			this.pageContext.getOut().println("Hello, " + name);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new JspException(e);
 		}
 

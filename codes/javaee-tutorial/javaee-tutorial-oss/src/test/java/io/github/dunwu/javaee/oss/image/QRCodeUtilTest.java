@@ -1,6 +1,5 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.image;
 
@@ -11,22 +10,21 @@ import com.google.zxing.DecodeHintType;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import io.github.dunwu.javaee.oss.image.dto.BarcodeParamDTO;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 测试qrcode工具类
  *
  * @author Victor Zhang
- * @date 2017/1/16.
+ * @since 2017/1/16.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class QRCodeUtilTest {
@@ -92,7 +90,8 @@ public class QRCodeUtilTest {
 	 */
 	@Test
 	public void test02() {
-		String expect = "{\"gender\":\"MALE\",\"name\":{\"last\":\"Zhang\",\"first\":\"Peng\"},\"email\":\"aaa@163.com\"}";
+		String expect =
+			"{\"gender\":\"MALE\",\"name\":{\"last\":\"Zhang\",\"first\":\"Peng\"},\"email\":\"aaa@163.com\"}";
 		String content = QRCodeUtil.decode(paramDTO);
 		Assert.assertEquals(expect, content);
 	}

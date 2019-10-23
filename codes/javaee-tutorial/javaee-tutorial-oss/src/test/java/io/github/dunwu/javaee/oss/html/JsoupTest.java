@@ -1,9 +1,10 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.html;
 
+import java.io.File;
+import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,12 +12,9 @@ import org.jsoup.select.Elements;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
-
 /**
  * @author Victor Zhang
- * @date 2016/11/24.
+ * @since 2016/11/24.
  */
 public class JsoupTest {
 
@@ -30,13 +28,14 @@ public class JsoupTest {
 
 	/**
 	 * Jsoup 有三种方式加载文档(Document): HTML字符串、URL地址、html文件
+	 *
 	 * @throws IOException
 	 */
 	@Before
 	public void before() throws IOException {
 		// 从一个html字符串加载Document对象
 		final String html = "<html><head><title>First parse</title></head>"
-				+ "<body><p>Parsed HTML into a doc.</p></body></html>";
+			+ "<body><p>Parsed HTML into a doc.</p></body></html>";
 		docFromStr = Jsoup.parse(html);
 
 		// 从一个URL加载Document对象
@@ -101,7 +100,6 @@ public class JsoupTest {
 		System.out.println("html: " + link.html()); // 取得链接内的html内容
 		System.out.println("href: " + link.attr("href")); // 取得字符串中的文本
 		System.out.println("text: " + link.text()); // 取得链接地址中的文本
-
 	}
 
 }

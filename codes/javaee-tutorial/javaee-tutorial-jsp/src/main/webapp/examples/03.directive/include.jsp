@@ -15,4 +15,4 @@
 <p style="line-height:22px; text-indent: 2em;">人生如梦，一樽还酹江月。
 <p style="line-height:22px; text-indent: 2em;">
 
-  <%@ include file="foot.jsp" %>
+	<%@ include file="foot.jsp" %>

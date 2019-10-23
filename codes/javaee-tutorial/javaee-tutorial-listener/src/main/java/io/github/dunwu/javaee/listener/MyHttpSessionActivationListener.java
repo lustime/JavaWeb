@@ -1,11 +1,10 @@
 package io.github.dunwu.javaee.listener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.io.Serializable;
 import javax.servlet.http.HttpSessionActivationListener;
 import javax.servlet.http.HttpSessionEvent;
-import java.io.Serializable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * HttpSessionActivationListener 接口的 JavaBean 对象可以感知自己被序列化或反序列化的事件。

@@ -3,19 +3,19 @@
  */
 package io.github.dunwu.javaee.cookie;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/3/26.
+ * @since 2017/3/26.
  */
 @WebServlet("/servlet/AddCookies")
 public class AddCookies extends HttpServlet {
@@ -27,6 +27,14 @@ public class AddCookies extends HttpServlet {
 	 */
 	public AddCookies() {
 		super();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 	/**
@@ -52,17 +60,9 @@ public class AddCookies extends HttpServlet {
 		String title = "设置 Cookie 实例";
 		String docType = "<!DOCTYPE html>\n";
 		out.println(docType + "<html>\n" + "<head><title>" + title + "</title></head>\n"
-				+ "<body bgcolor=\"#f0f0f0\">\n" + "<h1 align=\"center\">" + title + "</h1>\n" + "<ul>\n"
-				+ "  <li><b>站点名：</b>：" + request.getParameter("name") + "\n</li>" + "  <li><b>站点 URL：</b>："
-				+ request.getParameter("url") + "\n</li>" + "</ul>\n" + "</body></html>");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
+			+ "<body bgcolor=\"#f0f0f0\">\n" + "<h1 align=\"center\">" + title + "</h1>\n" + "<ul>\n"
+			+ "  <li><b>站点名：</b>：" + request.getParameter("name") + "\n</li>" + "  <li><b>站点 URL：</b>："
+			+ request.getParameter("url") + "\n</li>" + "</ul>\n" + "</body></html>");
 	}
 
 }

@@ -1,27 +1,33 @@
 package io.github.dunwu.javaee.taglib.tags.table;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.BodyContent;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 public class Table extends BodyTagSupport {
 
 	private static final long serialVersionUID = 3358444196409845360L;
 
-	/** 存储列信息 */
+	/**
+	 * 存储列信息
+	 */
 	private List<Map<String, String>> columns = new ArrayList<Map<String, String>>();
 
-	/** 存储数据，可能为 集合类型的或者数组类型的 */
+	/**
+	 * 存储数据，可能为 集合类型的或者数组类型的
+	 */
 	private Object items;
 
-	/** 取排序数据的 URL */
+	/**
+	 * 取排序数据的 URL
+	 */
 	private String url;
 
 	@Override
@@ -111,8 +117,7 @@ public class Table extends BodyTagSupport {
 							try {
 								/** 获取 getXxx() 形式的方法 */
 								method = obj.getClass().getMethod(getter);
-							}
-							catch (Exception e) {
+							} catch (Exception e) {
 							}
 
 							if (method == null) {
@@ -125,9 +130,7 @@ public class Table extends BodyTagSupport {
 							/** 获取属性值 */
 							Object value = method.invoke(obj);
 							out.println("<td><span title='" + value + "'>" + value + "</span></td>");
-
-						}
-						catch (Exception e) {
+						} catch (Exception e) {
 							throw new JspException(e);
 						}
 					}
@@ -143,20 +146,34 @@ public class Table extends BodyTagSupport {
 			out.println("   function sort(column){");
 			out.println("       if(orderName == column){");
 			out.println("           location='" + url
-					+ "?orderName=' + column + '&orderType=' + (orderType=='asc' ? 'desc' : 'asc'); ");
+				+ "?orderName=' + column + '&orderType=' + (orderType=='asc' ? 'desc' : 'asc'); ");
 			out.println("       }");
 			out.println("       else{");
 			out.println("           location='" + url + "?orderName=' + column + '&orderType=' + orderType; ");
 			out.println("       }");
 			out.println("   }");
 			out.println("</script>");
-
-		}
-		catch (IOException ioe) {
+		} catch (IOException ioe) {
 			throw new JspException("Error: " + ioe.getMessage());
 		}
 
 		return SKIP_BODY;
+	}
+
+	/**
+	 * 首字母大写
+	 *
+	 * @param column
+	 * @return
+	 */
+	public String toGetterStyle(String column) {
+		if (column.length() == 1) {
+			return column.toUpperCase();
+		}
+
+		char ch = column.charAt(0);
+
+		return Character.toUpperCase(ch) + column.substring(1);
 	}
 
 	public Object getItems() {
@@ -165,21 +182,6 @@ public class Table extends BodyTagSupport {
 
 	public void setItems(Object items) {
 		this.items = items;
-	}
-
-	/**
-	 * 首字母大写
-	 * @param column
-	 * @return
-	 */
-	public String toGetterStyle(String column) {
-		if (column.length() == 1)
-			return column.toUpperCase();
-
-		char ch = column.charAt(0);
-
-		return Character.toUpperCase(ch) + column.substring(1);
-
 	}
 
 	public List<Map<String, String>> getColumns() {

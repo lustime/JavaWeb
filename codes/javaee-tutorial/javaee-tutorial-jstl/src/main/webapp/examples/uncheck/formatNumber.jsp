@@ -8,49 +8,49 @@
 <%@page import="java.util.Locale" %>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Insert title here</title>
-  <style type="text/css">
-    body {
-      font-size: 14px;
-    }
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<style type="text/css">
+		body {
+			font-size: 14px;
+		}
 
-    table {
-      border-collapse: collapse;
-      border: 1px solid #000000;
-      margin-top: 5px;
-    }
+		table {
+			border-collapse: collapse;
+			border: 1px solid #000000;
+			margin-top: 5px;
+		}
 
-    td {
-      border: 1px solid #000000;
-      padding: 2px;
-      text-align: center;
-      font-size: 12px;
-    }
+		td {
+			border: 1px solid #000000;
+			padding: 2px;
+			text-align: center;
+			font-size: 12px;
+		}
 
-    .title td {
-      background: #EEEEEE;
-      width: 100px;
-    }
-  </style>
+		.title td {
+			background: #EEEEEE;
+			width: 100px;
+		}
+	</style>
 </head>
 <body>
 
 <%
-  Field[] field = Locale.class.getFields();
+	Field[] field = Locale.class.getFields();
 
-  List<Locale> localeList = new ArrayList<Locale>();
+	List<Locale> localeList = new ArrayList<Locale>();
 
-  for (int i = 0; i < field.length; i++) {
-    if (field[i].getType().equals(Locale.class)) {
-      localeList.add((Locale) field[i].get(null));
-    }
-  }
+	for (int i = 0; i < field.length; i++) {
+		if (field[i].getType().equals(Locale.class)) {
+			localeList.add((Locale) field[i].get(null));
+		}
+	}
 
-  request.setAttribute("localeList", localeList);
+	request.setAttribute("localeList", localeList);
 
-  double[] numbers = {0, 10000, 55.0, -123.2568};
-  request.setAttribute("numbers", numbers);
+	double[] numbers = {0, 10000, 55.0, -123.2568};
+	request.setAttribute("numbers", numbers);
 %>
 
 <fmt:setLocale value="${ param.locale }"/>
@@ -60,27 +60,27 @@
 &nbsp;
 
 <c:forEach items="${ localeList }" var="locale">
-  <a href="${ pageContext.request.requestURI }?locale=${ locale }">${ locale }</a>&nbsp;
+	<a href="${ pageContext.request.requestURI }?locale=${ locale }">${ locale }</a>&nbsp;
 </c:forEach>
 
 <table>
-  <tr class="title">
-    <td>数字原值</td>
-    <td>数字格式</td>
-    <td>货币格式</td>
-    <td>百分数格式</td>
-  </tr>
+	<tr class="title">
+		<td>数字原值</td>
+		<td>数字格式</td>
+		<td>货币格式</td>
+		<td>百分数格式</td>
+	</tr>
 
-  <c:forEach items="${ numbers }" var="number">
-    <tr>
-      <td>${ number }</td>
-      <td><fmt:formatNumber value="${ number }" type="number"
-                            maxFractionDigits="4" minIntegerDigits="3" maxIntegerDigits="3"
-                            minFractionDigits="2"/></td>
-      <td><fmt:formatNumber value="${ number }" type="currency"/></td>
-      <td><fmt:formatNumber value="${ number }" type="percent"/></td>
-    </tr>
-  </c:forEach>
+	<c:forEach items="${ numbers }" var="number">
+		<tr>
+			<td>${ number }</td>
+			<td><fmt:formatNumber value="${ number }" type="number"
+														maxFractionDigits="4" minIntegerDigits="3" maxIntegerDigits="3"
+														minFractionDigits="2"/></td>
+			<td><fmt:formatNumber value="${ number }" type="currency"/></td>
+			<td><fmt:formatNumber value="${ number }" type="percent"/></td>
+		</tr>
+	</c:forEach>
 
 </table>
 

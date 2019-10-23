@@ -4,23 +4,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Insert title here</title>
-  <style>
-    body, td, div {
-      font-size: 12px;
-    }
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<style>
+		body, td, div {
+			font-size: 12px;
+		}
 
-    .source {
-      white-space: pre;
-      width: 100%;
-      height: 200px;
-      overflow: scroll;
-      border: 1px solid #999999;
-      padding: 2px;
-      margin-bottom: 20px;
-    }
-  </style>
+		.source {
+			white-space: pre;
+			width: 100%;
+			height: 200px;
+			overflow: scroll;
+			border: 1px solid #999999;
+			padding: 2px;
+			margin-bottom: 20px;
+		}
+	</style>
 </head>
 <body>
 
@@ -31,11 +31,11 @@
 <x:parse var="doc" doc="${ file }"></x:parse>
 
 <x:if select="$doc/Context/Resource/@driverClassName" var="exists">
-  属性 Driver Class Name 存在: <x:out select="$doc/Context/Resource/@driverClassName"/>. <br/>
+	属性 Driver Class Name 存在: <x:out select="$doc/Context/Resource/@driverClassName"/>. <br/>
 </x:if>
 
 <c:if test="${ ! exists }">
-  属性 Driver Class Name 不存在。
+	属性 Driver Class Name 不存在。
 </c:if>
 
 </body>

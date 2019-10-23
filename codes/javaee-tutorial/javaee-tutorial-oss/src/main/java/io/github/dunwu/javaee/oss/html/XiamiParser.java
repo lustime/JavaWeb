@@ -1,24 +1,22 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.html;
 
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * 获取虾米网我的音乐中所有曲目
  *
  * @author Victor Zhang
- * @date 2016/11/8.
+ * @since 2016/11/8.
  */
 public class XiamiParser {
 
@@ -37,6 +35,7 @@ public class XiamiParser {
 
 	/**
 	 * 获取指定页HTML 文档指定的body
+	 *
 	 * @throws IOException
 	 */
 	private Set<SongInfo> getSongInfoSet(String blogUrl, int page) throws IOException {
@@ -71,6 +70,19 @@ public class XiamiParser {
 
 		private String artist;
 
+		@Override
+		public boolean equals(Object obj) {
+			if (obj.getClass() != SongInfo.class) {
+				return false;
+			}
+			SongInfo external = (SongInfo) obj;
+			if (external.getName().equals(this.getName()) && external.getArtist().equals(this.getArtist())) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		public String getName() {
 			return name;
 		}
@@ -85,17 +97,6 @@ public class XiamiParser {
 
 		public void setArtist(String artist) {
 			this.artist = artist;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (obj.getClass() != SongInfo.class)
-				return false;
-			SongInfo external = (SongInfo) obj;
-			if (external.getName().equals(this.getName()) && external.getArtist().equals(this.getArtist()))
-				return true;
-			else
-				return false;
 		}
 
 		@Override

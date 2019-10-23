@@ -3,16 +3,16 @@
  */
 package io.github.dunwu.javaee.taglib;
 
+import java.io.IOException;
+import java.util.ResourceBundle;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-import java.io.IOException;
-import java.util.ResourceBundle;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/4/3.
+ * @since 2017/4/3.
  */
 public class Copyright implements Tag {
 
@@ -28,8 +28,7 @@ public class Copyright implements Tag {
 			out.println("<div align=center style='line-height: 22px; font-size: 12px; '>");
 			out.println(ResourceBundle.getBundle("copyright").getString("copyright"));
 			out.println("</div>");
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new JspException(e);
 		}
 

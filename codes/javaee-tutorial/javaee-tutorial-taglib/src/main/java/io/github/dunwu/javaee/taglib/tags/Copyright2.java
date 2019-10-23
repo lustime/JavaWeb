@@ -1,10 +1,10 @@
 package io.github.dunwu.javaee.taglib.tags;
 
+import java.io.IOException;
+import java.util.ResourceBundle;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
-import java.io.IOException;
-import java.util.ResourceBundle;
 
 public class Copyright2 extends TagSupport {
 
@@ -18,8 +18,7 @@ public class Copyright2 extends TagSupport {
 			out.println("<div align=center style='line-height: 22px; font-size: 12px; '>");
 			out.println(ResourceBundle.getBundle("copyright").getString("copyright"));
 			out.println("</div>");
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new JspException(e);
 		}
 

@@ -1,23 +1,21 @@
 package io.github.dunwu.javaee.websocket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.websocket.*;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Websocket 消息处理中心
  *
- * @see https://github.com/jetty-project/embedded-jetty-websocket-examples
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
+ * @see https://github.com/jetty-project/embedded-jetty-websocket-examples
  */
 @ServerEndpoint(value = "/auth/user/{id}", configurator = WebSocketServerConfigurator.class)
 public class WebSocketServer {
@@ -30,6 +28,7 @@ public class WebSocketServer {
 
 	/**
 	 * 发送广播消息
+	 *
 	 * @param message
 	 */
 	public static void sendAll(String message) {
@@ -39,11 +38,9 @@ public class WebSocketServer {
 			for (Session session : groups) {
 				try {
 					session.getBasicRemote().sendObject(message);
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					logger.error(e.toString());
-				}
-				catch (EncodeException e) {
+				} catch (EncodeException e) {
 					logger.error(e.toString());
 				}
 			}
@@ -57,14 +54,12 @@ public class WebSocketServer {
 					try {
 						session.getBasicRemote().sendObject(message);
 						logger.info("SendAll: {}", message);
-					}
-					catch (Exception e) {
+					} catch (Exception e) {
 						logger.error(e.toString());
 					}
 				}
 			}
 		}
-
 	}
 
 	@OnMessage

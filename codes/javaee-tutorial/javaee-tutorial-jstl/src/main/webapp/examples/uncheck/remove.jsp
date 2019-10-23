@@ -4,13 +4,13 @@
 <%@page import="java.util.HashMap" %>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
 </head>
 <body>
 
 <%
-  request.setAttribute("somemap", new HashMap());
+	request.setAttribute("somemap", new HashMap());
 %>
 
 <c:remove var="somemap"/>

@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-  <title>JSP指令page-属性contentType</title>
+	<title>JSP指令page-属性contentType</title>
 </head>
 
 <body>

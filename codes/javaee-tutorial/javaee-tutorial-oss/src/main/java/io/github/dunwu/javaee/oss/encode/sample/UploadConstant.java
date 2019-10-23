@@ -1,12 +1,11 @@
 package io.github.dunwu.javaee.oss.encode.sample;
 
-import org.apache.commons.collections.CollectionUtils;
-
 import java.util.HashSet;
 import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
- * Created by victor zhang on 2016/7/26.
+ * Created by Zhang Peng on 2016/7/26.
  */
 public class UploadConstant {
 
@@ -27,10 +26,10 @@ public class UploadConstant {
 	public static final String SUPPORT_FILE_TYPE = "pdf|doc|docx|png|jpg|jpeg|gif";
 
 	public static final Set<String> SUPPORT_FILE_TYPE_SET;
+
 	static {
 		SUPPORT_FILE_TYPE_SET = new HashSet<String>();
 		String[] supportedTypes = UploadConstant.SUPPORT_FILE_TYPE.split("\\|");
 		CollectionUtils.addAll(SUPPORT_FILE_TYPE_SET, supportedTypes);
 	}
-
 }

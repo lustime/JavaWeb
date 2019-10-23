@@ -5,8 +5,8 @@
 </head>
 <body>
 <%
-  String param = request.getParameter("param");
-  if ("1".equals(param)) {
+	String param = request.getParameter("param");
+	if ("1".equals(param)) {
 %>
 《破阵子·为孙同甫赋壮语以寄》<br/>
 【宋】辛弃疾<br/>
@@ -62,7 +62,7 @@
 <a href="if.jsp?param=4">if.jsp?param=4</a><br/>
 <a href="if.jsp?param=5">if.jsp?param=5</a><br/>
 <%
-  }
+	}
 %>
 </body>
 </html>

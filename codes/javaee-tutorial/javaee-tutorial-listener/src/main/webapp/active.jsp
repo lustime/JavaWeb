@@ -3,21 +3,21 @@
 <%@ page import="io.github.dunwu.javaee.listener.bean.PersonInfo" %>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
 </head>
 <body>
 
 <%
-  PersonInfo personInfo = (PersonInfo) session.getAttribute("personInfo");
-  if (personInfo == null) {
-    personInfo = new PersonInfo();
-    personInfo.setAccount("Zhang Peng");
-    session.setAttribute("personInfo", personInfo);
-    out.println("PersonInfo 对象不存在。已经成功新建。sessionId: " + session.getId());
-  } else {
-    out.println("PersonInfo 对象存在。无需新建。sessionId: " + session.getId());
-  }
+	PersonInfo personInfo = (PersonInfo) session.getAttribute("personInfo");
+	if (personInfo == null) {
+		personInfo = new PersonInfo();
+		personInfo.setAccount("Zhang Peng");
+		session.setAttribute("personInfo", personInfo);
+		out.println("PersonInfo 对象不存在。已经成功新建。sessionId: " + session.getId());
+	} else {
+		out.println("PersonInfo 对象存在。无需新建。sessionId: " + session.getId());
+	}
 %>
 
 </body>

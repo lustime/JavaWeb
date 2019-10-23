@@ -7,69 +7,69 @@
 <%@page import="com.helloweenvsfei.util.Pagination" %>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Insert title here</title>
-  <style type="text/css">
-    body, td, input, select, button {
-      font-size: 12px;
-    }
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<style type="text/css">
+		body, td, input, select, button {
+			font-size: 12px;
+		}
 
-    table {
-      border-collapse: collapse;
-      border: 1px solid #000000;
-    }
+		table {
+			border-collapse: collapse;
+			border: 1px solid #000000;
+		}
 
-    td {
-      border: 1px solid #000000;
-      padding: 2px;
-    }
+		td {
+			border: 1px solid #000000;
+			padding: 2px;
+		}
 
-    .title td {
-      text-align: center;
-      background: #DDDDDD;
-    }
-  </style>
+		.title td {
+			text-align: center;
+			background: #DDDDDD;
+		}
+	</style>
 </head>
 <body>
 
 <%
-  request.setAttribute("pagination", new Pagination(request, response));
+	request.setAttribute("pagination", new Pagination(request, response));
 %>
 
 <sql:setDataSource driver="com.mysql.jdbc.Driver" user="root"
-                   password="admin"
-                   url="jdbc:mysql://localhost:3306/mysql?charachterEncoding=UTF-8"
-                   var="dataSource"/>
+									 password="admin"
+									 url="jdbc:mysql://localhost:3306/mysql?charachterEncoding=UTF-8"
+									 var="dataSource"/>
 
 <sql:query var="rs" dataSource="${ dataSource }">
-  SELECT count(*) count FROM help_topic
+	SELECT count(*) count FROM help_topic
 </sql:query>
 
 <c:forEach var="row" items="${ rs.rows }">
-  <jsp:setProperty name="pagination" property="recordCount"
-                   value="${ row.count }"/>
+	<jsp:setProperty name="pagination" property="recordCount"
+									 value="${ row.count }"/>
 </c:forEach>
 
 <sql:query var="rs" dataSource="${ dataSource }"
-           startRow="${ pagination.firstResult }"
-           maxRows="${ pagination.pageSize }">
-  SELECT * FROM help_topic
+					 startRow="${ pagination.firstResult }"
+					 maxRows="${ pagination.pageSize }">
+	SELECT * FROM help_topic
 </sql:query>
 
 <table>
-  <tr class="title">
-    <td>Help_ID</td>
-    <td>Name</td>
-    <td>Description</td>
-  </tr>
+	<tr class="title">
+		<td>Help_ID</td>
+		<td>Name</td>
+		<td>Description</td>
+	</tr>
 
-  <c:forEach var="row" items="${ rs.rows }">
-    <tr>
-      <td align="center">${ row['help_topic_id'] }</td>
-      <td>${ row['name'] }</td>
-      <td>${ row['description'] }</td>
-    </tr>
-  </c:forEach>
+	<c:forEach var="row" items="${ rs.rows }">
+		<tr>
+			<td align="center">${ row['help_topic_id'] }</td>
+			<td>${ row['name'] }</td>
+			<td>${ row['description'] }</td>
+		</tr>
+	</c:forEach>
 
 </table>
 <br/>

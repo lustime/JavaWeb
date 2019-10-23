@@ -1,8 +1,8 @@
 package io.github.dunwu.javaee.oss.mail; /**
-											* The Apache License 2.0
-											* Copyright (c) 2016 victor zhang
-											*/
+ * The Apache License 2.0 Copyright (c) 2016 Zhang Peng
+ */
 
+import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -10,11 +10,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.util.Properties;
 
 /**
- * @author victor zhang
- * @date 2017/4/5.
+ * @author Zhang Peng
+ * @since 2017/4/5.
  */
 public class SendAttachmentMail {
 
@@ -65,7 +64,7 @@ public class SendAttachmentMail {
 		MimeMultipart mm = new MimeMultipart();
 		mm.setSubType("related");
 		mm.addBodyPart(text);
-		String[] files = { "D:\\00_Temp\\temp\\1.jpg", "D:\\00_Temp\\temp\\2.png" };
+		String[] files = {"D:\\00_Temp\\temp\\1.jpg", "D:\\00_Temp\\temp\\2.png"}
 
 		// 添加邮件附件
 		for (String filename : files) {

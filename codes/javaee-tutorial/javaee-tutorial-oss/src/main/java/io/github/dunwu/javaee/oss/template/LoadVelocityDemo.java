@@ -1,12 +1,7 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.template;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -14,10 +9,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 
 /**
  * @author Victor Zhang
- * @date 2016/12/22.
+ * @since 2016/12/22.
  */
 public class LoadVelocityDemo {
 
@@ -50,7 +48,7 @@ public class LoadVelocityDemo {
 
 		Properties p = new Properties();
 		p.put(VelocityEngine.FILE_RESOURCE_LOADER_PATH,
-				"D:\\01_Workspace\\Project\\zp\\javaparty\\src\\toolbox\\template\\src\\main\\resources");
+			"D:\\01_Workspace\\Project\\zp\\javaparty\\src\\toolbox\\template\\src\\main\\resources");
 		VelocityEngine ve = new VelocityEngine();
 		ve.init(p);
 		Template t = ve.getTemplate("hello.vm");

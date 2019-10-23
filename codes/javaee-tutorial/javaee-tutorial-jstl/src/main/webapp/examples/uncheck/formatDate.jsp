@@ -8,68 +8,68 @@
 <%@page import="java.util.Locale" %>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Insert title here</title>
-  <style type="text/css">
-    body {
-      font-size: 14px;
-    }
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<style type="text/css">
+		body {
+			font-size: 14px;
+		}
 
-    table {
-      border-collapse: collapse;
-      border: 1px solid #000000;
-      margin-top: 5px;
-    }
+		table {
+			border-collapse: collapse;
+			border: 1px solid #000000;
+			margin-top: 5px;
+		}
 
-    td {
-      border: 1px solid #000000;
-      padding: 2px;
-      text-align: center;
-      font-size: 12px;
-    }
+		td {
+			border: 1px solid #000000;
+			padding: 2px;
+			text-align: center;
+			font-size: 12px;
+		}
 
-    .title td {
-      background: #EEEEEE;
-      width: 100px;
-    }
-  </style>
+		.title td {
+			background: #EEEEEE;
+			width: 100px;
+		}
+	</style>
 </head>
 <body>
 
 <%
-  Field[] field = Locale.class.getFields();
+	Field[] field = Locale.class.getFields();
 
-  List<Locale> localeList = new ArrayList<Locale>();
+	List<Locale> localeList = new ArrayList<Locale>();
 
-  for (int i = 0; i < field.length; i++) {
-    if (field[i].getType().equals(Locale.class)) {
-      localeList.add((Locale) field[i].get(null));
-    }
-  }
+	for (int i = 0; i < field.length; i++) {
+		if (field[i].getType().equals(Locale.class)) {
+			localeList.add((Locale) field[i].get(null));
+		}
+	}
 
-  request.setAttribute("localeList", localeList);
+	request.setAttribute("localeList", localeList);
 %>
 
 
 <table>
-  <tr>
-    <td>Locale</td>
-    <td>Date and Time</td>
-    <td>Number</td>
-    <td>currency</td>
-  </tr>
+	<tr>
+		<td>Locale</td>
+		<td>Date and Time</td>
+		<td>Number</td>
+		<td>currency</td>
+	</tr>
 
-  <jsp:useBean id="date" class="java.util.Date"></jsp:useBean>
+	<jsp:useBean id="date" class="java.util.Date"></jsp:useBean>
 
-  <c:forEach var="locale" items="${ localeList }">
-    <fmt:setLocale value="${ locale }"/>
-    <tr>
-      <td>${ locale }</td>
-      <td><fmt:formatDate value="${ date }" type="both"/></td>
-      <td><fmt:formatNumber value="10000.5"/></td>
-      <td><fmt:formatNumber value="10000.5" type="currency"/></td>
-    </tr>
-  </c:forEach>
+	<c:forEach var="locale" items="${ localeList }">
+		<fmt:setLocale value="${ locale }"/>
+		<tr>
+			<td>${ locale }</td>
+			<td><fmt:formatDate value="${ date }" type="both"/></td>
+			<td><fmt:formatNumber value="10000.5"/></td>
+			<td><fmt:formatNumber value="10000.5" type="currency"/></td>
+		</tr>
+	</c:forEach>
 
 </table>
 

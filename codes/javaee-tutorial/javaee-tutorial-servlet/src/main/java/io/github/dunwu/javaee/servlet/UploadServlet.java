@@ -1,16 +1,14 @@
 package io.github.dunwu.javaee.servlet;
 
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-
+import java.net.URLEncoder;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URLEncoder;
-import java.util.List;
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 
 public class UploadServlet extends HttpServlet {
 
@@ -63,8 +61,7 @@ public class UploadServlet extends HttpServlet {
 						out.println("遍历到 description2 ... <br/>");
 						description2 = new String(fileItem.getString().getBytes(), "UTF-8");
 					}
-				}
-				else {
+				} else {
 					// 否则，为文件域
 					if ("file1".equals(fileItem.getFieldName())) {
 						// 客户端文件路径构建的 File 对象
@@ -83,11 +80,11 @@ public class UploadServlet extends HttpServlet {
 						try {
 							byte[] buffer = new byte[1024];
 							int len = 0;
-							while ((len = ins.read(buffer)) > -1)
+							while ((len = ins.read(buffer)) > -1) {
 								ous.write(buffer, 0, len);
+							}
 							out.println("已保存文件" + file1.getAbsolutePath() + "<br/>");
-						}
-						finally {
+						} finally {
 							ous.close();
 							ins.close();
 						}
@@ -109,11 +106,11 @@ public class UploadServlet extends HttpServlet {
 						try {
 							byte[] buffer = new byte[1024];
 							int len = 0;
-							while ((len = ins.read(buffer)) > -1)
+							while ((len = ins.read(buffer)) > -1) {
 								ous.write(buffer, 0, len);
+							}
 							out.println("已保存文件" + file2.getAbsolutePath() + "<br/>");
-						}
-						finally {
+						} finally {
 							ous.close();
 							ins.close();
 						}
@@ -121,8 +118,7 @@ public class UploadServlet extends HttpServlet {
 				}
 			}
 			out.println("Request 解析完毕");
-		}
-		catch (FileUploadException e) {
+		} catch (FileUploadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -135,7 +131,7 @@ public class UploadServlet extends HttpServlet {
 			out.println("			<div align='left' class='leftDiv'>file1：</div>");
 			out.println("			<div align='left' class='rightDiv'>");
 			out.println("				<a href='" + request.getContextPath() + "/attachment/" + file1.getName()
-					+ "' target=_blank>" + file1.getName() + "</a>");
+				+ "' target=_blank>" + file1.getName() + "</a>");
 			out.println("			</div>");
 			out.println("		</div>");
 		}
@@ -145,7 +141,7 @@ public class UploadServlet extends HttpServlet {
 			out.println("			<div align='left' class='leftDiv'>file2：</div>");
 			out.println("			<div align='left' class='rightDiv'>");
 			out.println("				<a href='" + request.getContextPath() + "/attachment/"
-					+ URLEncoder.encode(file2.getName(), "UTF-8") + "' target=_blank>" + file2.getName() + "</a>");
+				+ URLEncoder.encode(file2.getName(), "UTF-8") + "' target=_blank>" + file2.getName() + "</a>");
 			out.println("			</div>");
 			out.println("		</div>");
 		}

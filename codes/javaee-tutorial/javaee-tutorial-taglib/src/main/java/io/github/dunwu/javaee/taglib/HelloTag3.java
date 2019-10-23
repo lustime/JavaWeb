@@ -3,19 +3,20 @@
  */
 package io.github.dunwu.javaee.taglib;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import java.io.IOException;
-import java.io.StringWriter;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/4/3.
+ * @since 2017/4/3.
  */
 public class HelloTag3 extends SimpleTagSupport {
 
 	StringWriter sw = new StringWriter();
+
 	private String message;
 
 	public void setMessage(String msg) {
@@ -27,8 +28,7 @@ public class HelloTag3 extends SimpleTagSupport {
 			/* 从属性中使用消息 */
 			JspWriter out = getJspContext().getOut();
 			out.println(message);
-		}
-		else {
+		} else {
 			/* 从内容体中使用消息 */
 			getJspBody().invoke(sw);
 			getJspContext().getOut().println(sw.toString());

@@ -1,16 +1,13 @@
 package io.github.dunwu.javaee.filter;
 
 import io.github.dunwu.javaee.filter.wrapper.CacheResponseWrapper;
-
-import javax.servlet.*;
+import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URLEncoder;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/3/27.
+ * @since 2017/3/27.
  */
 public class CacheFilter extends MyFilter {
 
@@ -32,7 +29,7 @@ public class CacheFilter extends MyFilter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+		throws IOException, ServletException {
 
 		logger.info("{} 开始做过滤处理", this.getClass().getName());
 
@@ -47,8 +44,9 @@ public class CacheFilter extends MyFilter {
 
 		// 请求的 URI
 		String uri = httpServletRequest.getRequestURI();
-		if (uri == null)
+		if (uri == null) {
 			uri = "";
+		}
 		uri = uri.replace(httpServletRequest.getContextPath() + "/", "");
 		uri = uri.trim().length() == 0 ? "index.jsp" : uri;
 		uri = httpServletRequest.getQueryString() == null ? uri : (uri + "?" + httpServletRequest.getQueryString());
@@ -59,7 +57,7 @@ public class CacheFilter extends MyFilter {
 
 		// 如果缓存文件不存在 或者已经超出缓存时间 则请求 Servlet
 		if (!cacheFile.exists() || cacheFile.length() == 0
-				|| cacheFile.lastModified() < System.currentTimeMillis() - cacheTime) {
+			|| cacheFile.lastModified() < System.currentTimeMillis() - cacheTime) {
 
 			CacheResponseWrapper cacheResponse = new CacheResponseWrapper(httpServletResponse);
 

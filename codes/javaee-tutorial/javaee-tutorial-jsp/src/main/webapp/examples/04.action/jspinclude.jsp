@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>jsp:include 示例</title>
+	<meta charset="utf-8">
+	<title>jsp:include 示例</title>
 </head>
 <body>
 

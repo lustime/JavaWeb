@@ -1,16 +1,14 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.jms;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-
 import javax.jms.*;
+import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
  * @author Victor Zhang
- * @date 2016/11/29.
+ * @since 2016/11/29.
  */
 public class JMSHelloWorld {
 
@@ -82,8 +80,7 @@ public class JMSHelloWorld {
 				// Clean up
 				session.close();
 				connection.close();
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("Caught: " + e);
 				e.printStackTrace();
 			}
@@ -121,16 +118,14 @@ public class JMSHelloWorld {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
 					System.out.println("Received: " + text);
-				}
-				else {
+				} else {
 					System.out.println("Received: " + message);
 				}
 
 				consumer.close();
 				session.close();
 				connection.close();
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("Caught: " + e);
 				e.printStackTrace();
 			}

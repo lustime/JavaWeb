@@ -16,14 +16,6 @@ public class PersonInfo implements Serializable {
 	// 登录时间
 	private Date loginDate;
 
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
 	public String getIp() {
 		return ip;
 	}
@@ -46,6 +38,14 @@ public class PersonInfo implements Serializable {
 			return false;
 		}
 		return account.equalsIgnoreCase(((PersonInfo) obj).getAccount());
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 }

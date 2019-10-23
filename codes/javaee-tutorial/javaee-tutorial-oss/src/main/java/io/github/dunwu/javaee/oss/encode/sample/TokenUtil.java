@@ -16,45 +16,31 @@ public final class TokenUtil {
 
 	private static final String SECRET_KEY = "SECRET_KEY";
 
-	public static String getToken(byte[] policy, byte[] accessKey, byte[] secretKey, String tokenType)
-			throws Exception {
-		JSONObject policyJson = JSONObject.parseObject(new String(policy));
+	public static Object testGetPolicy(String token, String tokenType) throws Exception {
+		String[] params = token.split(SEPARATOR);
+		// byte[] accessKey = Base64.decodeBase64(params[0]);
+		String digestBase64 = params[1];
+		String policyBase64 = params[2];
 
-		// 检查令牌是否符合系统规格
-		if (TokenTypeEN.UPLOAD.name().equalsIgnoreCase(tokenType)) {
-			UploadPolicy uploadPolicy = JSONObject.toJavaObject(policyJson, UploadPolicy.class);
-			if (!UploadPolicy.isValid(uploadPolicy)) {
-				throw new Exception("The policy is not conform to the specifications of the system.");
-			}
+		if (TokenTypeEN.UPLOAD.name().equals(tokenType)) {
+			UploadPolicy policy = (UploadPolicy) getPolicy(policyBase64, digestBase64, SECRET_KEY.getBytes(),
+				tokenType);
+			return policy;
+		} else if (TokenTypeEN.DOWNLOAD.name().equals(tokenType)) {
+			DownloadPolicy policy = (DownloadPolicy) getPolicy(policyBase64, digestBase64, SECRET_KEY.getBytes(),
+				tokenType);
+			return policy;
+		} else if (TokenTypeEN.MODIFY.name().equals(tokenType)) {
+			ModifyPolicy policy = (ModifyPolicy) getPolicy(policyBase64, digestBase64, SECRET_KEY.getBytes(),
+				tokenType);
+			return policy;
+		} else {
+			return null;
 		}
-		else if (TokenTypeEN.DOWNLOAD.name().equalsIgnoreCase(tokenType)) {
-			DownloadPolicy downloadPolicy = JSONObject.toJavaObject(policyJson, DownloadPolicy.class);
-			if (!DownloadPolicy.isValid(downloadPolicy)) {
-				throw new Exception("The policy is not conform to the specifications of the system.");
-			}
-		}
-		else if (TokenTypeEN.MODIFY.name().equalsIgnoreCase(tokenType)) {
-			ModifyPolicy modifyPolicy = JSONObject.toJavaObject(policyJson, ModifyPolicy.class);
-			if (!ModifyPolicy.isValid(modifyPolicy)) {
-				throw new Exception("The policy is not conform to the specifications of the system.");
-			}
-		}
-		else {
-			throw new Exception("Required token is not supported.");
-		}
-
-		// 根据secretKey和policy生成消息摘要(使用基于口令编码的HmacSHA256算法)
-		byte[] digest = HmacCoder.encode(policy, secretKey, HmacCoder.HmacTypeEn.HmacSHA512);
-
-		// Token = AccessKey::Digest::Policy。数据拼接之前都要做URL安全的Base64编码
-		String token = Base64.encodeBase64URLSafeString(accessKey) + SEPARATOR
-				+ Base64.encodeBase64URLSafeString(digest) + SEPARATOR + Base64.encodeBase64URLSafeString(policy);
-
-		return token;
 	}
 
 	public static Object getPolicy(String policyBase64, String digestBase64, byte[] secretKey, String tokenType)
-			throws Exception {
+		throws Exception {
 		String policy = new String(Base64.decodeBase64(policyBase64));
 
 		// 根据secretKey和policy验证摘要是否被篡改
@@ -67,15 +53,39 @@ public final class TokenUtil {
 		JSONObject json = JSONObject.parseObject(policy);
 		if (TokenTypeEN.UPLOAD.name().equalsIgnoreCase(tokenType)) {
 			return JSONObject.toJavaObject(json, UploadPolicy.class);
-		}
-		else if (TokenTypeEN.DOWNLOAD.name().equalsIgnoreCase(tokenType)) {
+		} else if (TokenTypeEN.DOWNLOAD.name().equalsIgnoreCase(tokenType)) {
 			return JSONObject.toJavaObject(json, DownloadPolicy.class);
-		}
-		else if (TokenTypeEN.MODIFY.name().equalsIgnoreCase(tokenType)) {
+		} else if (TokenTypeEN.MODIFY.name().equalsIgnoreCase(tokenType)) {
 			return JSONObject.toJavaObject(json, ModifyPolicy.class);
 		}
 
 		return null;
+	}
+
+	public static void main(String[] args) throws Exception {
+		testGetToken(TokenTypeEN.DOWNLOAD.name());
+	}
+
+	public static String testGetToken(String tokenType) throws Exception {
+		String policy = null;
+		if (TokenTypeEN.UPLOAD.name().equals(tokenType)) {
+			policy = initUploadPolicy();
+		} else if (TokenTypeEN.DOWNLOAD.name().equals(tokenType)) {
+			policy = initDownladPolicy();
+		} else if (TokenTypeEN.MODIFY.name().equals(tokenType)) {
+			policy = initModifyPolicy();
+		}
+		String policyBase64 = Base64.encodeBase64URLSafeString(policy.getBytes());
+		String accessKeyBase64 = Base64.encodeBase64URLSafeString(ACCESS_KEY.getBytes());
+
+		System.out.println(String.format("============== %s ==============", tokenType));
+		System.out.println("policy:" + policy);
+		System.out.println("policyBase64:" + policyBase64);
+		System.out.println("accessKeyBase64:" + accessKeyBase64);
+
+		String token = getToken(policy.getBytes(), ACCESS_KEY.getBytes(), SECRET_KEY.getBytes(), tokenType);
+		System.out.println("Token:" + token);
+		return token;
 	}
 
 	private static String initUploadPolicy() {
@@ -106,65 +116,43 @@ public final class TokenUtil {
 		return JSON.toJSONString(policy);
 	}
 
-	public static String testGetToken(String tokenType) throws Exception {
-		String policy = null;
-		if (TokenTypeEN.UPLOAD.name().equals(tokenType)) {
-			policy = initUploadPolicy();
-		}
-		else if (TokenTypeEN.DOWNLOAD.name().equals(tokenType)) {
-			policy = initDownladPolicy();
-		}
-		else if (TokenTypeEN.MODIFY.name().equals(tokenType)) {
-			policy = initModifyPolicy();
-		}
-		String policyBase64 = Base64.encodeBase64URLSafeString(policy.getBytes());
-		String accessKeyBase64 = Base64.encodeBase64URLSafeString(ACCESS_KEY.getBytes());
+	public static String getToken(byte[] policy, byte[] accessKey, byte[] secretKey, String tokenType)
+		throws Exception {
+		JSONObject policyJson = JSONObject.parseObject(new String(policy));
 
-		System.out.println(String.format("============== %s ==============", tokenType));
-		System.out.println("policy:" + policy);
-		System.out.println("policyBase64:" + policyBase64);
-		System.out.println("accessKeyBase64:" + accessKeyBase64);
+		// 检查令牌是否符合系统规格
+		if (TokenTypeEN.UPLOAD.name().equalsIgnoreCase(tokenType)) {
+			UploadPolicy uploadPolicy = JSONObject.toJavaObject(policyJson, UploadPolicy.class);
+			if (!UploadPolicy.isValid(uploadPolicy)) {
+				throw new Exception("The policy is not conform to the specifications of the system.");
+			}
+		} else if (TokenTypeEN.DOWNLOAD.name().equalsIgnoreCase(tokenType)) {
+			DownloadPolicy downloadPolicy = JSONObject.toJavaObject(policyJson, DownloadPolicy.class);
+			if (!DownloadPolicy.isValid(downloadPolicy)) {
+				throw new Exception("The policy is not conform to the specifications of the system.");
+			}
+		} else if (TokenTypeEN.MODIFY.name().equalsIgnoreCase(tokenType)) {
+			ModifyPolicy modifyPolicy = JSONObject.toJavaObject(policyJson, ModifyPolicy.class);
+			if (!ModifyPolicy.isValid(modifyPolicy)) {
+				throw new Exception("The policy is not conform to the specifications of the system.");
+			}
+		} else {
+			throw new Exception("Required token is not supported.");
+		}
 
-		String token = getToken(policy.getBytes(), ACCESS_KEY.getBytes(), SECRET_KEY.getBytes(), tokenType);
-		System.out.println("Token:" + token);
+		// 根据secretKey和policy生成消息摘要(使用基于口令编码的HmacSHA256算法)
+		byte[] digest = HmacCoder.encode(policy, secretKey, HmacCoder.HmacTypeEn.HmacSHA512);
+
+		// Token = AccessKey::Digest::Policy。数据拼接之前都要做URL安全的Base64编码
+		String token = Base64.encodeBase64URLSafeString(accessKey) + SEPARATOR
+			+ Base64.encodeBase64URLSafeString(digest) + SEPARATOR + Base64.encodeBase64URLSafeString(policy);
+
 		return token;
-	}
-
-	public static Object testGetPolicy(String token, String tokenType) throws Exception {
-		String[] params = token.split(SEPARATOR);
-		// byte[] accessKey = Base64.decodeBase64(params[0]);
-		String digestBase64 = params[1];
-		String policyBase64 = params[2];
-
-		if (TokenTypeEN.UPLOAD.name().equals(tokenType)) {
-			UploadPolicy policy = (UploadPolicy) getPolicy(policyBase64, digestBase64, SECRET_KEY.getBytes(),
-					tokenType);
-			return policy;
-		}
-		else if (TokenTypeEN.DOWNLOAD.name().equals(tokenType)) {
-			DownloadPolicy policy = (DownloadPolicy) getPolicy(policyBase64, digestBase64, SECRET_KEY.getBytes(),
-					tokenType);
-			return policy;
-		}
-		else if (TokenTypeEN.MODIFY.name().equals(tokenType)) {
-			ModifyPolicy policy = (ModifyPolicy) getPolicy(policyBase64, digestBase64, SECRET_KEY.getBytes(),
-					tokenType);
-			return policy;
-		}
-		else {
-			return null;
-		}
-
-	}
-
-	public static void main(String[] args) throws Exception {
-		testGetToken(TokenTypeEN.DOWNLOAD.name());
 	}
 
 	public enum TokenTypeEN {
 
 		UPLOAD, DOWNLOAD, MODIFY
-
 	}
 
 }

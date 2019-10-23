@@ -1,16 +1,19 @@
 package io.github.dunwu.javaee.oss.encode.encrypt;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.spec.IvParameterSpec;
 import org.bouncycastle.util.encoders.Base64;
 
-import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
-import java.security.*;
-
 /**
- * @Title DESCoder
- * @Description DES安全编码：是经典的对称加密算法。密钥仅56位，且迭代次数偏少。已被视为并不安全的加密算法。
- * @Author victor zhang
- * @Date 2016年7月14日
+ * DES安全编码：是经典的对称加密算法。密钥仅56位，且迭代次数偏少。已被视为并不安全的加密算法。
+ *
+ * @author Zhang Peng
+ * @since 2016年7月14日
  */
 public class DESCoder {
 
@@ -38,8 +41,27 @@ public class DESCoder {
 		this.transformation = CIPHER_DES_DEFAULT;
 	}
 
+	/**
+	 * 根据随机数种子生成一个密钥
+	 *
+	 * @return Key
+	 * @throws NoSuchAlgorithmException
+	 * @throws NoSuchProviderException
+	 * @author Zhang Peng
+	 * @since 2016年7月14日
+	 */
+	private Key initKey() throws NoSuchAlgorithmException, NoSuchProviderException {
+		// 根据种子生成一个安全的随机数
+		SecureRandom secureRandom = null;
+		secureRandom = new SecureRandom(SEED.getBytes());
+
+		KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM_DES);
+		keyGen.init(secureRandom);
+		return keyGen.generateKey();
+	}
+
 	public DESCoder(String transformation)
-			throws NoSuchAlgorithmException, NoSuchPaddingException, NoSuchProviderException {
+		throws NoSuchAlgorithmException, NoSuchPaddingException, NoSuchProviderException {
 		this.key = initKey();
 		this.cipher = Cipher.getInstance(transformation);
 		this.transformation = transformation;
@@ -60,68 +82,47 @@ public class DESCoder {
 	}
 
 	/**
-	 * @Title decrypt
-	 * @Description 解密
-	 * @Author victor zhang
-	 * @Date 2016年7月20日
-	 * @param input 密文
-	 * @return byte[] 明文
-	 * @throws InvalidKeyException
-	 * @throws IllegalBlockSizeException
-	 * @throws BadPaddingException
-	 * @throws InvalidAlgorithmParameterException
-	 */
-	public byte[] decrypt(byte[] input) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
-			InvalidAlgorithmParameterException {
-		if (transformation.equals(CIPHER_DES_CBC_PKCS5PADDING) || transformation.equals(CIPHER_DES_CBC_NOPADDING)) {
-			cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(getIV()));
-		}
-		else {
-			cipher.init(Cipher.DECRYPT_MODE, key);
-		}
-		return cipher.doFinal(input);
-	}
-
-	/**
-	 * @Title encrypt
-	 * @Description 加密
-	 * @Author victor zhang
-	 * @Date 2016年7月20日
+	 * 加密
+	 *
 	 * @param input 明文
 	 * @return byte[] 密文
 	 * @throws InvalidKeyException
 	 * @throws IllegalBlockSizeException
 	 * @throws BadPaddingException
 	 * @throws InvalidAlgorithmParameterException
+	 * @author Zhang Peng
+	 * @since 2016年7月20日
 	 */
 	public byte[] encrypt(byte[] input) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
-			InvalidAlgorithmParameterException {
+		InvalidAlgorithmParameterException {
 		if (transformation.equals(CIPHER_DES_CBC_PKCS5PADDING) || transformation.equals(CIPHER_DES_CBC_NOPADDING)) {
 			cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(getIV()));
-		}
-		else {
+		} else {
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 		}
 		return cipher.doFinal(input);
 	}
 
 	/**
-	 * @Title initKey
-	 * @Description 根据随机数种子生成一个密钥
-	 * @Author victor zhang
-	 * @Date 2016年7月14日
-	 * @Return Key
-	 * @throws NoSuchAlgorithmException
-	 * @throws NoSuchProviderException
+	 * 解密
+	 *
+	 * @param input 密文
+	 * @return byte[] 明文
+	 * @throws InvalidKeyException
+	 * @throws IllegalBlockSizeException
+	 * @throws BadPaddingException
+	 * @throws InvalidAlgorithmParameterException
+	 * @author Zhang Peng
+	 * @since 2016年7月20日
 	 */
-	private Key initKey() throws NoSuchAlgorithmException, NoSuchProviderException {
-		// 根据种子生成一个安全的随机数
-		SecureRandom secureRandom = null;
-		secureRandom = new SecureRandom(SEED.getBytes());
-
-		KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM_DES);
-		keyGen.init(secureRandom);
-		return keyGen.generateKey();
+	public byte[] decrypt(byte[] input) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
+		InvalidAlgorithmParameterException {
+		if (transformation.equals(CIPHER_DES_CBC_PKCS5PADDING) || transformation.equals(CIPHER_DES_CBC_NOPADDING)) {
+			cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(getIV()));
+		} else {
+			cipher.init(Cipher.DECRYPT_MODE, key);
+		}
+		return cipher.doFinal(input);
 	}
 
 	private byte[] getIV() {

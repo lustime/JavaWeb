@@ -7,6 +7,10 @@ import java.net.URL;
 
 public class Download {
 
+	public static void main(String[] args) throws Exception {
+		System.out.println(getContent("http://localhost:8080/filter/book/thinkInJava.xml"));
+	}
+
 	public static String getContent(String url) throws Exception {
 
 		URL r = new URL(url);
@@ -27,10 +31,6 @@ public class Download {
 		}
 
 		return buffer.toString();
-	}
-
-	public static void main(String[] args) throws Exception {
-		System.out.println(getContent("http://localhost:8080/filter/book/thinkInJava.xml"));
 	}
 
 }

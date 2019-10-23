@@ -2,27 +2,25 @@ package io.github.dunwu.javaee.filter;
 
 import io.github.dunwu.javaee.filter.exception.AccountException;
 import io.github.dunwu.javaee.filter.exception.BusinessException;
-
+import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import java.io.IOException;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/3/27.
+ * @since 2017/3/27.
  */
 public class ExceptionHandlerFilter extends MyFilter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+		throws IOException, ServletException {
 
 		try {
 			chain.doFilter(request, response);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.info("{} 捕捉到异常", this.getClass().getName());
 			Throwable rootCause = e;
 
@@ -39,11 +37,9 @@ public class ExceptionHandlerFilter extends MyFilter {
 
 			if (rootCause instanceof AccountException) {
 				request.getRequestDispatcher("/views/jsp/accountException.jsp").forward(request, response);
-			}
-			else if (rootCause instanceof BusinessException) {
+			} else if (rootCause instanceof BusinessException) {
 				request.getRequestDispatcher("/views/jsp/businessException.jsp").forward(request, response);
-			}
-			else {
+			} else {
 				request.getRequestDispatcher("/views/jsp/exception.jsp").forward(request, response);
 			}
 		}

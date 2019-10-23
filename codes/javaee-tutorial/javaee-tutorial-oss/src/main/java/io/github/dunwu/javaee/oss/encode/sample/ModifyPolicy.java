@@ -1,39 +1,42 @@
 package io.github.dunwu.javaee.oss.encode.sample;
 
+import java.io.Serializable;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.Serializable;
-
 /**
- * Created by victor zhang on 2016/7/22.
+ * Created by Zhang Peng on 2016/7/22.
  */
 public class ModifyPolicy implements Serializable {
 
 	private static final long serialVersionUID = -547821705196510884L;
+
 	/**
 	 * 操作类型
 	 */
 	private final String operate = UploadConstant.TOKEN_MODIFY;
+
 	/**
 	 * 下载文件所属空间
 	 */
 	private String namespace;
+
 	/**
 	 * 令牌有效的截止时间。用Unix时间表示。单位秒
 	 */
 	private Long deadline;
+
 	/**
 	 * 允许下载文件类型
 	 */
 	private String fType = UploadConstant.SUPPORT_FILE_TYPE;
 
 	/**
+	 * 判断数据是否有效
+	 *
 	 * @param policy
 	 * @return boolean
-	 * @title isValid
-	 * @description 判断数据是否有效
-	 * @author victor zhang
-	 * @date 2016年7月22日
+	 * @author Zhang Peng
+	 * @since 2016年7月22日
 	 */
 	public static boolean isValid(ModifyPolicy policy) {
 		// 检查必要项是否为空

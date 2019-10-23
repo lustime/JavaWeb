@@ -1,17 +1,14 @@
 package io.github.dunwu.javaee.oss.encode.digest;
 
-import org.apache.commons.codec.binary.Base64;
-
-import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import org.apache.commons.codec.binary.Base64;
 
 /**
- * @Title DsaCoder
- * @Description 数字签名算法(Digital Signature Algorithm, DSA)工具类。 DSA是一种数字签名算法。
- * DSA仅支持SHA系列算法，而JDK仅支持SHA1withDSA。
- * @Author victor zhang
- * @Date 2016年7月21日
+ * 数字签名算法(Digital Signature Algorithm, DSA)工具类。 DSA是一种数字签名算法。 DSA仅支持SHA系列算法，而JDK仅支持SHA1withDSA。
+ *
+ * @author Zhang Peng
+ * @since 2016年7月21日
  */
 public class DsaCoder {
 
@@ -28,6 +25,15 @@ public class DsaCoder {
 
 	public DsaCoder() throws Exception {
 		keyPair = initKey();
+	}
+
+	private KeyPair initKey() throws Exception {
+		// 初始化密钥对生成器
+		KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+		// 实例化密钥对生成器
+		keyPairGen.initialize(KEY_SIZE);
+		// 实例化密钥对
+		return keyPairGen.genKeyPair();
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -51,6 +57,10 @@ public class DsaCoder {
 		return signature.sign();
 	}
 
+	public byte[] getPrivateKey() {
+		return keyPair.getPrivate().getEncoded();
+	}
+
 	public boolean verify(byte[] data, byte[] publicKey, byte[] sign) throws Exception {
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKey);
 		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
@@ -62,21 +72,8 @@ public class DsaCoder {
 		return signature.verify(sign);
 	}
 
-	private KeyPair initKey() throws Exception {
-		// 初始化密钥对生成器
-		KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-		// 实例化密钥对生成器
-		keyPairGen.initialize(KEY_SIZE);
-		// 实例化密钥对
-		return keyPairGen.genKeyPair();
-	}
-
 	public byte[] getPublicKey() {
 		return keyPair.getPublic().getEncoded();
-	}
-
-	public byte[] getPrivateKey() {
-		return keyPair.getPrivate().getEncoded();
 	}
 
 }

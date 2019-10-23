@@ -1,6 +1,5 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.logging;
 
@@ -11,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * 测试 slf4j + logback 输出日志
  *
  * @author Victor Zhang
- * @date 2016/11/18.
+ * @since 2016/11/18.
  */
 public class Slf4jDemo {
 

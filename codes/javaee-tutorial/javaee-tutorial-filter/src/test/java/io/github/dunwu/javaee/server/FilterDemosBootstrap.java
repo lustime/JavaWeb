@@ -26,8 +26,7 @@ public class FilterDemosBootstrap {
 					JettyFactory.reloadWebAppContext(server);
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
 		}

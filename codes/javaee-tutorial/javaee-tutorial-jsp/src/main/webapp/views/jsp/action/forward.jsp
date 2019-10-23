@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>jsp:forward范例</title>
+	<meta charset="utf-8">
+	<title>jsp:forward范例</title>
 </head>
 <body>
 <h2>jsp:forward范例</h2>

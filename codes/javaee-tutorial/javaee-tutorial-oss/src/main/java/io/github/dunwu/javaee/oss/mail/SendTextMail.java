@@ -1,18 +1,17 @@
 package io.github.dunwu.javaee.oss.mail; /**
-											* The Apache License 2.0
-											* Copyright (c) 2016 victor zhang
-											*/
+ * The Apache License 2.0 Copyright (c) 2016 Zhang Peng
+ */
 
+import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 
 /**
- * @author victor zhang
- * @date 2017/4/5.
+ * @author Zhang Peng
+ * @since 2017/4/5.
  */
 public class SendTextMail {
 

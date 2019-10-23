@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<artifactId>javaweb</artifactId>
 
-  <groupId>io.github.dunwu.javaweb</groupId>
-  <artifactId>javaweb</artifactId>
-  <version>1.0.0</version>
-  <packaging>pom</packaging>
+	<groupId>io.github.dunwu.javaweb</groupId>
+	<modelVersion>4.0.0</modelVersion>
+	<modules>
+		<module>javaweb-mq</module>
+		<module>javaweb-rpc</module>
+	</modules>
+	<packaging>pom</packaging>
 
-  <modules>
-    <module>javaweb-mq</module>
-    <module>javaweb-rpc</module>
-  </modules>
+	<version>1.0.0</version>
 </project>

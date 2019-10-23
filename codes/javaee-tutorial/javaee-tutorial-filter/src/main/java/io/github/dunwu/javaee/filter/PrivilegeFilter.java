@@ -1,16 +1,14 @@
 package io.github.dunwu.javaee.filter;
 
 import io.github.dunwu.javaee.filter.exception.AccountException;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
- * @date 2017/3/27.
+ * @since 2017/3/27.
  */
 public class PrivilegeFilter extends MyFilter {
 
@@ -24,15 +22,14 @@ public class PrivilegeFilter extends MyFilter {
 		String realPath = config.getServletContext().getRealPath(file);
 		try {
 			pp.load(new FileInputStream(realPath));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			config.getServletContext().log("读取权限控制文件失败。", e);
 		}
 	}
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
+		throws IOException, ServletException {
 
 		logger.info("{} 开始做过滤处理", this.getClass().getName());
 

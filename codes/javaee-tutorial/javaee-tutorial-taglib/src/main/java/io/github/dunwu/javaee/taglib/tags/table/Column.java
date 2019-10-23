@@ -1,9 +1,9 @@
 package io.github.dunwu.javaee.taglib.tags.table;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
 
 public class Column extends TagSupport {
 

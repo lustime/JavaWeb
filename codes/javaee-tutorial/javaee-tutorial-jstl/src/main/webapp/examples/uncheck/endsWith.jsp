@@ -6,63 +6,63 @@
 <%@page import="java.io.File" %>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Insert title here</title>
-  <style type="text/css">
-    body, td {
-      font-size: 12px;
-    }
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<style type="text/css">
+		body, td {
+			font-size: 12px;
+		}
 
-    table {
-      border-collapse: collapse;
-      border: 1px solid #000000;
-    }
+		table {
+			border-collapse: collapse;
+			border: 1px solid #000000;
+		}
 
-    td {
-      border: 1px solid #000000;
-      padding: 2px;
-    }
+		td {
+			border: 1px solid #000000;
+			padding: 2px;
+		}
 
-    .title td {
-      text-align: center;
-      background: #EEEEEE;
-    }
-  </style>
+		.title td {
+			text-align: center;
+			background: #EEEEEE;
+		}
+	</style>
 </head>
 <body>
 
 <%
-  request.setAttribute("files", new File("c:\\").listFiles());
+	request.setAttribute("files", new File("c:\\").listFiles());
 %>
 
 <table>
-  <tr class="title">
-    <td>File Name</td>
-    <td>Type</td>
-  </tr>
+	<tr class="title">
+		<td>File Name</td>
+		<td>Type</td>
+	</tr>
 
-  <c:forEach var="file" items="${ files }">
-    <tr>
-      <td>${ file.name }</td>
-      <td>
+	<c:forEach var="file" items="${ files }">
+		<tr>
+			<td>${ file.name }</td>
+			<td>
 
-        <c:choose>
-          <c:when test="${ file.directory }">文件夹</c:when>
-          <c:otherwise>
-            <c:if test="${ fn:endsWith(file.name, '.jpg') }">JPG 图片</c:if>
-            <c:if test="${ fn:endsWith(file.name, '.exe') }">EXE 应用程序</c:if>
-            <c:if test="${ fn:endsWith(file.name, '.gif') }">GIF 图片</c:if>
-            <c:if test="${ fn:endsWith(file.name, '.txt') }">TXT 文本文件</c:if>
-            <c:if test="${ fn:endsWith(file.name, '.doc') }">WORD 文件</c:if>
-            <c:if test="${ fn:endsWith(file.name, '.xls') }">Excel 文件</c:if>
-            <c:if test="${ fn:endsWith(file.name, '.log') }">LOG 日志文件</c:if>
-            <c:if test="${ fn:endsWith(file.name, '.sql') }">SQL 数据库脚本文件</c:if>
-          </c:otherwise>
-        </c:choose>
+				<c:choose>
+					<c:when test="${ file.directory }">文件夹</c:when>
+					<c:otherwise>
+						<c:if test="${ fn:endsWith(file.name, '.jpg') }">JPG 图片</c:if>
+						<c:if test="${ fn:endsWith(file.name, '.exe') }">EXE 应用程序</c:if>
+						<c:if test="${ fn:endsWith(file.name, '.gif') }">GIF 图片</c:if>
+						<c:if test="${ fn:endsWith(file.name, '.txt') }">TXT 文本文件</c:if>
+						<c:if test="${ fn:endsWith(file.name, '.doc') }">WORD 文件</c:if>
+						<c:if test="${ fn:endsWith(file.name, '.xls') }">Excel 文件</c:if>
+						<c:if test="${ fn:endsWith(file.name, '.log') }">LOG 日志文件</c:if>
+						<c:if test="${ fn:endsWith(file.name, '.sql') }">SQL 数据库脚本文件</c:if>
+					</c:otherwise>
+				</c:choose>
 
-      </td>
-    </tr>
-  </c:forEach>
+			</td>
+		</tr>
+	</c:forEach>
 
 </table>
 

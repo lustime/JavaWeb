@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>jsp:setProperty和jsp:getProperty使用范例</title>
+	<title>jsp:setProperty和jsp:getProperty使用范例</title>
 </head>
 <body>
 

@@ -1,21 +1,19 @@
 package io.github.dunwu.javaee.oss.template; /**
-												* The Apache License 2.0
-												* Copyright (c) 2016 Victor Zhang
-												*/
-
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
+ */
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Properties;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 
 /**
  * Velocity 的 HelloWorld 示例
  *
  * @author Victor Zhang
- * @date 2016/12/22.
+ * @since 2016/12/22.
  */
 public class VelocityHelloWorld2 {
 
@@ -24,8 +22,7 @@ public class VelocityHelloWorld2 {
 		Properties p = new Properties();
 		try {
 			p.load(VelocityUtil.class.getResourceAsStream("/template/velocity.properties"));
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		VelocityEngine velocityEngine = new VelocityEngine();

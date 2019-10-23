@@ -4,9 +4,9 @@
 </head>
 <body>
 <%
-  String param = request.getParameter("param");
+	String param = request.getParameter("param");
 
-  if ("1".equals(param)) {
+	if ("1".equals(param)) {
 %>
 关雎·周南·诗经 <br/>
 关关雎鸠，在河之洲。窈窕淑女，君子好逑。<br/>
@@ -42,7 +42,7 @@
 <a href="if.jsp?param=2">if.jsp?param=2</a><br>
 <a href="if.jsp?param=3">if.jsp?param=3</a><br>
 <%
-  }
+	}
 %>
 </body>
 </html>

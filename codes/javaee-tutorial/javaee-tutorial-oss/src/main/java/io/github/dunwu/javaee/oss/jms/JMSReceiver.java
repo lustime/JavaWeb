@@ -1,19 +1,17 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.jms;
 
+import javax.jms.*;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
-
-import javax.jms.*;
 
 /**
  * 消息的消费者
  *
  * @author Victor Zhang
- * @date 2016/11/28.
+ * @since 2016/11/28.
  */
 public class JMSReceiver {
 
@@ -29,7 +27,7 @@ public class JMSReceiver {
 		// 消费者，消息接收者
 		MessageConsumer consumer;
 		connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_USER,
-				ActiveMQConnection.DEFAULT_PASSWORD, ActiveMQConnection.DEFAULT_BROKER_URL);
+			ActiveMQConnection.DEFAULT_PASSWORD, ActiveMQConnection.DEFAULT_BROKER_URL);
 		try {
 			// 构造从工厂得到连接对象
 			connection = connectionFactory.createConnection();
@@ -45,21 +43,18 @@ public class JMSReceiver {
 				TextMessage message = (TextMessage) consumer.receive(100000);
 				if (null != message) {
 					System.out.println("收到消息" + message.getText());
-				}
-				else {
+				} else {
 					break;
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
-				if (null != connection)
+				if (null != connection) {
 					connection.close();
-			}
-			catch (Throwable ignore) {
+				}
+			} catch (Throwable ignore) {
 			}
 		}
 	}

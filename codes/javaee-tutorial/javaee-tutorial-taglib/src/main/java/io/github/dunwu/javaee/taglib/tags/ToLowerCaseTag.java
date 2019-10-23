@@ -14,8 +14,7 @@ public class ToLowerCaseTag extends BodyTagSupport {
 
 		try {
 			this.pageContext.getOut().print(content.toLowerCase());
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 		}
 
 		return EVAL_PAGE;

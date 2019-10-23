@@ -3,24 +3,24 @@
 
 <html>
 <head>
-  <title>x:set 标签</title>
+	<title>x:set 标签</title>
 </head>
 <body>
 <h3>Books Info:</h3>
 
 <c:set var="xmltext">
-  <books>
-    <book>
-      <name>Padam History</name>
-      <author>ZARA</author>
-      <price>100</price>
-    </book>
-    <book>
-      <name>Great Mistry</name>
-      <author>NUHA</author>
-      <price>2000</price>
-    </book>
-  </books>
+	<books>
+		<book>
+			<name>Padam History</name>
+			<author>ZARA</author>
+			<price>100</price>
+		</book>
+		<book>
+			<name>Great Mistry</name>
+			<author>NUHA</author>
+			<price>2000</price>
+		</book>
+	</books>
 </c:set>
 
 <x:parse xml="${xmltext}" var="output"/>

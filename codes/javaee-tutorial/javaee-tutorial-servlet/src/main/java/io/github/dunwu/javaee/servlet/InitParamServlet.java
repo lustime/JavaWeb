@@ -1,25 +1,46 @@
 package io.github.dunwu.javaee.servlet;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 初始化参数示例 读取web.xml中的<init-param> <init-param>配置在<servlet>中，只能让对应的servlet使用；
- * <context-param>配置在全局中，可以让所有的servlet使用。
+ * 初始化参数示例 读取web.xml中的<init-param> <init-param>配置在<servlet>中，只能让对应的servlet使用； <context-param>配置在全局中，可以让所有的servlet使用。
  */
 public class InitParamServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7298032096933866458L;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 提交的 username 参数
+		String username = request.getParameter("username");
+		// 提交的 password 参数
+		String password = request.getParameter("password");
+		// 取所有的初始化参数名称
+		Enumeration params = this.getInitParameterNames();
+		while (params.hasMoreElements()) {
+			String usernameParam = (String) params.nextElement();
+			// 取参数值
+			String passnameParam = this.getInitParameter(usernameParam);
+			// 如果 username 匹配且 password 匹配. username 大小写不敏感，password大小写敏感
+			if (usernameParam.equalsIgnoreCase(username) && passnameParam.equals(password)) {
+				// 显示文件。/WEB-INF 下的文件不能通过浏览器访问到，因此是安全的
+				request.getRequestDispatcher("/WEB-INF/notice.html").forward(request, response);
+				return;
+			}
+		}
+		// username，password 不匹配，显示登录页面
+		logger.warn("用户名={}、密码={}不匹配。", username, password);
+		this.doGet(request, response);
+	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -55,29 +76,6 @@ public class InitParamServlet extends HttpServlet {
 		out.println("</HTML>");
 		out.flush();
 		out.close();
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 提交的 username 参数
-		String username = request.getParameter("username");
-		// 提交的 password 参数
-		String password = request.getParameter("password");
-		// 取所有的初始化参数名称
-		Enumeration params = this.getInitParameterNames();
-		while (params.hasMoreElements()) {
-			String usernameParam = (String) params.nextElement();
-			// 取参数值
-			String passnameParam = this.getInitParameter(usernameParam);
-			// 如果 username 匹配且 password 匹配. username 大小写不敏感，password大小写敏感
-			if (usernameParam.equalsIgnoreCase(username) && passnameParam.equals(password)) {
-				// 显示文件。/WEB-INF 下的文件不能通过浏览器访问到，因此是安全的
-				request.getRequestDispatcher("/WEB-INF/notice.html").forward(request, response);
-				return;
-			}
-		}
-		// username，password 不匹配，显示登录页面
-		logger.warn("用户名={}、密码={}不匹配。", username, password);
-		this.doGet(request, response);
 	}
 
 }

@@ -23,8 +23,7 @@ public class AddTag extends TagSupport {
 	public int doEndTag() throws JspException {
 		try {
 			this.pageContext.getOut().println(num1 + " + " + num2 + " = " + (num1 + num2));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;

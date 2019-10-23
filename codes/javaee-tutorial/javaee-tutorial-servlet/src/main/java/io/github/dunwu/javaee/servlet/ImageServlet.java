@@ -4,7 +4,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 
 public class ImageServlet extends HttpServlet {
 
@@ -12,6 +11,11 @@ public class ImageServlet extends HttpServlet {
 
 	public ImageServlet() {
 		System.out.println("正在加载 " + this.getClass().getName() + " ... ");
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		this.doGet(request, response);
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,17 +47,22 @@ public class ImageServlet extends HttpServlet {
 		response.setHeader("Connection", "close");
 
 		if (fileName.toLowerCase().endsWith(".jpg"))
-			// .jpg 图片格式
+		// .jpg 图片格式
+		{
 			response.setHeader("Content-Type", "image/jpeg");
-		else if (fileName.toLowerCase().endsWith(".gif"))
-			// .gif 图片格式
+		} else if (fileName.toLowerCase().endsWith(".gif"))
+		// .gif 图片格式
+		{
 			response.setHeader("Content-Type", "image/gif");
-		else if (fileName.toLowerCase().endsWith(".doc"))
-			// word 格式
+		} else if (fileName.toLowerCase().endsWith(".doc"))
+		// word 格式
+		{
 			response.setHeader("Content-Type", "application/msword");
-		else
-			// 其他格式
+		} else
+		// 其他格式
+		{
 			response.setHeader("Content-Type", "application/octet-stream");
+		}
 
 		// 通过 ins 读取文件
 		InputStream ins = new FileInputStream(file);
@@ -69,19 +78,14 @@ public class ImageServlet extends HttpServlet {
 			while ((len = ins.read(buffer)) > -1) {
 				ous.write(buffer, 0, len);
 			}
-		}
-		finally {
-			if (ous != null)
+		} finally {
+			if (ous != null) {
 				ous.close();
-			if (ins != null)
+			}
+			if (ins != null) {
 				ins.close();
+			}
 		}
-
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		this.doGet(request, response);
 	}
 
 }

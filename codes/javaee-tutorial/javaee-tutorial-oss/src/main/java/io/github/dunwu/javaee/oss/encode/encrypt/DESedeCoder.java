@@ -1,20 +1,19 @@
 package io.github.dunwu.javaee.oss.encode.encrypt;
 
-import org.apache.commons.codec.binary.Base64;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import org.apache.commons.codec.binary.Base64;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
- * @Title DESedeCoder
- * @Description DESede安全编码，DES的升级版，支持更长的密钥，基本算法不变。
- * @Author victor zhang
- * @Date 2016年7月20日
+ * DESede安全编码，DES的升级版，支持更长的密钥，基本算法不变。
+ *
+ * @author Zhang Peng
+ * @since 2016年7月20日
  */
 public class DESedeCoder {
 
@@ -37,6 +36,18 @@ public class DESedeCoder {
 		this.key = initKey();
 	}
 
+	private Key initKey() throws NoSuchAlgorithmException, NoSuchProviderException {
+		// 标准的密钥生成
+		// KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM);
+		// keyGen.init(112);
+
+		// 标准的密钥生成不支持128位。如果要使用，需引入Bouncy Castle的加密算法，方法如下
+		Security.addProvider(new BouncyCastleProvider());
+		KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM, "BC");
+		keyGen.init(128);
+		return keyGen.generateKey();
+	}
+
 	public static void main(String[] args) throws Exception {
 		DESedeCoder desedeCoder = new DESedeCoder();
 		String message = "Hello World!";
@@ -57,18 +68,6 @@ public class DESedeCoder {
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 		cipher.init(Cipher.DECRYPT_MODE, key);
 		return cipher.doFinal(ciphertext);
-	}
-
-	private Key initKey() throws NoSuchAlgorithmException, NoSuchProviderException {
-		// 标准的密钥生成
-		// KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM);
-		// keyGen.init(112);
-
-		// 标准的密钥生成不支持128位。如果要使用，需引入Bouncy Castle的加密算法，方法如下
-		Security.addProvider(new BouncyCastleProvider());
-		KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM, "BC");
-		keyGen.init(128);
-		return keyGen.generateKey();
 	}
 
 }

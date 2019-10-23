@@ -1,19 +1,17 @@
 package io.github.dunwu.javaee.oss.template; /**
-												* The Apache License 2.0
-												* Copyright (c) 2016 Victor Zhang
-												*/
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
+ */
 
+import java.io.StringWriter;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-
-import java.io.StringWriter;
 
 /**
  * Velocity 的 HelloWorld 示例
  *
  * @author Victor Zhang
- * @date 2016/12/22.
+ * @since 2016/12/22.
  */
 public class VelocityHelloWorld {
 
@@ -22,7 +20,7 @@ public class VelocityHelloWorld {
 		VelocityEngine velocityEngine = new VelocityEngine();
 		velocityEngine.setProperty(VelocityEngine.RESOURCE_LOADER, "file");
 		velocityEngine.setProperty(VelocityEngine.FILE_RESOURCE_LOADER_PATH,
-				"D:/01_Workspace/Project/zp/javaparty/src/toolbox/template/src/main/resources");
+			"D:/01_Workspace/Project/zp/javaparty/src/toolbox/template/src/main/resources");
 		velocityEngine.init();
 
 		/* 2.创建一个上下文对象 */

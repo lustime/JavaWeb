@@ -1,12 +1,12 @@
 package io.github.dunwu.javaee.taglib.tags;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.DynamicAttributes;
 import javax.servlet.jsp.tagext.TagSupport;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class DynamicAttributeTag extends TagSupport implements DynamicAttributes {
 
@@ -43,8 +43,7 @@ public class DynamicAttributeTag extends TagSupport implements DynamicAttributes
 
 		try {
 			out.write(buffer.toString());
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 		}
 
 		return super.doEndTag();

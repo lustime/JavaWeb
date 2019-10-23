@@ -1,18 +1,16 @@
 /**
- * The Apache License 2.0
- * Copyright (c) 2016 Victor Zhang
+ * The Apache License 2.0 Copyright (c) 2016 Victor Zhang
  */
 package io.github.dunwu.javaee.oss.image.dto;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.EncodeHintType;
-
 import java.util.Map;
 
 /**
  * @author Victor Zhang
- * @date 2017/1/17.
+ * @since 2017/1/17.
  */
 public class BarcodeParamDTO {
 
