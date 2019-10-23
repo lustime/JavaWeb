@@ -1,4 +1,4 @@
-# 分库分表原理
+# 分库分表基本原理
 
 分片（Sharding）的基本思想就要把一个数据库切分成多个部分，存储在不同的数据库(server)上，从而缓解单一数据库的性能问题。
 
@@ -139,7 +139,7 @@ CREATE TABLE `SEQUENCE` (
 
 ## 参考资料
 
-- https://github.com/apache/incubator-shardingsphere
+- [ShardingSphere 官方文档](https://shardingsphere.apache.org/document/current/cn/overview/)
 - [“分库分表" ？选型和流程要慎重，否则会失控](https://juejin.im/post/5bf778ef5188251b8a26ed8b)
 - [分库分表需要考虑的问题及方案](https://www.jianshu.com/p/32b3e91aa22c)
 

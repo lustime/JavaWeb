@@ -102,7 +102,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 - **SqlSession 生命周期**
 
-> 注意：当 Mybatis 与一些依赖注入框架（如 Spring 或者 Guice）同时使用时，`SqlSessions` 将被依赖注入框架所创建，所以你不需要使用 `SqlSessionFactoryBuilder` 或者 `SqlSessionFactory`。
+> 🔔 注意：当 Mybatis 与一些依赖注入框架（如 Spring 或者 Guice）同时使用时，`SqlSessions` 将被依赖注入框架所创建，所以你不需要使用 `SqlSessionFactoryBuilder` 或者 `SqlSessionFactory`。
 
 **每个线程都应该有它自己的 `SqlSession` 实例。**
 

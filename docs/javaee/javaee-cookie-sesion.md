@@ -1,31 +1,36 @@
 # JavaEE 之 Cookie 和 Session
 
-<!-- TOC depthFrom:2 depthTo:3 -->
+<!-- TOC depthfrom:2 depthto:3 -->
 
 - [Cookie](#cookie)
-    - [Cookie 是什么？](#cookie-是什么)
-    - [Cookie 剖析](#cookie-剖析)
-    - [Cookie 类中的方法](#cookie-类中的方法)
-    - [Cookie 的有效期](#cookie-的有效期)
-    - [Cookie 的域名](#cookie-的域名)
-    - [Cookie 的路径](#cookie-的路径)
-    - [Cookie 的安全属性](#cookie-的安全属性)
-    - [实例](#实例)
+  - [Cookie 是什么？](#cookie-是什么)
+  - [Cookie 剖析](#cookie-剖析)
+  - [Cookie 类中的方法](#cookie-类中的方法)
+  - [Cookie 的有效期](#cookie-的有效期)
+  - [Cookie 的域名](#cookie-的域名)
+  - [Cookie 的路径](#cookie-的路径)
+  - [Cookie 的安全属性](#cookie-的安全属性)
+  - [实例](#实例)
+    - [添加 Cookie](#添加-cookie)
+    - [显示 Cookie](#显示-cookie)
+    - [删除 Cookie](#删除-cookie)
 - [Session](#session)
-    - [Session 是什么？](#session-是什么)
-    - [Session 类中的方法](#session-类中的方法)
-    - [Session 的有效期](#session-的有效期)
-    - [Session 对浏览器的要求](#session-对浏览器的要求)
-    - [URL 地址重写](#url-地址重写)
-    - [Session 中禁用 Cookie](#session-中禁用-cookie)
-    - [实例](#实例-1)
+  - [Session 是什么？](#session-是什么)
+  - [Session 类中的方法](#session-类中的方法)
+  - [Session 的有效期](#session-的有效期)
+  - [Session 对浏览器的要求](#session-对浏览器的要求)
+  - [URL 地址重写](#url-地址重写)
+  - [Session 中禁用 Cookie](#session-中禁用-cookie)
+  - [实例](#实例)
+    - [Session 跟踪](#session-跟踪)
+    - [删除 Session 会话数据](#删除-session-会话数据)
 - [Cookie vs Session](#cookie-vs-session)
-    - [存取方式](#存取方式)
-    - [隐私安全](#隐私安全)
-    - [有效期](#有效期)
-    - [服务器的开销](#服务器的开销)
-    - [浏览器的支持](#浏览器的支持)
-    - [跨域名](#跨域名)
+  - [存取方式](#存取方式)
+  - [隐私安全](#隐私安全)
+  - [有效期](#有效期)
+  - [服务器的开销](#服务器的开销)
+  - [浏览器的支持](#浏览器的支持)
+  - [跨域名](#跨域名)
 
 <!-- /TOC -->
 
@@ -41,9 +46,9 @@ Cookie 实际上是存储在客户端上的文本信息，并保留了各种跟�
 
 **Cookie 工作步骤：**
 
-1.  客户端请求服务器，如果服务器需要记录该用户的状态，就是用 response 向客户端浏览器颁发一个 Cookie。
-2.  客户端浏览器会把 Cookie 保存下来。
-3.  当浏览器再请求该网站时，浏览器把该请求的网址连同 Cookie 一同提交给服务器。服务器检查该 Cookie，以此来辨认用户状态。
+1. 客户端请求服务器，如果服务器需要记录该用户的状态，就是用 response 向客户端浏览器颁发一个 Cookie。
+2. 客户端浏览器会把 Cookie 保存下来。
+3. 当浏览器再请求该网站时，浏览器把该请求的网址连同 Cookie 一同提交给服务器。服务器检查该 Cookie，以此来辨认用户状态。
 
 **_注：Cookie 功能需要浏览器的支持，如果浏览器不支持 Cookie 或者 Cookie 禁用了，Cookie 功能就会失效。_**
 
@@ -136,11 +141,11 @@ Java 中使用`setSecure(booleanflag)`和`getSecure ()`方法来设置、获取 
 
 通过 Servlet 添加 Cookies 包括三个步骤：
 
-1.  创建一个 Cookie 对象：您可以调用带有 cookie 名称和 cookie 值的 Cookie 构造函数，cookie 名称和 cookie 值都是字符串。
+1. 创建一个 Cookie 对象：您可以调用带有 cookie 名称和 cookie 值的 Cookie 构造函数，cookie 名称和 cookie 值都是字符串。
 
-2.  设置最大生存周期：您可以使用 `setMaxAge` 方法来指定 cookie 能够保持有效的时间（以秒为单位）。
+2. 设置最大生存周期：您可以使用 `setMaxAge` 方法来指定 cookie 能够保持有效的时间（以秒为单位）。
 
-3.  发送 Cookie 到 HTTP 响应头：您可以使用 `response.addCookie` 来添加 HTTP 响应头中的 Cookies。
+3. 发送 Cookie 到 HTTP 响应头：您可以使用 `response.addCookie` 来添加 HTTP 响应头中的 Cookies。
 
 AddCookies.java
 
@@ -310,11 +315,11 @@ public class ReadCookies extends HttpServlet {
 
 Java 中并没有提供直接删除 Cookie 的方法，如果想要删除一个 Cookie，直接将这个 Cookie 的有效期设为 0 就可以了。步骤如下：
 
-1.  读取一个现有的 cookie，并把它存储在 Cookie 对象中。
+1. 读取一个现有的 cookie，并把它存储在 Cookie 对象中。
 
-2.  使用 `setMaxAge()` 方法设置 cookie 的年龄为零，来删除现有的 cookie。
+2. 使用 `setMaxAge()` 方法设置 cookie 的年龄为零，来删除现有的 cookie。
 
-3.  把这个 cookie 添加到响应头。
+3. 把这个 cookie 添加到响应头。
 
 DeleteCookies.java
 
