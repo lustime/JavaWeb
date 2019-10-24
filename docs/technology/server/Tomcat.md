@@ -1,32 +1,10 @@
 # Tomcat 应用指南
 
-> 版本说明
+> 🎁 版本说明
 >
-> 本文使用 Tomcat 版本为 Tomcat 8.5.24。
+> 当前最新版本：Tomcat 8.5.24
 >
-> Tomcat 8.5 要求 JDK 版本为 1.7 以上。
-
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [简介](#简介)
-    - [Tomcat 是什么](#tomcat-是什么)
-    - [Tomcat 重要目录](#tomcat-重要目录)
-    - [web 工程发布目录结构](#web-工程发布目录结构)
-- [QuickStart](#quickstart)
-    - [安装](#安装)
-    - [配置](#配置)
-    - [启动](#启动)
-- [Tomcat 工作原理](#tomcat-工作原理)
-    - [Tomcat 主要组件](#tomcat-主要组件)
-    - [Tomcat 生命周期](#tomcat-生命周期)
-    - [Connector](#connector)
-    - [Comet](#comet)
-    - [异步 Servlet](#异步-servlet)
-- [资料](#资料)
-    - [官方](#官方)
-    - [第三方](#第三方)
-
-<!-- /TOC -->
+> 环境要求：JDK7+
 
 ## 简介
 

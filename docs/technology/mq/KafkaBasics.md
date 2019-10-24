@@ -1,16 +1,4 @@
----
-title: Kafka 实战篇
-date: 2018-07-12
-categories:
-  - 分布式
-tags:
-  - java
-  - javaweb
-  - 分布式
-  - mq
----
-
-# Kafka 实战篇
+# Kafka 基础篇
 
 > Kafka 是一个分布式的、可水平扩展的、基于发布/订阅模式的、支持容错的消息系统。
 >

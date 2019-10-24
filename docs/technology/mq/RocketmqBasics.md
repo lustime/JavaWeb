@@ -1,24 +1,4 @@
-# RocketMQ 实战篇
-
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [概述](#概述)
-    - [简介](#简介)
-    - [核心概念](#核心概念)
-- [安装](#安装)
-    - [环境要求](#环境要求)
-    - [下载解压](#下载解压)
-    - [启动 Name Server](#启动-name-server)
-    - [启动 Broker](#启动-broker)
-    - [收发消息](#收发消息)
-    - [关闭服务器](#关闭服务器)
-- [API](#api)
-    - [Producer](#producer)
-    - [Consumer](#consumer)
-    - [FAQ](#faq)
-- [资料](#资料)
-
-<!-- /TOC -->
+# RocketMQ 基础篇
 
 ## 概述
 

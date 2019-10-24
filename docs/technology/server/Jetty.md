@@ -1,15 +1,5 @@
 # Jetty 应用指南
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [概述](#概述)
-- [jetty 的嵌入式启动](#jetty-的嵌入式启动)
-    - [API 方式](#api-方式)
-    - [Maven 插件方式](#maven-插件方式)
-- [参考](#参考)
-
-<!-- /TOC -->
-
 ## 概述
 
 **jetty 是什么？**
@@ -246,5 +236,6 @@ mvn jetty:run
 
 ## 参考
 
-- [jetty wiki](http://wiki.eclipse.org/Jetty/Reference/jetty-env.xml)
-- [jetty 官方文档](http://www.eclipse.org/jetty/documentation/current/)
+- [Jetty 官方网址](http://www.eclipse.org/jetty/index.html)
+- [Jetty Github](https://github.com/eclipse/jetty.project)
+- [Jetty wiki](http://wiki.eclipse.org/Jetty/Reference/jetty-env.xml)

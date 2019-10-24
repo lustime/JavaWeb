@@ -1,19 +1,4 @@
-# RocketMQ 原理篇
-
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [架构](#架构)
-    - [NameServer](#nameserver)
-    - [Broker](#broker)
-    - [Producer](#producer)
-    - [Consumer](#consumer)
-- [关键特性以及其实现原理](#关键特性以及其实现原理)
-    - [顺序消息](#顺序消息)
-    - [消息重复](#消息重复)
-    - [事务消息](#事务消息)
-- [资料](#资料)
-
-<!-- /TOC -->
+# RocketMQ 进阶篇
 
 ## 架构
 
