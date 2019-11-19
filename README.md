@@ -76,7 +76,6 @@
 
 ### RPC
 
-- [ZooKeeper 应用指南](docs/technology/rpc/ZooKeeper.md)
 - [Dubbo 应用指南](docs/technology/rpc/Dubbo.md)
 - Spring Cloud
 
@@ -90,11 +89,15 @@
 - [Mybatis 应用指南](docs/technology/data/Mybatis.md)
 - [ShardingSphere 应用指南](docs/technology/data/ShardingSphere.md)
 
-### 监控/诊断/测试
+### 协调/监控/诊断/测试
 
-- [Arthas 应用指南](docs/technology/monitor/Arthas.md)
-- [SkyWalking 应用指南](docs/technology/monitor/SkyWalking.md)
-- [Jmeter 应用指南](docs/technology/monitor/Jmeter.md)
+- 协调
+    - [ZooKeeper 应用指南](docs/technology/monitor/zookeeper.md)
+    - [ZooKeeper 运维指南](docs/technology/monitor/zookeeper-ops.md)
+- 诊断
+    - [Arthas 应用指南](docs/technology/monitor/arthas.md)
+- 测试
+    - [Jmeter 应用指南](docs/technology/monitor/jmeter.md)
 
 ## ☕ JavaEE
 

@@ -409,3 +409,4 @@ Arthas支持使用管道对上述命令的结果进行进一步的处理，如`s
 
 - [Arthas Github](https://github.com/alibaba/arthas)
 - [Arthas 用户文档](https://alibaba.github.io/arthas/index.html)
+- [arthas源码分析](https://www.jianshu.com/p/4e34d0ab47d1)

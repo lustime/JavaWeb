@@ -92,88 +92,6 @@ ZooKeeper 的核心是原子广播，这个机制保证了各个 Server 之间�
 - LEADING - 当前 Server 即为选举出来的 leader
 - FOLLOWING - leader 已经选举出来，当前 Server 与之同步
 
-## 安装
-
-在安装 ZooKeeper 之前，请确保你的系统是在以下任一操作系统上运行：
-
-- **任意 Linux OS** - 支持开发和部署。适合演示应用程序。
-- **Windows OS** - 仅支持开发。
-- **Mac OS** - 仅支持开发。
-
-环境要求：JDK6+
-
-安装步骤如下：
-
-### 下载解压 ZooKeeper
-
-进入官方下载地址：http://zookeeper.apache.org/releases.html#download ，选择合适版本。
-
-解压到本地：
-
-```
-$ tar -zxf zookeeper-3.4.6.tar.gz
-$ cd zookeeper-3.4.6
-```
-
-### 创建配置文件
-
-你必须创建 `conf/zoo.cfg` 文件，否则启动时会提示你没有此文件。
-
-初次尝试，不妨直接使用 Kafka 提供的模板配置文件 `conf/zoo_sample.cfg`：
-
-```
-$ cp conf/zoo_sample.cfg conf/zoo.cfg
-```
-
-### 启动 ZooKeeper 服务器
-
-执行以下命令
-
-```
-$ bin/zkServer.sh start
-```
-
-执行此命令后，你将收到以下响应
-
-```
-$ JMX enabled by default
-$ Using config: /Users/../zookeeper-3.4.6/bin/../conf/zoo.cfg
-$ Starting zookeeper ... STARTED
-```
-
-### 启动 CLI
-
-键入以下命令
-
-```
-$ bin/zkCli.sh
-```
-
-键入上述命令后，将连接到 ZooKeeper 服务器，你应该得到以下响应。
-
-```
-Connecting to localhost:2181
-................
-................
-................
-Welcome to ZooKeeper!
-................
-................
-WATCHER::
-WatchedEvent state:SyncConnected type: None path:null
-[zk: localhost:2181(CONNECTED) 0]
-```
-
-### 停止 ZooKeeper 服务器
-
-连接服务器并执行所有操作后，可以使用以下命令停止 zookeeper 服务器。
-
-```
-$ bin/zkServer.sh stop
-```
-
-> 本节安装内容参考：[Zookeeper 安装](https://www.w3cschool.cn/zookeeper/zookeeper_installation.html)
-
 ## 文件系统
 
 ZooKeeper 会维护一个具有层次关系的数据结构，它非常类似于一个标准的文件系统，如下图所示：
@@ -1188,13 +1106,17 @@ public class ZKDelete {
 }
 ```
 
-## 资源
+## 运维
 
-### 官方资源
+安装、配置、命令可以参考：[ZooKeeper 运维指南](zookeeper-ops.md)
 
-| [官网](http://zookeeper.apache.org/) | [官网文档](https://cwiki.apache.org/confluence/display/ZOOKEEPER) | [Github](https://github.com/apache/zookeeper) |
+## 参考资料
 
-### 文章
-
-[分布式服务框架 ZooKeeper -- 管理分布式环境中的数据](https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/index.html)
-[ZooKeeper 的功能以及工作原理](https://www.cnblogs.com/felixzh/p/5869212.html)
+- ZooKeeper 官方
+  - [官网](http://zookeeper.apache.org/)
+  - [官网文档](https://cwiki.apache.org/confluence/display/ZOOKEEPER)
+  - [Github](https://github.com/apache/zookeeper)
+- 文章
+  - [分布式服务框架 ZooKeeper -- 管理分布式环境中的数据](https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/index.html)
+  - [ZooKeeper 的功能以及工作原理](https://www.cnblogs.com/felixzh/p/5869212.html)
+  -  [https://github.com/heibaiying/BigData-Notes#%E5%85%ABzookeeper](https://github.com/heibaiying/BigData-Notes#八zookeeper)
