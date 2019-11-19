@@ -60,9 +60,9 @@
 ### 消息队列
 
 - [消息队列面经](docs/technology/mq/MqInterview.md)
-- [Kafka 基础篇](docs/technology/mq/KafkaBasics.md)
-- [Kafka 原理篇](docs/technology/mq/KafkaAdvanced.md)
-- [Kafka Cheat Sheet](docs/technology/mq/KafkaCheatSheet.md)
+- [Kafka 应用指南基础篇](docs/technology/mq/kafka-basic.md)
+- [Kafka 应用指南进阶篇](docs/technology/mq/kafka-advance.md)
+- [Kafka 运维指南](docs/technology/mq/kafka-ops.md)
 - [RocketMQ 基础篇](docs/technology/mq/RocketmqBasics.md)
 - [RocketMQ 进阶篇](docs/technology/mq/RocketmqAdvanced.md)
 - [ActiveMQ 实战篇](docs/technology/mq/ActiveMQ.md)
@@ -92,12 +92,12 @@
 ### 协调/监控/诊断/测试
 
 - 协调
-    - [ZooKeeper 应用指南](docs/technology/monitor/zookeeper.md)
-    - [ZooKeeper 运维指南](docs/technology/monitor/zookeeper-ops.md)
+  - [ZooKeeper 应用指南](docs/technology/monitor/zookeeper.md)
+  - [ZooKeeper 运维指南](docs/technology/monitor/zookeeper-ops.md)
 - 诊断
-    - [Arthas 应用指南](docs/technology/monitor/arthas.md)
+  - [Arthas 应用指南](docs/technology/monitor/arthas.md)
 - 测试
-    - [Jmeter 应用指南](docs/technology/monitor/jmeter.md)
+  - [Jmeter 应用指南](docs/technology/monitor/jmeter.md)
 
 ## ☕ JavaEE
 
