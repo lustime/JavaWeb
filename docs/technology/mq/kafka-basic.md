@@ -435,6 +435,8 @@ public void consumeMessageForIndependentConsumer(String topic){
   - [Github](https://github.com/apache/kafka)
   - [官网](http://kafka.apache.org/)
   - [官方文档](https://kafka.apache.org/documentation/)
+- **教程**
+  - [Kafka 中文文档](https://github.com/apachecn/kafka-doc-zh)
 - **文章**
   - [Kafka(03) Kafka 介绍](http://www.heartthinkdo.com/?p=2006#233)
   - [Kafka 剖析（一）：Kafka 背景及架构介绍](http://www.infoq.com/cn/articles/kafka-analysis-part-1)
