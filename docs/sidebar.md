@@ -59,8 +59,6 @@
       - [ZooKeeper 运维指南](technology/monitor/zookeeper-ops.md)
     - 诊断
       - [Arthas 应用指南](technology/monitor/arthas.md)
-    - 测试
-      - [Jmeter 应用指南](technology/monitor/jmeter.md)
 - [**☕ JavaEE**](javaee/README.md)
   - [JavaEE 面经](javaee/javaee-interview.md)
   - [JavaEE 之 Servlet 指南](javaee/javaee-servlet.md)

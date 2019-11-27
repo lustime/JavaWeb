@@ -123,8 +123,6 @@
   - [ZooKeeper 运维指南](docs/technology/monitor/zookeeper-ops.md)
 - 诊断
   - [Arthas 应用指南](docs/technology/monitor/arthas.md)
-- 测试
-  - [Jmeter 应用指南](docs/technology/monitor/jmeter.md)
 
 ## ☕ JavaEE
 
