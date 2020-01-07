@@ -1,15 +1,17 @@
+# JavaWeb
+
 - [**🎨 架构设计**](https://github.com/dunwu/blog/tree/master/source/_posts/design/architecture)
-  - [分布式技术面试题](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/分布式技术面试题.md)
-  - [分布式技术实现](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/分布式技术实现.md)
+  - [系统架构面试题](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/system-architecture-interview.md)
+  - [分布式技术实现](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/system-core-technologies.md)
   - [分布式架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/分布式架构.md)
   - [大型分布式网站架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/大型分布式网站架构.md)
-  - [大型网站架构概述](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/大型网站架构概述.md)
+  - [系统架构概述](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/system-architecture-overview.md)
   - [网站典型故障](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/网站典型故障.md)
-  - [网站的伸缩性架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/网站的伸缩性架构.md)
-  - [网站的可扩展架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/网站的可扩展架构.md)
-  - [网站的安全架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/网站的安全架构.md)
-  - [网站的高可用架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/网站的高可用架构.md)
-  - [网站的高性能架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/网站的高性能架构.md)
+  - [伸缩性架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/scalable-architecture.md)
+  - [扩展性架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/extensible-architecture.md)
+  - [安全性架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/secure-architecture.md)
+  - [高可用架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/high-availability-architecture.md)
+  - [高性能架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/high-performance-architecture.md)
 - [✨ 系统原理](https://github.com/dunwu/blog/tree/master/source/_posts/design/theory)
   - [系统原理面试题](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/system-theory-interview.md)
   - [分布式基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-base-theory.md)
@@ -53,12 +55,11 @@
   - 数据
     - [Mybatis 应用指南](technology/data/Mybatis.md)
     - [ShardingSphere 应用指南](technology/data/ShardingSphere.md)
-  - 协调/监控/诊断/测试
-    - 协调
-      - [ZooKeeper 应用指南](technology/monitor/zookeeper.md)
-      - [ZooKeeper 运维指南](technology/monitor/zookeeper-ops.md)
-    - 诊断
-      - [Arthas 应用指南](technology/monitor/arthas.md)
+  - 分布式
+    - [ZooKeeper 应用指南](technology/distributed/zookeeper.md)
+    - [ZooKeeper 运维指南](technology/distributed/zookeeper-ops.md)
+  - 监控/诊断
+    - [Arthas 应用指南](technology/monitor/arthas.md)
 - [**☕ JavaEE**](javaee/README.md)
   - [JavaEE 面经](javaee/javaee-interview.md)
   - [JavaEE 之 Servlet 指南](javaee/javaee-servlet.md)

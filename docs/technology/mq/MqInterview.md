@@ -20,13 +20,13 @@
 
 看这么个场景。A 系统发送数据到 BCD 三个系统，通过接口调用发送。如果 E 系统也要这个数据呢？那如果 C 系统现在不需要了呢？A 系统负责人几乎崩溃......
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-1.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-1.png)
 
 在这个场景中，A 系统跟其它各种乱七八糟的系统严重耦合，A 系统产生一条比较关键的数据，很多系统都需要 A 系统将这个数据发送过来。A 系统要时时刻刻考虑 BCDE 四个系统如果挂了该咋办？要不要重发，要不要把消息存起来？头发都白了啊！
 
 如果使用 MQ，A 系统产生一条数据，发送到 MQ 里面去，哪个系统需要数据自己去 MQ 里面消费。如果新系统需要数据，直接从 MQ 里消费即可；如果某个系统不需要这条数据了，就取消对 MQ 消息的消费即可。这样下来，A 系统压根儿不需要去考虑要给谁发送数据，不需要维护这个代码，也不需要考虑人家是否调用成功、失败超时等情况。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-2.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-2.png)
 
 **总结**：通过一个 MQ，Pub/Sub 发布订阅消息这么一个模型，A 系统就跟其它系统彻底解耦了。
 
@@ -36,13 +36,13 @@
 
 再来看一个场景，A 系统接收一个请求，需要在自己本地写库，还需要在 BCD 三个系统写库，自己本地写库要 3ms，BCD 三个系统分别写库要 300ms、450ms、200ms。最终请求总延时是 3 + 300 + 450 + 200 = 953ms，接近 1s，用户感觉搞个什么东西，慢死了慢死了。用户通过浏览器发起请求，等待个 1s，这几乎是不可接受的。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-3.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-3.png)
 
 一般互联网类的企业，对于用户直接的操作，一般要求是每个请求都必须在 200 ms 以内完成，对用户几乎是无感知的。
 
 如果**使用 MQ**，那么 A 系统连续发送 3 条消息到 MQ 队列中，假如耗时 5ms，A 系统从接受一个请求到返回响应给用户，总时长是 3 + 5 = 8ms，对于用户而言，其实感觉上就是点个按钮，8ms 以后就直接返回了，爽！网站做得真好，真快！
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-4.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-4.png)
 
 ### 削峰
 
@@ -52,11 +52,11 @@
 
 但是高峰期一过，到了下午的时候，就成了低峰期，可能也就 1w 的用户同时在网站上操作，每秒中的请求数量可能也就 50 个请求，对整个系统几乎没有任何的压力。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-5.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-5.png)
 
 如果使用 MQ，每秒 5k 个请求写入 MQ，A 系统每秒钟最多处理 2k 个请求，因为 MySQL 每秒钟最多处理 2k 个。A 系统从 MQ 中慢慢拉取请求，每秒钟就拉取 2k 个请求，不要超过自己每秒能处理的最大请求数量就 ok，这样下来，哪怕是高峰期的时候，A 系统也绝对不会挂掉。而 MQ 每秒钟 5k 个请求进来，就 2k 个请求出去，结果就导致在中午高峰期（1 个小时），可能有几十万甚至几百万的请求积压在 MQ 中。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-6.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-6.png)
 
 这个短暂的高峰期积压是 ok 的，因为高峰期过了之后，每秒钟就 50 个请求进 MQ，但是 A 系统依然会按照每秒 2k 个请求的速度在处理。所以说，只要高峰期一过，A 系统就会快速将积压的消息给解决掉。
 
@@ -110,7 +110,7 @@ RabbitMQ 有三种模式：单机模式、普通集群模式、镜像集群模�
 
 普通集群模式，意思就是在多台机器上启动多个 RabbitMQ 实例，每个机器启动一个。你**创建的 queue，只会放在一个 RabbitMQ 实例上**，但是每个实例都同步 queue 的元数据（元数据可以认为是 queue 的一些配置信息，通过元数据，可以找到 queue 所在实例）。你消费的时候，实际上如果连接到了另外一个实例，那么那个实例会从 queue 所在实例上拉取数据过来。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-7.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-7.png)
 
 这种方式确实很麻烦，也不怎么好，**没做到所谓的分布式**，就是个普通集群。因为这导致你要么消费者每次随机连接一个实例然后拉取数据，要么固定连接那个 queue 所在实例消费数据，前者有**数据拉取的开销**，后者导致**单实例性能瓶颈**。
 
@@ -122,7 +122,7 @@ RabbitMQ 有三种模式：单机模式、普通集群模式、镜像集群模�
 
 这种模式，才是所谓的 RabbitMQ 的高可用模式。跟普通集群模式不一样的是，在镜像集群模式下，你创建的 queue，无论元数据还是 queue 里的消息都会**存在于多个实例上**，就是说，每个 RabbitMQ 节点都有这个 queue 的一个**完整镜像**，包含 queue 的全部数据的意思。然后每次你写消息到 queue 的时候，都会自动把**消息同步**到多个实例的 queue 上。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-8.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-8.png)
 
 那么**如何开启这个镜像集群模式**呢？其实很简单，RabbitMQ 有很好的管理控制台，就是在后台新增一个策略，这个策略是**镜像集群模式的策略**，指定的时候是可以要求数据同步到所有节点的，也可以要求同步到指定数量的节点，再次创建 queue 的时候，应用这个策略，就会自动将数据同步到其他的节点上去了。
 
@@ -140,11 +140,11 @@ Kafka 0.8 以前，是没有 HA 机制的，就是任何一个 broker 宕机了�
 
 比如说，我们假设创建了一个 topic，指定其 partition 数量是 3 个，分别在三台机器上。但是，如果第二台机器宕机了，会导致这个 topic 的 1/3 的数据就丢了，因此这个是做不到高可用的。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/kafka-before.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/kafka-before.png)
 
 Kafka 0.8 以后，提供了 HA 机制，就是 replica（复制品） 副本机制。每个 partition 的数据都会同步到其它机器上，形成自己的多个 replica 副本。所有 replica 会选举一个 leader 出来，那么生产和消费都跟这个 leader 打交道，然后其他 replica 就是 follower。写的时候，leader 会负责把数据同步到所有 follower 上去，读的时候就直接读 leader 上的数据即可。只能读写 leader？很简单，**要是你可以随意读写每个 follower，那么就要 care 数据一致性的问题**，系统复杂度太高，很容易出问题。Kafka 会均匀地将一个 partition 的所有 replica 分布在不同的机器上，这样才可以提高容错性。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/kafka-after.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/kafka-after.png)
 
 这么搞，就有所谓的**高可用性**了，因为如果某个 broker 宕机了，没事儿，那个 broker 上面的 partition 在其他机器上都有副本的。如果这个宕机的 broker 上面有某个 partition 的 leader，那么此时会从 follower 中**重新选举**一个新的 leader 出来，大家继续读写那个新的 leader 即可。这就有所谓的高可用性了。
 
@@ -166,7 +166,7 @@ Kafka 实际上有个 offset 的概念，就是每个消息写进去，都有一
 
 有这么个场景。数据 1/2/3 依次进入 kafka，kafka 会给这三条数据每条分配一个 offset，代表这条数据的序号，我们就假设分配的 offset 依次是 152/153/154。消费者从 kafka 去消费的时候，也是按照这个顺序去消费。假如当消费者消费了 `offset=153` 的这条数据，刚准备去提交 offset 到 zookeeper，此时消费者进程被重启了。那么此时消费过的数据 1/2 的 offset 并没有提交，kafka 也就不知道你已经消费了 `offset=153` 这条数据。那么重启之后，消费者会找 kafka 说，嘿，哥儿们，你给我接着把上次我消费到的那个地方后面的数据继续给我传递过来。由于之前的 offset 没有提交成功，那么数据 1/2 会再次传过来，如果此时消费者没有去重的话，那么就会导致重复消费。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-10.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-10.png)
 
 如果消费者干的事儿是拿一条数据就往数据库里写一条，会导致说，你可能就把数据 1/2 在数据库里插入了 2 次，那么数据就错啦。
 
@@ -187,7 +187,7 @@ Kafka 实际上有个 offset 的概念，就是每个消息写进去，都有一
 - 比如你不是上面两个场景，那做的稍微复杂一点，你需要让生产者发送每条数据的时候，里面加一个全局唯一的 id，类似订单 id 之类的东西，然后你这里消费到了之后，先根据这个 id 去比如 Redis 里查一下，之前消费过吗？如果没有消费过，你就处理，然后这个 id 写 Redis。如果消费过了，那你就别处理了，保证别重复处理相同的消息即可。
 - 比如基于数据库的唯一键来保证重复数据不会重复插入多条。因为有唯一键约束了，重复数据插入只会报错，不会导致数据库中出现脏数据。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/mq-11.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/mq-11.png)
 
 当然，如何保证 MQ 的消费是幂等性的，需要结合具体的业务来看。
 
@@ -197,7 +197,7 @@ Kafka 实际上有个 offset 的概念，就是每个消息写进去，都有一
 
 ### RabbitMQ
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/rabbitmq-message-lose.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/rabbitmq-message-lose.png)
 
 #### 生产者弄丢了数据
 
@@ -251,7 +251,7 @@ RabbitMQ 如果丢失了数据，主要是因为你消费的时候，**刚消费
 
 这个时候得用 RabbitMQ 提供的 `ack` 机制，简单来说，就是你必须关闭 RabbitMQ 的自动 `ack`，可以通过一个 api 来调用就行，然后每次你自己代码里确保处理完的时候，再在程序里 `ack` 一把。这样的话，如果你还没处理完，不就没有 `ack` 了？那 RabbitMQ 就认为你还没处理完，这个时候 RabbitMQ 会把这个消费分配给别的 consumer 去处理，消息是不会丢的。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/rabbitmq-message-lose-solution.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/rabbitmq-message-lose-solution.png)
 
 ### Kafka
 
@@ -294,25 +294,25 @@ RabbitMQ 如果丢失了数据，主要是因为你消费的时候，**刚消费
 
 - **RabbitMQ**：一个 queue，多个 consumer。比如，生产者向 RabbitMQ 里发送了三条数据，顺序依次是 data1/data2/data3，压入的是 RabbitMQ 的一个内存队列。有三个消费者分别从 MQ 中消费这三条数据中的一条，结果消费者2先执行完操作，把 data2 存入数据库，然后是 data1/data3。这不明显乱了。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/rabbitmq-order-01.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/rabbitmq-order-01.png)
 
 - **Kafka**：比如说我们建了一个 topic，有三个 partition。生产者在写的时候，其实可以指定一个 key，比如说我们指定了某个订单 id 作为 key，那么这个订单相关的数据，一定会被分发到同一个 partition 中去，而且这个 partition 中的数据一定是有顺序的。
   消费者从 partition 中取出来数据的时候，也一定是有顺序的。到这里，顺序还是 ok 的，没有错乱。接着，我们在消费者里可能会搞**多个线程来并发处理消息**。因为如果消费者是单线程消费处理，而处理比较耗时的话，比如处理一条消息耗时几十 ms，那么 1 秒钟只能处理几十条消息，这吞吐量太低了。而多个线程并发跑的话，顺序可能就乱掉了。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/kafka-order-01.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/kafka-order-01.png)
 
 ### 解决方案
 
 #### RabbitMQ
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/rabbitmq-order-02.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/rabbitmq-order-02.png)
 
 #### Kafka
 
 - 一个 topic，一个 partition，一个 consumer，内部单线程消费，单线程吞吐量太低，一般不会用这个。
 - 写 N 个内存 queue，具有相同 key 的数据都到同一个内存 queue；然后对于 N 个线程，每个线程分别消费一个内存 queue 即可，这样就能保证顺序性。
 
-<div align="center"><img src="https://github.com/doocs/advanced-java/blob/master/images/kafka-order-02.png"/></div>
+![img](https://github.com/doocs/advanced-java/blob/master/images/kafka-order-02.png)
 
 ## 8. 如何解决消息队列的延时以及过期失效问题？消息队列满了以后该怎么处理？有几百万消息持续积压几小时，说说怎么解决？
 

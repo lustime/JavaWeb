@@ -82,7 +82,7 @@ tar -zxf apache-tomcat-8.5.24.tar.gz
 
 启动后，访问 http://localhost:8080 ，可以看到 Tomcat 安装成功的测试页面。
 
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/tomcat.png!zp"/></div>
+![img](http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/tomcat.png!zp)
 
 ### 配置
 
@@ -335,7 +335,7 @@ public class SimpleTomcatServer {
 - 设置启动应用的端口、JVM 参数、启动浏览器等。
 - 成功后，可以访问 http://localhost:8080/（当然，你也可以在 url 中设置上下文名称）。
 
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/tomcat-intellij-run-config.png!zp"/></div>
+![img](http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/tomcat-intellij-run-config.png!zp)
 
 > **说明**
 >

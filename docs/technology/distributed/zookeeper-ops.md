@@ -295,7 +295,7 @@ Created /tmp
 
 ```bash
 # 格式
-get path [watch] 
+get path [watch]
 [zk: localhost:2181(CONNECTED) 31] get /hadoop
 123456   #节点数据
 cZxid = 0x14b
@@ -313,19 +313,19 @@ numChildren = 0
 
 节点各个属性如下表。其中一个重要的概念是 Zxid(ZooKeeper Transaction Id)，ZooKeeper 节点的每一次更改都具有唯一的 Zxid，如果 Zxid1 小于 Zxid2，则 Zxid1 的更改发生在 Zxid2 更改之前。
 
-| **状态属性**   | **说明**                                                     |
-| -------------- | ------------------------------------------------------------ |
-| cZxid          | 数据节点创建时的事务 ID                                      |
-| ctime          | 数据节点创建时的时间                                         |
-| mZxid          | 数据节点最后一次更新时的事务 ID                              |
-| mtime          | 数据节点最后一次更新时的时间                                 |
-| pZxid          | 数据节点的子节点最后一次被修改时的事务 ID                    |
-| cversion       | 子节点的更改次数                                             |
-| dataVersion    | 节点数据的更改次数                                           |
-| aclVersion     | 节点的 ACL 的更改次数                                        |
+| **状态属性**   | **说明**                                                                                   |
+| -------------- | ------------------------------------------------------------------------------------------ |
+| cZxid          | 数据节点创建时的事务 ID                                                                    |
+| ctime          | 数据节点创建时的时间                                                                       |
+| mZxid          | 数据节点最后一次更新时的事务 ID                                                            |
+| mtime          | 数据节点最后一次更新时的时间                                                               |
+| pZxid          | 数据节点的子节点最后一次被修改时的事务 ID                                                  |
+| cversion       | 子节点的更改次数                                                                           |
+| dataVersion    | 节点数据的更改次数                                                                         |
+| aclVersion     | 节点的 ACL 的更改次数                                                                      |
 | ephemeralOwner | 如果节点是临时节点，则表示创建该节点的会话的 SessionID；如果节点是持久节点，则该属性值为 0 |
-| dataLength     | 数据内容的长度                                               |
-| numChildren    | 数据节点当前的子节点个数                                     |
+| dataLength     | 数据内容的长度                                                                             |
+| numChildren    | 数据节点当前的子节点个数                                                                   |
 
 ##### 查看节点状态
 
@@ -429,17 +429,17 @@ WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/hadoop
 
 ### 3.4. zookeeper 四字命令
 
-| 命令 | 功能描述                                                     |
-| ---- | ------------------------------------------------------------ |
-| conf | 打印服务配置的详细信息。                                     |
+| 命令 | 功能描述                                                                                                                    |
+| ---- | --------------------------------------------------------------------------------------------------------------------------- |
+| conf | 打印服务配置的详细信息。                                                                                                    |
 | cons | 列出连接到此服务器的所有客户端的完整连接/会话详细信息。包括接收/发送的数据包数量，会话 ID，操作延迟，上次执行的操作等信息。 |
-| dump | 列出未完成的会话和临时节点。这只适用于 Leader 节点。         |
-| envi | 打印服务环境的详细信息。                                     |
-| ruok | 测试服务是否处于正确状态。如果正确则返回“imok”，否则不做任何相应。 |
-| stat | 列出服务器和连接客户端的简要详细信息。                       |
-| wchs | 列出所有 watch 的简单信息。                                  |
-| wchc | 按会话列出服务器 watch 的详细信息。                          |
-| wchp | 按路径列出服务器 watch 的详细信息。                          |
+| dump | 列出未完成的会话和临时节点。这只适用于 Leader 节点。                                                                        |
+| envi | 打印服务环境的详细信息。                                                                                                    |
+| ruok | 测试服务是否处于正确状态。如果正确则返回“imok”，否则不做任何相应。                                                          |
+| stat | 列出服务器和连接客户端的简要详细信息。                                                                                      |
+| wchs | 列出所有 watch 的简单信息。                                                                                                 |
+| wchc | 按会话列出服务器 watch 的详细信息。                                                                                         |
+| wchp | 按路径列出服务器 watch 的详细信息。                                                                                         |
 
 > 更多四字命令可以参阅官方文档：https://zookeeper.apache.org/doc/current/zookeeperAdmin.html
 
@@ -447,7 +447,7 @@ WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/hadoop
 
 ```bash
 [root@hadoop001 bin]# echo stat | nc localhost 2181
-Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, 
+Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03,
 built on 06/29/2018 04:05 GMT
 Clients:
  /0:0:0:0:0:0:0:1:50584[1](queued=0,recved=371,sent=371)

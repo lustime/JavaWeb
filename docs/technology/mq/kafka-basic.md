@@ -153,24 +153,28 @@ Kafka 集群是典型的**一主多从模式**。
 
 Kafka 在 0.8 以前的版本中，如果一个 Broker 机器宕机了，其上面的 Partition 都不能用了。
 
-为了实现高可用，Kafka 引入了复制功能。
+为了实现高可用，Kafka 引入了副本机制。
 
-每个 Partition 都有一个 Broker 作为 Leader，零个或者多个 Broker 作为 Follower。
+每个 Partition 都有一个 Broker 作为 Leader，零个或者多个 Broker 作为 Follower。每个 Broker 都会成为某些分区的 Leader 和某些分区的 Follower，因此集群的负载是平衡的。
 
 - **Leader 处理一切对 Partition （分区）的读写请求**；
 - **而 Follower 只需被动的同步 Leader 上的数据**。
 
-当 Leader 宕机了，Follower 中的一台服务器会自动成为新的 Leader。每台 server 都会成为某些分区的 Leader 和某些分区的 Follower，因此集群的负载是平衡的。
-
-同一个 Topic 的不同 Partition 会分布在多个 Broker 上，而且一个 Partition 还会在其他的 Broker 上面进行备份，Producer 在发布消息到某个 Partition 时，先找到该 Partition 的 Leader，然后向这个 Leader 推送消息；每个 Follower 都从 Leader 拉取消息，拉取消息成功之后，向 Leader 发送一个 ack 确认。
-
-如下一个流程图：
+同一个 Topic 的不同 Partition 会分布在多个 Broker 上，而且一个 Partition 还会在其他的 Broker 上面进行备份，Producer 在发布消息到某个 Partition 时，先找到该 Partition 的 Leader，然后向这个 Leader 推送消息；每个 Follower 都从 Leader 拉取消息，拉取消息成功之后，向 Leader 发送一个 ACK 确认。
 
 <div align="center">
 <img src="http://upload-images.jianshu.io/upload_images/3101171-371ef1888b65edc9.png" />
 </div>
 
 ### 4.2. 选举 Leader
+
+由上文可知，Partition 在多个 Broker 上存在副本。
+
+如果某个 Follower 宕机，啥事儿没有，正常工作。
+
+如果 Leader 宕机了，会从 Follower 中**重新选举**一个新的 Leader。
+
+当 Leader 宕机了，Follower 中的一台服务器会自动成为新的 Leader。
 
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-replication.png!zp" width="640"/>
