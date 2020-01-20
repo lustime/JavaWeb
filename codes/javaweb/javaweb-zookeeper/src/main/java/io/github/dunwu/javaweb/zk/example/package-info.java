@@ -4,4 +4,4 @@
  * @author <a href="mailto:forbreak@163.com">Zhang Peng</a>
  * @since 2020-01-13
  */
-package io.github.dunwu.javaweb.zookeeper.example;
+package io.github.dunwu.javaweb.zk.example;

@@ -1,4 +1,4 @@
-package io.github.dunwu.javaweb.zookeeper.example;
+package io.github.dunwu.javaweb.zk.example;
 
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
