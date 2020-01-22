@@ -5,28 +5,28 @@ tags: ['java', 'javaweb', 'orm']
 date: 2019-03-06
 ---
 
-# MyBatis 指南
+# MyBatis 应用指南
 
 > MyBatis 的前身就是 iBatis ，是一个作用在数据持久层的对象关系映射（Object Relational Mapping，简称 ORM）框架。
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 
 - [简介](#简介)
-    - [什么是 MyBatis？](#什么是-mybatis)
-    - [MyBatis vs. Hibernate](#mybatis-vs-hibernate)
+  - [什么是 MyBatis？](#什么是-mybatis)
+  - [MyBatis vs. Hibernate](#mybatis-vs-hibernate)
 - [入门](#入门)
 - [核心 API](#核心-api)
-    - [SqlSessionFactoryBuilder](#sqlsessionfactorybuilder)
-    - [SqlSessionFactory](#sqlsessionfactory)
-    - [SqlSession](#sqlsession)
-    - [映射器](#映射器)
+  - [SqlSessionFactoryBuilder](#sqlsessionfactorybuilder)
+  - [SqlSessionFactory](#sqlsessionfactory)
+  - [SqlSession](#sqlsession)
+  - [映射器](#映射器)
 - [原理](#原理)
-    - [MyBatis 的架构](#mybatis-的架构)
-    - [接口层](#接口层)
-    - [数据处理层](#数据处理层)
-    - [框架支撑层](#框架支撑层)
-    - [引导层](#引导层)
-    - [主要组件](#主要组件)
+  - [MyBatis 的架构](#mybatis-的架构)
+  - [接口层](#接口层)
+  - [数据处理层](#数据处理层)
+  - [框架支撑层](#框架支撑层)
+  - [引导层](#引导层)
+  - [主要组件](#主要组件)
 - [配置](#配置)
 - [SQL XML 映射文件](#sql-xml-映射文件)
 - [Mybatis 扩展](#mybatis-扩展)
@@ -34,9 +34,9 @@ date: 2019-03-06
 
 <!-- /TOC -->
 
-## 简介
+## Mybatis 简介
 
-### 什么是 MyBatis？
+### 什么是 MyBatis
 
 MyBatis 是一款持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。
 
@@ -56,11 +56,11 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 - Hibernate 数据库移植性很好，MyBatis 的数据库移植性不好，不同的数据库需要写不同 SQL。
 - Hibernate 有更好的二级缓存机制，可以使用第三方缓存。MyBatis 本身提供的缓存机制不佳。
 
-## 入门
+## 快速入门
 
 > [Mybatis 官方文档之入门](http://www.mybatis.org/mybatis-3/zh/getting-started.html) 已经写得很简洁易懂，不再赘述。
 
-## 核心 API
+## Mybatis 核心 API
 
 > 核心 API 请参考：「 [Mybatis 官方文档之 Java API](http://www.mybatis.org/mybatis-3/zh/java-api.html) 」
 
@@ -123,7 +123,7 @@ try {
 
 - **映射器职责**
 
-映射器是一些由你创建的、绑定你映射的语句的接口。
+映射器是一些由用户创建的、绑定 SQL 语句的接口。
 
 各个 insert、update、delete 和 select 方法都很强大，但也有些繁琐。更通用的方式是使用映射器类来执行映射语句。一个映射器类就是一个仅需声明与 SqlSession 方法相匹配的方法的接口类。
 
@@ -176,7 +176,7 @@ Mybatis 支持诸如 @Insert、@Update、@Delete、@Select、@Result 等注解�
 
 > 详细内容请参考：[Mybatis 官方文档之 sqlSessions](http://www.mybatis.org/mybatis-3/zh/java-api.html#sqlSessions)，其中列举了 Mybatis 支持的注解清单，以及基本用法。
 
-## 原理
+## Mybatis 原理
 
 ### MyBatis 的架构
 
@@ -188,8 +188,8 @@ Mybatis 支持诸如 @Insert、@Update、@Delete、@Select、@Result 等注解�
 
 MyBatis 和数据库的交互有两种方式：
 
-1.  使用传统的 MyBatis 提供的 API；
-2.  使用 Mapper 接口
+- 使用传统的 MyBatis 提供的 API；
+- 使用 Mapper 接口
 
 #### 使用传统的 MyBatis 提供的 API
 
@@ -303,7 +303,7 @@ MyBatis 将数据缓存设计成两级结构，分为一级缓存、二级缓存
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybaits流程图2.png!zp">
 </div>
-## 配置
+## Mybatis 配置
 
 > 配置的详细内容请参考：「 [Mybatis 官方文档之配置](http://www.mybatis.org/mybatis-3/zh/configuration.html) 」 。
 
@@ -331,26 +331,26 @@ XML 映射文件只有几个顶级元素：
 - `cache` – 对给定命名空间的缓存配置。
 - `cache-ref` – 对其他命名空间缓存配置的引用。
 - `resultMap` – 是最复杂也是最强大的元素，用来描述如何从数据库结果集中来加载对象。
-- \~\~`parameterMap` – 已被废弃！老式风格的参数映射。更好的办法是使用内联参数，此元素可能在将来被移除。文档中不会介绍此元素。\~\~
+- ~~`parameterMap` – 已被废弃！老式风格的参数映射。更好的办法是使用内联参数，此元素可能在将来被移除。文档中不会介绍此元素。~~
 - `sql` – 可被其他语句引用的可重用语句块。
 - `insert` – 映射插入语句
 - `update` – 映射更新语句
 - `delete` – 映射删除语句
 - `select` – 映射查询语句
 
-## Mybatis 扩展
-
-- [mybatis-plus](https://github.com/baomidou/mybatis-plus) - CRUD、代码生成器、分页器等多功能
-- [Mapper](https://github.com/abel533/Mapper) - CRUD
-- [Mybatis-PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) - Mybatis 通用分页插件
-
-## 资料
+## 参考资料
 
 - **官方**
-
-| [Github](https://github.com/mybatis/mybatis-3) | [官网](http://www.mybatis.org/mybatis-3/) | [MyBatis Generator](https://github.com/mybatis/generator) | [Spring 集成](https://github.com/mybatis/spring) | [Spring Boot 集成](https://github.com/mybatis/spring-boot-starter) |
-
+  - [Mybatis Github](https://github.com/mybatis/mybatis-3)
+  - [Mybatis 官网](http://www.mybatis.org/mybatis-3/)
+  - [MyBatis Generator](https://github.com/mybatis/generator)
+  - [Spring 集成](https://github.com/mybatis/spring)
+  - [Spring Boot 集成](https://github.com/mybatis/spring-boot-starter)
+- **扩展插件**
+  - [mybatis-plus](https://github.com/baomidou/mybatis-plus) - CRUD 扩展插件、代码生成器、分页器等多功能
+  - [Mapper](https://github.com/abel533/Mapper) - CRUD 扩展插件
+  - [Mybatis-PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) - Mybatis 通用分页插件
 - **文章**
   - [深入理解 mybatis 原理](https://blog.csdn.net/luanlouis/article/details/40422941)
-  - [mybatis 源码中文注释](https://github.com/tuguangquan/mybatis) - mybatis 源码解读
+  - [mybatis 源码中文注释](https://github.com/tuguangquan/mybatis)
   - [MyBatis Generator 详解](https://blog.csdn.net/isea533/article/details/42102297)

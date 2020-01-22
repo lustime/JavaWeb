@@ -47,13 +47,13 @@
     - [Ehcache](technology/cache/Ehcache.md)
     - [Caffeine](technology/cache/Caffeine.md)
   - RPC
-    - [Dubbo 应用指南](technology/rpc/Dubbo.md)
+    - [Dubbo 应用指南](technology/distributed/dubbo.md)
     - Spring Cloud
   - 安全
-    - [Shiro 应用指南](technology/security/Shiro.md)
-    - [Spring Security 应用指南](technology/security/SpringSecurity.md)
+    - [Shiro 应用指南](technology/security/shiro.md)
+    - [Spring Security 应用指南](technology/security/spring-security.md)
   - 数据
-    - [Mybatis 应用指南](technology/data/Mybatis.md)
+    - [Mybatis 应用指南](technology/data/mybatis.md)
     - [ShardingSphere 应用指南](technology/data/ShardingSphere.md)
   - 分布式
     - [ZooKeeper 应用指南](technology/distributed/zookeeper.md)

@@ -1,39 +1,39 @@
 # Dubbo
 
-> Dubbo 是一个基于 Java 开发的高性能 RPC 框架。
+> [Apache Dubbo](https://dubbo.apache.org/zh-cn/) 是一款高性能、轻量级的开源 Java RPC 框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 
-- [概述](#概述)
-- [QuickStart](#quickstart)
-- [Dubbo 配置](#dubbo-配置)
-    - [配置方式](#配置方式)
-    - [配置项](#配置项)
-- [Dubbo 支持的协议](#dubbo-支持的协议)
-- [服务治理](#服务治理)
-    - [集群容错](#集群容错)
-    - [负载均衡](#负载均衡)
-    - [路由规则](#路由规则)
-    - [服务降级](#服务降级)
-    - [访问控制](#访问控制)
-    - [动态配置](#动态配置)
-- [Dubbo 架构](#dubbo-架构)
-    - [整体设计](#整体设计)
-- [资料](#资料)
+- [一、Dubbo 简介](#一dubbo-简介)
+- [二、QuickStart](#二quickstart)
+- [三、Dubbo 配置](#三dubbo-配置)
+  - [配置方式](#配置方式)
+  - [配置项](#配置项)
+- [四、Dubbo 支持的协议](#四dubbo-支持的协议)
+- [五、服务治理](#五服务治理)
+  - [集群容错](#集群容错)
+  - [负载均衡](#负载均衡)
+  - [路由规则](#路由规则)
+  - [服务降级](#服务降级)
+  - [访问控制](#访问控制)
+  - [动态配置](#动态配置)
+- [六、Dubbo 架构](#六dubbo-架构)
+  - [整体设计](#整体设计)
+- [参考资料](#参考资料)
 
 <!-- /TOC -->
 
-## 概述
+## 一、Dubbo 简介
 
-Dubbo 是一个基于 Java 开发的高性能 RPC 框架。
+[Apache Dubbo](https://dubbo.apache.org/zh-cn/) 是一款高性能、轻量级的开源 Java RPC 框架。
 
-Dubbo 的三个关键功能：
+Dubbo 提供了三大核心能力：
 
-1. 基于接口的远程调用；
-2. 容错机制以及负载均衡；
-3. 自动服务注册以及自动服务发现。
+- 面向接口的远程方法调用
+- 智能容错和负载均衡
+- 服务自动注册和发现
 
-## QuickStart
+## 二、QuickStart
 
 （1）添加 maven 依赖
 
@@ -135,7 +135,7 @@ public class Consumer {
 }
 ```
 
-## Dubbo 配置
+## 三、Dubbo 配置
 
 dubbo 所有配置最终都将转换为 URL 表示，并由服务提供方生成，经注册中心传递给消费方，各属性对应 URL 的参数，参见配置项一览表中的 "对应 URL 参数" 列。
 
@@ -175,12 +175,12 @@ Dubbo 支持多种配置方式：
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">  
-    <dubbo:application name="hello-world-app"  />  
-    <dubbo:registry address="multicast://224.5.6.7:1234" />  
-    <dubbo:protocol name="dubbo" port="20880" />  
-    <dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoServiceLocal" />  
-    <dubbo:reference id="demoServiceRemote" interface="com.alibaba.dubbo.demo.DemoService" />  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+    <dubbo:application name="hello-world-app"  />
+    <dubbo:registry address="multicast://224.5.6.7:1234" />
+    <dubbo:protocol name="dubbo" port="20880" />
+    <dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoServiceLocal" />
+    <dubbo:reference id="demoServiceRemote" interface="com.alibaba.dubbo.demo.DemoService" />
 </beans>
 ```
 
@@ -239,28 +239,7 @@ dubbo.registry.address=10.20.153.10:9090
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/rpc/dubbo/dubbo配置覆盖关系.jpg!zp" width="500"/>
 </div>
 
-## Dubbo 支持的协议
-
-Dubbo 支持以下通信协议：
-
-- dubbo
-- rmi
-- hessian
-- http
-- webservice
-- thrift
-- memcached
-- redis
-
-不同协议适合不同的服务场景，可以根据实际应用场景来选择合适的协议。
-
-dubbo 协议是 dubbo 默认的协议。dubbo 协议采用单一长连接和 NIO 异步通讯，适合于小数据量大并发的服务调用，以及服务消费者机器数远大于服务提供者机器数的情况。反之，dubbo 缺省协议不适合传送大数据量的服务，比如传文件，传视频等，除非请求量很低。
-
-选用哪个协议，可以通过 `<dubbo:protocol>` 标签配置。
-
-> 更多详情请参考：[Dubbo 官方协议参考手册](https://dubbo.gitbooks.io/dubbo-user-book/references/protocol/introduction.html)
-
-## 服务治理
+## 四、服务治理
 
 - 当服务越来越多时，服务 URL 配置管理变得非常困难，F5 硬件负载均衡器的单点压力也越来越大。
 - 当进一步发展，服务间依赖关系变得错踪复杂，甚至分不清哪个应用要在哪个应用之前启动，架构师都不能完整的描述应用的架构关系。
@@ -486,7 +465,7 @@ override://10.20.153.10/com.foo.BarService?category=configurators&dynamic=false&
 override://0.0.0.0/com.foo.BarService?category=configurators&dynamic=false&application=foo&mock=force:return+null
 ```
 
-## Dubbo 架构
+## 五、Dubbo 架构
 
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/rpc/dubbo/dubbo基本架构.png!zp" width="500"/>
@@ -546,6 +525,9 @@ override://0.0.0.0/com.foo.BarService?category=configurators&dynamic=false&appli
 - 而 Remoting 实现是 Dubbo 协议的实现，如果你选择 RMI 协议，整个 Remoting 都不会用上，Remoting 内部再划为 Transport 传输层和 Exchange 信息交换层，Transport 层只负责单向消息传输，是对 Mina, Netty, Grizzly 的抽象，它也可以扩展 UDP 传输，而 Exchange 层是在传输层之上封装了 Request-Response 语义。
 - Registry 和 Monitor 实际上不算一层，而是一个独立的节点，只是为了全局概览，用层的方式画在一起。
 
-## 资料
+## 参考资料
 
-[Github](https://github.com/apache/incubator-dubbo) | [用户手册](https://dubbo.gitbooks.io/dubbo-user-book/content/) | [开发手册](https://dubbo.gitbooks.io/dubbo-dev-book/content/) | [管理员手册](https://dubbo.gitbooks.io/dubbo-admin-book/content/)
+- **官方**
+  - [Dubbo Github](https://github.com/apache/dubbo)
+  - [Dubbo 官方文档](https://dubbo.apache.org/zh-cn/)
+  - [管理员手册](https://dubbo.gitbooks.io/dubbo-admin-book/content/)

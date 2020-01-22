@@ -4,7 +4,7 @@
 >
 > ZooKeeper 可以用于发布/订阅、负载均衡、命令服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能 。
 
-## 简介
+## ZooKeeper 简介
 
 ### ZooKeeper 是什么
 
@@ -22,7 +22,46 @@ ZooKeeper 具有以下特性：
 - **高可用** - ZooKeeper 的高可用是基于副本机制实现的，此外 ZooKeeper 支持故障恢复，可见：[选举 Leader](#选举-Leader)
 - **单一视图** - 无论客户端连接的是哪个 Zookeeper 服务器，其看到的服务端数据模型都是一致的。
 
-## 架构
+## ZooKeeper 原理
+
+### 数据模型
+
+**ZooKeeper 可以视为一个高可用的文件系统**。
+
+ZooKeeper 维护着一个树形层次结构，树中的节点被称为 **`znode`**。其中根节点为 `/`，每个节点上都会保存自己的数据和节点信息。znode 可以用于存储数据，并且有一个与之相关联的 ACL（详情可见 [ACL](#ACL)）。ZooKeeper 的设计目标是实现协调服务，而不是真的作为一个文件存储，因此 znode 存储数据的大小被限制在 1MB 以内。
+
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/distributed/zookeeper/zookeeper_1.png!zp" width="400px" />
+</div>
+
+ZooKeeper 这种数据结构有如下这些特点：
+
+**ZooKeeper 的数据访问具有原子性**。客户端在读取一个 znode 数据时，要么成功读取所有数据，要么读取失败。**znode 节点路径必须是绝对路径**。
+
+znode 有两种类型：
+
+- **临时的（ `PERSISTENT` ）** - 户端会话结束时，ZooKeeper 就会删除临时的 znode。
+- **持久的（ `EPHEMERAL` ）** - 除非客户端主动执行删除操作，否则 ZooKeeper 不会删除持久的 znode。
+
+znode 上有一个**顺序标志（ `SEQUENTIAL` ）**。如果在创建 znode 时，设置了**顺序标志（ `SEQUENTIAL` ）**，那么 ZooKeeper 会使用计数器为 znode 添加一个单调递增的数值，即 zxid。ZooKeeper 正是利用 zxid 实现了严格的顺序访问控制能力。
+
+每个 znode 节点在存储数据的同时，都会维护一个叫做 `Stat` 的数据结构，里面存储了关于该节点的全部状态信息。如下：
+
+| **状态属性**   | **说明**                                                     |
+| -------------- | ------------------------------------------------------------ |
+| czxid          | 数据节点创建时的事务 ID                                      |
+| ctime          | 数据节点创建时的时间                                         |
+| mzxid          | 数据节点最后一次更新时的事务 ID                              |
+| mtime          | 数据节点最后一次更新时的时间                                 |
+| pzxid          | 数据节点的子节点最后一次被修改时的事务 ID                    |
+| cversion       | 子节点的更改次数                                             |
+| version        | 节点数据的更改次数                                           |
+| aversion       | 节点的 ACL 的更改次数                                        |
+| ephemeralOwner | 如果节点是临时节点，则表示创建该节点的会话的 SessionID；如果节点是持久节点，则该属性值为 0 |
+| dataLength     | 数据内容的长度                                               |
+| numChildren    | 数据节点当前的子节点个数                                     |
+
+### 集群角色
 
 Zookeeper 集群是一个基于主从复制的高可用集群，每个服务器承担如下三种角色中的一种
 
@@ -70,45 +109,6 @@ Leader/Follower/Observer 都可直接处理读请求，从本地内存中读取�
 
 - Follower/Observer 均可接受写请求，但不能直接处理，而需要将写请求转发给 Leader 处理
 - 除了多了一步请求转发，其它流程与直接写 Leader 无任何区别
-
-## 原理
-
-### 数据模型
-
-**ZooKeeper 可以视为一个高可用的文件系统**。
-
-ZooKeeper 维护着一个树形层次结构，树中的节点被称为 **`znode`**。其中根节点为 `/`，每个节点上都会保存自己的数据和节点信息。znode 可以用于存储数据，并且有一个与之相关联的 ACL（详情可见 [ACL](#ACL)）。ZooKeeper 的设计目标是实现协调服务，而不是真的作为一个文件存储，因此 znode 存储数据的大小被限制在 1MB 以内。
-
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/zookeeper/zookeeper_1.png!zp" width="400px" />
-</div>
-
-ZooKeeper 这种数据结构有如下这些特点：
-
-**ZooKeeper 的数据访问具有原子性**。客户端在读取一个 znode 数据时，要么成功读取所有数据，要么读取失败。**znode 节点路径必须是绝对路径**。
-
-znode 有两种类型：
-
-- **临时的（ `PERSISTENT` ）** - 户端会话结束时，ZooKeeper 就会删除临时的 znode。
-- **持久的（ `EPHEMERAL` ）** - 除非客户端主动执行删除操作，否则 ZooKeeper 不会删除持久的 znode。
-
-znode 上有一个**顺序标志（ `SEQUENTIAL` ）**。如果在创建 znode 时，设置了**顺序标志（ `SEQUENTIAL` ）**，那么 ZooKeeper 会使用计数器为 znode 添加一个单调递增的数值，即 zxid。ZooKeeper 正是利用 zxid 实现了严格的顺序访问控制能力。
-
-每个 znode 节点在存储数据的同时，都会维护一个叫做 `Stat` 的数据结构，里面存储了关于该节点的全部状态信息。如下：
-
-| **状态属性**   | **说明**                                                                                   |
-| -------------- | ------------------------------------------------------------------------------------------ |
-| czxid          | 数据节点创建时的事务 ID                                                                    |
-| ctime          | 数据节点创建时的时间                                                                       |
-| mzxid          | 数据节点最后一次更新时的事务 ID                                                            |
-| mtime          | 数据节点最后一次更新时的时间                                                               |
-| pzxid          | 数据节点的子节点最后一次被修改时的事务 ID                                                  |
-| cversion       | 子节点的更改次数                                                                           |
-| version        | 节点数据的更改次数                                                                         |
-| aversion       | 节点的 ACL 的更改次数                                                                      |
-| ephemeralOwner | 如果节点是临时节点，则表示创建该节点的会话的 SessionID；如果节点是持久节点，则该属性值为 0 |
-| dataLength     | 数据内容的长度                                                                             |
-| numChildren    | 数据节点当前的子节点个数                                                                   |
 
 ### 事务
 

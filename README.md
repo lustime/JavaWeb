@@ -9,7 +9,6 @@
 </p>
 
 <h1 align="center">JavaWeb</h1>
-
 > ☕ **JavaWeb** 是一个 Java Web 领域开发技术教程。
 >
 > - 🔁 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
@@ -77,7 +76,6 @@
 - [分布式 ID 基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-id-theory.md)
 - [分布式事务基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-transaction-theory.md)
 - [分库分表基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/sharding-theory.md)
-- [常见安全手段基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/security-theory.md)
 
 ## ⭐ 主流技术
 
@@ -113,17 +111,17 @@
 
 ### RPC
 
-- [Dubbo 应用指南](docs/technology/rpc/Dubbo.md)
+- [Dubbo 应用指南](docs/technology/distributed/dubbo.md)
 - Spring Cloud
 
 ### 安全
 
-- [Shiro 应用指南](docs/technology/security/Shiro.md)
-- [Spring Security 应用指南](docs/technology/security/SpringSecurity.md)
+- [Shiro 应用指南](docs/technology/security/shiro.md)
+- [Spring Security 应用指南](docs/technology/security/spring-security.md)
 
 ### 数据
 
-- [Mybatis 应用指南](docs/technology/data/Mybatis.md)
+- [Mybatis 应用指南](docs/technology/data/mybatis.md)
 - [ShardingSphere 应用指南](docs/technology/data/ShardingSphere.md)
 
 ### 分布式
