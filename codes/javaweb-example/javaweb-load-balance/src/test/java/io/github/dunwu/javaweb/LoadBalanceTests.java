@@ -26,12 +26,12 @@ public class LoadBalanceTests {
     }
 
     /**
-     * 统计负载均衡命中次数，样本数为 100000 次访问
+     * 统计负载均衡命中次数，样本数为 10000 次访问
      */
     private Map<Node, Long> staticLoadBalance(LoadBalance<Node> algorithm) {
         Map<Node, Long> staticMap = new TreeMap<>();
 
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10000; i++) {
             Node node = algorithm.next();
             // System.out.printf(">>>> url = %s\n", node.url);
             if (staticMap.containsKey(node)) {
@@ -52,39 +52,77 @@ public class LoadBalanceTests {
     }
 
     @Test
-    public void randomLoadBalanceTest() {
+    public void randomLoadBalanceDistribution() {
+        List<Node> nodes = initNodes();
+
         LoadBalance<Node> loadBalance = new RandomLoadBalance<>();
-        loadBalance.buildInList(initNodes());
+        loadBalance.buildInList(nodes);
         System.out.println("======================= 随机负载均衡 =======================");
         staticLoadBalance(loadBalance);
-    }
 
-    @Test
-    public void randomWeightLoadBalanceTest() {
-        LoadBalance<Node> loadBalance = new RandomLoadBalance<>(true);
-        loadBalance.buildInList(initNodes());
+        LoadBalance<Node> loadBalance2 = new RandomLoadBalance<>(true);
+        loadBalance2.buildInList(nodes);
         System.out.println("======================= 加权随机负载均衡 =======================");
-        staticLoadBalance(loadBalance);
+        staticLoadBalance(loadBalance2);
     }
 
     @Test
-    public void roundRobinLoadBalanceTest() {
+    public void randomLoadBalanceUpdateNodes() {
+        List<Node> oldNodes = initNodes();
+        List<Node> newNodes = oldNodes.subList(0, 80);
+
+        LoadBalance<Node> oldLoadBalance = new RandomLoadBalance<>();
+        oldLoadBalance.buildInList(oldNodes);
+        LoadBalance<Node> newLoadBalance = new RandomLoadBalance<>();
+        newLoadBalance.buildInList(newNodes);
+
+        double count = 0.0d;
+        int size = newNodes.size();
+        for (int i = 0; i < newNodes.size(); i++) {
+            Node oldNode = oldLoadBalance.next();
+            Node newNode = newLoadBalance.next();
+            if (oldNode.equals(newNode)) count++;
+        }
+        System.out.println(count / size);
+    }
+
+    @Test
+    public void roundRobinLoadBalanceDistribution() {
+        List<Node> nodes = initNodes();
+
         LoadBalance<Node> loadBalance = new RoundRobinLoadBalance<>();
-        loadBalance.buildInList(initNodes());
+        loadBalance.buildInList(nodes);
         System.out.println("======================= 轮询负载均衡 =======================");
         staticLoadBalance(loadBalance);
-    }
 
-    @Test
-    public void roundRobinWeightLoadBalanceTest() {
-        LoadBalance<Node> loadBalance = new RoundRobinLoadBalance<>(true);
-        loadBalance.buildInList(initNodes());
+        LoadBalance<Node> loadBalance2 = new RoundRobinLoadBalance<>(true);
+        loadBalance2.buildInList(nodes);
         System.out.println("======================= 加权轮询负载均衡 =======================");
-        staticLoadBalance(loadBalance);
+        staticLoadBalance(loadBalance2);
     }
 
     @Test
-    public void consistentHashLoadBalanceTest() {
+    public void roundRobinLoadBalanceUpdateNodes() {
+        List<Node> oldNodes = initNodes();
+        List<Node> newNodes = oldNodes.subList(0, 80);
+
+        LoadBalance<Node> oldLoadBalance = new RoundRobinLoadBalance<>();
+        oldLoadBalance.buildInList(oldNodes);
+        LoadBalance<Node> newLoadBalance = new RoundRobinLoadBalance<>();
+        newLoadBalance.buildInList(newNodes);
+
+        double count = 0.0d;
+        int size = newNodes.size();
+        for (int i = 0; i < newNodes.size(); i++) {
+            Node oldNode = oldLoadBalance.next();
+            Node newNode = newLoadBalance.next();
+            if (oldNode.equals(newNode)) count++;
+        }
+        System.out.println(count / size);
+    }
+
+    @Test
+    public void consistentHashLoadBalanceDistribution() {
         LoadBalance<Node> loadBalance = new ConsistentHashLoadBalance<>();
         loadBalance.buildInList(initNodes());
         System.out.println("======================= 一致性 Hash 负载均衡 =======================");
