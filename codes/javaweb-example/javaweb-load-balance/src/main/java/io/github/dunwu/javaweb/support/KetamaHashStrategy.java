@@ -16,8 +16,8 @@ public class KetamaHashStrategy implements HashStrategy {
     }
 
     @Override
-    public int hashCode(String origin) {
-        byte[] bKey = computeMd5(origin);
+    public int hashCode(String key) {
+        byte[] bKey = computeMd5(key);
         long rv = ((long) (bKey[3] & 0xFF) << 24)
             | ((long) (bKey[2] & 0xFF) << 16)
             | ((long) (bKey[1] & 0xFF) << 8)

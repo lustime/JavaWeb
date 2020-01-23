@@ -60,10 +60,10 @@ public class CRCHashStrategy implements HashStrategy {
     }
 
     @Override
-    public int hashCode(String origin) {
+    public int hashCode(String key) {
         // optimization with modulo operator with power of 2
         // equivalent to getCRC16(key) % 16384
-        return getCRC16(origin) & (16384 - 1);
+        return getCRC16(key) & (16384 - 1);
     }
 
 }

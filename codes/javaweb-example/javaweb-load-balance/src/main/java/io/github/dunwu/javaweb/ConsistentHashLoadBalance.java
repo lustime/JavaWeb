@@ -2,44 +2,57 @@ package io.github.dunwu.javaweb;
 
 import io.github.dunwu.javaweb.support.HashStrategy;
 import io.github.dunwu.javaweb.support.MurmurHashStrategy;
-import lombok.Data;
 
 import java.util.*;
+import java.util.function.Predicate;
 
-public class ConsistentHashLoadBalancer<V> {
+public class ConsistentHashLoadBalance<V extends Node> implements LoadBalance<V> {
 
     private HashStrategy hashStrategy = new MurmurHashStrategy();
 
-    private final static int VIRTUAL_NODE_SIZE = 100;
+    private final static int VIRTUAL_NODE_SIZE = 1000;
 
     private final static String VIRTUAL_NODE_SUFFIX = "&&";
 
     private List<V> nodeList = Collections.emptyList();
 
+    private TreeMap<Integer, V> hashRing;
+
+    @Override
     public void buildInList(final Collection<V> collection) {
         this.nodeList = new ArrayList<>(collection);
-        // collection.forEach(item -> {
-        //     keyWeightMap.put(item, DEFAULT_WEIGHT);
-        // });
+        this.hashRing = buildConsistentHashRing(this.nodeList);
     }
 
-    public V select(Invocation invocation) {
-        int hashCode = hashStrategy.hashCode(invocation.getHashKey());
-        TreeMap<Integer, V> hashRing = buildConsistentHashRing();
-        return locate(hashRing, hashCode);
+    @Override
+    public void addNode(V node) {
+        this.nodeList.add(node);
+        this.hashRing = buildConsistentHashRing(this.nodeList);
     }
 
-    private V locate(TreeMap<Integer, V> ring, int hashCode) {
+    @Override
+    public void removeNode(V node) {
+        this.nodeList.removeIf(v -> v.equals(node));
+        this.hashRing = buildConsistentHashRing(this.nodeList);
+    }
+
+    @Override
+    public V next() {
+        return next(UUID.randomUUID().toString());
+    }
+
+    public V next(String key) {
+        int hashCode = hashStrategy.hashCode(key);
         // 向右找到第一个 key
-        Map.Entry<Integer, V> entry = ring.ceilingEntry(hashCode);
+        Map.Entry<Integer, V> entry = hashRing.ceilingEntry(hashCode);
         if (entry == null) {
             // 想象成一个环，超过尾部则取第一个 key
-            entry = ring.firstEntry();
+            entry = hashRing.firstEntry();
         }
         return entry.getValue();
     }
 
-    private TreeMap<Integer, V> buildConsistentHashRing() {
+    private TreeMap<Integer, V> buildConsistentHashRing(List<V> nodeList) {
         TreeMap<Integer, V> hashRing = new TreeMap<>();
         for (V node : nodeList) {
             for (int i = 0; i < VIRTUAL_NODE_SIZE; i++) {
@@ -48,28 +61,6 @@ public class ConsistentHashLoadBalancer<V> {
             }
         }
         return hashRing;
-    }
-
-    @Data
-    public static class Server {
-
-        private String url;
-
-        public Server(String url) {
-            this.url = url;
-        }
-
-    }
-
-    @Data
-    public static class Invocation {
-
-        private String hashKey;
-
-        public Invocation(String hashKey) {
-            this.hashKey = hashKey;
-        }
-
     }
 
 }

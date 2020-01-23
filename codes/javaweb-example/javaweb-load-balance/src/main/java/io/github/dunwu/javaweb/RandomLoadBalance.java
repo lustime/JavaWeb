@@ -1,7 +1,6 @@
 package io.github.dunwu.javaweb;
 
 import io.github.dunwu.tool.collection.CollectionUtil;
-import io.github.dunwu.tool.map.MapUtil;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,17 +12,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * @see <a href="https://www.cnblogs.com/CodeBear/archive/2019/03/11/10508880.html">Zhang Peng</a>
  * @since 2020-01-20
  */
-public class RandomLoadBalance<V> implements WeightLoadBalance<V> {
-
-    public static final Integer DEFAULT_WEIGHT = 1;
+public class RandomLoadBalance<V extends Node> implements LoadBalance<V> {
 
     private boolean weightMode;
 
     private final Random random = ThreadLocalRandom.current();
 
     private List<V> nodeList = Collections.emptyList();
-
-    private final Map<V, Integer> keyWeightMap = new HashMap<>();
 
     public RandomLoadBalance() {
         this.weightMode = false;
@@ -36,15 +31,16 @@ public class RandomLoadBalance<V> implements WeightLoadBalance<V> {
     @Override
     public void buildInList(final Collection<V> collection) {
         this.nodeList = new ArrayList<>(collection);
-        collection.forEach(item -> {
-            keyWeightMap.put(item, DEFAULT_WEIGHT);
-        });
     }
 
     @Override
-    public void buildInMap(final Map<V, Integer> map) {
-        this.nodeList = new ArrayList<>(map.keySet());
-        this.keyWeightMap.putAll(map);
+    public void addNode(V node) {
+        this.nodeList.add(node);
+    }
+
+    @Override
+    public void removeNode(V node) {
+        this.nodeList.remove(node);
     }
 
     @Override
@@ -57,18 +53,18 @@ public class RandomLoadBalance<V> implements WeightLoadBalance<V> {
     }
 
     private V getNextInWeightMode() {
-        if (MapUtil.isEmpty(keyWeightMap)) {
+        if (CollectionUtil.isEmpty(nodeList)) {
             return null;
         }
 
         List<V> list = new ArrayList<>();
-        for (Map.Entry<V, Integer> item : keyWeightMap.entrySet()) {
-            for (int i = 0; i < item.getValue(); i++) {
-                list.add(item.getKey());
+        for (V node : nodeList) {
+            for (int i = 0; i < node.getWeight(); i++) {
+                list.add(node);
             }
         }
 
-        int totalWeight = keyWeightMap.values().stream().mapToInt(a -> a).sum();
+        int totalWeight = nodeList.stream().mapToInt(Node::getWeight).sum();
         int number = random.nextInt(totalWeight);
         return list.get(number);
     }

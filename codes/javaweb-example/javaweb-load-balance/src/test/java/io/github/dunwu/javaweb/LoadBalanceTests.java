@@ -12,91 +12,78 @@ import java.util.*;
  */
 public class LoadBalanceTests {
 
-    private Map<String, Integer> initSample() {
-        Map<String, Integer> map = new LinkedHashMap<>();
-        map.put("192.168.1.1", 1);
-        map.put("192.168.1.2", 1);
-        map.put("192.168.1.3", 2);
-        map.put("192.168.1.4", 3);
-        map.put("192.168.1.5", 3);
-        return map;
+    private List<Node> initSample() {
+        Random random = new Random();
+        List<Node> nodes = new ArrayList<>();
+        for (int i = 1; i <= 100; i++) {
+            Node node = new Node("192.168.0." + i, random.nextInt(10));
+            nodes.add(node);
+        }
+        return nodes;
     }
 
     /**
      * 统计负载均衡命中次数，样本数为 100000 次访问
-     *
-     * @param algorithm
      */
-    private void countLoadBalance(LoadBalance<String> algorithm) {
-        Map<String, Integer> countMap = new TreeMap<>();
+    private Map<Node, Long> countLoadBalance(LoadBalance<Node> algorithm) {
+        Map<Node, Long> staticMap = new TreeMap<>();
 
         for (int i = 0; i < 100000; i++) {
-            String node = algorithm.next();
-            if (countMap.containsKey(node)) {
-                Integer value = countMap.get(node);
-                countMap.put(node, ++value);
+            Node node = algorithm.next();
+            if (staticMap.containsKey(node)) {
+                Long value = staticMap.get(node);
+                staticMap.put(node, ++value);
             } else {
-                countMap.put(node, 1);
+                staticMap.put(node, 1L);
             }
         }
-        countMap.forEach((key, value) -> {
+        staticMap.forEach((key, value) -> {
             System.out.printf("key = %s, value = %s\n", key, value);
         });
+
+        System.out.println("方差：" + StatisticsUtil.variance(staticMap.values().toArray(new Long[0])));
+        System.out.println("标准差：" + StatisticsUtil.standardDeviation(staticMap.values().toArray(new Long[] {})));
+        return staticMap;
     }
 
     @Test
     public void randomLoadBalanceTest() {
-        RandomLoadBalance<String> algorithm = new RandomLoadBalance<>();
-        algorithm.buildInList(initSample().keySet());
-        countLoadBalance(algorithm);
+        LoadBalance<Node> loadBalance = new RandomLoadBalance<>();
+        loadBalance.buildInList(initSample());
+        System.out.println("======================= 随机负载均衡 =======================");
+        countLoadBalance(loadBalance);
+    }
 
-        RandomLoadBalance<String> algorithm2 = new RandomLoadBalance<>(true);
-        algorithm2.buildInMap(initSample());
-        countLoadBalance(algorithm2);
+    @Test
+    public void randomWeightLoadBalanceTest() {
+        LoadBalance<Node> loadBalance = new RandomLoadBalance<>(true);
+        loadBalance.buildInList(initSample());
+        System.out.println("======================= 加权随机负载均衡 =======================");
+        countLoadBalance(loadBalance);
     }
 
     @Test
     public void roundRobinLoadBalanceTest() {
-        Map<String, Integer> map = initSample();
-
-        LoadBalance<String> algorithm = new RoundRobinLoadBalance<>();
-        algorithm.buildInList(map.keySet());
-        countLoadBalance(algorithm);
-
-        WeightLoadBalance<String> algorithm2 = new RoundRobinLoadBalance<>(true);
-        algorithm2.buildInMap(map);
-        countLoadBalance(algorithm2);
+        LoadBalance<Node> loadBalance = new RoundRobinLoadBalance<>();
+        loadBalance.buildInList(initSample());
+        System.out.println("======================= 轮询负载均衡 =======================");
+        countLoadBalance(loadBalance);
     }
 
     @Test
-    public void testDistribution() {
+    public void roundRobinWeightLoadBalanceTest() {
+        LoadBalance<Node> loadBalance = new RoundRobinLoadBalance<>(true);
+        loadBalance.buildInList(initSample());
+        System.out.println("======================= 加权轮询负载均衡 =======================");
+        countLoadBalance(loadBalance);
+    }
 
-        List<String> nodes = new ArrayList<>(100);
-        for (int i = 1; i <= 100; i++) {
-            String item = "192.168.0." + "i";
-            nodes.add(item);
-        }
-
-        ConsistentHashLoadBalancer<String> loadBalancer = new ConsistentHashLoadBalancer();
-        // 构造 10000 随机请求
-        List<ConsistentHashLoadBalancer.Invocation> invocations = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
-            invocations.add(new ConsistentHashLoadBalancer.Invocation(UUID.randomUUID().toString()));
-        }
-        // 统计分布
-        Map<String, Long> map = new LinkedHashMap<>();
-        for (String node : nodes) {
-            map.put(node, 0L);
-        }
-        for (ConsistentHashLoadBalancer.Invocation invocation : invocations) {
-            String selectNode = loadBalancer.select(invocation);
-            System.out.printf("server = %s, key = %s\n", selectNode, invocation.getHashKey());
-            Long count = map.get(selectNode);
-            count++;
-            map.put(selectNode, count);
-        }
-        System.out.println(StatisticsUtil.variance(map.values().toArray(new Long[0])));
-        System.out.println(StatisticsUtil.standardDeviation(map.values().toArray(new Long[] {})));
+    @Test
+    public void consistentHashLoadBalanceTest() {
+        LoadBalance<Node> loadBalance = new ConsistentHashLoadBalance<>();
+        loadBalance.buildInList(initSample());
+        System.out.println("======================= 一致性 Hash 负载均衡 =======================");
+        countLoadBalance(loadBalance);
     }
 
     /**
@@ -105,26 +92,27 @@ public class LoadBalanceTests {
     @Test
     public void testNodeAddAndRemove() {
         // 构造 10000 随机请求
-        List<ConsistentHashLoadBalancer.Invocation> invocations = new ArrayList<>();
+        List<String> keys = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
-            invocations.add(new ConsistentHashLoadBalancer.Invocation(UUID.randomUUID().toString()));
+            keys.add(UUID.randomUUID().toString());
         }
 
-        List<String> nodes = new ArrayList<>(100);
+        List<Node> nodes = new ArrayList<>();
         for (int i = 1; i <= 100; i++) {
-            String item = "192.168.0." + "i";
-            nodes.add(item);
+            Node node = new Node("192.168.0." + i);
+            nodes.add(node);
         }
-        List<String> newNodes = nodes.subList(0, 80);
-        ConsistentHashLoadBalancer<String> oldLoadBalance = new ConsistentHashLoadBalancer<>();
+
+        List<Node> newNodes = nodes.subList(0, 80);
+        ConsistentHashLoadBalance<Node> oldLoadBalance = new ConsistentHashLoadBalance<>();
         oldLoadBalance.buildInList(nodes);
-        ConsistentHashLoadBalancer<String> newLoadBalance = new ConsistentHashLoadBalancer<>();
+        ConsistentHashLoadBalance<Node> newLoadBalance = new ConsistentHashLoadBalance<>();
         newLoadBalance.buildInList(newNodes);
 
         int count = 0;
-        for (ConsistentHashLoadBalancer.Invocation invocation : invocations) {
-            String oldNode = oldLoadBalance.select(invocation);
-            String newNode = newLoadBalance.select(invocation);
+        for (String key : keys) {
+            Node oldNode = oldLoadBalance.next(key);
+            Node newNode = newLoadBalance.next(key);
             if (oldNode.equals(newNode)) count++;
         }
         System.out.println(count / 10000D);

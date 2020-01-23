@@ -6,9 +6,9 @@ import java.nio.ByteOrder;
 public class MurmurHashStrategy implements HashStrategy {
 
     @Override
-    public int hashCode(String origin) {
+    public int hashCode(String key) {
 
-        ByteBuffer buf = ByteBuffer.wrap(origin.getBytes());
+        ByteBuffer buf = ByteBuffer.wrap(key.getBytes());
         int seed = 0x1234ABCD;
 
         ByteOrder byteOrder = buf.order();
