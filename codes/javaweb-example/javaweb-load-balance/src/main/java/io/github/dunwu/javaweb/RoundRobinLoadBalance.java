@@ -2,10 +2,7 @@ package io.github.dunwu.javaweb;
 
 import io.github.dunwu.tool.collection.CollectionUtil;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -20,7 +17,7 @@ public class RoundRobinLoadBalance<V extends Node> implements LoadBalance<V> {
 
     private AtomicInteger offset = new AtomicInteger(0);
 
-    private List<V> nodeList = Collections.emptyList();
+    private Set<V> nodes = Collections.emptyNavigableSet();
 
     public RoundRobinLoadBalance() {
         this.weightMode = false;
@@ -33,17 +30,17 @@ public class RoundRobinLoadBalance<V extends Node> implements LoadBalance<V> {
     @Override
     public void buildInList(final Collection<V> collection) {
         this.offset = new AtomicInteger(0);
-        this.nodeList = new ArrayList<>(collection);
+        this.nodes = new LinkedHashSet<>(collection);
     }
 
     @Override
     public void addNode(V node) {
-        this.nodeList.add(node);
+        this.nodes.add(node);
     }
 
     @Override
     public void removeNode(V node) {
-        this.nodeList.remove(node);
+        this.nodes.remove(node);
     }
 
     @Override
@@ -56,14 +53,14 @@ public class RoundRobinLoadBalance<V extends Node> implements LoadBalance<V> {
     }
 
     private V getNextInWeightMode() {
-        if (CollectionUtil.isEmpty(nodeList)) {
+        if (CollectionUtil.isEmpty(nodes)) {
             return null;
         }
 
-        int totalWeight = nodeList.stream().mapToInt(Node::getWeight).sum();
+        int totalWeight = nodes.stream().mapToInt(Node::getWeight).sum();
         int number = offset.getAndIncrement() % totalWeight;
 
-        for (V node : nodeList) {
+        for (V node : nodes) {
             if (node.getWeight() > number) {
                 return node;
             }
@@ -73,13 +70,18 @@ public class RoundRobinLoadBalance<V extends Node> implements LoadBalance<V> {
     }
 
     private V getNextInNormalMode() {
-        if (CollectionUtil.isEmpty(this.nodeList)) {
+        if (CollectionUtil.isEmpty(this.nodes)) {
             return null;
         }
 
-        int size = this.nodeList.size();
+        int size = this.nodes.size();
         offset.compareAndSet(size, 0);
-        return nodeList.get(offset.getAndIncrement());
+        int number = offset.getAndIncrement();
+        Iterator<V> iterator = nodes.iterator();
+        while (number-- > 0) {
+            iterator.next();
+        }
+        return iterator.next();
     }
 
 }

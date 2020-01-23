@@ -18,7 +18,7 @@ public class RandomLoadBalance<V extends Node> implements LoadBalance<V> {
 
     private final Random random = ThreadLocalRandom.current();
 
-    private List<V> nodeList = Collections.emptyList();
+    private Set<V> nodes = Collections.emptyNavigableSet();
 
     public RandomLoadBalance() {
         this.weightMode = false;
@@ -30,17 +30,17 @@ public class RandomLoadBalance<V extends Node> implements LoadBalance<V> {
 
     @Override
     public void buildInList(final Collection<V> collection) {
-        this.nodeList = new ArrayList<>(collection);
+        this.nodes = new LinkedHashSet<>(collection);
     }
 
     @Override
     public void addNode(V node) {
-        this.nodeList.add(node);
+        this.nodes.add(node);
     }
 
     @Override
     public void removeNode(V node) {
-        this.nodeList.remove(node);
+        this.nodes.remove(node);
     }
 
     @Override
@@ -53,29 +53,33 @@ public class RandomLoadBalance<V extends Node> implements LoadBalance<V> {
     }
 
     private V getNextInWeightMode() {
-        if (CollectionUtil.isEmpty(nodeList)) {
+        if (CollectionUtil.isEmpty(nodes)) {
             return null;
         }
 
         List<V> list = new ArrayList<>();
-        for (V node : nodeList) {
+        for (V node : nodes) {
             for (int i = 0; i < node.getWeight(); i++) {
                 list.add(node);
             }
         }
 
-        int totalWeight = nodeList.stream().mapToInt(Node::getWeight).sum();
+        int totalWeight = nodes.stream().mapToInt(Node::getWeight).sum();
         int number = random.nextInt(totalWeight);
         return list.get(number);
     }
 
     private V getNextInNormalMode() {
-        if (CollectionUtil.isEmpty(nodeList)) {
+        if (CollectionUtil.isEmpty(nodes)) {
             return null;
         }
 
-        int offset = random.nextInt(nodeList.size());
-        return nodeList.get(offset);
+        int number = random.nextInt(nodes.size());
+        Iterator<V> iterator = nodes.iterator();
+        while (number-- > 0) {
+            iterator.next();
+        }
+        return iterator.next();
     }
 
 }

@@ -12,7 +12,10 @@ import java.util.*;
  */
 public class LoadBalanceTests {
 
-    private List<Node> initSample() {
+    /**
+     * 生成 100 个样本节点，权重值为 10 以内的随机数
+     */
+    private List<Node> initNodes() {
         Random random = new Random();
         List<Node> nodes = new ArrayList<>();
         for (int i = 1; i <= 100; i++) {
@@ -25,11 +28,12 @@ public class LoadBalanceTests {
     /**
      * 统计负载均衡命中次数，样本数为 100000 次访问
      */
-    private Map<Node, Long> countLoadBalance(LoadBalance<Node> algorithm) {
+    private Map<Node, Long> staticLoadBalance(LoadBalance<Node> algorithm) {
         Map<Node, Long> staticMap = new TreeMap<>();
 
         for (int i = 0; i < 100000; i++) {
             Node node = algorithm.next();
+            // System.out.printf(">>>> url = %s\n", node.url);
             if (staticMap.containsKey(node)) {
                 Long value = staticMap.get(node);
                 staticMap.put(node, ++value);
@@ -37,53 +41,54 @@ public class LoadBalanceTests {
                 staticMap.put(node, 1L);
             }
         }
+
+        System.out.println("======================= 统计数据 =======================");
         staticMap.forEach((key, value) -> {
             System.out.printf("key = %s, value = %s\n", key, value);
         });
-
-        System.out.println("方差：" + StatisticsUtil.variance(staticMap.values().toArray(new Long[0])));
-        System.out.println("标准差：" + StatisticsUtil.standardDeviation(staticMap.values().toArray(new Long[] {})));
+        System.out.printf("方差：%s, ", StatisticsUtil.variance(staticMap.values().toArray(new Long[0])));
+        System.out.printf("标准差：%s\n", StatisticsUtil.standardDeviation(staticMap.values().toArray(new Long[] {})));
         return staticMap;
     }
 
     @Test
     public void randomLoadBalanceTest() {
         LoadBalance<Node> loadBalance = new RandomLoadBalance<>();
-        loadBalance.buildInList(initSample());
+        loadBalance.buildInList(initNodes());
         System.out.println("======================= 随机负载均衡 =======================");
-        countLoadBalance(loadBalance);
+        staticLoadBalance(loadBalance);
     }
 
     @Test
     public void randomWeightLoadBalanceTest() {
         LoadBalance<Node> loadBalance = new RandomLoadBalance<>(true);
-        loadBalance.buildInList(initSample());
+        loadBalance.buildInList(initNodes());
         System.out.println("======================= 加权随机负载均衡 =======================");
-        countLoadBalance(loadBalance);
+        staticLoadBalance(loadBalance);
     }
 
     @Test
     public void roundRobinLoadBalanceTest() {
         LoadBalance<Node> loadBalance = new RoundRobinLoadBalance<>();
-        loadBalance.buildInList(initSample());
+        loadBalance.buildInList(initNodes());
         System.out.println("======================= 轮询负载均衡 =======================");
-        countLoadBalance(loadBalance);
+        staticLoadBalance(loadBalance);
     }
 
     @Test
     public void roundRobinWeightLoadBalanceTest() {
         LoadBalance<Node> loadBalance = new RoundRobinLoadBalance<>(true);
-        loadBalance.buildInList(initSample());
+        loadBalance.buildInList(initNodes());
         System.out.println("======================= 加权轮询负载均衡 =======================");
-        countLoadBalance(loadBalance);
+        staticLoadBalance(loadBalance);
     }
 
     @Test
     public void consistentHashLoadBalanceTest() {
         LoadBalance<Node> loadBalance = new ConsistentHashLoadBalance<>();
-        loadBalance.buildInList(initSample());
+        loadBalance.buildInList(initNodes());
         System.out.println("======================= 一致性 Hash 负载均衡 =======================");
-        countLoadBalance(loadBalance);
+        staticLoadBalance(loadBalance);
     }
 
     /**

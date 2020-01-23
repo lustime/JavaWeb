@@ -4,7 +4,6 @@ import io.github.dunwu.javaweb.support.HashStrategy;
 import io.github.dunwu.javaweb.support.MurmurHashStrategy;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 public class ConsistentHashLoadBalance<V extends Node> implements LoadBalance<V> {
 
@@ -14,26 +13,26 @@ public class ConsistentHashLoadBalance<V extends Node> implements LoadBalance<V>
 
     private final static String VIRTUAL_NODE_SUFFIX = "&&";
 
-    private List<V> nodeList = Collections.emptyList();
+    private Set<V> nodes = new LinkedHashSet<>();
 
-    private TreeMap<Integer, V> hashRing;
+    private TreeMap<Integer, V> hashRing = new TreeMap<>();
 
     @Override
     public void buildInList(final Collection<V> collection) {
-        this.nodeList = new ArrayList<>(collection);
-        this.hashRing = buildConsistentHashRing(this.nodeList);
+        this.nodes = new LinkedHashSet<>(collection);
+        this.hashRing = buildConsistentHashRing(this.nodes);
     }
 
     @Override
     public void addNode(V node) {
-        this.nodeList.add(node);
-        this.hashRing = buildConsistentHashRing(this.nodeList);
+        this.nodes.add(node);
+        this.hashRing = buildConsistentHashRing(this.nodes);
     }
 
     @Override
     public void removeNode(V node) {
-        this.nodeList.removeIf(v -> v.equals(node));
-        this.hashRing = buildConsistentHashRing(this.nodeList);
+        this.nodes.removeIf(v -> v.equals(node));
+        this.hashRing = buildConsistentHashRing(this.nodes);
     }
 
     @Override
@@ -52,9 +51,9 @@ public class ConsistentHashLoadBalance<V extends Node> implements LoadBalance<V>
         return entry.getValue();
     }
 
-    private TreeMap<Integer, V> buildConsistentHashRing(List<V> nodeList) {
+    private TreeMap<Integer, V> buildConsistentHashRing(Set<V> nodes) {
         TreeMap<Integer, V> hashRing = new TreeMap<>();
-        for (V node : nodeList) {
+        for (V node : nodes) {
             for (int i = 0; i < VIRTUAL_NODE_SIZE; i++) {
                 // 新增虚拟节点的方式如果有影响，也可以抽象出一个由物理节点扩展虚拟节点的类
                 hashRing.put(hashStrategy.hashCode(node + VIRTUAL_NODE_SUFFIX + i), node);
