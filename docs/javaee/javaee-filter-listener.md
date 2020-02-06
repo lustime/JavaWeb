@@ -1,25 +1,10 @@
 # JavaEE 之 Filter 和 Listener
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [Filter](#filter)
-    - [过滤器方法](#过滤器方法)
-    - [过滤器配置](#过滤器配置)
-- [Listener](#listener)
-    - [监听器的分类](#监听器的分类)
-    - [监听对象的创建和销毁](#监听对象的创建和销毁)
-    - [监听对象的属性变化](#监听对象的属性变化)
-    - [监听 Session 内的对象](#监听-session-内的对象)
-- [示例代码](#示例代码)
-- [参考资料](#参考资料)
-
-<!-- /TOC -->
-
 ## Filter
 
 过滤器（Filter）用于在 Servlet 之外对 request 或 response 进行修改。Filter 提供了过滤链（Filter Chain）的概念，一个过滤链包括多个 Filter。客户端请求 request 在抵达 Servlet 之前会经过过滤链的所有 Filter，服务器响应 response 从 Servlet 抵达客户端浏览器之前也会经过过滤链的所有 FIlter。
 
-![img](http://dunwu.test.upcdn.net/snap/1559054413341.png!zp" style="width: 300px)
+![img](http://dunwu.test.upcdn.net/snap/1559054413341.png)
 
 ### 过滤器方法
 
@@ -91,9 +76,9 @@ public interface Filter {
 在 Servlet 规范中定义了多种类型的监听器，它们用于监听的事件源分别为`ServletContext`，`HttpSession`和`ServletRequest`这三个域对象
 Servlet 规范针对这三个对象上的操作，又把多种类型的监听器划分为三种类型：
 
-1.  监听域对象自身的创建和销毁的事件监听器。
-2.  监听域对象中的属性的增加和删除的事件监听器。
-3.  监听绑定到 HttpSession 域中的某个对象的状态的事件监听器。
+1. 监听域对象自身的创建和销毁的事件监听器。
+2. 监听域对象中的属性的增加和删除的事件监听器。
+3. 监听绑定到 HttpSession 域中的某个对象的状态的事件监听器。
 
 ### 监听对象的创建和销毁
 
@@ -197,8 +182,8 @@ Servlet 规范中定义了两个特殊的监听器接口 `HttpSessionBindingList
 
 ## 示例代码
 
-- `Filter` 的示例源码：[源码](https://github.com/dunwu/javaweb/tree/master/codes/javaee-tutorial/javaee-tutorial-filter)
-- `Listener` 的示例源码：[源码](https://github.com/dunwu/javaweb/tree/master/codes/javaee-tutorial/javaee-tutorial-listener)
+- `Filter` 的示例源码：[源码](https://github.com/dunwu/javatech/tree/master/codes/javaee-tutorial/javaee-tutorial-filter)
+- `Listener` 的示例源码：[源码](https://github.com/dunwu/javatech/tree/master/codes/javaee-tutorial/javaee-tutorial-listener)
 
 ## 参考资料
 

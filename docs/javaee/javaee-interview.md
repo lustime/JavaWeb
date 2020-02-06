@@ -1,36 +1,8 @@
 # JavaEE 面经
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [1. Servlet](#1-servlet)
-    - [1.1. 什么是 Servlet？](#11-什么是-servlet)
-    - [1.2. Servlet 和 CGI 的区别？](#12-servlet-和-cgi-的区别)
-    - [1.3. Servlet 版本以及主要特性?](#13-servlet-版本以及主要特性)
-    - [1.4. Servlet 和 JSP 的区别?](#14-servlet-和-jsp-的区别)
-    - [1.5. 简述 Servlet 生命周期](#15-简述-servlet-生命周期)
-    - [1.6. 如何现实 servlet 的单线程模式？](#16-如何现实-servlet-的单线程模式)
-    - [1.7. Servlet 中如何获取用户提交的查询参数或者表单数据](#17-servlet-中如何获取用户提交的查询参数或者表单数据)
-    - [1.8. request 的主要方法](#18-request-的主要方法)
-- [2. JSP](#2-jsp)
-    - [2.1. JSP 的内置对象？](#21-jsp-的内置对象)
-    - [2.2. JSP 的作用域?](#22-jsp-的作用域)
-    - [2.3. JSP 中 7 个动作指令和作用？](#23-jsp-中-7-个动作指令和作用)
-    - [2.4. JSP 中动态 INCLUDE 和静态 INCLUDE 有什么区别？](#24-jsp-中动态-include-和静态-include-有什么区别)
-- [3. 原理](#3-原理)
-    - [3.1. 请求转发(forward)和重定向(redirect)的区别?](#31-请求转发forward和重定向redirect的区别)
-    - [3.2. get 请求和 post 请求的区别?](#32-get-请求和-post-请求的区别)
-    - [3.3. 用户在浏览器中输入 URL 之后，发什么了什么？写出请求和响应的流程](#33-用户在浏览器中输入-url-之后发什么了什么写出请求和响应的流程)
-    - [3.4. 什么是 Web Service?](#34-什么是-web-service)
-    - [3.5. 会话跟踪技术有哪些?](#35-会话跟踪技术有哪些)
-    - [3.6. 响应结果状态码有哪些，并给出中文含义？](#36-响应结果状态码有哪些并给出中文含义)
-    - [3.7. XML 文档定义有几种形式？它们之间有何本质区别？解析 XML 文档有哪几种方式？](#37-xml-文档定义有几种形式它们之间有何本质区别解析-xml-文档有哪几种方式)
-- [4. 参考资料](#4-参考资料)
-
-<!-- /TOC -->
-
 ## 1. Servlet
 
-### 1.1. 什么是 Servlet？
+### 1.1. 什么是 Servlet
 
 Servlet（Server Applet），即小服务程序或服务连接器。Servlet 是 Java 编写的服务器端程序，具有独立于平台和协议的特性，主要功能在于交互式地浏览和生成数据，生成动态 Web 内容。
 
@@ -39,14 +11,14 @@ Servlet（Server Applet），即小服务程序或服务连接器。Servlet 是 
 
 Servlet 运行于支持 Java 的应用服务器中。从原理上讲，Servlet 可以响应任何类型的请求，但绝大多数情况下 Servlet 只用来扩展基于 HTTP 协议的 Web 服务器。
 
-### 1.2. Servlet 和 CGI 的区别？
+### 1.2. Servlet 和 CGI 的区别
 
 Servlet 技术出现之前，Web 主要使用 CGI 技术。它们的区别如下：
 
 - Servlet 是基于 Java 编写的，处于服务器进程中，他能够通过多线程方式运行 service() 方法，一个实例可以服务于多个请求，而且一般不会销毁；
 - CGI(Common Gateway Interface)，即通用网关接口。它会为每个请求产生新的进程，服务完成后销毁，所以效率上低于 Servlet。
 
-### 1.3. Servlet 版本以及主要特性?
+### 1.3. Servlet 版本以及主要特性
 
 | 版本        | 日期          | JAVA EE/JDK 版本   | 特性                                                                  |
 | ----------- | ------------- | ------------------ | --------------------------------------------------------------------- |
@@ -61,7 +33,7 @@ Servlet 技术出现之前，Web 主要使用 CGI 技术。它们的区别如下
 | Servlet 2.0 |               | JDK 1.1            | Part of Java Servlet Development Kit 2.0                              |
 | Servlet 1.0 | 1997 年 6 月  |                    |                                                                       |
 
-### 1.4. Servlet 和 JSP 的区别?
+### 1.4. Servlet 和 JSP 的区别
 
 1. Servlet 是一个运行在服务器上的 Java 类,依靠服务器支持向浏览器传输数据。
 2. **JSP 本质上就是 Servlet**，每次运行的时候 JSP 都会被编译成 .java 文件，然后再被编译成 .class 文件。
@@ -80,9 +52,9 @@ Servlet 生命周期如下：
 4. **销毁** - Servlet 通过调用 **destroy()** 方法终止（结束）。
 5. **卸载** - Servlet 是由 JVM 的垃圾回收器进行垃圾回收的。
 
-### 1.6. 如何现实 servlet 的单线程模式？
+### 1.6. 如何现实 servlet 的单线程模式
 
-```jsp
+```java
 <%@ page isThreadSafe="false" %>
 ```
 
@@ -120,7 +92,7 @@ Servlet 生命周期如下：
 
 ## 2. JSP
 
-### 2.1. JSP 的内置对象？
+### 2.1. JSP 的内置对象
 
 1. **request**：包含**客户端请求的信息**；
 2. **response**：包含**服务器传回客户端的响应信息**；
@@ -132,14 +104,14 @@ Servlet 生命周期如下：
 8. **page**：指**网页本身**；
 9. **exception**：处理 JSP 文件执行时发生的错误和异常，只要在**错误页面**里才能使用。
 
-### 2.2. JSP 的作用域?
+### 2.2. JSP 的作用域
 
 1. **page**：一个页面；
 2. **request**：一次请求；
 3. **session**：一次会话；
 4. **application**：服务器从启动到停止。
 
-### 2.3. JSP 中 7 个动作指令和作用？
+### 2.3. JSP 中 7 个动作指令和作用
 
 1. **jsp:forward** - 执行页面转向，把请求转发到下一个页面；
 2. **jsp:param** - 用于传递参数，必须与其他支持参数的标签一起使用；
@@ -149,14 +121,14 @@ Servlet 生命周期如下：
 6. **jsp:setProperty** - 设置 JavaBean 的属性值；
 7. **jsp:getProperty** - 获取 JavaBean 的属性值。
 
-### 2.4. JSP 中动态 INCLUDE 和静态 INCLUDE 有什么区别？
+### 2.4. JSP 中动态 INCLUDE 和静态 INCLUDE 有什么区别
 
 - **静态 INCLUDE**：用 include 伪码实现，**不会检查所含文件的变化**，适用于包含**静态页面<%@ include file="页面名称.html" %>**。**先合并再编译**。
 - **动态 INCLUDE**：用 jsp:include 动作实现 **<jsp:include page="页面名称 .jsp" flush="true">** 它总是**会检查文件中的变化**，适用于包含**动态页面**，并且可以**带参数**。**先编译再合并**。
 
 ## 3. 原理
 
-### 3.1. 请求转发(forward)和重定向(redirect)的区别?
+### 3.1. 请求转发(forward)和重定向(redirect)的区别
 
 - 效率上
   - 转发（forward） > 重定向（redirect）
@@ -170,7 +142,7 @@ Servlet 生命周期如下：
   - 重定向（redirect）是两次
   - 转发（forward）是一次
 
-### 3.2. get 请求和 post 请求的区别?
+### 3.2. get 请求和 post 请求的区别
 
 ![img](https://upload-images.jianshu.io/upload_images/7779232-5be5ae990207f9d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/814/format/webp)
 

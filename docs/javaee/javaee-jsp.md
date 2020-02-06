@@ -1,72 +1,8 @@
 # JSP 指南
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [简介](#简介)
-    - [什么是 Java Server Pages?](#什么是-java-server-pages)
-    - [为什么使用 JSP？](#为什么使用-jsp)
-    - [JSP 的优势](#jsp-的优势)
-- [JSP 工作原理](#jsp-工作原理)
-    - [JSP 工作流程](#jsp-工作流程)
-    - [JSP 生命周期](#jsp-生命周期)
-- [语法](#语法)
-    - [脚本](#脚本)
-    - [JSP 声明](#jsp-声明)
-    - [JSP 表达式](#jsp-表达式)
-    - [JSP 注释](#jsp-注释)
-    - [控制语句](#控制语句)
-    - [JSP 字面量](#jsp-字面量)
-- [指令](#指令)
-    - [Page 指令](#page-指令)
-    - [Include 指令](#include-指令)
-    - [Taglib 指令](#taglib-指令)
-- [JSP 动作元素](#jsp-动作元素)
-    - [常见的属性](#常见的属性)
-    - [`<jsp:include>`](#jspinclude)
-    - [`<jsp:useBean>`](#jspusebean)
-    - [`<jsp:setProperty>`](#jspsetproperty)
-    - [`<jsp:getProperty>`](#jspgetproperty)
-    - [`<jsp:forward>`](#jspforward)
-    - [`<jsp:plugin>`](#jspplugin)
-    - [`<jsp:element>` 、 `<jsp:attribute>`、`<jsp:body>`](#jspelement--jspattributejspbody)
-    - [`<jsp:text>`](#jsptext)
-- [JSP 隐式对象](#jsp-隐式对象)
-    - [request 对象](#request-对象)
-    - [response 对象](#response-对象)
-    - [out 对象](#out-对象)
-    - [session 对象](#session-对象)
-    - [application 对象](#application-对象)
-    - [config 对象](#config-对象)
-    - [pageContext 对象](#pagecontext-对象)
-    - [page 对象](#page-对象)
-    - [exception 对象](#exception-对象)
-- [EL 表达式](#el-表达式)
-    - [一个简单的语法](#一个简单的语法)
-    - [EL 中的基础操作符](#el-中的基础操作符)
-    - [JSP EL 中的函数](#jsp-el-中的函数)
-    - [JSP EL 隐含对象](#jsp-el-隐含对象)
-    - [pageContext 对象](#pagecontext-对象-1)
-    - [Scope 对象](#scope-对象)
-    - [param 和 paramValues 对象](#param-和-paramvalues-对象)
-    - [header 和 headerValues 对象](#header-和-headervalues-对象)
-- [JSTL](#jstl)
-    - [JSTL 库安装](#jstl-库安装)
-    - [核心标签](#核心标签)
-    - [格式化标签](#格式化标签)
-    - [SQL 标签](#sql-标签)
-    - [XML 标签](#xml-标签)
-    - [JSTL 函数](#jstl-函数)
-- [Taglib](#taglib)
-    - [JSP 自定义标签](#jsp-自定义标签)
-    - [创建"Hello"标签](#创建hello标签)
-    - [访问标签体](#访问标签体)
-    - [自定义标签属性](#自定义标签属性)
-
-<!-- /TOC -->
-
 ## 简介
 
-### 什么是 Java Server Pages?
+### 什么是 Java Server Pages
 
 `JSP`全称`Java Server Pages`，是一种动态网页开发技术。
 
@@ -78,7 +14,7 @@ JSP 通过网页表单获取用户输入数据、访问数据库及其他数据�
 
 JSP 标签有多种功能，比如访问数据库、记录用户选择信息、访问 JavaBeans 组件等，还可以在不同的网页中传递控制信息和共享信息。
 
-### 为什么使用 JSP？
+### 为什么使用 JSP
 
 JSP 也是一种 Servlet，因此 JSP 能够完成 Servlet 能完成的任何工作。
 
@@ -168,7 +104,7 @@ JSP 生命周期就是从创建到销毁的整个过程，类似于 servlet 生�
 
 容器载入 JSP 文件后，它会在为请求提供任何服务前调用 jspInit()方法。如果您需要执行自定义的 JSP 初始化任务，复写 jspInit()方法就行了，就像下面这样：
 
-```
+```java
 public void jspInit(){
   // 初始化代码
 }
@@ -180,14 +116,13 @@ public void jspInit(){
 
 这一阶段描述了 JSP 生命周期中一切与请求相关的交互行为，直到被销毁。
 
-当 JSP 网页完成初始化后，JSP 引擎将会调用\_jspService()方法。
+当 JSP 网页完成初始化后，JSP 引擎将会调用 `_jspService()` 方法。
 
-\_jspService()方法需要一个 HttpServletRequest 对象和一个 HttpServletResponse 对象作为它的参数，就像下面这样：
+`_jspService()` 方法需要一个 HttpServletRequest 对象和一个 HttpServletResponse 对象作为它的参数，就像下面这样：
 
-```
+```java
 void _jspService(HttpServletRequest request,
-                 HttpServletResponse response)
-{
+                 HttpServletResponse response) {
    // 服务端处理代码
 }
 ```
@@ -202,9 +137,8 @@ jspDestroy()方法在 JSP 中等价于 servlet 中的销毁方法。当您需要
 
 jspDestroy()方法的格式如下：
 
-```
-public void jspDestroy()
-{
+```java
+public void jspDestroy() {
    // 清理代码
 }
 ```
@@ -217,15 +151,15 @@ public void jspDestroy()
 
 脚本程序的语法格式：
 
-```jsp
+```
 <% 代码片段 %>
 ```
 
 或者，您也可以编写与其等价的 XML 语句，就像下面这样：
 
-```jsp
+```
 <jsp:scriptlet>
-   代码片段
+  代码片段
 </jsp:scriptlet>
 ```
 
@@ -233,50 +167,48 @@ public void jspDestroy()
 
 下面给出一个示例，同时也是本教程的第一个 JSP 示例：
 
-```jsp
+```
 <html>
-<head><title>Hello World</title></head>
-<body>
-Hello World!<br/>
-<%
-out.println("Your IP address is " + request.getRemoteAddr());
-%>
-</body>
+  <head>
+    <title>Hello World</title>
+  </head>
+  <body>
+    Hello World!<br />
+    <% out.println("Your IP address is " + request.getRemoteAddr()); %>
+  </body>
 </html>
 ```
 
 **注意：**请确保 Apache Tomcat 已经安装在 C:\apache-tomcat-7.0.2 目录下并且运行环境已经正确设置。
 
-将以上代码保存在 hello.jsp 中，然后将它放置在 C:\apache-tomcat-7.0.2\webapps\ROOT 目录下，打开浏览器并在地址栏中输入http://localhost:8080/hello.jsp。运行后得到以下结果：
+将以上代码保存在 hello.jsp 中，然后将它放置在 C:\apache-tomcat-7.0.2\webapps\ROOT 目录下，打开浏览器并在地址栏中输入 `http://localhost:8080/hello.jsp` 。运行后得到以下结果：
 
 ![img](http://www.runoob.com/wp-content/uploads/2014/01/jsp_hello_world.jpg)
 
 #### 中文编码问题
 
-如果我们要在页面正常显示中文，我们需要在 JSP 文件头部添加以下代码：<>
+如果我们要在页面正常显示中文，我们需要在 JSP 文件头部添加以下代码：`<>`
 
-```jsp
+```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 ```
 
 接下来我们将以上程序修改为：
 
-```jsp
+```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-</head>
-<body>
-Hello World!<br/>
-<%
-out.println("你的 IP 地址 " + request.getRemoteAddr());
-%>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <body>
+    Hello World!<br />
+    <% out.println("你的 IP 地址 " + request.getRemoteAddr()); %>
+  </body>
 </html>
 ```
 
@@ -288,24 +220,22 @@ out.println("你的 IP 地址 " + request.getRemoteAddr());
 
 JSP 声明的语法格式：
 
-```jsp
+```
 <%! declaration; [ declaration; ]+ ... %>
 ```
 
 或者，您也可以编写与其等价的 XML 语句，就像下面这样：
 
-```jsp
+```
 <jsp:declaration>
-   代码片段
+  代码片段
 </jsp:declaration>
 ```
 
 程序示例：
 
-```jsp
-<%! int i = 0; %>
-<%! int a, b, c; %>
-<%! Circle a = new Circle(2.0); %>
+```
+<%! int i = 0; %> <%! int a, b, c; %> <%! Circle a = new Circle(2.0); %>
 ```
 
 ### JSP 表达式
@@ -326,7 +256,7 @@ JSP 表达式的语法格式：
 
 ```
 <jsp:expression>
-   表达式
+  表达式
 </jsp:expression>
 ```
 
@@ -334,18 +264,18 @@ JSP 表达式的语法格式：
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-</head>
-<body>
-<p>
-   今天的日期是: <%= (new java.util.Date()).toLocaleString()%>
-</p>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <body>
+    <p>
+      今天的日期是: <%= (new java.util.Date()).toLocaleString()%>
+    </p>
+  </body>
 </html>
 ```
 
@@ -363,21 +293,21 @@ JSP 注释主要有两个作用：为代码作注释以及将某段代码注释�
 
 JSP 注释的语法格式：
 
-```jsp
+```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>JSP注释示例</title>
-</head>
-<body>
-<%-- 该部分注释在网页中不会被显示--%>
-<p>
-   今天的日期是: <%= (new java.util.Date()).toLocaleString()%>
-</p>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>JSP注释示例</title>
+  </head>
+  <body>
+    <%-- 该部分注释在网页中不会被显示--%>
+    <p>
+      今天的日期是: <%= (new java.util.Date()).toLocaleString()%>
+    </p>
+  </body>
 </html>
 ```
 
@@ -389,14 +319,14 @@ JSP 注释的语法格式：
 
 不同情况下使用注释的语法规则：
 
-| **语法**       | 描述                                                  |
-| -------------- | ----------------------------------------------------- |
-| <%-- 注释 --%> | JSP 注释，注释内容不会被发送至浏览器甚至不会被编译    |
-| <!-- 注释 -->  | HTML 注释，通过浏览器查看网页源代码时可以看见注释内容 |
-| <\%            | 代表静态 <%常量                                       |
-| %\>            | 代表静态 %> 常量                                      |
-| \'             | 在属性中使用的单引号                                  |
-| \"             | 在属性中使用的双引号                                  |
+| **语法**         | 描述                                                  |
+| ---------------- | ----------------------------------------------------- |
+| `<%-- 注释 --%>` | JSP 注释，注释内容不会被发送至浏览器甚至不会被编译    |
+| `<!-- 注释 -->`  | HTML 注释，通过浏览器查看网页源代码时可以看见注释内容 |
+| `<%`             | 代表静态 <%常量                                       |
+| `%>`             | 代表静态 %> 常量                                      |
+| `'`              | 在属性中使用的单引号                                  |
+| `"`              | 在属性中使用的双引号                                  |
 
 ### 控制语句
 
@@ -406,24 +336,23 @@ JSP 提供对 Java 语言的全面支持。您可以在 JSP 程序中使用 Java
 
 `If…else`块，请看下面这个例子：
 
-```jsp
+```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%! int day = 1; %>
+pageEncoding="UTF-8"%> <%! int day = 1; %>
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>02.JSP语法 - if...else示例</title>
-</head>
-<body>
-<h3>IF...ELSE 实例</h3>
-<% if (day == 1 | day == 7) { %>
-<p>今天是周末</p>
-<% } else { %>
-<p>今天不是周末</p>
-<% } %>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>02.JSP语法 - if...else示例</title>
+  </head>
+  <body>
+    <h3>IF...ELSE 实例</h3>
+    <% if (day == 1 | day == 7) { %>
+    <p>今天是周末</p>
+    <% } else { %>
+    <p>今天不是周末</p>
+    <% } %>
+  </body>
 </html>
 ```
 
@@ -438,43 +367,22 @@ IF...ELSE 实例
 
 现在来看看 switch…case 块，与 if…else 块有很大的不同，它使用 out.println()，并且整个都装在脚本程序的标签中，就像下面这样：
 
-```jsp
+```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%! int day = 3; %>
+pageEncoding="UTF-8"%> <%! int day = 3; %>
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>02.JSP语法 - switch...case示例</title>
-</head>
-<body>
-<h3>Sswitch...case示例</h3>
-<%
-  switch(day) {
-    case 0:
-      out.println("星期天");
-      break;
-    case 1:
-      out.println("星期一");
-      break;
-    case 2:
-      out.println("星期二");
-      break;
-    case 3:
-      out.println("星期三");
-      break;
-    case 4:
-      out.println("星期四");
-      break;
-    case 5:
-      out.println("星期五");
-      break;
-    default:
-      out.println("星期六");
-  }
-%>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>02.JSP语法 - switch...case示例</title>
+  </head>
+  <body>
+    <h3>Sswitch...case示例</h3>
+    <% switch(day) { case 0: out.println("星期天"); break; case 1:
+    out.println("星期一"); break; case 2: out.println("星期二"); break; case 3:
+    out.println("星期三"); break; case 4: out.println("星期四"); break; case 5:
+    out.println("星期五"); break; default: out.println("星期六"); } %>
+  </body>
 </html>
 ```
 
@@ -494,22 +402,21 @@ SWITCH...CASE 实例
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%! int fontSize; %>
+pageEncoding="UTF-8"%> <%! int fontSize; %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-</head>
-<body>
-<h3>For 循环实例</h3>
-<%for ( fontSize = 1; fontSize <= 3; fontSize++){ %>
-   <font color="green" size="<%= fontSize %>">
-    菜鸟教程
-   </font><br />
-<%}%>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <body>
+    <h3>For 循环实例</h3>
+    <%for ( fontSize = 1; fontSize <= 3; fontSize++){ %>
+    <font color="green" size="<%= fontSize %>">
+      菜鸟教程 </font
+    ><br />
+    <%}%>
+  </body>
 </html>
 ```
 
@@ -521,23 +428,21 @@ SWITCH...CASE 实例
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%! int fontSize; %>
+pageEncoding="UTF-8"%> <%! int fontSize; %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-</head>
-<body>
-<h3>While 循环实例</h3>
-<%while ( fontSize <= 3){ %>
-   <font color="green" size="<%= fontSize %>">
-    菜鸟教程
-   </font><br />
-<%fontSize++;%>
-<%}%>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <body>
+    <h3>While 循环实例</h3>
+    <%while ( fontSize <= 3){ %>
+    <font color="green" size="<%= fontSize %>">
+      菜鸟教程 </font
+    ><br />
+    <%fontSize++;%> <%}%>
+  </body>
 </html>
 ```
 
@@ -553,21 +458,21 @@ JSP 支持所有 Java 逻辑和算术运算符。
 
 | **类别**  | **操作符**                          | **结合性** |
 | --------- | ----------------------------------- | ---------- |
-| 后缀      | () [] . (点运算符)                  | 左到右     |
-| 一元      | ++ - - ! \~                         | 右到左     |
-| 可乘性    | \* / %                              | 左到右     |
-| 可加性    | + -                                 | 左到右     |
-| 移位      | >> >>> <<                           | 左到右     |
-| 关系      | > >= < <=                           | 左到右     |
-| 相等/不等 | == !=                               | 左到右     |
-| 位与      | &                                   | 左到右     |
-| 位异或    | ^                                   | 左到右     |
-| 位或      | \|                                  | 左到右     |
-| 逻辑与    | &&                                  | 左到右     |
-| 逻辑或    | \|\|                                | 左到右     |
-| 条件判断  | ?:                                  | 右到左     |
-| 赋值      | = += -= \*= /= %= >>= <<= &= ^= \|= | 右到左     |
-| 逗号      | ,                                   | 左到右     |
+| 后缀      | `() [] .` (点运算符)                | 左到右     |
+| 一元      | `++ - - ! ~`                        | 右到左     |
+| 可乘性    | `* / %`                             | 左到右     |
+| 可加性    | `+ -`                               | 左到右     |
+| 移位      | `>> >>> <<`                         | 左到右     |
+| 关系      | `> >= < <=`                         | 左到右     |
+| 相等/不等 | `== !=`                             | 左到右     |
+| 位与      | `&`                                 | 左到右     |
+| 位异或    | `^`                                 | 左到右     |
+| 位或      | `|`                                 | 左到右     |
+| 逻辑与    | `&&`                                | 左到右     |
+| 逻辑或    | `||`                                | 左到右     |
+| 条件判断  | `?:`                                | 右到左     |
+| 赋值      | `= += -= *= /= %= >>= <<= &= ^= |=` | 右到左     |
+| 逗号      | `,`                                 | 左到右     |
 
 ### JSP 字面量
 
@@ -587,7 +492,7 @@ JSP 指令以开`<%@`开始，以`%>`结束。
 
 JSP 指令语法格式如下：
 
-```jsp
+```
 <%@ directive attribute="value" %>
 ```
 
@@ -607,20 +512,21 @@ Page 指令为容器提供当前页面的使用说明。一个 JSP 页面可以�
 
 Page 指令的语法格式：
 
-```jsp
+```
 <%@ page attribute="value" %>
 ```
 
 等价的 XML 格式：
 
-```jsp
+```
 <jsp:directive.page attribute="value" />
 ```
 
 例：
 
-```jsp
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8" %>
 ```
 
 #### 属性
@@ -651,7 +557,7 @@ JSP 可以通过`include`指令来包含其他文件。
 
 Include 指令的语法格式如下：
 
-```jsp
+```
 <%@ include file="文件相对 url 地址" %>
 ```
 
@@ -661,7 +567,7 @@ Include 指令的语法格式如下：
 
 等价的 XML 语法：
 
-```jsp
+```
 <jsp:directive.include file="文件相对 url 地址" />
 ```
 
@@ -673,7 +579,7 @@ JSP 允许用户自定义标签，一个自定义标签库就是自定义标签�
 
 `taglib`指令的语法：
 
-```jsp
+```
 <%@ taglib uri="uri" prefix="prefixOfTag" %>
 ```
 
@@ -681,7 +587,7 @@ uri 属性确定标签库的位置，prefix 属性指定标签库的前缀。
 
 等价的 XML 语法：
 
-```jsp
+```
 <jsp:directive.taglib uri="uri" prefix="prefixOfTag" />
 ```
 
@@ -695,7 +601,7 @@ JSP 动作元素是一组 JSP 内置的标签，只需要书写很少的标记�
 
 动作元素只有一种语法，它符合 XML 标准：
 
-```jsp
+```
 <jsp:action_name attribute="value" />
 ```
 
@@ -742,37 +648,35 @@ JSP 动作元素是一组 JSP 内置的标签，只需要书写很少的标记�
 | page  | 包含在页面中的相对 URL 地址。              |
 | flush | 布尔属性，定义在包含资源前是否刷新缓存区。 |
 
-**例**
+示例：
 
 以下我们定义了两个文件 **date.jsp** 和 **main.jsp**，代码如下所示：
 
 date.jsp 文件代码：
 
-```c++
+```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <p>
-   今天的日期是: <%= (new java.util.Date())%>
+  今天的日期是: <%= (new java.util.Date())%>
 </p>
 ```
 
 main.jsp 文件代码：
 
-```jsp
+```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-</head>
-<body>
-
-<h2>include 动作实例</h2>
-<jsp:include page="date.jsp" flush="true" />
-
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <body>
+    <h2>include 动作实例</h2>
+    <jsp:include page="date.jsp" flush="true" />
+  </body>
 </html>
 ```
 
@@ -859,7 +763,7 @@ jsp:getProperty 动作提取指定 Bean 属性的值，转换成字符串，然�
 
 以下实例我们使用了 Bean:
 
-```
+```java
 package com.runoob.main;
 
 public class TestBean {
@@ -892,27 +796,23 @@ $ javac TestBean.java
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <body>
+    <h2>Jsp 使用 JavaBean 实例</h2>
+    <jsp:useBean id="test" class="com.runoob.main.TestBean" />
 
-<h2>Jsp 使用 JavaBean 实例</h2>
-<jsp:useBean id="test" class="com.runoob.main.TestBean" />
+    <jsp:setProperty name="test" property="message" value="菜鸟教程..." />
 
-<jsp:setProperty name="test"
-                    property="message"
-                    value="菜鸟教程..." />
+    <p>输出信息....</p>
 
-<p>输出信息....</p>
-
-<jsp:getProperty name="test" property="message" />
-
-</body>
+    <jsp:getProperty name="test" property="message" />
+  </body>
 </html>
 ```
 
@@ -942,9 +842,9 @@ date.jsp 文件代码如下：
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <p>
-   今天的日期是: <%= (new java.util.Date()).toLocaleString()%>
+  今天的日期是: <%= (new java.util.Date()).toLocaleString()%>
 </p>
 ```
 
@@ -952,18 +852,17 @@ main.jsp 文件代码：
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-</head>
-<body>
-
-<h2>forward 动作实例</h2>
-<jsp:forward page="date.jsp" />
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <body>
+    <h2>forward 动作实例</h2>
+    <jsp:forward page="date.jsp" />
+  </body>
 </html>
 ```
 
@@ -996,33 +895,33 @@ plugin 动作有多个对应 HTML 元素的属性用于格式化 Java 组件。p
 </jsp:plugin>
 ```
 
-如果你有兴趣可以尝试使用 applet 来测试 jsp:plugin 动作元素，<fallback>元素是一个新元素，在组件出现故障的错误是发送给用户错误信息。
+如果你有兴趣可以尝试使用 applet 来测试 `jsp:plugin` 动作元素，`<fallback>` 元素是一个新元素，在组件出现故障的错误是发送给用户错误信息。
 
 ### `<jsp:element>` 、 `<jsp:attribute>`、`<jsp:body>`
 
-<jsp:element> 、 <jsp:attribute>、 <jsp:body>动作元素动态定义 XML 元素。动态是非常重要的，这就意味着 XML 元素在编译时是动态生成的而非静态。
+`<jsp:element>` 、 `<jsp:attribute>`、`<jsp:body>` 动作元素动态定义 XML 元素。动态是非常重要的，这就意味着 XML 元素在编译时是动态生成的而非静态。
 
 以下实例动态定义了 XML 元素：
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-</head>
-<body>
-<jsp:element name="xmlElement">
-<jsp:attribute name="xmlElementAttr">
-   属性值
-</jsp:attribute>
-<jsp:body>
-   XML 元素的主体
-</jsp:body>
-</jsp:element>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>菜鸟教程(runoob.com)</title>
+  </head>
+  <body>
+    <jsp:element name="xmlElement">
+      <jsp:attribute name="xmlElementAttr">
+        属性值
+      </jsp:attribute>
+      <jsp:body>
+        XML 元素的主体
+      </jsp:body>
+    </jsp:element>
+  </body>
 </html>
 ```
 
@@ -1044,7 +943,7 @@ plugin 动作有多个对应 HTML 元素的属性用于格式化 Java 组件。p
 <jsp:text><![CDATA[<br>]]></jsp:text>
 ```
 
-如果你需要在 XHTML 中声明 DOCTYPE,必须使用到<jsp:text>动作元素，实例如下：
+如果你需要在 XHTML 中声明 DOCTYPE,必须使用到 `<jsp:text>` 动作元素，实例如下：
 
 ```
 <jsp:text><![CDATA[<!DOCTYPE html
@@ -1136,7 +1035,7 @@ JSP 所支持的九大隐式对象：
 
 以下是 config 对象的使用方法，不是很重要，所以不常用：
 
-```jsp
+```
 config.getServletName();
 ```
 
@@ -1156,7 +1055,7 @@ config.getServletName();
 
 其中一个重要的方法就是`removeArribute()`，它可接受一个或两个参数。比如，pageContext.removeArribute("attrName")移除四个 scope 中相关属性，但是下面这种方法只移除特定 scope 中的相关属性：
 
-```jsp
+```
 pageContext.removeAttribute("attrName", PAGE_SCOPE);
 ```
 
@@ -1180,40 +1079,43 @@ JSP 表达式语言（EL）使得访问存储在 JavaBean 中的数据变得非�
 
 典型的，当您需要在 JSP 标签中指定一个属性值时，只需要简单地使用字符串即可：
 
-```jsp
-<jsp:setProperty name="box" property="perimeter" value="100"/>
+```
+<jsp:setProperty name="box" property="perimeter" value="100" />
 ```
 
 JSP EL 允许您指定一个表达式来表示属性值。一个简单的表达式语法如下：
 
-```jsp
+```
 ${expr}
 ```
 
 其中，expr 指的是表达式。在 JSP EL 中通用的操作符是"."和"[]"。这两个操作符允许您通过内嵌的 JSP 对象访问各种各样的 JavaBean 属性。
 
-举例来说，上面的<jsp:setProperty>标签可以使用表达式语言改写成如下形式：
+举例来说，上面的 `<jsp:setProperty>` 标签可以使用表达式语言改写成如下形式：
 
-```jsp
-<jsp:setProperty name="box" property="perimeter"
-                 value="${2*box.width+2*box.height}"/>
+```
+<jsp:setProperty
+  name="box"
+  property="perimeter"
+  value="${2*box.width+2*box.height}"
+/>
 ```
 
 当 JSP 编译器在属性中见到"\${}"格式后，它会产生代码来计算这个表达式，并且产生一个替代品来代替表达式的值。
 
-您也可以在标签的模板文本中使用表达式语言。比如<jsp:text>标签简单地将其主体中的文本插入到 JSP 输出中：
+您也可以在标签的模板文本中使用表达式语言。比如 `<jsp:text>` 标签简单地将其主体中的文本插入到 JSP 输出中：
 
-```jsp
+```
 <jsp:text>
-<h1>Hello JSP!</h1>
+  <h1>Hello JSP!</h1>
 </jsp:text>
 ```
 
 现在，在<jsp:text>标签主体中使用表达式，就像这样：
 
-```jsp
+```
 <jsp:text>
-Box Perimeter is: ${2*box.width + 2*box.height}
+  Box Perimeter is: ${2*box.width + 2*box.height}
 </jsp:text>
 ```
 
@@ -1221,7 +1123,7 @@ Box Perimeter is: ${2*box.width + 2*box.height}
 
 想要停用对 EL 表达式的评估的话，需要使用 page 指令将 isELIgnored 属性值设为 true：
 
-```jsp
+```
 <%@ page isELIgnored ="true|false" %>
 ```
 
@@ -1256,13 +1158,13 @@ EL 表达式支持大部分 Java 所提供的算术和逻辑操作符：
 
 JSP EL 允许您在表达式中使用函数。这些函数必须被定义在自定义标签库中。函数的使用语法如下：
 
-```jsp
+```
 ${ns:func(param1, param2, ...)}
 ```
 
 ns 指的是命名空间（namespace），func 指的是函数的名称，param1 指的是第一个参数，param2 指的是第二个参数，以此类推。比如，有函数 fn:length，在 JSTL 库中定义，可以像下面这样来获取一个字符串的长度：
 
-```jsp
+```
 ${fn:length("Get my length")}
 ```
 
@@ -1292,7 +1194,7 @@ JSP EL 支持下表列出的隐含对象：
 
 pageContext 对象是 JSP 中 pageContext 对象的引用。通过 pageContext 对象，您可以访问 request 对象。比如，访问 request 对象传入的查询字符串，就像这样：
 
-```jsp
+```
 ${pageContext.request.queryString}
 ```
 
@@ -1310,23 +1212,21 @@ param 和 paramValues 对象用来访问参数值，通过使用 request.getPara
 
 接下来的例子表明了如何访问 request 中的 username 参数：
 
-```jsp
-<%@ page import="java.io.*,java.util.*" %>
-<%
-    String title = "Accessing Request Param";
-%>
+```
+<%@ page import="java.io.*,java.util.*" %> <% String title = "Accessing Request
+Param"; %>
 <html>
-<head>
-<title><% out.print(title); %></title>
-</head>
-<body>
-<center>
-<h1><% out.print(title); %></h1>
-</center>
-<div align="center">
-<p>${param["username"]}</p>
-</div>
-</body>
+  <head>
+    <title><% out.print(title); %></title>
+  </head>
+  <body>
+    <center>
+      <h1><% out.print(title); %></h1>
+    </center>
+    <div align="center">
+      <p>${param["username"]}</p>
+    </div>
+  </body>
 </html>
 ```
 
@@ -1340,23 +1240,21 @@ header 和 headerValues 对象用来访问信息头，通过使用 request.getHe
 
 接下来的例子表明了如何访问 user-agent 信息头：
 
-```jsp
-<%@ page import="java.io.*,java.util.*" %>
-<%
-    String title = "User Agent Example";
-%>
+```
+<%@ page import="java.io.*,java.util.*" %> <% String title = "User Agent
+Example"; %>
 <html>
-<head>
-<title><% out.print(title); %></title>
-</head>
-<body>
-<center>
-<h1><% out.print(title); %></h1>
-</center>
-<div align="center">
-<p>${header["user-agent"]}</p>
-</div>
-</body>
+  <head>
+    <title><% out.print(title); %></title>
+  </head>
+  <body>
+    <center>
+      <h1><% out.print(title); %></h1>
+    </center>
+    <div align="center">
+      <p>${header["user-agent"]}</p>
+    </div>
+  </body>
 </html>
 ```
 
@@ -1395,47 +1293,49 @@ Apache Tomcat 安装 JSTL 库步骤如下：
 
 接下来我们在 web.xml 文件中添加以下配置：
 
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.4"
-    xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
-        http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-    <jsp-config>
+<web-app
+  version="2.4"
+  xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+        http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+>
+  <jsp-config>
     <taglib>
-    <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
-    <taglib-location>/WEB-INF/fmt.tld</taglib-location>
+      <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
+      <taglib-location>/WEB-INF/fmt.tld</taglib-location>
     </taglib>
     <taglib>
-    <taglib-uri>http://java.sun.com/jsp/jstl/fmt-rt</taglib-uri>
-    <taglib-location>/WEB-INF/fmt-rt.tld</taglib-location>
+      <taglib-uri>http://java.sun.com/jsp/jstl/fmt-rt</taglib-uri>
+      <taglib-location>/WEB-INF/fmt-rt.tld</taglib-location>
     </taglib>
     <taglib>
-    <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
-    <taglib-location>/WEB-INF/c.tld</taglib-location>
+      <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+      <taglib-location>/WEB-INF/c.tld</taglib-location>
     </taglib>
     <taglib>
-    <taglib-uri>http://java.sun.com/jsp/jstl/core-rt</taglib-uri>
-    <taglib-location>/WEB-INF/c-rt.tld</taglib-location>
+      <taglib-uri>http://java.sun.com/jsp/jstl/core-rt</taglib-uri>
+      <taglib-location>/WEB-INF/c-rt.tld</taglib-location>
     </taglib>
     <taglib>
-    <taglib-uri>http://java.sun.com/jsp/jstl/sql</taglib-uri>
-    <taglib-location>/WEB-INF/sql.tld</taglib-location>
+      <taglib-uri>http://java.sun.com/jsp/jstl/sql</taglib-uri>
+      <taglib-location>/WEB-INF/sql.tld</taglib-location>
     </taglib>
     <taglib>
-    <taglib-uri>http://java.sun.com/jsp/jstl/sql-rt</taglib-uri>
-    <taglib-location>/WEB-INF/sql-rt.tld</taglib-location>
+      <taglib-uri>http://java.sun.com/jsp/jstl/sql-rt</taglib-uri>
+      <taglib-location>/WEB-INF/sql-rt.tld</taglib-location>
     </taglib>
     <taglib>
-    <taglib-uri>http://java.sun.com/jsp/jstl/x</taglib-uri>
-    <taglib-location>/WEB-INF/x.tld</taglib-location>
+      <taglib-uri>http://java.sun.com/jsp/jstl/x</taglib-uri>
+      <taglib-location>/WEB-INF/x.tld</taglib-location>
     </taglib>
     <taglib>
-    <taglib-uri>http://java.sun.com/jsp/jstl/x-rt</taglib-uri>
-    <taglib-location>/WEB-INF/x-rt.tld</taglib-location>
+      <taglib-uri>http://java.sun.com/jsp/jstl/x-rt</taglib-uri>
+      <taglib-location>/WEB-INF/x-rt.tld</taglib-location>
     </taglib>
-    </jsp-config>
+  </jsp-config>
 </web-app>
 ```
 
@@ -1471,8 +1371,7 @@ Apache Tomcat 安装 JSTL 库步骤如下：
 JSTL 格式化标签用来格式化并输出文本、日期、时间、数字。引用格式化标签库的语法如下：
 
 ```
-<%@ taglib prefix="fmt"
-           uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 ```
 
 | 标签                                                                                      | 描述                                     |
@@ -1493,9 +1392,8 @@ JSTL 格式化标签用来格式化并输出文本、日期、时间、数字。
 
 JSTL SQL 标签库提供了与关系型数据库（Oracle，MySQL，SQL Server 等等）进行交互的标签。引用 SQL 标签库的语法如下：
 
-```jsp
-<%@ taglib prefix="sql"
-           uri="http://java.sun.com/jsp/jstl/sql" %>
+```
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 ```
 
 | 标签                                                                               | 描述                                                                         |
@@ -1512,11 +1410,10 @@ JSTL SQL 标签库提供了与关系型数据库（Oracle，MySQL，SQL Server �
 JSTL XML 标签库提供了创建和操作 XML 文档的标签。引用 XML 标签库的语法如下：
 
 ```
-<%@ taglib prefix="x"
-           uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 ```
 
-在使用 xml 标签前，你必须将 XML 和 XPath 的相关包拷贝至你的<Tomcat 安装目录>\lib 下:
+在使用 xml 标签前，你必须将 XML 和 XPath 的相关包拷贝至你的 `<Tomcat 安装目录>\lib` 下:
 
 - XercesImpl.jar
 
@@ -1544,8 +1441,7 @@ JSTL XML 标签库提供了创建和操作 XML 文档的标签。引用 XML 标�
 JSTL 包含一系列标准函数，大部分是通用的字符串处理函数。引用 JSTL 函数库的语法如下：
 
 ```
-<%@ taglib prefix="fn"
-           uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 ```
 
 | 函数                                                                                       | 描述                                                     |
@@ -1581,33 +1477,24 @@ JSP 标签扩展可以让你创建新的标签并且可以直接插入到一个 
 
 接下来，我们想创建一个自定义标签叫作<ex:Hello>，标签格式为：
 
-```jsp
+```
 <ex:Hello />
 ```
 
 要创建自定义的 JSP 标签，你首先必须创建处理标签的 Java 类。所以，让我们创建一个 HelloTag 类，如下所示：
 
-```java
-package com.runoob;
-
-import javax.servlet.jsp.tagext.*;
-import javax.servlet.jsp.*;
-import java.io.*;
-
-public class HelloTag extends SimpleTagSupport {
-
-  public void doTag() throws JspException, IOException {
-    JspWriter out = getJspContext().getOut();
-    out.println("Hello Custom Tag!");
-  }
-}
+```
+package com.runoob; import javax.servlet.jsp.tagext.*; import
+javax.servlet.jsp.*; import java.io.*; public class HelloTag extends
+SimpleTagSupport { public void doTag() throws JspException, IOException {
+JspWriter out = getJspContext().getOut(); out.println("Hello Custom Tag!"); } }
 ```
 
 以下代码重写了 doTag()方法，方法中使用了 getJspContext()方法来获取当前的 JspContext 对象，并将"Hello Custom Tag!"传递给 JspWriter 对象。
 
 编译以上类，并将其复制到环境变量 CLASSPATH 目录中。最后创建如下标签库：`<Tomcat安装目录>webapps\ROOT\WEB-INF\custom.tld`。
 
-```xml
+```
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>2.0</jsp-version>
@@ -1622,14 +1509,14 @@ public class HelloTag extends SimpleTagSupport {
 
 接下来，我们就可以在 JSP 文件中使用 Hello 标签：
 
-```jsp
+```
 <%@ taglib prefix="ex" uri="WEB-INF/custom.tld"%>
 <html>
   <head>
     <title>A sample custom tag</title>
   </head>
   <body>
-    <ex:Hello/>
+    <ex:Hello />
   </body>
 </html>
 ```
@@ -1646,7 +1533,7 @@ Hello Custom Tag!
 
 ```
 <ex:Hello>
-   This is message body
+  This is message body
 </ex:Hello>
 ```
 
@@ -1674,7 +1561,7 @@ public class HelloTag extends SimpleTagSupport {
 
 接下来我们需要修改 TLD 文件，如下所示：
 
-```xml
+```
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>2.0</jsp-version>
@@ -1689,7 +1576,7 @@ public class HelloTag extends SimpleTagSupport {
 
 现在我们可以在 JSP 使用修改后的标签，如下所示:
 
-```jsp
+```
 <%@ taglib prefix="ex" uri="WEB-INF/custom.tld"%>
 <html>
   <head>
@@ -1697,7 +1584,7 @@ public class HelloTag extends SimpleTagSupport {
   </head>
   <body>
     <ex:Hello>
-        This is message body
+      This is message body
     </ex:Hello>
   </body>
 </html>
@@ -1750,7 +1637,7 @@ public class HelloTag extends SimpleTagSupport {
 
 属性的名称是"message"，所以 setter 方法是的 setMessage()。现在让我们在 TLD 文件中使用的<attribute>元素添加此属性：
 
-```xml
+```
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>2.0</jsp-version>
@@ -1760,7 +1647,7 @@ public class HelloTag extends SimpleTagSupport {
     <tag-class>com.runoob.HelloTag</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
-       <name>message</name>
+      <name>message</name>
     </attribute>
   </tag>
 </taglib>
@@ -1768,7 +1655,7 @@ public class HelloTag extends SimpleTagSupport {
 
 现在我们就可以在 JSP 文件中使用 message 属性了，如下所示：
 
-```jsp
+```
 <%@ taglib prefix="ex" uri="WEB-INF/custom.tld"%>
 <html>
   <head>
@@ -1799,31 +1686,31 @@ This is custom tag
 
 以下是指定相关的属性实例：
 
-```xml
+```
 .....
-    <attribute>
-      <name>attribute_name</name>
-      <required>false</required>
-      <type>java.util.Date</type>
-      <fragment>false</fragment>
-    </attribute>
+<attribute>
+  <name>attribute_name</name>
+  <required>false</required>
+  <type>java.util.Date</type>
+  <fragment>false</fragment>
+</attribute>
 .....
 ```
 
 如果你使用了两个属性，修改 TLD 文件，如下所示：
 
-```xml
+```
 .....
-    <attribute>
-      <name>attribute_name1</name>
-      <required>false</required>
-      <type>java.util.Boolean</type>
-      <fragment>false</fragment>
-    </attribute>
-    <attribute>
-      <name>attribute_name2</name>
-      <required>true</required>
-      <type>java.util.Date</type>
-    </attribute>
+<attribute>
+  <name>attribute_name1</name>
+  <required>false</required>
+  <type>java.util.Boolean</type>
+  <fragment>false</fragment>
+</attribute>
+<attribute>
+  <name>attribute_name2</name>
+  <required>true</required>
+  <type>java.util.Date</type>
+</attribute>
 .....
 ```

@@ -3,21 +3,21 @@
 <!-- TOC depthFrom:2 depthTo:3 -->
 
 - [JavaWeb 简介](#javaweb-简介)
-    - [Web 应用程序](#web-应用程序)
-    - [常见 Web 服务器](#常见-web-服务器)
+  - [Web 应用程序](#web-应用程序)
+  - [常见 Web 服务器](#常见-web-服务器)
 - [Servlet 简介](#servlet-简介)
-    - [什么是 Servlet？](#什么是-servlet)
-    - [Servlet 和 CGI 的区别？](#servlet-和-cgi-的区别)
-    - [Servlet 版本以及主要特性?](#servlet-版本以及主要特性)
-    - [Servlet 任务](#servlet-任务)
-    - [Servlet 生命周期](#servlet-生命周期)
+  - [什么是 Servlet](#什么是-servlet)
+  - [Servlet 和 CGI 的区别](#servlet-和-cgi-的区别)
+  - [Servlet 版本以及主要特性](#servlet-版本以及主要特性)
+  - [Servlet 任务](#servlet-任务)
+  - [Servlet 生命周期](#servlet-生命周期)
 - [Servlet API](#servlet-api)
-    - [Servlet 包](#servlet-包)
-    - [Servlet 接口](#servlet-接口)
+  - [Servlet 包](#servlet-包)
+  - [Servlet 接口](#servlet-接口)
 - [Servlet 和 HTTP 状态码](#servlet-和-http-状态码)
-    - [HTTP 状态码](#http-状态码)
-    - [设置 HTTP 状态码的方法](#设置-http-状态码的方法)
-    - [HTTP 状态码实例](#http-状态码实例)
+  - [HTTP 状态码](#http-状态码)
+  - [设置 HTTP 状态码的方法](#设置-http-状态码的方法)
+  - [HTTP 状态码实例](#http-状态码实例)
 
 <!-- /TOC -->
 
@@ -47,7 +47,7 @@ Internet 上供外界访问的 Web 资源分为：
 
 ## Servlet 简介
 
-### 什么是 Servlet？
+### 什么是 Servlet
 
 Servlet（Server Applet），即小服务程序或服务连接器。Servlet 是 Java 编写的服务器端程序，具有独立于平台和协议的特性，主要功能在于交互式地浏览和生成数据，生成动态 Web 内容。
 
@@ -56,14 +56,14 @@ Servlet（Server Applet），即小服务程序或服务连接器。Servlet 是 
 
 Servlet 运行于支持 Java 的应用服务器中。从原理上讲，Servlet 可以响应任何类型的请求，但绝大多数情况下 Servlet 只用来扩展基于 HTTP 协议的 Web 服务器。
 
-### Servlet 和 CGI 的区别？
+### Servlet 和 CGI 的区别
 
 Servlet 技术出现之前，Web 主要使用 CGI 技术。它们的区别如下：
 
 - Servlet 是基于 Java 编写的，处于服务器进程中，他能够通过多线程方式运行 service() 方法，一个实例可以服务于多个请求，而且一般不会销毁；
 - CGI(Common Gateway Interface)，即通用网关接口。它会为每个请求产生新的进程，服务完成后销毁，所以效率上低于 Servlet。
 
-### Servlet 版本以及主要特性?
+### Servlet 版本以及主要特性
 
 | 版本        | 日期          | JAVA EE/JDK 版本   | 特性                                                                  |
 | ----------- | ------------- | ------------------ | --------------------------------------------------------------------- |
@@ -206,7 +206,7 @@ HTTP 请求和 HTTP 响应消息的格式是类似的，结构如下：
 
 例如，服务器的响应头如下所示：
 
-```
+```http
 HTTP/1.1 200 OK
 Content-Type: text/html
 Header2: ...
@@ -287,7 +287,7 @@ public class showError extends HttpServlet {
 
 现在，调用上面的 Servlet 将显示以下结果：
 
-```
+```http
 HTTP Status 407 - Need authentication!!!
 type Status report
 message Need authentication!!!

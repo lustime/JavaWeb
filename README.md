@@ -1,144 +1,118 @@
 <p align="center">
-    <a href="https://dunwu.github.io/javaweb/#/" target="_blank" rel="noopener noreferrer">
+    <a href="https://dunwu.github.io/javatech/#/" target="_blank" rel="noopener noreferrer">
         <img src="http://dunwu.test.upcdn.net/common/logo/java-logo.png" alt="logo" width="100px">
     </a>
 </p>
 
 <p align="center">
-    <img src="https://badgen.net/github/license/dunwu/javaweb" alt="license">
+    <img src="https://badgen.net/github/license/dunwu/javatech" alt="license">
 </p>
 
-<h1 align="center">JavaWeb</h1>
-> ☕ **JavaWeb** 是一个 Java Web 领域开发技术教程。
+<h1 align="center">JavaTech</h1>
+
+> ☕ **javatech** 汇总了 Java 开发中常见的主流技术的应用、特性、原理。
 >
-> - 🔁 项目同步维护：[Github](https://github.com/dunwu/javaweb/) | [Gitee](https://gitee.com/turnon/javaweb/)
-> - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javaweb/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
+> - 🔁 项目同步维护：[Github](https://github.com/dunwu/javatech/) | [Gitee](https://gitee.com/turnon/javaweb/)
+> - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javatech/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
+>
+> 说明：下面的内容清单中，凡是有 📚 标记的技术，都已整理成详细的教程。
 
-|        🔰         |            🎨            |            ✨            |           ⭐️            |          ☕          |
-| :---------------: | :----------------------: | :----------------------: | :----------------------: | :------------------: |
-| [准备](#🔰️-准备) | [架构设计](#🎨-架构设计) | [系统原理](#✨-系统原理) | [主流技术](#⭐-主流技术) | [JavaEE](#☕-JavaEE) |
+## Java 生态
 
-## 🔰️ 准备
+### 框架
 
-作为 Java Web 工程师，你应该多多少少掌握一些的知识：
-
-- [JavaCore](https://dunwu.github.io/javacore/) - Java 核心技术
-- [前端技术指南](https://github.com/dunwu/frontend-tutorial) - 即使是后端工程师，也难免会接触到前端技术。前端技术五花八门，如：React、Vue、Angular、Webpack、ES6、Babel、Node.js 等等。不说掌握，至少也应该知道这些技术是什么。
-
-### 网络通信
-
-- **面试**
-  - [网络通信面经](https://github.com/dunwu/blog/blob/master/source/_posts/communication/network-interview.md)
-- **网络分层**
-  - [计算机网络指南](https://github.com/dunwu/blog/blob/master/source/_posts/communication/network-guide.md) - 关键词：核心概念、拓扑结构、作用范围、性能指标、体系结构
-  - [计算机网络之物理层](https://github.com/dunwu/blog/blob/master/source/_posts/communication/network-physical.md) - 关键词：调制、解调、数字信号、模拟信号、通信媒介、信道复用
-  - [计算机网络之链路层](https://github.com/dunwu/blog/blob/master/source/_posts/communication/network-data-link.md) - 关键词：点对点信道、广播信道、`PPP`、`CSMA/CD`、局域网、以太网、`MAC`、适配器、集线器、网桥、交换机
-  - [计算机网络之网络层](https://github.com/dunwu/blog/blob/master/source/_posts/communication/network-network.md) - 关键词：`IP`、`ICMP`、`ARP`、路由
-  - [计算机网络之传输层](https://github.com/dunwu/blog/blob/master/source/_posts/communication/network-transport.md) - 关键词：`UDP`、`TCP`、滑动窗口、拥塞控制、三次握手
-  - [计算机网络之应用层](https://github.com/dunwu/blog/blob/master/source/_posts/communication/network-application.md) - 关键词：`HTTP`、`DNS`、`FTP`、`TELNET`、`DHCP`
-- **重要技术**
-  - [网络协议之 HTTP](https://github.com/dunwu/blog/blob/master/source/_posts/communication/http.md)
-  - [网络协议之 DNS](https://github.com/dunwu/blog/blob/master/source/_posts/communication/dns.md)
-  - [网络协议之 TCP](https://github.com/dunwu/blog/blob/master/source/_posts/communication/tcp.md)
-  - [网络协议之 UDP](https://github.com/dunwu/blog/blob/master/source/_posts/communication/udp.md)
-  - [网络协议之 ICMP](https://github.com/dunwu/blog/blob/master/source/_posts/communication/icmp.md)
-  - [网络协议之 WebSocket](https://github.com/dunwu/blog/blob/master/source/_posts/communication/websocket.md)
-  - [网络通信之 CDN](https://github.com/dunwu/blog/blob/master/source/_posts/communication/cdn.md)
-
-## 🎨 架构设计
-
-> [🎨架构设计](https://github.com/dunwu/blog/tree/master/source/_posts/design/architecture) 整理架构设计方面的一些学习总结和心得。
-
-- [系统架构面试题](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/system-architecture-interview.md)
-- [分布式技术实现](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/system-core-technologies.md)
-- [分布式架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/分布式架构.md)
-- [大型分布式网站架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/大型分布式网站架构.md)
-- [系统架构概述](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/system-architecture-overview.md)
-- [网站典型故障](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/网站典型故障.md)
-- [伸缩性架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/scalable-architecture.md)
-- [扩展性架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/extensible-architecture.md)
-- [安全性架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/secure-architecture.md)
-- [高可用架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/high-availability-architecture.md)
-- [高性能架构](https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/high-performance-architecture.md)
-
-## ✨ 系统原理
-
-> [✨系统原理](https://github.com/dunwu/blog/tree/master/source/_posts/design/theory) 整理系统的基本原理，为架构设计，技术应用提供理论支撑。
-
-- [系统原理面试题](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/system-theory-interview.md)
-- [分布式基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-base-theory.md)
-- [负载均衡基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/load-balance-theory.md)
-- [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/cache-theory.md)
-- [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/mq-theory.md)
-- [分布式锁基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-lock-theory.md)
-- [分布式会话基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-session-theory.md)
-- [分布式存储基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-storage-theory.md)
-- [分布式 ID 基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-id-theory.md)
-- [分布式事务基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/distributed-transaction-theory.md)
-- [分库分表基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/design/theory/sharding-theory.md)
-
-## ⭐ 主流技术
-
-> [主流技术](docs/technology) 汇集 JavaWeb 开发常用的各种主流技术。
-
-### Web 框架
-
-- [Spring 教程 📚](https://dunwu.github.io/spring-tutorial/)
-- [Spring Boot 教程 📚](https://dunwu.github.io/spring-boot-tutorial/)
-
-### 服务器
-
-- [Tomcat 应用指南](docs/technology/server/Tomcat.md)
-- [Jetty 应用指南](docs/technology/server/Jetty.md)
-- [Nginx 简易教程 📚](https://github.com/dunwu/nginx-tutorial)
+- [Spring](https://dunwu.github.io/spring-tutorial/) 📚
+- [Spring Boot](https://dunwu.github.io/spring-boot-tutorial/) 📚
+- [Mybatis](docs/ecology/framework/mybatis.md)
+- [ShardingSphere](docs/ecology/storage/shardingsphere.md)
 
 ### 消息队列
 
-- [消息队列面经](docs/technology/mq/MqInterview.md)
-- [Kafka 应用指南基础篇](docs/technology/mq/kafka-basic.md)
-- [Kafka 应用指南进阶篇](docs/technology/mq/kafka-advance.md)
-- [Kafka 运维指南](docs/technology/mq/kafka-ops.md)
-- [RocketMQ 基础篇](docs/technology/mq/RocketmqBasics.md)
-- [RocketMQ 进阶篇](docs/technology/mq/RocketmqAdvanced.md)
-- [ActiveMQ 实战篇](docs/technology/mq/ActiveMQ.md)
+- [消息队列面经](docs/ecology/mq/MqInterview.md)
+- [Kafka 应用指南基础篇](docs/ecology/mq/kafka-basic.md)
+- [Kafka 应用指南进阶篇](docs/ecology/mq/kafka-advance.md)
+- [Kafka 运维指南](docs/ecology/mq/kafka-ops.md)
+- [RocketMQ 基础篇](docs/ecology/mq/RocketmqBasics.md)
+- [RocketMQ 进阶篇](docs/ecology/mq/RocketmqAdvanced.md)
+- [ActiveMQ 实战篇](docs/ecology/mq/ActiveMQ.md)
 
 ### 缓存
 
-- [缓存面经](docs/technology/cache/CacheInterview.md)
-- [Redis](docs/technology/cache/Redis.md)
-- [Ehcache](docs/technology/cache/Ehcache.md)
-- [Caffeine](docs/technology/cache/Caffeine.md)
-
-### RPC
-
-- [Dubbo 应用指南](docs/technology/distributed/dubbo.md)
-- Spring Cloud
+- [缓存面经](docs/ecology/cache/CacheInterview.md)
+- [Redis](docs/ecology/cache/Redis.md)
+- [Ehcache](docs/ecology/cache/Ehcache.md)
+- [Caffeine](docs/ecology/cache/Caffeine.md)
 
 ### 安全
 
-- [Shiro 应用指南](docs/technology/security/shiro.md)
-- [Spring Security 应用指南](docs/technology/security/spring-security.md)
+> Java 领域比较流行的安全框架就是 shiro 和 spring-security。
+>
+> shiro 更为简单、轻便，容易理解，能满足大多数基本安全场景下的需要。
+>
+> spring-security 功能更丰富，也比 shiro 更复杂。值得一提的是由于 spring-security 是 spring 团队开发，所以集成 spring 和 spring-boot 框架更容易。
 
-### 数据
+- [shiro](docs/ecology/security/shiro.md)
+- [spring-security](docs/ecology/security/spring-security.md)
 
-- [Mybatis 应用指南](docs/technology/data/mybatis.md)
-- [ShardingSphere 应用指南](docs/technology/data/ShardingSphere.md)
+### 微服务
 
-### 分布式
+- [Dubbo](docs/ecology/microservices/dubbo.md)
+- Spring Cloud
+- [ZooKeeper 应用指南](docs/ecology/microservices/zookeeper.md)
+- [ZooKeeper 运维指南](docs/ecology/microservices/zookeeper-ops.md)
 
-- [ZooKeeper 应用指南](docs/technology/distributed/zookeeper.md)
-- [ZooKeeper 运维指南](docs/technology/distributed/zookeeper-ops.md)
+### 测试
 
-### 监控/诊断
+- [Junit](docs/ecology/test/junit.md)
+- [Mockito](docs/ecology/test/mockito.md)
+- [JMH](docs/ecology/test/jmh.md)
 
-- [Arthas 应用指南](docs/technology/monitor/arthas.md)
+### 服务器
 
-## ☕ JavaEE
+> Tomcat 和 Jetty 都是 Java 比较流行的轻量级服务器。
+>
+> Nginx 是目前最流行的反向代理服务器，也常用于负载均衡。
+
+- [Tomcat](docs/ecology/server/tomcat.md)
+- [Jetty](docs/ecology/server/jetty.md)
+- [Nginx](https://github.com/dunwu/nginx-tutorial) 📚
+
+## Java 工具
+
+### 构建
+
+> Java 项目需要通过 [**构建工具**](docs/tool/build) 来管理项目依赖，完成编译、打包、发布、生成 JavaDoc 等任务。
+>
+> - 目前最主流的构建工具是 Maven，它的功能非常强大。
+> - Gradle 号称是要替代 Maven 等构件工具，它的版本管理确实简洁，但是需要学习 Groovy，学习成本比 Maven 高。
+> - Ant 功能比 Maven 和 Gradle 要弱，现代 Java 项目基本不用了，但也有一些传统的 Java 项目还在使用。
+
+- [Maven](docs/tool/build/maven) 📚
+- [Ant](docs/tool/build/ant.md)
+
+### IDE
+
+> 自动有了 [**IDE**](docs/tool/ide)，写代码从此就告别了刀耕火种的蛮荒时代。
+>
+> - [Eclipse](docs/tool/ide/eclipse.md) 是久负盛名的开源 Java IDE，我的学生时代一直使用它写 Java。
+> - 曾经抗拒从转 [Intellij Idea](docs/tool/ide/intellij-idea.md) ，但后来发现真香，不得不说，确实是目前最优秀的 Java IDE。
+> - 你可以在 [vscode](docs/tool/ide/vscode.md) 中写各种语言，只要安装相应插件即可。如果你的项目中使用了很多种编程语言，又懒得在多个 IDE 之间切换，那么就用 vscode 来一网打尽吧。
+
+- [Intellij Idea](docs/tool/ide/intellij-idea.md)
+- [Eclipse](docs/tool/ide/eclipse.md)
+- [vscode](docs/tool/ide/vscode.md)
+
+### 监控
+
+- [Arthas](docs/tool/monitor/arthas.md)
+- [SkyWalking](docs/tool/monitor/skywalking.md)
+
+## JavaEE
 
 > [☕ JavaEE](docs/javaee/README.md) 技术是 Java Web 的基石
 
 - [JavaEE 面经](docs/javaee/javaee-interview.md)
-- [JavaEE 之 Servlet 指南](docs/javaee/javaee-servlet.md)
-- [JavaEE 之 Jsp 指南](docs/javaee/javaee-jsp.md)
-- [JavaEE 之 Filter 和 Listener](docs/javaee/javaee-filter-listener.md)
-- [JavaEE 之 Cookie 和 Session](docs/javaee/javaee-cookie-sesion.md)
+- [Servlet](docs/javaee/javaee-servlet.md)
+- [Jsp](docs/javaee/javaee-jsp.md)
+- [Filter 和 Listener](docs/javaee/javaee-filter-listener.md)
+- [Cookie 和 Session](docs/javaee/javaee-cookie-sesion.md)

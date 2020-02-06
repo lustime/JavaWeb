@@ -1,46 +1,12 @@
 # JavaEE 之 Cookie 和 Session
 
-<!-- TOC depthfrom:2 depthto:3 -->
-
-- [Cookie](#cookie)
-  - [Cookie 是什么？](#cookie-是什么)
-  - [Cookie 剖析](#cookie-剖析)
-  - [Cookie 类中的方法](#cookie-类中的方法)
-  - [Cookie 的有效期](#cookie-的有效期)
-  - [Cookie 的域名](#cookie-的域名)
-  - [Cookie 的路径](#cookie-的路径)
-  - [Cookie 的安全属性](#cookie-的安全属性)
-  - [实例](#实例)
-    - [添加 Cookie](#添加-cookie)
-    - [显示 Cookie](#显示-cookie)
-    - [删除 Cookie](#删除-cookie)
-- [Session](#session)
-  - [Session 是什么？](#session-是什么)
-  - [Session 类中的方法](#session-类中的方法)
-  - [Session 的有效期](#session-的有效期)
-  - [Session 对浏览器的要求](#session-对浏览器的要求)
-  - [URL 地址重写](#url-地址重写)
-  - [Session 中禁用 Cookie](#session-中禁用-cookie)
-  - [实例](#实例)
-    - [Session 跟踪](#session-跟踪)
-    - [删除 Session 会话数据](#删除-session-会话数据)
-- [Cookie vs Session](#cookie-vs-session)
-  - [存取方式](#存取方式)
-  - [隐私安全](#隐私安全)
-  - [有效期](#有效期)
-  - [服务器的开销](#服务器的开销)
-  - [浏览器的支持](#浏览器的支持)
-  - [跨域名](#跨域名)
-
-<!-- /TOC -->
-
 ## Cookie
 
 由于 Http 是一种无状态的协议，服务器单从网络连接上无从知道客户身份。
 
 会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。
 
-### Cookie 是什么？
+### Cookie 是什么
 
 Cookie 实际上是存储在客户端上的文本信息，并保留了各种跟踪的信息。
 
@@ -60,7 +26,7 @@ Cookies 通常设置在 HTTP 头信息中（虽然 JavaScript 也可以直接在
 
 设置 Cookie 的 Servlet 会发送如下的头信息：
 
-```
+```http
 HTTP/1.1 200 OK
 Date: Fri, 04 Feb 2000 21:03:38 GMT
 Server: Apache/1.3.9 (UNIX) PHP/4.0b3
@@ -74,7 +40,7 @@ Content-Type: text/html
 
 如果浏览器被配置为存储 Cookies，它将会保留此信息直到到期日期。如果用户的浏览器指向任何匹配该 Cookie 的路径和域的页面，它会重新发送 Cookie 到服务器。浏览器的头信息可能如下所示：
 
-```
+```http
 GET / HTTP/1.0
 Connection: Keep-Alive
 User-Agent: Mozilla/4.6 (X11; I; Linux 2.2.6-15apmac ppc)
@@ -135,7 +101,7 @@ HTTP 协议不仅是无状态的，而且是不安全的。
 
 Java 中使用`setSecure(booleanflag)`和`getSecure ()`方法来设置、获取 Secure。
 
-### 实例
+### Cookie 实例
 
 #### 添加 Cookie
 
@@ -215,7 +181,7 @@ public class AddCookies extends HttpServlet {
 
 addCookies.jsp
 
-```jsp
+```java
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -395,7 +361,7 @@ public class DeleteCookies extends HttpServlet {
 
 ## Session
 
-### Session 是什么？
+### Session 是什么
 
 不同于 Cookie 保存在客户端浏览器中，Session 保存在服务器上。
 
@@ -460,7 +426,7 @@ URL 地址重写的原理是将该用户 Session 的 id 信息重写到 URL 地�
 
 部署后，TOMCAT 便不会自动生成名 JESSIONID 的 Cookie，Session 也不会以 Cookie 为识别标志，而仅仅以重写后的 URL 地址为识别标志了。
 
-### 实例
+### Session 实例
 
 #### Session 跟踪
 
@@ -535,12 +501,12 @@ web.xml
 
 ```xml
 <servlet>
-	<servlet-name>SessionTrackServlet</servlet-name>
-	<servlet-class>SessionTrackServlet</servlet-class>
+  <servlet-name>SessionTrackServlet</servlet-name>
+  <servlet-class>SessionTrackServlet</servlet-class>
 </servlet>
 <servlet-mapping>
-	<servlet-name>SessionTrackServlet</servlet-name>
-	<url-pattern>/servlet/SessionTrackServlet</url-pattern>
+  <servlet-name>SessionTrackServlet</servlet-name>
+  <url-pattern>/servlet/SessionTrackServlet</url-pattern>
 </servlet-mapping>
 ```
 
@@ -604,6 +570,5 @@ Cookie 需要浏览器支持才能使用。
 
 ### 跨域名
 
-Cookie 支持跨域名。
-
-Session 不支持跨域名。
+* Cookie 支持跨域名。
+* Session 不支持跨域名。
