@@ -20,36 +20,62 @@ footer: MIT Licensed | Copyright © 2018-present Dunwu
 
 > ☕ **javatech** 汇总了 Java 开发中常见的主流技术的应用、特性、原理。
 >
-> - 🔁 项目同步维护：[Github](https://github.com/dunwu/javatech/) | [Gitee](https://gitee.com/turnon/javaweb/)
-> - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javatech/) | [Gitee Pages](http://turnon.gitee.io/javaweb/)
+> - 🔁 项目同步维护：[Github](https://github.com/dunwu/javatech/) | [Gitee](https://gitee.com/turnon/javatech/)
+> - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javatech/) | [Gitee Pages](http://turnon.gitee.io/javatech/)
+>
+> 说明：下面的内容清单中，凡是有 📚 标记的技术，都已整理成详细的教程。
 
 ## Java 生态
 
-### 框架
+## 框架
 
 - [Spring](https://dunwu.github.io/spring-tutorial/) 📚
 - [Spring Boot](https://dunwu.github.io/spring-boot-tutorial/) 📚
-- [Mybatis](ecology/framework/mybatis.md)
-- [ShardingSphere](ecology/storage/shardingsphere.md)
+- [Mybatis](framework/mybatis.md)
+- [ShardingSphere](storage/shardingsphere.md)
 
-### 消息队列
+## 消息队列
 
-- [消息队列面经](ecology/mq/MqInterview.md)
-- [Kafka 应用指南基础篇](ecology/mq/kafka-basic.md)
-- [Kafka 应用指南进阶篇](ecology/mq/kafka-advance.md)
-- [Kafka 运维指南](ecology/mq/kafka-ops.md)
-- [RocketMQ 基础篇](ecology/mq/RocketmqBasics.md)
-- [RocketMQ 进阶篇](ecology/mq/RocketmqAdvanced.md)
-- [ActiveMQ 实战篇](ecology/mq/ActiveMQ.md)
+> 消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。
+>
+> 消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。
+>
+> 如果想深入学习各种消息队列产品，建议先了解一下 [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/distributed/mq-theory.md) ，有助于理解消息队列特性的实现和设计思路。
 
-### 缓存
+- [消息队列面经](mq/mq-interview.md)
+- [Kafka](mq/kafka)
+- [RocketMQ](mq/rocketmq.md)
+- [ActiveMQ](mq/activemq.md)
 
-- [缓存面经](ecology/cache/CacheInterview.md)
-- [Redis](ecology/cache/Redis.md)
-- [Ehcache](ecology/cache/Ehcache.md)
-- [Caffeine](ecology/cache/Caffeine.md)
+## 缓存
 
-### 安全
+> 缓存可以说是优化系统性能的第一手段，在各种技术中都会有缓存的应用。
+>
+> 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/distributed/cache-theory.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
+
+- [缓存面经](cache/CacheInterview.md)
+- [Redis](cache/Redis.md)
+- [Ehcache](cache/Ehcache.md)
+- [Caffeine](cache/Caffeine.md)
+
+## 微服务
+
+- [Dubbo](soa/dubbo.md)
+- Spring Cloud
+- [ZooKeeper](soa/zookeeper)
+- Eureka
+- Consul
+- Nacos
+- Zuul
+- Gateway
+
+## 搜索引擎
+
+- [ElasticSearch](search/elasticsearch)
+- Solr
+- Lucene
+
+## 安全
 
 > Java 领域比较流行的安全框架就是 shiro 和 spring-security。
 >
@@ -57,61 +83,21 @@ footer: MIT Licensed | Copyright © 2018-present Dunwu
 >
 > spring-security 功能更丰富，也比 shiro 更复杂。值得一提的是由于 spring-security 是 spring 团队开发，所以集成 spring 和 spring-boot 框架更容易。
 
-- [shiro](ecology/security/shiro.md)
-- [spring-security](ecology/security/spring-security.md)
+- [Shiro](security/shiro.md)
+- [Spring Security](security/spring-security.md)
 
-### 微服务
+## 测试
 
-- [Dubbo](ecology/microservices/dubbo.md)
-- Spring Cloud
-- [ZooKeeper 应用指南](ecology/microservices/zookeeper.md)
-- [ZooKeeper 运维指南](ecology/microservices/zookeeper-ops.md)
+- [Junit](test/junit.md)
+- [Mockito](test/mockito.md)
+- [JMH](test/jmh.md)
 
-### 测试
-
-- [Junit](ecology/test/junit.md)
-- [Mockito](ecology/test/mockito.md)
-- [JMH](ecology/test/jmh.md)
-
-### 服务器
+## 服务器
 
 > Tomcat 和 Jetty 都是 Java 比较流行的轻量级服务器。
 >
 > Nginx 是目前最流行的反向代理服务器，也常用于负载均衡。
 
-- [Tomcat](ecology/server/tomcat.md)
-- [Jetty](ecology/server/jetty.md)
+- [Tomcat](server/tomcat.md)
+- [Jetty](server/jetty.md)
 - [Nginx](https://github.com/dunwu/nginx-tutorial) 📚
-
-## Java 工具
-
-### 构建
-
-> [构建工具](tool/build)
-
-- [Maven 教程 📚](tool/build/maven/README.md)
-- [Maven 快速指南](tool/build/maven/maven-quickstart.md)
-- [Maven 教程之 pom.xml 详解](tool/build/maven/maven-pom.md)
-- [Maven 教程之 settings.xml 详解](tool/build/maven/maven-settings.md)
-- [Maven 实战问题和最佳实践](tool/build/maven/maven-action.md)
-- [Maven 教程之发布 jar 到私服或中央仓库](tool/build/maven/maven-deploy.md)
-- [Maven 插件之代码检查](tool/build/maven/maven-checkstyle-plugin.md)
-- [Ant 简易教程](tool/build/ant.md)
-
-### IDE
-
-> [IDE](tool/ide)
-
-- [Intellij Idea](tool/ide/intellij-idea.md)
-- [Eclipse](tool/ide/eclipse.md)
-- [vscode](tool/ide/vscode.md)
-
-## JavaEE
-
-> [☕ JavaEE](javaee/README.md) 技术是 Java Web 的基石
-
-- [JavaEE 面经](javaee/javaee-interview.md)
-- [Servlet](javaee/javaee-servlet.md)
-- [Jsp](javaee/javaee-jsp.md)
-- [Filter 和 Listener](javaee/javaee-filter-listener.md)
-- [Cookie 和 Session](javaee/javaee-cookie-sesion.md)

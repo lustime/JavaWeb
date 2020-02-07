@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.github.dunwu.javaweb</groupId>
+	<groupId>io.github.dunwu.javatech</groupId>
   <artifactId>javatech</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
@@ -11,6 +11,6 @@
   <description>Java 技术示例源码</description>
 
 	<modules>
-		<module>codes/javaweb-example</module>
+		<module>codes/java-ecology</module>
 	</modules>
 </project>

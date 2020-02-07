@@ -28,69 +28,51 @@ module.exports = {
         lastUpdated: "上次更新",
         nav: [
           {
-            text: "Java生态",
-            link: "/ecology/",
-            items: [
-              {
-                text: "核心框架",
-                link: "/ecology/framework/",
-              },
-              {
-                text: "缓存",
-                link: "/ecology/cache/",
-              },
-              {
-                text: "消息队列",
-                link: "/ecology/mq/",
-              },
-              {
-                text: "搜索引擎",
-                link: "/ecology/search/",
-              },
-              {
-                text: "存储",
-                link: "/ecology/storage/",
-              },
-              {
-                text: "微服务",
-                link: "/ecology/microservices/",
-              },
-              {
-                text: "安全",
-                link: "/ecology/security/",
-              },
-              {
-                text: "测试",
-                link: "/ecology/test/",
-              },
-              {
-                text: "服务器",
-                link: "/ecology/server/",
-              },
-            ]
+            text: "框架",
+            link: "/framework/",
           },
           {
-            text: "Java工具",
-            link: "/tool/",
-            items: [
-              {
-                text: "构建",
-                link: "/tool/build/",
-              },
-              {
-                text: "IDE",
-                link: "/tool/ide/",
-              },
-            ]
+            text: "缓存",
+            link: "/cache/",
           },
           {
-            text: "JavaEE",
-            link: "/javaee/"
+            text: "消息队列",
+            link: "/mq/",
+          },
+          {
+            text: "搜索引擎",
+            link: "/search/",
+          },
+          {
+            text: "存储",
+            link: "/storage/",
+          },
+          {
+            text: "微服务",
+            link: "/soa/",
+          },
+          {
+            text: "安全",
+            link: "/security/",
+          },
+          {
+            text: "测试",
+            link: "/test/",
+          },
+          {
+            text: "服务器",
+            link: "/server/",
           },
           {
             text: "Java系列",
             ariaLabel: "Java",
             items: [
+              {
+                text: "Java 教程 📚",
+                link: "https://dunwu.github.io/java-tutorial/",
+                target: "_blank",
+                rel: ""
+              },
               {
                 text: "JavaCore 教程 📚",
                 link: "https://dunwu.github.io/javacore/",

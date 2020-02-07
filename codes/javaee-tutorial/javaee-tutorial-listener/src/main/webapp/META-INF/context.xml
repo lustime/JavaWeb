@@ -1,5 +1,0 @@
-<Context>
-	<Manager className="org.apache.catalina.session.PersistentManager" maxIdleSwap="1">
-		<Store className="org.apache.catalina.session.FileStore" directory="tempcache" />
-	</Manager>
-</Context>
