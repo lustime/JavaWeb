@@ -15,9 +15,11 @@ module.exports = {
     }
   },
   themeConfig: {
-    logo: "https://raw.githubusercontent.com/dunwu/images/master/common/dunwu-logo-200.png",
+    logo: "images/dunwu-logo-100.png",
     repo: "dunwu/javatech",
     repoLabel: "Github",
+    docsDir: 'docs',
+    docsBranch: 'master',
     editLinks: true,
     smoothScroll: true,
     locales: {

@@ -1,20 +1,13 @@
 ---
 home: true
-heroImage: http://dunwu.test.upcdn.net/common/logo/java-logo.png
-heroText: JavaTech
+heroImage: /images/dunwu-logo-200.png
+heroText: JAVATECH
 tagline: ☕ javatech 汇总了 Java 开发中常见的主流技术的应用、特性、原理。
 actionLink: /
-features:
-  - title: Java 生态
-    details: Java 开发中常见应用技术，如：框架、缓存、消息队列、存储、安全、微服务、测试、服务器等。
-  - title: Java 工具
-    details: Java 开发中常用工具，如：构建、IDE、监控等。
-  - title: JavaEE
-    details: Java Web 开发的基础技术：Servlet、Jsp、Filter、Listener 等。
-footer: MIT Licensed | Copyright © 2018-present Dunwu
+footer: CC-BY-SA-4.0 Licensed | Copyright © 2018-Now Dunwu
 ---
 
-# JavaTech
+# JAVATECH
 
 ![license](https://badgen.net/github/license/dunwu/javatech)
 
@@ -54,7 +47,7 @@ footer: MIT Licensed | Copyright © 2018-present Dunwu
 > 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/distributed/cache-theory.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
 
 - [缓存面经](cache/CacheInterview.md)
-- [Redis](cache/Redis.md)
+- [Redis](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
 - [Ehcache](cache/Ehcache.md)
 - [Caffeine](cache/Caffeine.md)
 
@@ -91,6 +84,7 @@ footer: MIT Licensed | Copyright © 2018-present Dunwu
 - [Junit](test/junit.md)
 - [Mockito](test/mockito.md)
 - [JMH](test/jmh.md)
+- [Jmeter](test/jmeter.md)
 
 ## 服务器
 

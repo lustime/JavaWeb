@@ -8,7 +8,7 @@
     <img src="https://badgen.net/github/license/dunwu/javatech" alt="license">
 </p>
 
-<h1 align="center">JavaTech</h1>
+<h1 align="center">JAVATECH</h1>
 
 > ☕ **javatech** 汇总了 Java 开发中常见的主流技术的应用、特性、原理。
 >
@@ -46,7 +46,7 @@
 > 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/distributed/cache-theory.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
 
 - [缓存面经](docs/cache/CacheInterview.md)
-- [Redis](docs/cache/Redis.md)
+- [Redis](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
 - [Ehcache](docs/cache/Ehcache.md)
 - [Caffeine](docs/cache/Caffeine.md)
 
@@ -83,6 +83,7 @@
 - [Junit](docs/test/junit.md)
 - [Mockito](docs/test/mockito.md)
 - [JMH](docs/test/jmh.md)
+- [Jmeter](docs/test/jmeter.md)
 
 ## 服务器
 

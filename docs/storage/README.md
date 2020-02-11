@@ -2,11 +2,16 @@
 
 ## 数据库存储
 
-### 分库分表中间件
+> 数据库教程已整理在：
+>
+> - 📚 [db-tutorial](https://dunwu.github.io/db-tutorial/)
 
-- [shardingsphere](shardingsphere.md)
+### 数据库中间件
 
-## 分布式文件存储
+- 分库分表
+  - [shardingsphere](shardingsphere.md)
+
+## 文件存储
 
 - [ ] HDFS
 - [ ] FastDFS
