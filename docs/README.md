@@ -18,8 +18,6 @@ footer: CC-BY-SA-4.0 Licensed | Copyright © 2018-Now Dunwu
 >
 > 说明：下面的内容清单中，凡是有 📚 标记的技术，都已整理成详细的教程。
 
-## Java 生态
-
 ## 框架
 
 - [Spring](https://dunwu.github.io/spring-tutorial/) 📚
@@ -95,3 +93,13 @@ footer: CC-BY-SA-4.0 Licensed | Copyright © 2018-Now Dunwu
 - [Tomcat](server/tomcat.md)
 - [Jetty](server/jetty.md)
 - [Nginx](https://github.com/dunwu/nginx-tutorial) 📚
+
+## LIB
+
+- [日志](lib/javalib-log.md) - log4j2、logback、log4j、Slf4j
+- [序列化](lib/serialized/)
+  - [JSON](lib/serialized/javalib-json.md) - Fastjson、Jackson、Gson
+  - [二进制](lib/serialized/javalib-binary.md) - Protobuf、Thrift、Hessian、Kryo、FST
+- [模板引擎](lib/template) - [Freemark](lib/template/freemark.md)、[Velocity](lib/template/velocity.md)、[Thymeleaf](lib/template/thymeleaf.md)
+- JavaBean - [Lombok](lib/bean/lombok.md)、[Dozer](lib/bean/dozer.md)
+- 工具包 - Apache Common、Guava、Hutool

@@ -9,15 +9,12 @@
 </p>
 
 <h1 align="center">JAVATECH</h1>
-
 > ☕ **javatech** 汇总了 Java 开发中常见的主流技术的应用、特性、原理。
 >
 > - 🔁 项目同步维护：[Github](https://github.com/dunwu/javatech/) | [Gitee](https://gitee.com/turnon/javatech/)
 > - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javatech/) | [Gitee Pages](http://turnon.gitee.io/javatech/)
 >
 > 说明：下面的内容清单中，凡是有 📚 标记的技术，都已整理成详细的教程。
-
-## Java 生态
 
 ## 框架
 
@@ -94,3 +91,13 @@
 - [Tomcat](docs/server/tomcat.md)
 - [Jetty](docs/server/jetty.md)
 - [Nginx](https://github.com/dunwu/nginx-tutorial) 📚
+
+## LIB
+
+- [日志](docs/lib/javalib-log.md) - log4j2、logback、log4j、Slf4j
+- [序列化](docs/lib/serialized/)
+  - [JSON](docs/lib/serialized/javalib-json.md) - Fastjson、Jackson、Gson
+  - [二进制](docs/lib/serialized/javalib-binary.md) - Protobuf、Thrift、Hessian、Kryo、FST
+- [模板引擎](docs/lib/template) - [Freemark](docs/lib/template/freemark.md)、[Velocity](docs/lib/template/velocity.md)、[Thymeleaf](docs/lib/template/thymeleaf.md)
+- JavaBean - [Lombok](docs/lib/bean/lombok.md)、[Dozer](docs/lib/bean/dozer.md)
+- 工具包 - Apache Common、Guava、Hutool
