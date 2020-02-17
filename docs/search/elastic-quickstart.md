@@ -24,7 +24,7 @@ ELK 是指 Elastic 公司旗下三款产品 [ElasticSearch](https://www.elastic.
 
 ### 1.3. Elastic Stack 架构
 
-<br>![img](https://www.elastic.co/guide/en/logstash/current/static/images/deploy3.png)<br>
+![img](https://www.elastic.co/guide/en/logstash/current/static/images/deploy3.png)
 
 > **说明**
 >
@@ -159,7 +159,7 @@ buffer 每 refresh 一次，就会产生一个 `segment file`，所以默认情�
 | 8      | 拉斯     | 3,5       |
 | 9      | 离开     | 3         |
 | 10     | 与       | 4         |
-| ..     | ..       | ..        |
+| ..    | ..      | ..       |
 
 另外，实用的倒排索引还可以记录更多的信息，比如文档频率信息，表示在文档集合中有多少个文档包含某个单词。
 
@@ -190,7 +190,7 @@ Logstash 有两个必要元素：`input` 和 `output` ，一个可选元素：`f
 
 这三个元素，分别代表 Logstash 事件处理的三个阶段：输入 > 过滤器 > 输出。
 
-<br>![img](https://www.elastic.co/guide/en/logstash/current/static/images/basic_logstash_pipeline.png)<br>
+![img](https://www.elastic.co/guide/en/logstash/current/static/images/basic_logstash_pipeline.png)
 
 - **input** - 负责从数据源采集数据。
 - **`filter`** - 将数据修改为你指定的格式或内容。
@@ -204,7 +204,7 @@ Logstash 有两个必要元素：`input` 和 `output` ，一个可选元素：`f
 >
 > Beats 可以将数据直接传输到 Elasticsearch 或传输到 Logstash 。
 
-<br>![img](https://www.elastic.co/guide/en/beats/libbeat/current/images/beats-platform.png)<br>
+![img](https://www.elastic.co/guide/en/beats/libbeat/current/images/beats-platform.png)
 
 Beats 有多种类型，可以根据实际应用需要选择合适的类型。
 
@@ -217,7 +217,7 @@ Beats 有多种类型，可以根据实际应用需要选择合适的类型。
 
 ### 4.1. Filebeat 简介
 
-> _由于本人仅接触过 Filebeat，所以本文只介绍 Beats 组件中的 Filebeat。_
+> *由于本人仅接触过 Filebeat，所以本文只介绍 Beats 组件中的 Filebeat*。
 
 相比 Logstash，FileBeat 更加轻量化。
 
@@ -227,7 +227,7 @@ Filebeat 带有内部模块（auditd，Apache，Nginx，System 和 MySQL），�
 
 FileBeat 不会让你的管道超负荷。FileBeat 如果是向 Logstash 传输数据，当 Logstash 忙于处理数据，会通知 FileBeat 放慢读取速度。一旦拥塞得到解决，FileBeat 将恢复到原来的速度并继续传播。
 
-<br>![img](https://www.elastic.co/guide/en/beats/filebeat/current/images/filebeat.png)<br>
+![img](https://www.elastic.co/guide/en/beats/filebeat/current/images/filebeat.png)
 
 ### 4.2. Filebeat 原理
 
@@ -272,5 +272,5 @@ Filebeat 将每个事件的传递状态存储在注册表文件中。所以它�
   - [Beats 官方文档](https://www.elastic.co/guide/en/beats/libbeat/current/index.html)
 - **文章**
   - [什么是 ELK Stack？](https://www.elastic.co/cn/what-is/elk-stack)
-  - https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/es-introduction.md
+  - [https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/es-introduction.md](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/es-introduction.md)
   - [es-write-query-search](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/es-write-query-search.md)

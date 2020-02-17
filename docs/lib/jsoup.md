@@ -151,7 +151,7 @@ for (Element link : links) {
 
 具体如下：
 
-####查找元素
+#### 查找元素
 
 - `getElementById(String id)`
 - `getElementsByTag(String tag)`
@@ -160,7 +160,7 @@ for (Element link : links) {
 - Element siblings: `siblingElements()`, `firstElementSibling()`, `lastElementSibling()`;`nextElementSibling()`, `previousElementSibling()`
 - Graph: `parent()`, `children()`, `child(int index)`
 
-####元素数据
+#### 元素数据
 
 - `attr(String key)`获取属性`attr(String key, String value)`设置属性
 - `attributes()`获取所有属性
@@ -171,7 +171,7 @@ for (Element link : links) {
 - `data()`获取数据内容（例如：script 和 style 标签)
 - `tag()` and `tagName()`
 
-####操作 HTML 和文本
+#### 操作 HTML 和文本
 
 - `append(String html)`, `prepend(String html)`
 - `appendText(String text)`, `prependText(String text)`
@@ -210,7 +210,7 @@ Elements resultLinks = doc.select("h3.r > a"); //在h3元素之后的a元素
 >
 > Select 方法将返回一个`Elements`集合，并提供一组方法来抽取和处理结果。
 
-####Selector 选择器概述
+#### Selector 选择器概述
 
 - `tagname`: 通过标签查找元素，比如：`a`
 - `ns|tag`: 通过标签在命名空间查找元素，比如：可以用 `fb|name` 语法来查找 `` 元素
@@ -223,7 +223,7 @@ Elements resultLinks = doc.select("h3.r > a"); //在h3元素之后的a元素
 - `[attr\~=regex]`: 利用属性值匹配正则表达式来查找元素，比如： `img[src\~=(?i)\.(png|jpe?g)]`
 - `*`: 这个符号将匹配所有元素
 
-####Selector 选择器组合使用
+#### Selector 选择器组合使用
 
 - `el##id`: 元素+ID，比如： `div##logo`
 - `el.class`: 元素+class，比如： `div.masthead`
@@ -235,10 +235,10 @@ Elements resultLinks = doc.select("h3.r > a"); //在h3元素之后的a元素
 - `siblingA \~ siblingX`: 查找 A 元素之前的同级 X 元素，比如：`h1 \~ p`
 - `el, el, el`:多个选择器组合，查找匹配任一选择器的唯一元素，例如：`div.masthead, div.logo`
 
-####伪选择器 selectors
+#### 伪选择器 selectors
 
 - `:lt(n)`: 查找哪些元素的同级索引值（它的位置在 DOM 树中是相对于它的父节点）小于 n，比如：`td:lt(3)` 表示小于三列的元素
-- `:gt(n)`:查找哪些元素的同级索引值大于` n``，比如 `： `div p:gt(2)`表示哪些 div 中有包含 2 个以上的 p 元素
+- `:gt(n)`:查找哪些元素的同级索引值大于`n``，比如`： `div p:gt(2)`表示哪些 div 中有包含 2 个以上的 p 元素
 - `:eq(n)`: 查找哪些元素的同级索引值与`n`相等，比如：`form input:eq(1)`表示包含一个 input 标签的 Form 元素
 - `:has(seletor)`: 查找匹配选择器包含元素的元素，比如：`div:has(p)`表示哪些 div 包含了 p 元素
 - `:not(selector)`: 查找与选择器不匹配的元素，比如： `div:not(.logo)` 表示不包含 class=logo 元素的所有 div 列表

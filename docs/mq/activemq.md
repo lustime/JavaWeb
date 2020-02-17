@@ -102,14 +102,15 @@ JDK1.7 及以上版本
 
 **Windows 下运行**
 
-1.  解压压缩包到本地；
-2.  打开控制台，进入安装目录的 `bin` 目录下；
+（1）解压压缩包到本地；
+
+（2）打开控制台，进入安装目录的 `bin` 目录下；
 
 ```
 cd [activemq_install_dir]
 ```
 
-3.  执行 `activemq start` 来启动 ActiveMQ
+（3）执行 `activemq start` 来启动 ActiveMQ
 
 ```
 bin\activemq start
@@ -117,21 +118,24 @@ bin\activemq start
 
 **测试安装是否成功**
 
-1.  ActiveMQ 默认监听端口为 61616
+（1）ActiveMQ 默认监听端口为 61616
 
 ```
 netstat -an|find “61616”
 ```
 
-2.  访问 http://127.0.0.1:8161/admin/
+（2）访问 <http://127.0.0.1:8161/admin/>
 
-3.  输入用户名、密码
-    Login: admin
-    Passwort: admin
+（3）输入用户名、密码
 
-4.  点击导航栏的 Queues 菜单
+```
+Login: admin
+Passwort: admin
+```
 
-5.  添加一个队列（queue）
+（4）点击导航栏的 Queues 菜单
+
+（5）添加一个队列（queue）
 
 ## 项目中的应用
 

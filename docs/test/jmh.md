@@ -120,14 +120,14 @@ $ mvn archetype:generate \
 （2）构建 benchmark
 
 ```
-$ cd test/
-$ mvn clean install
+cd test/
+mvn clean install
 ```
 
 （3）运行 benchmark
 
 ```
-$ java -jar target/benchmarks.jar
+java -jar target/benchmarks.jar
 ```
 
 #### 执行 main 方法

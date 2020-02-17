@@ -36,7 +36,7 @@
 
 ### 1.1. 下载解压
 
-进入官方下载地址：http://zookeeper.apache.org/releases.html#download ，选择合适版本。
+进入官方下载地址：[http://zookeeper.apache.org/releases.html#download](http://zookeeper.apache.org/releases.html#download) ，选择合适版本。
 
 解压到本地：
 
@@ -219,7 +219,7 @@ WatchedEvent state:SyncConnected type: None path:null
 
 #### 3.2.1. 启动服务和连接服务
 
-```
+```shell
 # 启动服务
 bin/zkServer.sh start
 
@@ -393,7 +393,7 @@ version No is not valid : /hadoop   #无效的版本号
 
 ### 3.3. 监听器
 
-#### 3.3.1. get path [watch]
+#### 3.3.1. get path
 
 使用 `get path [watch]` 注册的监听器能够在节点内容发生改变的时候，向客户端发出通知。需要注意的是 zookeeper 的触发器是一次性的 (One-time trigger)，即触发一次后就会立即失效。
 
@@ -404,7 +404,7 @@ WATCHER::
 WatchedEvent state:SyncConnected type:NodeDataChanged path:/hadoop  #节点值改变
 ```
 
-#### 3.3.2. stat path [watch]
+#### 3.3.2. stat path
 
 使用 `stat path [watch]` 注册的监听器能够在节点状态发生改变的时候，向客户端发出通知。
 
@@ -415,7 +415,7 @@ WATCHER::
 WatchedEvent state:SyncConnected type:NodeDataChanged path:/hadoop  #节点值改变
 ```
 
-#### 3.3.3. ls\ls2 path [watch]
+#### 3.3.3. ls\ls2 path
 
 使用 `ls path [watch]` 或 `ls2 path [watch]` 注册的监听器能够监听该节点下所有**子节点**的增加和删除操作。
 
@@ -441,7 +441,7 @@ WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/hadoop
 | wchc | 按会话列出服务器 watch 的详细信息。                                                                                         |
 | wchp | 按路径列出服务器 watch 的详细信息。                                                                                         |
 
-> 更多四字命令可以参阅官方文档：https://zookeeper.apache.org/doc/current/zookeeperAdmin.html
+> 更多四字命令可以参阅官方文档：[https://zookeeper.apache.org/doc/current/zookeeperAdmin.html](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html)
 
 使用前需要使用 `yum install nc` 安装 nc 命令，使用示例如下：
 

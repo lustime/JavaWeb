@@ -149,9 +149,9 @@ logger.debug("id: {}, name: {} ", id, name);
 
 使用日志解决方案基本可分为三步：
 
-1.  引入 jar 包
-2.  配置
-3.  使用 API
+1. 引入 jar 包
+2. 配置
+3. 使用 API
 
 常见的各种日志解决方案的第 2 步和第 3 步基本一样，实施上的差别主要在第 1 步，也就是使用不同的库。
 
@@ -165,7 +165,7 @@ logger.debug("id: {}, name: {} ", id, name);
 
 还有一种情况：你的老项目使用了 common-logging，或是直接使用日志实现组件。如果修改老的代码，工作量太大，需要兼容处理。在下文，都将看到各种应对方法。
 
-**_注：据我所知，当前仍没有方法可以将 slf4j 桥接到 common-logging。如果我孤陋寡闻了，请不吝赐教。_**
+***注：据我所知，当前仍没有方法可以将 slf4j 桥接到 common-logging。如果我孤陋寡闻了，请不吝赐教。***
 
 #### slf4j 直接绑定日志组件
 
@@ -173,7 +173,7 @@ logger.debug("id: {}, name: {} ", id, name);
 
 添加依赖到 pom.xml 中即可。
 
-_logback-classic-1.0.13.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 和 _logback-core-1.0.13.jar_ 也添加到你的项目中。
+*logback-classic-1.0.13.jar* 会自动将 *slf4j-api-1.7.21.jar* 和 *logback-core-1.0.13.jar* 也添加到你的项目中。
 
 ```xml
 <dependency>
@@ -187,7 +187,7 @@ _logback-classic-1.0.13.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 和 _logback-co
 
 添加依赖到 pom.xml 中即可。
 
-_slf4j-log4j12-1.7.21.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 和 _log4j-1.2.17.jar_ 也添加到你的项目中。
+*slf4j-log4j12-1.7.21.jar* 会自动将 *slf4j-api-1.7.21.jar* 和 *log4j-1.2.17.jar* 也添加到你的项目中。
 
 ```xml
 <dependency>
@@ -201,7 +201,7 @@ _slf4j-log4j12-1.7.21.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 和 _log4j-1.2.17
 
 添加依赖到 pom.xml 中即可。
 
-_slf4j-jdk14-1.7.21.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 也添加到你的项目中。
+*slf4j-jdk14-1.7.21.jar* 会自动将 *slf4j-api-1.7.21.jar* 也添加到你的项目中。
 
 ```xml
 <dependency>
@@ -257,7 +257,7 @@ _slf4j-jdk14-1.7.21.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 也添加到你的�
 
 做 java web 开发，基本离不开 spring 框架。很遗憾，spring 使用的日志解决方案是 common-logging + log4j。
 
-所以，你需要一个桥接 jar 包：_logback-ext-spring_。
+所以，你需要一个桥接 jar 包：*logback-ext-spring*。
 
 ```xml
 <dependency>
@@ -759,4 +759,4 @@ log4j 的配置文件一般有 xml 格式或 properties 格式。这里为了和
 - [logback 官方文档](http://logback.qos.ch/)
 - [log4j 官方文档](http://logging.apache.org/log4j/1.2/)
 - [commons-logging 官方文档](http://commons.apache.org/proper/commons-logging/)
-- http://blog.csdn.net/yycdaizi/article/details/8276265
+- <http://blog.csdn.net/yycdaizi/article/details/8276265>

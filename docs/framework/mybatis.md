@@ -1,7 +1,7 @@
 ---
 title: MyBatis 指南
-categories: ['java', 'javaweb']
-tags: ['java', 'javaweb', 'orm']
+categories: ["java", "javaweb"]
+tags: ["java", "javaweb", "orm"]
 date: 2019-03-06
 ---
 
@@ -11,26 +11,25 @@ date: 2019-03-06
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 
-- [简介](#简介)
-  - [什么是 MyBatis？](#什么是-mybatis)
+- [Mybatis 简介](#mybatis-简介)
+  - [什么是 MyBatis](#什么是-mybatis)
   - [MyBatis vs. Hibernate](#mybatis-vs-hibernate)
-- [入门](#入门)
-- [核心 API](#核心-api)
+- [快速入门](#快速入门)
+- [Mybatis 核心 API](#mybatis-核心-api)
   - [SqlSessionFactoryBuilder](#sqlsessionfactorybuilder)
   - [SqlSessionFactory](#sqlsessionfactory)
   - [SqlSession](#sqlsession)
   - [映射器](#映射器)
-- [原理](#原理)
+- [Mybatis 原理](#mybatis-原理)
   - [MyBatis 的架构](#mybatis-的架构)
   - [接口层](#接口层)
   - [数据处理层](#数据处理层)
   - [框架支撑层](#框架支撑层)
   - [引导层](#引导层)
   - [主要组件](#主要组件)
-- [配置](#配置)
+- [Mybatis 配置](#mybatis-配置)
 - [SQL XML 映射文件](#sql-xml-映射文件)
-- [Mybatis 扩展](#mybatis-扩展)
-- [资料](#资料)
+- [参考资料](#参考资料)
 
 <!-- /TOC -->
 
@@ -217,8 +216,8 @@ MyBatis 引用 Mapper 接口这种调用方式，纯粹是为了满足面向接�
 
 数据处理层可以说是 MyBatis 的核心，从大的方面上讲，它要完成两个功能：
 
-1.  通过传入参数构建动态 SQL 语句；
-2.  SQL 语句的执行以及封装查询结果集成 `List<E>`
+1. 通过传入参数构建动态 SQL 语句；
+2. SQL 语句的执行以及封装查询结果集成 `List<E>`
 
 #### 参数映射和动态 SQL 语句生成
 
@@ -238,8 +237,8 @@ MyBatis 引用 Mapper 接口这种调用方式，纯粹是为了满足面向接�
 
 MyBatis 的事务管理分为两种形式：
 
-1.  使用 JDBC 的事务管理机制：即利用 java.sql.Connection 对象完成对事务的提交（commit()）、回滚（rollback()）、关闭（close()）等。
-2.  使用 MANAGED 的事务管理机制：这种机制 MyBatis 自身不会去实现事务管理，而是让程序的容器如（JBOSS，Weblogic）来实现对事务的管理。
+1. 使用 JDBC 的事务管理机制：即利用 java.sql.Connection 对象完成对事务的提交（commit()）、回滚（rollback()）、关闭（close()）等。
+2. 使用 MANAGED 的事务管理机制：这种机制 MyBatis 自身不会去实现事务管理，而是让程序的容器如（JBOSS，Weblogic）来实现对事务的管理。
 
 #### 连接池管理机制
 
@@ -280,8 +279,8 @@ MyBatis 将数据缓存设计成两级结构，分为一级缓存、二级缓存
 
 引导层是配置和启动 MyBatis 配置信息的方式。MyBatis 提供两种方式来引导 MyBatis ：
 
-1.  基于 XML 配置文件的方式
-2.  基于 Java API 的方式
+1. 基于 XML 配置文件的方式
+2. 基于 Java API 的方式
 
 ### 主要组件
 

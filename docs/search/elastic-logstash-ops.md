@@ -8,9 +8,9 @@
 
 安装步骤如下：
 
-1. 在 [logstash 官方下载地址](https://www.elastic.co/downloads/logstash)下载所需版本包并解压到本地。
+（1）在 [logstash 官方下载地址](https://www.elastic.co/downloads/logstash)下载所需版本包并解压到本地。
 
-2. 添加一个 `logstash.conf` 文件，指定要使用的插件以及每个插件的设置。举个简单的例子：
+（2）添加一个 `logstash.conf` 文件，指定要使用的插件以及每个插件的设置。举个简单的例子：
 
 ```
 input { stdin { } }
@@ -20,7 +20,7 @@ output {
 }
 ```
 
-3. 运行 `bin/logstash -f logstash.conf` （Windows 上运行`bin/logstash.bat -f logstash.conf`）
+（3）运行 `bin/logstash -f logstash.conf` （Windows 上运行`bin/logstash.bat -f logstash.conf`）
 
 ## 2. 配置
 
@@ -32,7 +32,7 @@ output {
 
 ### 2.2. logstash.yml 设置项
 
-节选部分设置项，更多项请参考：https://www.elastic.co/guide/en/logstash/current/logstash-settings-file.html
+节选部分设置项，更多项请参考：<https://www.elastic.co/guide/en/logstash/current/logstash-settings-file.html>
 
 | 参数                       | 描述                                                                                                                                                                                                                                   | 默认值                                                                                                                              |
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -67,7 +67,7 @@ output {
 bin/logstash [options]
 ```
 
-其中 [options] 是您可以指定用于控制 Logstash 执行的命令行标志。
+其中 `options` 是您可以指定用于控制 Logstash 执行的命令行标志。
 
 在命令行上设置的任何标志都会覆盖 Logstash 设置文件（`logstash.yml`）中的相应设置，但设置文件本身不会更改。
 
@@ -81,7 +81,7 @@ bin/logstash [options]
 > bin/logstash -f logstash.conf
 > ```
 >
-> 若想了解更多的命令行参数细节，请参考：https://www.elastic.co/guide/en/logstash/current/running-logstash-command-line.html
+> 若想了解更多的命令行参数细节，请参考：<https://www.elastic.co/guide/en/logstash/current/running-logstash-command-line.html>
 
 ### 3.2. 配置文件
 
@@ -199,7 +199,7 @@ match => {
 
 - String
 
-* 转义字符
+- 转义字符
 
 ## 4. 插件
 
@@ -241,7 +241,7 @@ match => {
 
 - **elasticsearch：**将事件数据发送给 Elasticsearch（推荐模式）。
 - **file：**将事件数据写入文件或磁盘。
-- **graphite：**将事件数据发送给 graphite（一个流行的开源工具，存储和绘制指标。 http://graphite.readthedocs.io/en/latest/）。
+- **graphite：**将事件数据发送给 graphite（一个流行的开源工具，存储和绘制指标。 <http://graphite.readthedocs.io/en/latest/）。>
 - **statsd：**将事件数据发送到 statsd （这是一种侦听统计数据的服务，如计数器和定时器，通过 UDP 发送并将聚合发送到一个或多个可插入的后端服务）。
 
 更多详情请见：[Output Plugins](https://www.elastic.co/guide/en/logstash/current/output-plugins.html)
@@ -277,7 +277,7 @@ output {
 }
 ```
 
-更多配置项可以参考：https://www.elastic.co/guide/en/logstash/current/plugins-inputs-stdin.html
+更多配置项可以参考：<https://www.elastic.co/guide/en/logstash/current/plugins-inputs-stdin.html>
 
 （2）执行 logstash，使用 `-f` 来指定你的配置文件：
 
@@ -295,16 +295,16 @@ bin/logstash -f logstash-input-stdin.conf
 
 #### 5.2.1. TCP 应用
 
-1. logstash 配置
+logstash 配置：
 
-   （1）创建 `logstash-input-tcp.conf` ：
+（1）创建 `logstash-input-tcp.conf` ：
 
 ```
 input {
   # stdin { }
   tcp {
     # host:port就是上面appender中的 destination，
-	# 这里其实把logstash作为服务，开启9250端口接收logback发出的消息
+ # 这里其实把logstash作为服务，开启9250端口接收logback发出的消息
     host => "127.0.0.1" port => 9250 mode => "server" tags => ["tags"] codec => json_lines
   }
 }
@@ -314,13 +314,13 @@ output {
 }
 ```
 
-更多配置项可以参考：https://www.elastic.co/guide/en/logstash/current/plugins-inputs-tcp.html
+更多配置项可以参考：<https://www.elastic.co/guide/en/logstash/current/plugins-inputs-tcp.html>
 
 （2）执行 logstash，使用 `-f` 来指定你的配置文件：`bin/logstash -f logstash-input-udp.conf`
 
-2. java 应用配置
+java 应用配置：
 
-   （1）在 Java 应用的 pom.xml 中引入 jar 包：
+（1）在 Java 应用的 pom.xml 中引入 jar 包：
 
 ```xml
 <dependency>
@@ -365,7 +365,7 @@ output {
 
 大功告成，此后，`io.github.dunwu.spring` 包中的 TRACE 及以上级别的日志信息都会被定向输出到 logstash 服务。
 
-<br>![img](http://upload-images.jianshu.io/upload_images/3101171-cd876d79a14955b0.png)<br>
+![img](http://upload-images.jianshu.io/upload_images/3101171-cd876d79a14955b0.png)
 
 接下来，就是 logback 的具体使用 ，如果对此不了解，不妨参考一下我的这篇博文：[细说 Java 主流日志工具库](https://github.com/dunwu/JavaStack/blob/master/docs/javalib/java-log.md) 。
 
@@ -375,9 +375,9 @@ output {
 
 UDP 和 TCP 的使用方式大同小异。
 
-1. logstash 配置
+logstash 配置：
 
-   （1）创建 `logstash-input-udp.conf` ：
+（1）创建 `logstash-input-udp.conf` ：
 
 ```
 input {
@@ -392,17 +392,17 @@ output {
 }
 ```
 
-更多配置项可以参考：https://www.elastic.co/guide/en/logstash/current/plugins-inputs-udp.html
+更多配置项可以参考：<https://www.elastic.co/guide/en/logstash/current/plugins-inputs-udp.html>
 
 （2）执行 logstash，使用 `-f` 来指定你的配置文件：`bin/logstash -f logstash-input-udp.conf`
 
-2. java 应用配置
+java 应用配置：
 
-   （1）在 Java 应用的 pom.xml 中引入 jar 包：
+（1）在 Java 应用的 pom.xml 中引入 jar 包：
 
-   与 **TCP 应用** 一节中的引入依赖包完全相同。
+与 **TCP 应用** 一节中的引入依赖包完全相同。
 
-   （2）接着，在 logback.xml 中添加 appender
+（2）接着，在 logback.xml 中添加 appender
 
 ```xml
 <appender name="ELK-UDP" class="net.logstash.logback.appender.LogstashSocketAppender">
@@ -434,26 +434,26 @@ logstash 配置
 
 ```
 input {
-	file {
-		path => ["/var/log/nginx/access.log"]
-		type => "nginx-access-log"
-		start_position => "beginning"
-	}
+ file {
+  path => ["/var/log/nginx/access.log"]
+  type => "nginx-access-log"
+  start_position => "beginning"
+ }
 }
 
 output {
-	if [type] == "nginx-access-log" {
-		elasticsearch {
-			hosts => ["localhost:9200"]
-			index => "nginx-access-log"
-		}
-	}
+ if [type] == "nginx-access-log" {
+  elasticsearch {
+   hosts => ["localhost:9200"]
+   index => "nginx-access-log"
+  }
+ }
 }
 ```
 
 （2）执行 logstash，使用 `-f` 来指定你的配置文件：`bin/logstash -f logstash-input-file.conf`
 
-更多配置项可以参考：https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html
+更多配置项可以参考：<https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html>
 
 ## 6. 小技巧
 
@@ -468,7 +468,7 @@ logstash -f logstash.conf
 
 如果你的 logstash 运行在 linux 系统下，不妨使用 nohup 来启动一个守护进程。这样做的好处在于，即使关闭终端，应用仍会运行。
 
-**创建 startup.sh**
+创建 startup.sh：
 
 ```
 nohup ./logstash -f logstash.conf >> nohup.out 2>&1 &
@@ -476,7 +476,7 @@ nohup ./logstash -f logstash.conf >> nohup.out 2>&1 &
 
 终止应用没有什么好方法，你只能使用 ps -ef | grep logstash ，查出进程，将其 kill 。不过，我们可以写一个脚本来干这件事：
 
-**创建 shutdown.sh**
+创建 shutdown.sh：
 
 脚本不多解释，请自行领会作用。
 

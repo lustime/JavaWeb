@@ -12,7 +12,7 @@ ROOT_DIR=$(cd `dirname $0`/..; pwd)
 # 确保脚本抛出遇到的错误
 set -e
 
-cd ${ROOT_DIR}/docs
+cd "${ROOT_DIR}/docs"
 
 # 生成静态文件
 npm install
@@ -29,7 +29,7 @@ git checkout -b gh-pages && git add .
 git commit -m 'deploy'
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
-if [[ ${GITHUB_TOKEN} && ${GITEE_TOKEN} ]]; then
+if [[ ${GITHUB_TOKEN} ]]  && [[ ${GITEE_TOKEN} ]]; then
     echo "使用 token 公钥部署 gh-pages"
     # ${GITHUB_TOKEN} 是 Github 私人令牌；${GITEE_TOKEN} 是 Gitee 私人令牌
     # ${GITHUB_TOKEN} 和 ${GITEE_TOKEN} 都是环境变量；travis-ci 构建时会传入变量
@@ -41,4 +41,4 @@ else
     git push -f git@gitee.com:turnon/javatech.git gh-pages
 fi
 
-cd ${ROOT_DIR}
+cd "${ROOT_DIR}"

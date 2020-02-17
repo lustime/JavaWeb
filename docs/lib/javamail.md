@@ -34,7 +34,7 @@
 - `POP3(Post Office Protocol - Version 3)` ：即邮局协议版本 3 ，用于接收电子邮件的标准协议。
 - `IMAP(Internet Mail Access Protocol)` ：即 Internet 邮件访问协议。是 POP3 的替代协议。
 
-这三种协议都有对应 SSL 加密传输的协议，分别是 **SMTPS **， **POP3S **和 **IMAPS **。
+这三种协议都有对应 SSL 加密传输的协议，分别是 **SMTPS**， **POP3S**和 **IMAPS**。
 
 `MIME(Multipurpose Internet Mail Extensions)` ：即多用途因特网邮件扩展标准。它不是邮件传输协议。但对传输内容的消息、附件及其它的内容定义了格式。
 
@@ -101,7 +101,7 @@ prop.setProperty("mail.smtp.auth", "true");
 
 详情请参考官方 API 文档：
 
-https://javamail.java.net/nonav/docs/api/ 。
+<https://javamail.java.net/nonav/docs/api/> 。
 
 ### javax.mail.Session 类（会话对象）
 
@@ -133,7 +133,7 @@ Session session = Session.getInstance(props);
 
 JavaMail 将这两种不同操作描述为传输（ javax.mail.Transport ）和存储（ javax.mail.Store ），传输对应邮件的发送，而存储对应邮件的接收。
 
-- `getTransport` - Session 类中的 getTransport **() **有多个重载方法，可以用来创建 Transport 对象。
+- `getTransport` - Session 类中的 **getTransport()**有多个重载方法，可以用来创建 Transport 对象。
 - `connect` - 如果设置了认证命令—— mail.smtp.auth ，那么使用 Transport 类的 connect 方法连接服务器时，则必须加上用户名和密码。
 - `sendMessage` - Transport 类的 sendMessage 方法用来发送邮件消息。
 - `close` - Transport 类的 close 方法用来关闭和邮件服务器的连接。

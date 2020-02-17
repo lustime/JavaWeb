@@ -56,23 +56,23 @@ JSON 的应用很广泛，这里有超过 100 种语言下的 JSON 库：[json.o
 
 ```json
 {
-	"Image": {
-		"Width": 800,
-		"Height": 600,
-		"Title": "View from 15th Floor",
-		"Thumbnail": {
-			"Url": "http://www.example.com/image/481989943",
-			"Height": 125,
-			"Width": "100"
-		},
-		"IDs": [116, 943, 234, 38793]
-	}
+ "Image": {
+  "Width": 800,
+  "Height": 600,
+  "Title": "View from 15th Floor",
+  "Thumbnail": {
+   "Url": "http://www.example.com/image/481989943",
+   "Height": 125,
+   "Width": "100"
+  },
+  "IDs": [116, 943, 234, 38793]
+ }
 }
 ```
 
 > 扩展阅读：
 >
-> - http://www.json.org/json-zh.html - 图文并茂介绍 json 数据形式
+> - <http://www.json.org/json-zh.html> - 图文并茂介绍 json 数据形式
 >
 > - [json 的 RFC 文档](http://tools.ietf.org/html/rfc4627)
 
@@ -118,8 +118,8 @@ Java 中比较流行的 JSON 库有：
 
 遵循好的设计与编码风格，能提前解决 80%的问题:
 
-- 英文版[Google JSON Style Guide](https://google.github.io/styleguide/jsoncstyleguide.xml)：https://google.github.io/styleguide/jsoncstyleguide.xml
-- 中文版[Google JSON 风格指南](https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md)：https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md
+- 英文版[Google JSON Style Guide](https://google.github.io/styleguide/jsoncstyleguide.xml)：<https://google.github.io/styleguide/jsoncstyleguide.xml>
+- 中文版[Google JSON 风格指南](https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md)：<https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md>
 
 简单摘录如下：
 
@@ -363,9 +363,9 @@ map.put("persons", persons);
 
 String json = null;
 try {
-	json = mapper.writeValueAsString(map);
+ json = mapper.writeValueAsString(map);
 } catch (JsonProcessingException e) {
-	e.printStackTrace();
+ e.printStackTrace();
 }
 ```
 
@@ -481,10 +481,10 @@ String[] anotherStr = gson.fromJson("[\"abc\"]", String[].class);
 
 ```java
 Gson gson = new GsonBuilder()
-		.setPrettyPrinting()
-		.setDateFormat("yyyy-MM-dd HH:mm:ss")
-		.excludeFieldsWithModifiers(Modifier.STATIC, Modifier.TRANSIENT, Modifier.VOLATILE)
-		.create();
+  .setPrettyPrinting()
+  .setDateFormat("yyyy-MM-dd HH:mm:ss")
+  .excludeFieldsWithModifiers(Modifier.STATIC, Modifier.TRANSIENT, Modifier.VOLATILE)
+  .create();
 ```
 
 ### 4.3. Gson 注解
@@ -545,7 +545,7 @@ private class SomeObject {
   - [jackson 官方文档](https://github.com/FasterXML/jackson-docs)
   - [jackson-databind](https://github.com/FasterXML/jackson-databind)
 - **文章**
-  - http://www.json.org/json-zh.html
+  - <http://www.json.org/json-zh.html>
   - [json 的 RFC 文档](http://tools.ietf.org/html/rfc4627)
   - [JSON 最佳实践](https://kimmking.github.io/2017/06/06/json-best-practice/)
   - [【简明教程】JSON](https://www.jianshu.com/p/8b428e1d1564)

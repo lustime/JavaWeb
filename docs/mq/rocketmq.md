@@ -13,11 +13,11 @@ RocketMQ 被阿里巴巴捐赠给 Apache，成为 Apache 的孵化项目。
 RocketMQ 有以下核心概念：
 
 - **Producer** - 将业务应用程序系统生成的消息发送给代理。RocketMQ 提供多种发送范例：同步，异步和单向。
-  - **Producer Group** - 具有相同角色的 Producer 组合在一起。如果原始 Producer 在事务之后崩溃，则代理可以联系同一 Producer 组的不同 Producer 实例以提交或回滚事务。**_警告：考虑到提供的 Producer 在发送消息方面足够强大，每个 Producer 组只允许一个实例，以避免不必要的生成器实例初始化。_**
+  - **Producer Group** - 具有相同角色的 Producer 组合在一起。如果原始 Producer 在事务之后崩溃，则代理可以联系同一 Producer 组的不同 Producer 实例以提交或回滚事务。***警告：考虑到提供的 Producer 在发送消息方面足够强大，每个 Producer 组只允许一个实例，以避免不必要的生成器实例初始化。***
 - **Consumer** - Consumer 从 Broker 那里获取消息并将其提供给应用程序。从用户应用的角度来看，提供了两种类型的 Consumer：
   - **PullConsumer** - PullConsumer 积极地从 Broker 那里获取消息。一旦提取了批量消息，用户应用程序就会启动消费过程。
   - **PushConsumer** - PushConsumer 封装消息提取，消费进度并维护其他内部工作，为最终用户留下回调接口，这个借口会在消息到达时被执行。
-  - **Consumer Group** - 完全相同角色的 Consumer 被组合在一起并命名为 Consumer Group。Consumer Group 是一个很好的概念，在消息消费方面实现负载平衡和容错目标非常容易。**_警告：Consumer Group 中的 Consumer 实例必须具有完全相同的主题订阅。_**
+  - **Consumer Group** - 完全相同角色的 Consumer 被组合在一起并命名为 Consumer Group。Consumer Group 是一个很好的概念，在消息消费方面实现负载平衡和容错目标非常容易。***警告：Consumer Group 中的 Consumer 实例必须具有完全相同的主题订阅。***
 - **Broker** - Broker 是 RocketMQ 的主要组成部分。它接收从 Producer 发送的消息，存储它们并准备处理来自 Consumer 的消费请求。它还存储与消息相关的元数据，包括 Consumer Group，消耗进度偏移和主题/队列信息。
 - Name Server - 充当路由信息提供者。Producer/Consumer 客户查找主题以查找相应的 Broker 列表。
 - **Topic** - 是 Producer 传递消息和 Consumer 提取消息的类别。
@@ -36,7 +36,7 @@ RocketMQ 有以下核心概念：
 
 ### 下载解压
 
-进入官方下载地址：https://rocketmq.apache.org/dowloading/releases/，选择合适版本
+进入官方下载地址：<https://rocketmq.apache.org/dowloading/releases/，选择合适版本>
 
 建议选择 binary 版本。
 
@@ -307,17 +307,17 @@ NameServer 提供轻量级的服务发现和路由能力。每个 NameServer 节
 
 NameServer 是一个功能齐全的服务器，主要包括两个功能：
 
-1.  Broker 管理 - NameServer 接受来自 Broker 集群的注册，并提供心跳机制来检查 Broker 节点是否存活。
-2.  路由管理 - 每个 NameServer 将保存有关 Broker 集群的完整路由信息和客户端查询的查询队列。
+1. Broker 管理 - NameServer 接受来自 Broker 集群的注册，并提供心跳机制来检查 Broker 节点是否存活。
+2. 路由管理 - 每个 NameServer 将保存有关 Broker 集群的完整路由信息和客户端查询的查询队列。
 
 RocketMQ 客户端（Producer/Consumer）将从 NameServer 查询队列路由信息。
 
 将 NameServer 地址列表提供给客户端有四种方法：
 
-1.  编程方式 - 类似：`producer.setNamesrvAddr("ip:port")`
-2.  Java 选项 - 使用 `rocketmq.namesrv.addr` 参数
-3.  环境变量 - 设置环境变量 `NAMESRV_ADDR`
-4.  HTTP 端点
+1. 编程方式 - 类似：`producer.setNamesrvAddr("ip:port")`
+2. Java 选项 - 使用 `rocketmq.namesrv.addr` 参数
+3. 环境变量 - 设置环境变量 `NAMESRV_ADDR`
+4. HTTP 端点
 
 > 更详细信息可以参考官方文档：[here](http://rocketmq.apache.org/rocketmq/four-methods-to-feed-name-server-address-list/)
 
@@ -349,8 +349,8 @@ Consumer 也支持 Push 和 Pull 模型中的分布式部署。它还支持群�
 
 分布式消息系统作为实现分布式系统可扩展、可伸缩性的关键组件，需要具有高吞吐量、高可用等特点。而谈到消息系统的设计，就回避不了两个问题：
 
-1.  消息的顺序问题
-2.  消息的重复问题
+1. 消息的顺序问题
+2. 消息的重复问题
 
 ### 顺序消息
 
@@ -400,13 +400,13 @@ Consumer 也支持 Push 和 Pull 模型中的分布式部署。它还支持群�
 
 这样的设计虽然简单易行，但也会存在一些很严重的问题，比如：
 
-1.  并行度就会成为消息系统的瓶颈（吞吐量不够）
-2.  更多的异常处理，比如：只要消费端出现问题，就会导致整个处理流程阻塞，我们不得不花费更多的精力来解决阻塞的问题。
+1. 并行度就会成为消息系统的瓶颈（吞吐量不够）
+2. 更多的异常处理，比如：只要消费端出现问题，就会导致整个处理流程阻塞，我们不得不花费更多的精力来解决阻塞的问题。
 
 RocketMQ 的解决方案：通过合理的设计或者将问题分解来规避。如果硬要把时间花在解决问题本身，实际上不仅效率低下，而且也是一种浪费。从这个角度来看消息的顺序问题，我们可以得出两个结论：
 
-1.  不关注乱序的应用实际大量存在
-2.  队列无序并不意味着消息无序
+1. 不关注乱序的应用实际大量存在
+2. 队列无序并不意味着消息无序
 
 最后我们从源码角度分析 RocketMQ 怎么实现发送顺序消息。
 
@@ -448,8 +448,8 @@ private SendResult send()  {
 
 造成消息重复的根本原因是：网络不可达。只要通过网络交换数据，就无法避免这个问题。所以解决这个问题的办法就是绕过这个问题。那么问题就变成了：如果消费端收到两条一样的消息，应该怎样处理？
 
-1.  消费端处理消息的业务逻辑保持幂等性。
-2.  保证每条消息都有唯一编号且保证消息处理成功与去重表的日志同时出现。
+1. 消费端处理消息的业务逻辑保持幂等性。
+2. 保证每条消息都有唯一编号且保证消息处理成功与去重表的日志同时出现。
 
 第 1 条很好理解，只要保持幂等性，不管来多少条重复消息，最后处理的结果都一样。
 

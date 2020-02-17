@@ -30,7 +30,7 @@
 
 ### 1.1. 下载解压
 
-进入官方下载地址：http://kafka.apache.org/downloads，选择合适版本。
+进入官方下载地址：<http://kafka.apache.org/downloads，选择合适版本。>
 
 解压到本地：
 
@@ -65,7 +65,7 @@
 执行所有操作后，可以使用以下命令停止服务器
 
 ```
-$ bin/kafka-server-stop.sh config/server.properties
+bin/kafka-server-stop.sh config/server.properties
 ```
 
 ## 2. 集群服务部署

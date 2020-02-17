@@ -115,7 +115,7 @@ public class SplitFileServer
 
 直接运行 Main 方法，就可以启动 web 服务。
 
-**_注：以上代码在 eclipse 中运行没有问题，如果想在 Intellij 中运行还需要为它指定配置文件。_**
+***注：以上代码在 eclipse 中运行没有问题，如果想在 Intellij 中运行还需要为它指定配置文件。***
 
 如果想了解在 Eclipse 和 Intellij 都能运行的通用方法可以参考我的 github 代码示例。
 
@@ -129,7 +129,7 @@ public class SplitFileServer
 
 如果你熟悉 maven，那么实在太简单了
 
-**_注： Maven 版本必须在 3.3 及以上版本。_**
+***注： Maven 版本必须在 3.3 及以上版本。***
 
 (1) 添加 maven 插件
 

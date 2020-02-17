@@ -67,7 +67,7 @@ public static Builder<BufferedImage> fromImages(Iterable<BufferedImage> images) 
 
 `Thumbnails.Builder` 是 `Thumbnails` 的内部静态类。它用于设置生成缩略图任务的相关参数。
 
-**_注：`Thumbnails.Builder` 的构造函数是私有函数。所以，它只允许通过 `Thumbnails` 的实例化函数来进行初始化。_**
+***注：`Thumbnails.Builder` 的构造函数是私有函数。所以，它只允许通过 `Thumbnails` 的实例化函数来进行初始化。***
 
 #### 设置参数的函数
 
@@ -78,14 +78,14 @@ public static Builder<BufferedImage> fromImages(Iterable<BufferedImage> images) 
 ```java
 public Builder<T> size(int width, int height)
 {
-	updateStatus(Properties.SIZE, Status.ALREADY_SET);
-	updateStatus(Properties.SCALE, Status.CANNOT_SET);
+ updateStatus(Properties.SIZE, Status.ALREADY_SET);
+ updateStatus(Properties.SCALE, Status.CANNOT_SET);
 
-	validateDimensions(width, height);
-	this.width = width;
-	this.height = height;
+ validateDimensions(width, height);
+ this.width = width;
+ this.height = height;
 
-	return this;
+ return this;
 }
 ```
 
@@ -163,16 +163,16 @@ maven 项目中引入依赖：
 
 ```java
 Thumbnails.of("oldFile.png")
-		.size(16, 16)
-		.toFile("newFile_16_16.png");
+  .size(16, 16)
+  .toFile("newFile_16_16.png");
 
 Thumbnails.of("oldFile.png")
-		.scale(2.0)
-		.toFile("newFile_scale_2.0.png");
+  .scale(2.0)
+  .toFile("newFile_scale_2.0.png");
 
 Thumbnails.of("oldFile.png")
-		.scale(1.0, 0.5)
-		.toFile("newFile_scale_1.0_0.5.png");
+  .scale(1.0, 0.5)
+  .toFile("newFile_scale_1.0_0.5.png");
 ```
 
 **oldFile.png**
@@ -189,14 +189,14 @@ Thumbnails.of("oldFile.png")
 
 ```java
 Thumbnails.of("oldFile.png")
-		.scale(0.8)
-		.rotate(90)
-		.toFile("newFile_rotate_90.png");
+  .scale(0.8)
+  .rotate(90)
+  .toFile("newFile_rotate_90.png");
 
 Thumbnails.of("oldFile.png")
-		.scale(0.8)
-		.rotate(180)
-		.toFile("newFile_rotate_180.png");
+  .scale(0.8)
+  .rotate(180)
+  .toFile("newFile_rotate_180.png");
 ```
 
 **newFile_rotate_90.png**
@@ -210,9 +210,9 @@ Thumbnails.of("oldFile.png")
 ```java
 BufferedImage watermarkImage = ImageIO.read(new File("wartermarkFile.png"));
 Thumbnails.of("oldFile.png")
-		.scale(0.8)
-		.watermark(Positions.BOTTOM_LEFT, watermarkImage, 0.5f)
-		.toFile("newFile_watermark.png");
+  .scale(0.8)
+  .watermark(Positions.BOTTOM_LEFT, watermarkImage, 0.5f)
+  .toFile("newFile_watermark.png");
 ```
 
 **wartermarkFile.png**
@@ -232,9 +232,9 @@ BufferedImage watermarkImage = ImageIO.read(new File("wartermarkFile.png"));
 
 File destinationDir = new File("D:\\watermark\\");
 Thumbnails.of("oldFile.png", "oldFile2.png")
-		.scale(0.8)
-		.watermark(Positions.BOTTOM_LEFT, watermarkImage, 0.5f)
-		.toFiles(destinationDir, Rename.PREFIX_DOT_THUMBNAIL);
+  .scale(0.8)
+  .watermark(Positions.BOTTOM_LEFT, watermarkImage, 0.5f)
+  .toFiles(destinationDir, Rename.PREFIX_DOT_THUMBNAIL);
 ```
 
 > **需要参考完整测试例代码请** [<u>**点击这里**</u>](https://github.com/dunwu/JavaParty/blob/master/toolbox/image/src/test/java/org/zp/image/ThumbnailatorTest.java)

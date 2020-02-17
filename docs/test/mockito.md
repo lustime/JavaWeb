@@ -37,7 +37,7 @@ Mock 对象可以被提供来进行测试。因此，我们测试的类应该避
 
 ### 使用 Mockito 生成 Mock 对象
 
-_Mockito_ 是一个流行 mock 框架，可以和 JUnit 结合起来使用。Mockito 允许你创建和配置 mock 对象。使用 Mockito 可以明显的简化对外部依赖的测试类的开发。
+*Mockito* 是一个流行 mock 框架，可以和 JUnit 结合起来使用。Mockito 允许你创建和配置 mock 对象。使用 Mockito 可以明显的简化对外部依赖的测试类的开发。
 
 一般使用 Mockito 需要执行下面三步
 
@@ -228,7 +228,7 @@ public void testVerify()  {
 
 ### 使用 Spy 封装 java 对象
 
-@Spy 或者`spy()`方法可以被用来封装 java 对象。被封装后，除非特殊声明（打桩 _stub_），否则都会真正的调用对象里面的每一个方法
+@Spy 或者`spy()`方法可以被用来封装 java 对象。被封装后，除非特殊声明（打桩 *stub*），否则都会真正的调用对象里面的每一个方法
 
 ```java
 import static org.mockito.Mockito.*;

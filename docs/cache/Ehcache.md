@@ -58,7 +58,7 @@ Spring 提供了对于 Ehcache 接口的封装，可以更简便的使用其功�
 
 接触一种技术最快最直接的途径总是一个 Hello World 例子，毕竟动手实践印象更深刻，不是吗？
 （1）在 classpath 下添加 `ehcache.xml`
-添加一个名为 _helloworld_ 的缓存。
+添加一个名为 *helloworld* 的缓存。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -176,7 +176,7 @@ try {
 
 #### 添加缓存
 
-**_需要强调一点，`Cache`对象在用`addCache`方法添加到`CacheManager`之前，是无效的。_**
+***需要强调一点，`Cache`对象在用`addCache`方法添加到`CacheManager`之前，是无效的。***
 使用 CacheManager 的 addCache 方法可以根据缓存名将 ehcache.xml 中声明的 cache 添加到容器中；它也可以直接将 Cache 对象添加到缓存容器中。
 `Cache`有多个构造函数，提供了不同方式去加载缓存的配置参数。
 有时候，你可能需要使用 API 来动态的添加缓存，下面的例子就提供了这样的范例。
@@ -360,7 +360,7 @@ cache.disableDynamicFeatures();
 
 Spring3.1 开始添加了对缓存的支持。和事务功能的支持方式类似，缓存抽象允许底层使用不同的缓存解决方案来进行整合。
 Spring4.1 开始支持 JSR-107 注解。
-**_注：我本人使用的 Spring 版本为 4.1.4.RELEASE，目前 Spring 版本仅支持 Ehcache2.5 以上版本，但不支持 Ehcache3。_**
+***注：我本人使用的 Spring 版本为 4.1.4.RELEASE，目前 Spring 版本仅支持 Ehcache2.5 以上版本，但不支持 Ehcache3。***
 
 ### 绑定 Ehcache
 
@@ -488,8 +488,8 @@ public Book importBooks(String deposit, Date date)
 ```java
 @CacheConfig("books")
 public class BookRepositoryImpl implements BookRepository {
-	@Cacheable
-	public Book findBook(ISBN isbn) {...}
+ @Cacheable
+ public Book findBook(ISBN isbn) {...}
 }
 ```
 

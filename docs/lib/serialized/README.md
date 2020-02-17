@@ -10,13 +10,13 @@ Java 官方的序列化存在许多问题，因此，很多人更愿意使用优
 
 ## 内容
 
-  - [JSON](docs/lib/serialized/javalib-json.md) - Fastjson、Jackson、Gson
-  - [二进制](javatech/docs/lib/serialized/javalib-binary.md) - Protobuf、Thrift、Hessian、Kryo、FST
+- [JSON](docs/lib/serialized/javalib-json.md) - Fastjson、Jackson、Gson
+- [二进制](javatech/docs/lib/serialized/javalib-binary.md) - Protobuf、Thrift、Hessian、Kryo、FST
 
 ## 资料
 
 - [Thrift Github](https://github.com/apache/thrift)
-- [Protobuf Github](https://github.com/protocolbuffers/protobuf) 
+- [Protobuf Github](https://github.com/protocolbuffers/protobuf)
 - [Hessian 官网](http://hessian.caucho.com/doc/hessian-overview.xtp)
 - [Fastjson Github](https://github.com/alibaba/fastjson)
 - [Jackson Github](https://github.com/FasterXML/jackson)

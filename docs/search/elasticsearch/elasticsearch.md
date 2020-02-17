@@ -4,7 +4,7 @@
 >
 > [Elasticsearch](https://github.com/elastic/elasticsearch) 基于搜索库 [Lucene](https://github.com/apache/lucene-solr) 开发。ElasticSearch 隐藏了 Lucene 的复杂性，提供了简单易用的 REST API / Java API 接口（另外还有其他语言的 API 接口）。
 >
-> _以下简称 ES。_
+> *以下简称 ES*。
 
 ## 一、Elasticsearch 简介
 
@@ -84,7 +84,7 @@ Document 使用 JSON 格式表示，下面是一个例子。
 示例：直接创建索引
 
 ```bash
-$ curl -X POST 'localhost:9200/user'
+curl -X POST 'localhost:9200/user'
 ```
 
 服务器返回一个 JSON 对象，里面的 `acknowledged` 字段表示操作成功。
@@ -126,7 +126,7 @@ $ curl -X PUT -H 'Content-Type: application/json' 'localhost:9200/user'  -d '
 然后，我们可以通过发送 `DELETE` 请求，删除这个 Index。
 
 ```bash
-$ curl -X DELETE 'localhost:9200/user'
+curl -X DELETE 'localhost:9200/user'
 ```
 
 #### 3.1.3. 查看索引
@@ -134,7 +134,7 @@ $ curl -X DELETE 'localhost:9200/user'
 可以通过 GET 请求查看索引信息
 
 ```bash
-$ curl -X GET 'localhost:9200/user'
+curl -X GET 'localhost:9200/user'
 ```
 
 #### 3.1.4. 打开/关闭索引
@@ -143,13 +143,13 @@ $ curl -X GET 'localhost:9200/user'
 关闭索引
 
 ```bash
-$ curl -X POST 'localhost:9200/user/_close'
+curl -X POST 'localhost:9200/user/_close'
 ```
 
 打开索引
 
 ```bash
-$ curl -X POST 'localhost:9200/user/_open'
+curl -X POST 'localhost:9200/user/_open'
 ```
 
 ### 3.2. 文档
@@ -217,7 +217,7 @@ $ curl -X POST -H 'Content-Type: application/json' 'localhost:9200/user/admin' -
 删除记录就是发出 `DELETE` 请求。
 
 ```bash
-$ curl -X DELETE 'localhost:9200/user/admin/2'
+curl -X DELETE 'localhost:9200/user/admin/2'
 ```
 
 #### 3.2.3. 更新记录
@@ -238,7 +238,7 @@ $ curl -X PUT -H 'Content-Type: application/json' 'localhost:9200/user/admin/1' 
 向`/Index/Type/Id`发出 GET 请求，就可以查看这条记录。
 
 ```bash
-$ curl 'localhost:9200/user/admin/1?pretty'
+curl 'localhost:9200/user/admin/1?pretty'
 ```
 
 上面代码请求查看 `/user/admin/1` 这条记录，URL 的参数 `pretty=true` 表示以易读的格式返回。
@@ -401,14 +401,14 @@ $ curl 'localhost:9200/user/admin/_search'  -d '
 ```bash
 $ curl -H 'Content-Type: application/json' 'localhost:9200/user/admin/_search?pretty'  -d '
 {
-	"query": {
-		"bool": {
-			"must": [
-				{ "match": { "desc": "管理" } },
-				{ "match": { "desc": "超级" } }
-			]
-		}
-	}
+ "query": {
+  "bool": {
+   "must": [
+    { "match": { "desc": "管理" } },
+    { "match": { "desc": "超级" } }
+   ]
+  }
+ }
 }'
 ```
 
@@ -506,7 +506,7 @@ buffer 每 refresh 一次，就会产生一个 `segment file`，所以默认情�
 | 8      | 拉斯     | 3,5       |
 | 9      | 离开     | 3         |
 | 10     | 与       | 4         |
-| ..     | ..       | ..        |
+| ..    | ..      | ..       |
 
 另外，实用的倒排索引还可以记录更多的信息，比如文档频率信息，表示在文档集合中有多少个文档包含某个单词。
 
@@ -531,6 +531,6 @@ buffer 每 refresh 一次，就会产生一个 `segment file`，所以默认情�
   - [Elasticsearch 官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 - **文章**
   - [Install Elasticsearch with RPM](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#rpm)
-  - https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html
+  - [https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html](https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html)
   - [es-introduction](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/es-introduction.md)
   - [es-write-query-search](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/es-write-query-search.md)

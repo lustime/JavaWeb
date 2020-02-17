@@ -446,7 +446,7 @@ public void consumeMessageForIndependentConsumer(String topic){
   - [Kafka 剖析（一）：Kafka 背景及架构介绍](http://www.infoq.com/cn/articles/kafka-analysis-part-1)
   - [Thorough Introduction to Apache Kafka](https://hackernoon.com/thorough-introduction-to-apache-kafka-6fbf2989bbc1)
   - [Kafak(04) Kafka 生产者事务和幂等](http://www.heartthinkdo.com/?p=2040#43)
-  - https://cwiki.apache.org/confluence/display/KAFKA/Kafka+data+structures+in+Zookeeper
+  - <https://cwiki.apache.org/confluence/display/KAFKA/Kafka+data+structures+in+Zookeeper>
 
 ## 8. 扩展阅读
 

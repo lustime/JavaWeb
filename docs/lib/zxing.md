@@ -19,7 +19,7 @@
 
 ## 实战
 
-**_本例演示如何在一个非 android 的 Java 项目中使用 ZXing 来生成、解析二维码图片。_**
+***本例演示如何在一个非 android 的 Java 项目中使用 ZXing 来生成、解析二维码图片。***
 
 ### 安装
 
@@ -49,13 +49,13 @@ ZXing 生成二维码图片有以下步骤：
 
 ```java
 public void encode(String content, String filepath) throws WriterException, IOException {
-	int width = 100;
-	int height = 100;
-	Map<EncodeHintType, Object> encodeHints = new HashMap<EncodeHintType, Object>();
-	encodeHints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-	BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, encodeHints);
-	Path path = FileSystems.getDefault().getPath(filepath);
-	MatrixToImageWriter.writeToPath(bitMatrix, "png", path);
+ int width = 100;
+ int height = 100;
+ Map<EncodeHintType, Object> encodeHints = new HashMap<EncodeHintType, Object>();
+ encodeHints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+ BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, encodeHints);
+ Path path = FileSystems.getDefault().getPath(filepath);
+ MatrixToImageWriter.writeToPath(bitMatrix, "png", path);
 }
 ```
 
@@ -71,14 +71,14 @@ ZXing 解析二维码图片有以下步骤：
 
 ```java
 public String decode(String filepath) throws IOException, NotFoundException {
-	BufferedImage bufferedImage = ImageIO.read(new FileInputStream(filepath));
-	LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
-	Binarizer binarizer = new HybridBinarizer(source);
-	BinaryBitmap bitmap = new BinaryBitmap(binarizer);
-	HashMap<DecodeHintType, Object> decodeHints = new HashMap<DecodeHintType, Object>();
-	decodeHints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
-	Result result = new MultiFormatReader().decode(bitmap, decodeHints);
-	return result.getText();
+ BufferedImage bufferedImage = ImageIO.read(new FileInputStream(filepath));
+ LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
+ Binarizer binarizer = new HybridBinarizer(source);
+ BinaryBitmap bitmap = new BinaryBitmap(binarizer);
+ HashMap<DecodeHintType, Object> decodeHints = new HashMap<DecodeHintType, Object>();
+ decodeHints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
+ Result result = new MultiFormatReader().decode(bitmap, decodeHints);
+ return result.getText();
 }
 ```
 

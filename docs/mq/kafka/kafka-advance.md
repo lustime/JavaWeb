@@ -87,12 +87,12 @@ Kafka 生产者发送消息流程如下图，需要注意的有：
 
 群主分配分区的过程如下：
 
-1.  群主从群组协调器获取群组成员列表，然后给每一个消费者进行分配分区 Partition。
-2.  两个分配策略：Range 和 RoundRobin。
-    - Range 策略，就是把若干个连续的分区分配给消费者，如存在分区 1-5，假设有 3 个消费者，则消费者 1 负责分区 1-2,消费者 2 负责分区 3-4，消费者 3 负责分区 5。
-    - RoundRoin 策略，就是把所有分区逐个分给消费者，如存在分区 1-5，假设有 3 个消费者，则分区 1->消费 1，分区 2->消费者 2，分区 3>消费者 3，分区 4>消费者 1，分区 5->消费者 2。
-3.  群主分配完成之后，把分配情况发送给群组协调器。
-4.  群组协调器再把这些信息发送给消费者。**每一个消费者只能看到自己的分配信息，只有群主知道所有消费者的分配信息**。
+1. 群主从群组协调器获取群组成员列表，然后给每一个消费者进行分配分区 Partition。
+2. 两个分配策略：Range 和 RoundRobin。
+   - Range 策略，就是把若干个连续的分区分配给消费者，如存在分区 1-5，假设有 3 个消费者，则消费者 1 负责分区 1-2,消费者 2 负责分区 3-4，消费者 3 负责分区 5。
+   - RoundRoin 策略，就是把所有分区逐个分给消费者，如存在分区 1-5，假设有 3 个消费者，则分区 1->消费 1，分区 2->消费者 2，分区 3>消费者 3，分区 4>消费者 1，分区 5->消费者 2。
+3. 群主分配完成之后，把分配情况发送给群组协调器。
+4. 群组协调器再把这些信息发送给消费者。**每一个消费者只能看到自己的分配信息，只有群主知道所有消费者的分配信息**。
 
 <div align="center">
 <img src="http://upload-images.jianshu.io/upload_images/3101171-fd4ab296c5dbeb24.png" />
@@ -325,6 +325,7 @@ Broker 端在缓存中保存了这 seq number，对于接收的每条消息，�
 实现幂等之后：
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/2.png)
+
 ### 3.2. 生成 PID 的流程
 
 在执行创建事务时，如下：
@@ -780,9 +781,11 @@ public void onlyConsumeInTransaction() {
 **一个 app 有一个 tid，同一个应用的不同实例 PID 是一样的，只是 epoch 的值不同**。如：
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/3-1.png)
-同一份代码运行两个实例，分步执行如下：_在实例 1 没有进行提交事务前，开始执行实例 2 的初始化事务_
+
+同一份代码运行两个实例，分步执行如下：*在实例 1 没有进行提交事务前，开始执行实例 2 的初始化事务*
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/4-1-1024x458.png)
+
 **step1 实例 1-初始化事务**。的打印出对应 productId 和 epoch，信息如下：
 
 [2018-04-21 20:56:23,106] INFO [TransactionCoordinator id=0] Initialized transactionalId first-transactional with producerId 8000 and producer epoch 123 on partition \_\_transaction_state-12 (kafka.coordinator.transaction.TransactionCoordinator)
@@ -808,7 +811,7 @@ org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an op
 
 #### 事务最佳实践-单实例的事务性
 
-通过上面实例中可以看到 kafka 是跨 Session 的数据幂等发送，即如果应用部署多个实例时常会遇到上面的问题“_org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an operation with an old epoch. Either there is a newer producer with the same transactionalId, or the producer’s transaction has been expired by the broker_.”，必须保证这些实例生产者的提交事务顺序和创建顺序保持一致才可以，否则就无法成功。其实，在实践中，我们更多的是**如何实现对应用单实例的事务性**。可以通过 spring-kafaka 实现思路来学习，即**每次创建生产者都设置一个不同的 transactionId 的值**，如下代码：
+通过上面实例中可以看到 kafka 是跨 Session 的数据幂等发送，即如果应用部署多个实例时常会遇到上面的问题“*org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an operation with an old epoch. Either there is a newer producer with the same transactionalId, or the producer’s transaction has been expired by the broker*.”，必须保证这些实例生产者的提交事务顺序和创建顺序保持一致才可以，否则就无法成功。其实，在实践中，我们更多的是**如何实现对应用单实例的事务性**。可以通过 spring-kafaka 实现思路来学习，即**每次创建生产者都设置一个不同的 transactionId 的值**，如下代码：
 
 在 spring-kafka 中，对于一个线程创建一个 producer，事务提交之后，还会关闭这个 producer 并清除，后续同一个线程或者新的线程重新执行事务时，此时就会重新创建 producer。
 
@@ -979,7 +982,8 @@ WriteTxnMarkersRequest => [CoorinadorEpoch PID Epoch Marker [Topic [Partition]]]
 kafka 文件主要包括 broker 的 data（主题：test）、事务协调器对应的 transaction_log（主题：\_\_tranaction_state）、偏移量信息（主题:\_consumer_offsets）三种类型。如下图
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/1-2-207x300.png)
-这三种文件类型其实都是 topic 的分区，所以对于每一个目录都包含*.log、*.index、_.timeindex、_.txnindex 文件（仅这个文件是为了实现事务属性引入的）。segment 和 segmengt 对应 index、timeindex、txnindex 文件命名中序号表示的是第几个消息。如下图中，00000000000000368769.index 和 00000000000000568769.log 中“368969”就是表示文件中存储的第一个消息是 468969 个消息。
+
+这三种文件类型其实都是 topic 的分区，所以对于每一个目录都包含 `*.log`、`*.index`、`*.timeindex`、`*.txnindex` 文件（仅这个文件是为了实现事务属性引入的）。segment 和 segmengt 对应 index、timeindex、txnindex 文件命名中序号表示的是第几个消息。如下图中，00000000000000368769.index 和 00000000000000568769.log 中“368969”就是表示文件中存储的第一个消息是 468969 个消息。
 
 对于索引文案包含两部分：
 
@@ -987,6 +991,7 @@ kafka 文件主要包括 broker 的 data（主题：test）、事务协调器对
 - position：在 segment 中的绝对位置。
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/67930538-300x179.png)
+
 查看文件内容：
 
 bin/kafka-run-class.sh kafka.tools.DumpLogSegments –files /Users/wuzhonghu/data/kafka-logs/firtstopic-0/00000000000000000002.log –print-data-log
@@ -1000,6 +1005,7 @@ Trasaction markers 就是 kafka 为了实现事务定义的 Controll Message。�
 Transaction Log 如下放置在“\_tranaction_state”主题下面，默认是 50 个分区，每一个分区中文件格式和 broker 存储消息是一样的,都有 log/index/timeindex 文件，如下：
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/57646045.png)
+
 #### 消费读取事务消息(READ_COMMITED)
 
 Consumer 为了实现事务，新增了一个 isolation.level 配置，有两个值如下，
@@ -1014,6 +1020,7 @@ Consumer 为了实现事务，新增了一个 isolation.level 配置，有两个
 如下图中，按顺序保存到 broker 中消息有：事务 1 消息 T1-M1、对于事务 2 的消息有 T2-M1、事务 1 消息 T1-M2、非事务消息 M1，最终到达 client 端的循序是 M1-> T2-M1 -> T1-M1 -> T1-M2。
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/84999567.png)
+
 具体步骤如下：
 
 - **step1** Consumer 接受到事务消息 T1-M1、T2-M2、T1-M2 和非事务消息 M1，因为没有收到事务 T1 和 T2 的控制消息，所以此时把事务相关消息 T1-M1、T2-M2、T1-M2 保存到内存，然后只把非事务消息 M1 返回给 client。
@@ -1073,9 +1080,11 @@ ThrottleTime [TopicName [Partition ErrorCode HighwaterMarkOffset AbortedTransact
 - 存放数据的 log
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/1-3.png)
+
 - 存放 Absort Index 的内容如下：
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/3-2.png)
+
 执行读取数据流程如下：
 
 **step1:** 假设 consumer 读取数据的 fetched offsets 的区间是 0 到 4。
@@ -1083,19 +1092,23 @@ ThrottleTime [TopicName [Partition ErrorCode HighwaterMarkOffset AbortedTransact
 - 首先，broker 读取 data log 中数据
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/11-1.png)
+
 - 然后，broker 依次读取 abort index 的内容，发现 LSO 大于等于 4 就停止。如上可以获取到 P2 对应的 offset 从 2 到 5 的消息都是被丢弃的：
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/12-1.png)
+
 - 最后，broker 将上面 data log 和 abort index 中满足条件的数据返回给 consumer。
 
 **step2 ：**在 consumer 端根据 absrot index 中返回的内容，过滤丢弃的消息，最终给用户消息为
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/13-300x103.png)
+
 ##### Absorted Transaction Index
 
 在 broker 中数据中新增一个索引文件，保存 aborted tranasation 对应的 offsets，只有事务执行 abort 时，才会往这个文件新增一个记录，初始这个文件是不存在的，只有第一条 abort 时，才会创建这个文件。
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/2-1-300x149.png)
+
 这个索引文件结构的每一行结构是 TransactionEntry：
 
 ```
@@ -1115,9 +1128,11 @@ Broker 在缓存中维护了所有处于运行状态的事务对应的 initial o
 举例说明下 LSO 的计算，对于一个 data log 中内如如下
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/31.png)
+
 对应的 abort index 文件中内如如下：**LSO 是递增的**
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/32.png)
+
 (2)第二步 如果事务是提交状态，则在索引文件中新增 TransactionEntry。
 
 (3)第三步 从 active 的 tranaction set 中移除这个 transaton，然后更新 LSO。
@@ -1484,8 +1499,6 @@ Topic Configuration
 
 离开了 Zookeeper, Kafka 不能对 Topic 进行新增操作, 但是仍然可以 produce 和 consume 消息.
 
-9. FAQ
-
 （1）一个主题存在多个分区，每一分区属于哪个 Leader Broker?
 
 在任意 Broker 机器中都包含了每一个分区所属 Leader 的信息，所以可以通过访问任意一个 broker 获取这些信息。
@@ -1533,7 +1546,7 @@ Topic Configuration
   - [Kafka 剖析（一）：Kafka 背景及架构介绍](http://www.infoq.com/cn/articles/kafka-analysis-part-1)
   - [Thorough Introduction to Apache Kafka](https://hackernoon.com/thorough-introduction-to-apache-kafka-6fbf2989bbc1)
   - [Kafak(04) Kafka 生产者事务和幂等](http://www.heartthinkdo.com/?p=2040#43)
-  - https://cwiki.apache.org/confluence/display/KAFKA/Kafka+data+structures+in+Zookeeper
+  - <https://cwiki.apache.org/confluence/display/KAFKA/Kafka+data+structures+in+Zookeeper>
 
 ## 8. 扩展阅读
 

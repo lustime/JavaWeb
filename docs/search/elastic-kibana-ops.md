@@ -15,7 +15,7 @@
 1. 在 [kibana 官方下载地址](https://www.elastic.co/downloads/kibana)下载所需版本包并解压到本地。
 2. 修改 `config/kibana.yml` 配置文件，设置 `elasticsearch.url` 指向 Elasticsearch 实例。
 3. 运行 `bin/kibana` （Windows 上运行 `bin\kibana.bat`）
-4. 在浏览器上访问 http://localhost:5601
+4. 在浏览器上访问 <http://localhost:5601>
 
 ## 2. 使用
 
@@ -23,7 +23,7 @@
 
 单击侧面导航栏中的 `检索（Discover）` ，可以显示 `Kibana` 的数据查询功能功能。
 
-<br>![img](https://www.elastic.co/guide/en/kibana/current/images/tutorial-discover.png)<br>
+![img](https://www.elastic.co/guide/en/kibana/current/images/tutorial-discover.png)
 
 在搜索栏中，您可以输入 Elasticsearch 查询条件来搜索您的数据。您可以在 `Discover` 页面中浏览结果并在 `Visualize` 页面中创建已保存搜索条件的可视化。
 
@@ -33,7 +33,7 @@
 
 默认情况下，每个匹配文档都显示所有字段。要选择要显示的文档字段，请将鼠标悬停在“可用字段”列表上，然后单击要包含的每个字段旁边的添加按钮。例如，如果只添加 account_number，则显示将更改为包含五个帐号的简单列表：
 
-<br>![img](https://www.elastic.co/guide/en/kibana/6.1/images/tutorial-discover-3.png)<br>
+![img](https://www.elastic.co/guide/en/kibana/6.1/images/tutorial-discover-3.png)
 
 kibana 的搜索栏遵循 [query-string-syntax](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax) 文档中所说明的查询语义。
 
@@ -290,7 +290,7 @@ Visualize 工具使您能够以多种方式（如饼图、柱状图、曲线图�
 为每个范围定义一个存储桶：
 
 1. 单击 `Split Slices`。
-2. 在 `Aggregation` 列表中选择 `Terms`。_注意：这里的 Terms 是 Elk 采集数据时定义好的字段或标签。_
+2. 在 `Aggregation` 列表中选择 `Terms`。*注意：这里的 Terms 是 Elk 采集数据时定义好的字段或标签*。
 3. 在 `Field` 列表中选择 `level.keyword`。
 4. 点击 ![images/apply-changes-button.png](https://www.elastic.co/guide/en/kibana/6.1/images/apply-changes-button.png) 按钮来更新图表。
 

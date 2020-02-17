@@ -80,7 +80,7 @@ tar -zxf apache-tomcat-8.5.24.tar.gz
 ./apache-tomcat-8.5.24/bin/startup.sh
 ```
 
-启动后，访问 http://localhost:8080 ，可以看到 Tomcat 安装成功的测试页面。
+启动后，访问 `http://localhost:8080` ，可以看到 Tomcat 安装成功的测试页面。
 
 ![img](http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/tomcat.png!zp)
 
@@ -158,7 +158,7 @@ tar -zxf apache-tomcat-8.5.24.tar.gz
 | asyncTimeout          | Servlet3.0 规范中的异步请求超时                                                             | 默认 30s                                                                                                                                        |
 | port                  | 请求连接的 TCP Port                                                                         | 设置为 0,则会随机选取一个未占用的端口号                                                                                                         |
 | protocol              | 协议. 一般情况下设置为 HTTP/1.1,这种情况下连接模型会在 NIO 和 APR/native 中自动根据配置选择 |                                                                                                                                                 |
-| URIEncoding           | 对 URI 的编码方式.                                                                          | 如果设置系统变量 org.apache.catalina.STRICT_SERVLET_COMPLIANCE 为 true,使用 ISO-8859-1 编码;如果未设置此系统变量且未设置此属性, 使用 UTF-8 编码 |
+| URIEncoding           | 对 URI 的编码方式.                                                                        | 如果设置系统变量 org.apache.catalina.STRICT_SERVLET_COMPLIANCE 为 true,使用 ISO-8859-1 编码;如果未设置此系统变量且未设置此属性, 使用 UTF-8 编码 |
 | useBodyEncodingForURI | 是否采用指定的 contentType 而不是 URIEncoding 来编码 URI 中的请求参数                       |                                                                                                                                                 |
 
 以下属性在标准的 Connector(NIO, NIO2 和 APR/native)中有效:
@@ -231,7 +231,7 @@ tar -zxf apache-tomcat-8.5.24.tar.gz
 
 将打包好的 war 包放在 Tomcat 安装目录下的 `webapps` 目录下，然后在 bin 目录下执行 `startup.bat` 或 `startup.sh` ，Tomcat 会自动解压 `webapps` 目录下的 war 包。
 
-成功后，可以访问 http://localhost:8080/xxx （xxx 是 war 包文件名）。
+成功后，可以访问 `http://localhost:8080/xxx` （xxx 是 war 包文件名）。
 
 > **注意**
 >
@@ -286,7 +286,7 @@ public class SimpleTomcatServer {
 }
 ```
 
-成功后，可以访问 http://localhost:8080/javatool-server 。
+成功后，可以访问 `http://localhost:8080/javatool-server` 。
 
 > **说明**
 >
@@ -319,7 +319,7 @@ public class SimpleTomcatServer {
 
 运行 `mvn tomcat7:run` 命令，启动 Tomcat。
 
-成功后，可以访问 http://localhost:8080/xxx （xxx 是 ${project.artifactId} 指定的项目名）。
+成功后，可以访问 `http://localhost:8080/xxx` （xxx 是 ${project.artifactId} 指定的项目名）。
 
 #### IDE 插件
 
@@ -333,7 +333,7 @@ public class SimpleTomcatServer {
 - 点击 Confiure... 按钮，设置 Tomcat 安装路径。
 - 点击 Deployment 标签页，设置要启动的应用。
 - 设置启动应用的端口、JVM 参数、启动浏览器等。
-- 成功后，可以访问 http://localhost:8080/（当然，你也可以在 url 中设置上下文名称）。
+- 成功后，可以访问 `http://localhost:8080/`（当然，你也可以在 url 中设置上下文名称）。
 
 ![img](http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/tomcat-intellij-run-config.png!zp)
 
@@ -467,10 +467,10 @@ ContextConfig 解析 web.xml 顺序：
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/请求处理过程.png!zp" width="600">
 </div>
 
-1.  根据 server.xml 配置的指定的 connector 以及端口监听 http、或者 ajp 请求
-2.  请求到来时建立连接,解析请求参数,创建 Request 和 Response 对象,调用顶层容器 pipeline 的 invoke 方法
-3.  容器之间层层调用,最终调用业务 servlet 的 service 方法
-4.  Connector 将 response 流中的数据写到 socket 中
+1. 根据 server.xml 配置的指定的 connector 以及端口监听 http、或者 ajp 请求
+2. 请求到来时建立连接,解析请求参数,创建 Request 和 Response 对象,调用顶层容器 pipeline 的 invoke 方法
+3. 容器之间层层调用,最终调用业务 servlet 的 service 方法
+4. Connector 将 response 流中的数据写到 socket 中
 
 #### Pipeline 与 Valve
 
@@ -486,7 +486,7 @@ Valve 中主要的三个方法:setNext、getNext、invoke;valve 之间的关系�
 
 各层容器对应的 basic valve 分别是 StandardEngineValve、StandardHostValve、 StandardContextValve、StandardWrapperValve。
 
-### Connector
+### Connector 流程
 
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/connector.png!zp" width="600">
@@ -504,7 +504,7 @@ Valve 中主要的三个方法:setNext、getNext、invoke;valve 之间的关系�
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/非阻塞IO.png!zp" width="600">
 </div>
 
-####  IO 多路复用
+#### IO 多路复用
 
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/IO多路复用.png!zp" width="600">
@@ -517,7 +517,7 @@ IO 多路复用的好处在于可同时监听多个 socket 的可读和可写事
 #### Tomcat 各类 Connector 对比
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/Tomcat各类Connector对比.jpg!zp" width="500"> 
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/Tomcat各类Connector对比.jpg!zp" width="500">
 </div>
 
 - JIO：用 java.io 编写的 TCP 模块，阻塞 IO
@@ -538,7 +538,7 @@ Apache Portable Runtime 是一个高度可移植的库，它是 Apache HTTP Serv
 **NIO 处理相关类**
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/NIO处理相关类.jpg!zp" width="500"> 
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/NIO处理相关类.jpg!zp" width="500">
 </div>
 
 Poller 线程从 EventQueue 获取 PollerEvent，并执行 PollerEvent 的 run 方法，调用 Selector 的 select 方法，如果有可读的 Socket 则创建 Http11NioProcessor，放入到线程池中执行；
@@ -571,7 +571,7 @@ Note：
 ### 异步 Servlet
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/传统Servlet处理流程.png!zp" > 
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/传统Servlet处理流程.png!zp" >
 </div>
 
 传统流程：
@@ -581,7 +581,7 @@ Note：
 - 最后，根据处理的结果提交响应，Servlet 线程结束
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/异步Servlet处理流程.png!zp" > 
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/异步Servlet处理流程.png!zp" >
 </div>
 
 异步处理流程：

@@ -15,7 +15,7 @@
 或者利用`@EnableWebSecurity`注解继承 `WebSecurityConfigurerAdapter` 的类，这样就构成了 *Spring Security* 的配置。
 
 - configure(WebSecurity)：通过重载该方法，可配置Spring Security的Filter链。
--  configure(HttpSecurity)：通过重载该方法，可配置如何通过拦截器保护请求。
+- configure(HttpSecurity)：通过重载该方法，可配置如何通过拦截器保护请求。
 
 ## 参考资料
 

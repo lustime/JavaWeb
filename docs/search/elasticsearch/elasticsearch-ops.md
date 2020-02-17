@@ -14,11 +14,11 @@
 
 （2）运行
 
-运行 `bin/elasticsearch` (Windows 系统上运行 `bin\elasticsearch.bat` ) 
+运行 `bin/elasticsearch` (Windows 系统上运行 `bin\elasticsearch.bat` )
 
 （3）访问
 
-执行 `curl http://localhost:9200/`  测试服务是否启动
+执行 `curl http://localhost:9200/` 测试服务是否启动
 
 ### 集群规划
 
@@ -39,14 +39,14 @@ ElasticSearch 集群需要根据业务实际情况去合理规划。
 
 ## ES 配置
 
-ES 的默认配置文件为  `config/elasticsearch.yml`
+ES 的默认配置文件为 `config/elasticsearch.yml`
 
 基本配置说明如下：
 
 ```yml
 cluster.name: elasticsearch
 #配置es的集群名称，默认是elasticsearch，es会自动发现在同一网段下的es，如果在同一网段下有多个集群，就可以用这个属性来区分不同的集群。
-node.name: "Franz Kafka"
+node.name: 'Franz Kafka'
 #节点名，默认随机指定一个name列表中名字，该列表在es的jar包中config文件夹里name.txt文件中，其中有很多作者添加的有趣名字。
 node.master: true
 #指定该节点是否有资格被选举成为node，默认是true，es是默认集群中的第一台机器为master，如果这台机挂了就会重新选举master。
@@ -107,7 +107,7 @@ discovery.zen.ping.timeout: 3s
 #设置集群中自动发现其它节点时ping连接超时时间，默认为3秒，对于比较差的网络环境可以高点的值来防止自动发现时出错。
 discovery.zen.ping.multicast.enabled: false
 #设置是否打开多播发现节点，默认是true。
-discovery.zen.ping.unicast.hosts: ["host1", "host2:port", "host3[portX-portY]"]
+discovery.zen.ping.unicast.hosts: ['host1', 'host2:port', 'host3[portX-portY]']
 #设置集群中master节点的初始列表，可以通过这些节点来自动发现新加入集群的节点。
 ```
 
@@ -204,5 +204,5 @@ echo "* hard nproc 4096" > /etc/security/limits.conf
 - [Elasticsearch 官网](https://www.elastic.co/cn/products/elasticsearch)
 - [Elasticsearch Github](https://github.com/elastic/elasticsearch)
 - [Elasticsearch 官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
-- [Install Elasticsearch with RPM]( https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#rpm)
-- [Elasticsearch使用积累](http://siye1982.github.io/2015/09/17/es-optimize/)
+- [Install Elasticsearch with RPM](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#rpm)
+- [Elasticsearch 使用积累](http://siye1982.github.io/2015/09/17/es-optimize/)

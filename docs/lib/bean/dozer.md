@@ -64,7 +64,7 @@
 
 Dozer 有插件可以在 Eclipse 中使用(不知道是否好用，反正我没用过)
 
-插件地址: http://dozer.sourceforge.net/eclipse-plugin
+插件地址: <http://dozer.sourceforge.net/eclipse-plugin>
 
 ## 使用
 
@@ -120,7 +120,7 @@ DestinationObject destObject =
 
 所以，你需要一些配置来告诉 Dozer 应该转换什么，怎么转换。
 
-**_注：官网着重建议：在现实应用中，最好不要每次映射对象时都创建一个`Mapper`实例来工作，这样会产生不必要的开销。如果你不使用 IoC 容器（如：spring）来管理你的项目，那么，最好将`Mapper`定义为单例模式。_**
+***注：官网着重建议：在现实应用中，最好不要每次映射对象时都创建一个`Mapper`实例来工作，这样会产生不必要的开销。如果你不使用 IoC 容器（如：spring）来管理你的项目，那么，最好将`Mapper`定义为单例模式。***
 
 #### 映射配置文件
 
@@ -269,7 +269,7 @@ Dozer 可以自动做数据类型转换。当前，Dozer 支持以下数据类�
 
   字符串和支持 Date/Calendar 的对象
 
-- **Objects containing a toString() method that produces a long representing time in (ms) to any supported Date/Calendar object. **
+- **Objects containing a toString() method that produces a long representing time in (ms) to any supported Date/Calendar object.**
 
   如果一个对象的 toString()方法返回的是一个代表 long 型的时间数值（单位：ms），就可以和任何支持 Date/Calendar 的对象转换。
 
@@ -340,13 +340,13 @@ public class TargetBean {
 ```java
 @Test
 public void testAnnotationMapping() {
-	SourceBean src = new SourceBean();
-	src.setId(7L);
-	src.setName("邦德");
-	src.setData("00000111");
+ SourceBean src = new SourceBean();
+ src.setId(7L);
+ src.setName("邦德");
+ src.setData("00000111");
 
-	TargetBean desc = mapper.map(src, TargetBean.class);
-	Assert.assertNotNull(desc);
+ TargetBean desc = mapper.map(src, TargetBean.class);
+ Assert.assertNotNull(desc);
 }
 ```
 
@@ -515,7 +515,7 @@ Source.java
 
 ```java
 public class Source {
-	private long id;
+ private long id;
     private String info;
 }
 ```
@@ -524,14 +524,14 @@ Dest.java
 
 ```java
 public class Dest {
-	private long id;
+ private long id;
     private Info info;
 }
 ```
 
 ```java
 public class Info {
-	private String content;
+ private String content;
 }
 ```
 
@@ -567,7 +567,7 @@ field-exclude 可以排除不需要映射的属性。
 
 #### 单向映射(One-Way Mapping)
 
-**_注：本文的映射方式，无特殊说明，都是双向映射的。_**
+***注：本文的映射方式，无特殊说明，都是双向映射的。***
 
 有的场景可能希望转换过程不可逆，即单向转换。
 

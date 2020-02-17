@@ -1,14 +1,3 @@
----
-title: Shiro
-date: 2018-06-13
-categories:
-  - security
-tags:
-  - java
-  - security
-  - shiro
----
-
 # Shiro 应用指南
 
 > Shiro 是一个安全框架，具有认证、授权、加密、会话管理功能。
