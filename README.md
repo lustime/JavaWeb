@@ -9,6 +9,7 @@
 </p>
 
 <h1 align="center">JAVATECH</h1>
+
 > ☕ **javatech** 汇总了 Java 开发中常见的主流技术的应用、特性、原理。
 >
 > - 🔁 项目同步维护：[Github](https://github.com/dunwu/javatech/) | [Gitee](https://gitee.com/turnon/javatech/)
@@ -49,9 +50,13 @@
 
 ## 微服务
 
-- [Dubbo](docs/soa/dubbo.md)
-- Spring Cloud
-- [ZooKeeper](docs/soa/zookeeper)
+- RPC
+  - [Dubbo](docs/soa/dubbo.md)
+  - Spring Cloud
+- 分布式协调
+  - [ZooKeeper](docs/soa/zookeeper)
+- 通信
+  - [Netty](docs/soa/netty.md)
 - Eureka
 - Consul
 - Nacos

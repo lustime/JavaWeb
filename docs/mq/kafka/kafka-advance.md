@@ -2,35 +2,7 @@
 
 > Kafka 是一个分布式的、可水平扩展的、基于发布/订阅模式的、支持容错的消息系统。
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [1. 生产者详细流程](#1-生产者详细流程)
-- [2. 消费者详细流程](#2-消费者详细流程)
-  - [2.1. 消费者和消费者群组](#21-消费者和消费者群组)
-  - [2.2. 提交偏移量](#22-提交偏移量)
-  - [2.3. 从指定偏移量获取数据](#23-从指定偏移量获取数据)
-- [3. 幂等性](#3-幂等性)
-  - [3.1. PID 和 Sequence Number](#31-pid-和-sequence-number)
-  - [3.2. 生成 PID 的流程](#32-生成-pid-的流程)
-  - [3.3. 幂等性的应用实例](#33-幂等性的应用实例)
-- [4. Kafka 事务](#4-kafka-事务)
-  - [4.1. 事务属性](#41-事务属性)
-  - [4.2. 引入事务目的](#42-引入事务目的)
-  - [4.3. 事务操作的 API](#43-事务操作的-api)
-  - [4.4. 事务属性的应用实例](#44-事务属性的应用实例)
-  - [4.5. 生产者事务的实现](#45-生产者事务的实现)
-- [5. 流处理](#5-流处理)
-  - [5.1. 无状态处理](#51-无状态处理)
-  - [5.2. 有状态处理](#52-有状态处理)
-- [6. Zookeeper](#6-zookeeper)
-  - [6.1. 节点信息](#61-节点信息)
-  - [6.2. zookeeper 一些总结](#62-zookeeper-一些总结)
-- [7. 参考资料](#7-参考资料)
-- [8. 扩展阅读](#8-扩展阅读)
-
-<!-- /TOC -->
-
-## 1. 生产者详细流程
+## 生产者详细流程
 
 Kafka 生产者发送消息流程如下图，需要注意的有：
 
@@ -52,9 +24,9 @@ Kafka 生产者发送消息流程如下图，需要注意的有：
 <img src="http://upload-images.jianshu.io/upload_images/3101171-3d7aab3ba2ba13f8.png" />
 </div>
 
-## 2. 消费者详细流程
+## 消费者详细流程
 
-### 2.1. 消费者和消费者群组
+### 消费者和消费者群组
 
 #### 消费者介绍
 
@@ -113,7 +85,7 @@ poll 处了获取消息外，还有其他作用，如下：
 
 - 发送心跳信息。消费者通过向被指派为群组协调器的 broker 发送心跳来维护他和群组的从属关系，当机器宕掉后，群组协调器触发再分配
 
-### 2.2. 提交偏移量
+### 提交偏移量
 
 #### 偏移量和提交
 
@@ -276,7 +248,7 @@ public void customerMessageWithSyncAndAsyncCommit(String topic) {
 }
 ```
 
-### 2.3. 从指定偏移量获取数据
+### 从指定偏移量获取数据
 
 我们读取消息是通过 poll 方法。它根据消费者客户端本地保存的当前偏移量来获取消息。如果我们需要从指定偏移量位置获取数据，此时就需要修改这个值为我们想要读取消息开始的地方，目前有如下三个方法：
 
@@ -308,11 +280,11 @@ public void customerMessageWithSyncAndAsyncCommit(String topic) {
     }
 ```
 
-## 3. 幂等性
+## 幂等性
 
 幂等性引入目的：解决生产者重复生产消息。生产者进行 retry 会产生重试时，会重复产生消息。有了幂等性之后，在进行 retry 重试时，只会生成一个消息。
 
-### 3.1. PID 和 Sequence Number
+### PID 和 Sequence Number
 
 为了实现 Producer 的幂等性，Kafka 引入了 Producer ID（即 PID）和 Sequence Number。
 
@@ -326,7 +298,7 @@ Broker 端在缓存中保存了这 seq number，对于接收的每条消息，�
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/2.png)
 
-### 3.2. 生成 PID 的流程
+### 生成 PID 的流程
 
 在执行创建事务时，如下：
 
@@ -352,7 +324,7 @@ void run(long now) {
                    ........
 ```
 
-### 3.3. 幂等性的应用实例
+### 幂等性的应用实例
 
 （1）配置属性
 
@@ -423,9 +395,9 @@ Exception in thread “main” java.lang.IllegalStateException: Transactional me
     at org.apache.kafka.clients.producer.KafkaProducer.initTransactions(KafkaProducer.java:544)
 ```
 
-## 4. 事务
+## 事务
 
-### 4.1. 事务属性
+### 事务属性
 
 事务属性是 2017 年 Kafka 0.11.0.0 引入的新特性。类似于数据库事务，只是这里的数据源是 Kafka。
 
@@ -447,7 +419,7 @@ void  kakfa_in_tranction() {
 }
 ```
 
-### 4.2. 引入事务目的
+### 引入事务目的
 
 在事务属性之前先引入了生产者幂等性，它的作用为：
 
@@ -456,7 +428,7 @@ void  kakfa_in_tranction() {
 
 **消费者提交偏移量导致重复消费消息的场景**：消费者在消费消息完成提交便宜量 o2 之前挂掉了（假设它最近提交的偏移量是 o1），此时执行再均衡时，其它消费者会重复消费消息(o1 到 o2 之间的消息）。
 
-### 4.3. 事务操作的 API
+### 事务操作的 API
 
 `Producer` 提供了 `initTransactions`, `beginTransaction`, `sendOffsets`, `commitTransaction`, `abortTransaction` 五个事务方法。
 
@@ -498,7 +470,7 @@ void  kakfa_in_tranction() {
     public void abortTransaction() throws ProducerFencedException ;
 ```
 
-### 4.4. 事务属性的应用实例
+### 事务属性的应用实例
 
 在一个原子操作中，根据包含的操作类型，可以分为三种情：
 
@@ -756,7 +728,7 @@ public void onlyConsumeInTransaction() {
 }
 ```
 
-### 4.5. 生产者事务的实现
+### 生产者事务的实现
 
 #### 相关配置
 
@@ -782,7 +754,7 @@ public void onlyConsumeInTransaction() {
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/3-1.png)
 
-同一份代码运行两个实例，分步执行如下：*在实例 1 没有进行提交事务前，开始执行实例 2 的初始化事务*
+同一份代码运行两个实例，分步执行如下：_在实例 1 没有进行提交事务前，开始执行实例 2 的初始化事务_
 
 ![img](http://www.heartthinkdo.com/wp-content/uploads/2018/05/4-1-1024x458.png)
 
@@ -811,7 +783,7 @@ org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an op
 
 #### 事务最佳实践-单实例的事务性
 
-通过上面实例中可以看到 kafka 是跨 Session 的数据幂等发送，即如果应用部署多个实例时常会遇到上面的问题“*org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an operation with an old epoch. Either there is a newer producer with the same transactionalId, or the producer’s transaction has been expired by the broker*.”，必须保证这些实例生产者的提交事务顺序和创建顺序保持一致才可以，否则就无法成功。其实，在实践中，我们更多的是**如何实现对应用单实例的事务性**。可以通过 spring-kafaka 实现思路来学习，即**每次创建生产者都设置一个不同的 transactionId 的值**，如下代码：
+通过上面实例中可以看到 kafka 是跨 Session 的数据幂等发送，即如果应用部署多个实例时常会遇到上面的问题“_org.apache.kafka.common.errors.ProducerFencedException: Producer attempted an operation with an old epoch. Either there is a newer producer with the same transactionalId, or the producer’s transaction has been expired by the broker_.”，必须保证这些实例生产者的提交事务顺序和创建顺序保持一致才可以，否则就无法成功。其实，在实践中，我们更多的是**如何实现对应用单实例的事务性**。可以通过 spring-kafaka 实现思路来学习，即**每次创建生产者都设置一个不同的 transactionId 的值**，如下代码：
 
 在 spring-kafka 中，对于一个线程创建一个 producer，事务提交之后，还会关闭这个 producer 并清除，后续同一个线程或者新的线程重新执行事务时，此时就会重新创建 producer。
 
@@ -1143,7 +1115,7 @@ Broker 在缓存中维护了所有处于运行状态的事务对应的 initial o
 
 对于事务消息，必须是执行 commit 或者 abstort 之后，消息才对消费者可见，即使是非事务的消费者。只是非事务消费者相比事务消费者区别，在于可以读取执行了 absort 的消息。
 
-## 5. 流处理
+## 流处理
 
 在 Kafka 中，流处理器是任何需要从输入主题中持续输入数据流，对该输入执行一些处理并生成输出主题的数据流（或外部服务，数据库，垃圾桶，无论哪里真的......）
 
@@ -1155,7 +1127,7 @@ Broker 在缓存中维护了所有处于运行状态的事务对应的 initial o
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-stream-processor.png!zp" width="640"/>
 </div>
 
-### 5.1. 无状态处理
+### 无状态处理
 
 流的无状态处理是确定性处理，不依赖于任何外部。你知道，对于任何给定的数据，你将总是产生独立于其他任何东西的相同输出。
 
@@ -1177,7 +1149,7 @@ Kafka 流可以用同样的方式解释 - 当从最终状态积累时的事件�
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-table-as-stream.png!zp" width="640"/>
 </div>
 
-### 5.2. 有状态处理
+### 有状态处理
 
 一些简单的操作，如 map() 或 filter() 是无状态的，并且不要求您保留有关处理的任何数据。但是，在现实生活中，你要做的大多数操作都是有状态的（例如 count()），因此需要存储当前的累积状态。
 
@@ -1197,9 +1169,9 @@ Kafka 流可以用同样的方式解释 - 当从最终状态积累时的事件�
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-stateful-process.png!zp" width="640"/>
 </div>
 
-## 6. Zookeeper
+## Zookeeper
 
-### 6.1. 节点信息
+### 节点信息
 
 Kafka 会将节点信息和节点状态保存在 ZooKeeper，但不会保存消息。
 
@@ -1495,7 +1467,7 @@ Topic Configuration
 }
 ```
 
-### 6.2. zookeeper 一些总结
+### zookeeper 一些总结
 
 离开了 Zookeeper, Kafka 不能对 Topic 进行新增操作, 但是仍然可以 produce 和 consume 消息.
 
@@ -1535,7 +1507,7 @@ Topic Configuration
 
 - Kafka 幂等性 保证了消息不会重复生产。
 
-## 7. 参考资料
+## 参考资料
 
 - **官方资料**
   - [Github](https://github.com/apache/kafka)
@@ -1546,8 +1518,4 @@ Topic Configuration
   - [Kafka 剖析（一）：Kafka 背景及架构介绍](http://www.infoq.com/cn/articles/kafka-analysis-part-1)
   - [Thorough Introduction to Apache Kafka](https://hackernoon.com/thorough-introduction-to-apache-kafka-6fbf2989bbc1)
   - [Kafak(04) Kafka 生产者事务和幂等](http://www.heartthinkdo.com/?p=2040#43)
-  - <https://cwiki.apache.org/confluence/display/KAFKA/Kafka+data+structures+in+Zookeeper>
-
-## 8. 扩展阅读
-
-- [分布式基本原理](../../theory/mq-theory.md)
+  - [https://cwiki.apache.org/confluence/display/KAFKA/Kafka+data+structures+in+Zookeeper](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+data+structures+in+Zookeeper)

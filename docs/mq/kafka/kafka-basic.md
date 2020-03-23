@@ -2,43 +2,19 @@
 
 > **Kafka 用于构建实时数据管道和流应用。它具有水平可伸缩性，容错性，快速快速性**。
 
-<!-- TOC depthFrom:2 depthTo:3 -->
+## 简介
 
-- [1. 简介](#1-简介)
-  - [1.1. 什么是 Kafka](#11-什么是-kafka)
-  - [1.2. Kafka 核心功能](#12-kafka-核心功能)
-  - [1.3. Kafka 适用场景](#13-kafka-适用场景)
-  - [1.4. Kafka 的特性](#14-kafka-的特性)
-  - [1.5. 核心 API](#15-核心-api)
-  - [1.6. 核心概念](#16-核心概念)
-- [2. 基本工作流程](#2-基本工作流程)
-- [3. 持久化](#3-持久化)
-- [4. 复制](#4-复制)
-  - [4.1. Leader 和 Follower](#41-leader-和-follower)
-  - [4.2. 选举 Leader](#42-选举-leader)
-- [5. Client API](#5-client-api)
-  - [5.1. 引入依赖](#51-引入依赖)
-  - [5.2. 发送消息](#52-发送消息)
-  - [5.3. 消费消息流程](#53-消费消息流程)
-- [6. 运维](#6-运维)
-- [7. 参考资料](#7-参考资料)
-- [8. 扩展阅读](#8-扩展阅读)
-
-<!-- /TOC -->
-
-## 1. 简介
-
-### 1.1. 什么是 Kafka
+### 什么是 Kafka
 
 Kafka 用于构建实时数据管道和流应用。它具有水平可伸缩性，容错性，快速快速性。
 
-### 1.2. Kafka 核心功能
+### Kafka 核心功能
 
 - **发布 / 订阅** - 发布 / 订阅类似于一个消息系统，读写流式的数据
 - **流处理** - 编写可扩展的流处理应用，用于实时事件响应
 - **存储** - 将流式数据存储在一个分布式、有副本的集群中
 
-### 1.3. Kafka 适用场景
+### Kafka 适用场景
 
 Kafka 适用于两种场景:
 
@@ -51,7 +27,7 @@ Kafka 允许您将大量消息通过集中介质存储并存储，而不用担�
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-event-system.png" width="640"/>
 </div>
 
-### 1.4. Kafka 的特性
+### Kafka 的特性
 
 Kafka 具有如下特性：
 
@@ -59,7 +35,7 @@ Kafka 具有如下特性：
 - **高性能** - 通过横向扩展生产者、消费者(通过消费者群组实现)和 Broker（通过扩展实现系统伸缩性）可以轻松处理巨大的消息流。
 - **消息持久化** - Kafka 将所有的消息存储到磁盘，并在结构中对它们进行排序，以便利用顺序磁盘读取，所以消息不会丢失。
 
-### 1.5. 核心 API
+### 核心 API
 
 Kafka 有 4 个核心 API
 
@@ -72,7 +48,7 @@ Kafka 有 4 个核心 API
 - [Streams API](https://kafka.apache.org/documentation/streams) - 允许一个应用程序作为一个流处理器，消费一个或者多个 Kafka Topic 产生的输入流，然后生产一个输出流到一个或多个 Kafka Topic 中去，在输入输出流中进行有效的转换。
 - [Connector API](https://kafka.apache.org/documentation.html#connect) - 允许构建并运行可重用的生产者或者消费者，将 Kafka Topic 连接到已存在的应用程序或数据库。例如，连接到一个关系型数据库，捕捉表的所有变更内容。
 
-### 1.6. 核心概念
+### 核心概念
 
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-cluster-roles.png!zp" />
@@ -99,7 +75,7 @@ Kafka 有 4 个核心 API
 
 - **Consumer Group** - 每个 Consumer 属于一个特定的 Consumer Group（可以为每个 Consumer 指定 group name，若不指定 Group 则属于默认的 Group）。**在同一个 Group 中，每一个 Consumer 可以消费多个 Partition，但是一个 Partition 只能指定给一个这个 Group 中一个 Consumer**。
 
-## 2. 基本工作流程
+## 基本工作流程
 
 Kafka 通过 Topic 对存储的流数据进行分类。
 
@@ -130,7 +106,7 @@ Topic 就是数据主题，是数据记录发布的地方，可以用来区分�
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-producer-consumer.png!zp" width="640"/>
 </div>
 
-## 3. 持久化
+## 持久化
 
 在基本工作流程中提到了：**Kafka 集群持久化保存（使用可配置的保留期限）所有发布记录——无论它们是否被消费**。Kafka 是如何实现持久化的呢？
 
@@ -145,9 +121,9 @@ Topic 就是数据主题，是数据记录发布的地方，可以用来区分�
 
 所有这些优化都允许 Kafka 以接近网络速度传递消息。
 
-## 4. 复制
+## 复制
 
-### 4.1. Leader 和 Follower
+### Leader 和 Follower
 
 Kafka 集群是典型的**一主多从模式**。
 
@@ -166,7 +142,7 @@ Kafka 在 0.8 以前的版本中，如果一个 Broker 机器宕机了，其上�
 <img src="http://upload-images.jianshu.io/upload_images/3101171-371ef1888b65edc9.png" />
 </div>
 
-### 4.2. 选举 Leader
+### 选举 Leader
 
 由上文可知，Partition 在多个 Broker 上存在副本。
 
@@ -190,9 +166,9 @@ Kafka 将这种元数据存储在 Zookeeper 服务中。
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-metadata-flow.png!zp" width="640"/>
 </div>
 
-## 5. Client API
+## Client API
 
-### 5.1. 引入依赖
+### 引入依赖
 
 Stream API 的 maven 依赖：
 
@@ -214,7 +190,7 @@ Stream API 的 maven 依赖：
 </dependency>
 ```
 
-### 5.2. 发送消息
+### 发送消息
 
 #### 发送并忽略返回
 
@@ -318,7 +294,7 @@ public class ProducerDemo {
 }
 ```
 
-### 5.3. 消费消息流程
+### 消费消息流程
 
 #### 消费流程
 
@@ -429,11 +405,11 @@ public void consumeMessageForIndependentConsumer(String topic){
 }
 ```
 
-## 6. 运维
+## 运维
 
 > 安装、配置、命令可以参考：[Kafka 运维指南](kafka-ops.md)
 
-## 7. 参考资料
+## 参考资料
 
 - **官方资料**
   - [Github](https://github.com/apache/kafka)
@@ -448,6 +424,6 @@ public void consumeMessageForIndependentConsumer(String topic){
   - [Kafak(04) Kafka 生产者事务和幂等](http://www.heartthinkdo.com/?p=2040#43)
   - <https://cwiki.apache.org/confluence/display/KAFKA/Kafka+data+structures+in+Zookeeper>
 
-## 8. 扩展阅读
+## 扩展阅读
 
 - [分布式基本原理](../../theory/mq-theory.md)
