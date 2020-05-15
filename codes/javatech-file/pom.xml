@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.github.dunwu</groupId>
+    <artifactId>dunwu-parent</artifactId>
+    <version>0.5.7</version>
+  </parent>
+
+  <groupId>io.github.dunwu.javatech</groupId>
+  <artifactId>javatech-file</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>Java 处理文件</name>
+
+  <properties>
+    <poi.version>4.0.0</poi.version>
+  </properties>
+
+  <dependencies>
+    <!-- OFFICE BEGIN -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>${poi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>${poi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-scratchpad</artifactId>
+      <version>${poi.version}</version>
+    </dependency>
+    <!-- OFFICE END -->
+
+    <dependency>
+      <groupId>io.github.biezhi</groupId>
+      <artifactId>TinyPinyin</artifactId>
+      <version>2.0.3.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

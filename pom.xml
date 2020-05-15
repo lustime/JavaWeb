@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.github.dunwu.javatech</groupId>
+  <groupId>io.github.dunwu.javatech</groupId>
   <artifactId>javatech</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>JAVATECH</name>
   <description>Java 技术示例源码</description>
 
-	<modules>
-		<module>codes/java-ecology</module>
-	</modules>
+  <modules>
+    <module>codes/javatech-io</module>
+    <module>codes/javatech-log</module>
+    <module>codes/javatech-mq</module>
+    <module>codes/javatech-server</module>
+    <module>codes/javatech-test</module>
+    <module>codes/javatech-file</module>
+    <module>codes/javatech-others</module>
+  </modules>
 </project>

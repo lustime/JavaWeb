@@ -111,7 +111,7 @@ currentUser.logout();
 
 ### 认证流程
 
-![](http://dunwu.test.upcdn.net/snap/20200317092427.png)
+![img](http://dunwu.test.upcdn.net/snap/20200317092427.png)
 
 1. 应用程序代码调用 `Subject.login` 方法，传入构造的 `AuthenticationToken` 实例，该实例代表最终用户的 `Principals` 和 `Credentials`。
 
@@ -265,7 +265,7 @@ public void updateAccount(Account userAccount) {
 
 ### 授权流程
 
-![](http://dunwu.test.upcdn.net/snap/20200317092618.png)
+![img](http://dunwu.test.upcdn.net/snap/20200317092618.png)
 
 1. 应用程序或框架代码调用任何 `Subject` 的 `hasRole*`，`checkRole*`，`isPermitted*` 或 `checkPermission*` 方法，并传入所需的权限或角色。
 
