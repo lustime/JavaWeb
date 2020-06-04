@@ -9,31 +9,7 @@ date: 2019-03-06
 
 > MyBatis 的前身就是 iBatis ，是一个作用在数据持久层的对象关系映射（Object Relational Mapping，简称 ORM）框架。
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [Mybatis 简介](#mybatis-简介)
-  - [什么是 MyBatis](#什么是-mybatis)
-  - [MyBatis vs. Hibernate](#mybatis-vs-hibernate)
-- [快速入门](#快速入门)
-- [Mybatis 核心 API](#mybatis-核心-api)
-  - [SqlSessionFactoryBuilder](#sqlsessionfactorybuilder)
-  - [SqlSessionFactory](#sqlsessionfactory)
-  - [SqlSession](#sqlsession)
-  - [映射器](#映射器)
-- [Mybatis 原理](#mybatis-原理)
-  - [MyBatis 的架构](#mybatis-的架构)
-  - [接口层](#接口层)
-  - [数据处理层](#数据处理层)
-  - [框架支撑层](#框架支撑层)
-  - [引导层](#引导层)
-  - [主要组件](#主要组件)
-- [Mybatis 配置](#mybatis-配置)
-- [SQL XML 映射文件](#sql-xml-映射文件)
-- [参考资料](#参考资料)
-
-<!-- /TOC -->
-
-## Mybatis 简介
+## 一、Mybatis 简介
 
 ### 什么是 MyBatis
 
@@ -55,11 +31,11 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 - Hibernate 数据库移植性很好，MyBatis 的数据库移植性不好，不同的数据库需要写不同 SQL。
 - Hibernate 有更好的二级缓存机制，可以使用第三方缓存。MyBatis 本身提供的缓存机制不佳。
 
-## 快速入门
+## 二、快速入门
 
 > [Mybatis 官方文档之入门](http://www.mybatis.org/mybatis-3/zh/getting-started.html) 已经写得很简洁易懂，不再赘述。
 
-## Mybatis 核心 API
+## 三、Mybatis 核心 API
 
 > 核心 API 请参考：「 [Mybatis 官方文档之 Java API](http://www.mybatis.org/mybatis-3/zh/java-api.html) 」
 
@@ -175,7 +151,7 @@ Mybatis 支持诸如 @Insert、@Update、@Delete、@Select、@Result 等注解�
 
 > 详细内容请参考：[Mybatis 官方文档之 sqlSessions](http://www.mybatis.org/mybatis-3/zh/java-api.html#sqlSessions)，其中列举了 Mybatis 支持的注解清单，以及基本用法。
 
-## Mybatis 原理
+## 四、Mybatis 原理
 
 ### MyBatis 的架构
 
@@ -302,7 +278,7 @@ MyBatis 将数据缓存设计成两级结构，分为一级缓存、二级缓存
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybaits流程图2.png!zp">
 </div>
-## Mybatis 配置
+## 五、Mybatis 配置
 
 > 配置的详细内容请参考：「 [Mybatis 官方文档之配置](http://www.mybatis.org/mybatis-3/zh/configuration.html) 」 。
 
@@ -321,7 +297,7 @@ MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性
 - [databaseIdProvider（数据库厂商标识）](http://www.mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider)
 - [mappers（映射器）](http://www.mybatis.org/mybatis-3/zh/configuration.html#mappers)
 
-## SQL XML 映射文件
+## 六、SQL XML 映射文件
 
 > SQL XML 映射文件详细内容请参考：「 [Mybatis 官方文档之 XML 映射文件](http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html) 」。
 
