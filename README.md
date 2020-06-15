@@ -37,7 +37,7 @@
 >
 > 消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。
 >
-> 如果想深入学习各种消息队列产品，建议先了解一下 [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/distributed/mq-theory.md) ，有助于理解消息队列特性的实现和设计思路。
+> 如果想深入学习各种消息队列产品，建议先了解一下 [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/mq-theory.md) ，有助于理解消息队列特性的实现和设计思路。
 
 - [消息队列面试题](docs/mq/mq-interview.md) 💯
 - [Kafka](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/kafka) 📚
@@ -48,7 +48,7 @@
 
 > 缓存可以说是优化系统性能的第一手段，在各种技术中都会有缓存的应用。
 >
-> 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/distributed/cache-theory.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
+> 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache-theory.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
 
 - [缓存面试题](docs/cache/cache-interview.md) 💯
 - **分布式缓存**

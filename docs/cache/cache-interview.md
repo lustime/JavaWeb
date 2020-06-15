@@ -377,7 +377,7 @@ Redis 的高可用是通过哨兵来实现（Raft 协议的 Redis 实现）。Se
 
 由一个或多个 Sentinel 实例组成的 Sentinel 系统可以监视任意多个主服务器，以及这些主服务器的所有从服务器，并在被监视的主服务器进入下线状态时，自动将下线主服务器的某个从服务器升级为新的主服务器，然后由新的主服务器代替已下线的主服务器继续处理命令请求。
 
-![img](https://raw.githubusercontent.com/dunwu/images/master/snap/20200131135847.png)
+![img](http://dunwu.test.upcdn.net/snap/20200131135847.png)
 
 更详细的特性及原理说明请参考：[Redis 哨兵](https://github.com/dunwu/db-tutorial/blob/master/docs/nosql/redis/redis-sentinel.md)
 
