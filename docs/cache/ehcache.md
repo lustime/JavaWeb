@@ -1,33 +1,90 @@
-# Ehcache
+# Ehcache 应用指南
 
 > EhCache 是一个纯 Java 的进程内缓存框架，具有快速、精干等特点，是 Hibernate 中默认的 CacheProvider。
 
 ![img](http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/ehcache-architecture.png)
 
-## 特点
+<!-- TOC depthFrom:2 depthTo:3 -->
 
-- 优点
-  - 快速
-  - 简单
-  - 缓存数据有两级：内存和磁盘，因此无需担心容量问题
-  - 缓存数据会在虚拟机重启的过程中写入磁盘
-  - 可以通过 RMI、可插入 API 等方式进行分布式缓存
-  - 具有缓存和缓存管理器的侦听接口
-  - 支持多缓存管理器实例，以及一个实例的多个缓存区域
-  - 提供 Hibernate 的缓存实现
-  - 多种缓存策略，Ehcache 提供了对大数据的内存和硬盘的存储，最近版本允许多实例、保存对象高灵活性、提供 LRU、LFU、FIFO 淘汰算法，基础属性支持热配置、支持的插件多
-- 缺点
-  - 使用磁盘 Cache 的时候非常占用磁盘空间
-  - 不保证数据的安全
-  - 虽然支持分布式缓存，但效率不高（通过组播方式，在不同节点之间同步数据）。
-- 综论
-  - Ehcache 适合作为单机的内存缓存使用，但不建议将其作为分布式缓存。
+- [一、简介](#一简介)
+  - [Ehcache 特性](#ehcache-特性)
+  - [Ehcache 集群](#ehcache-集群)
+- [二、快速入门](#二快速入门)
+  - [引入 Ehcache](#引入-ehcache)
+  - [添加配置文件](#添加配置文件)
+  - [Ehcache 工作示例](#ehcache-工作示例)
+- [三、Ehcache API](#三ehcache-api)
+  - [创建 CacheManager](#创建-cachemanager)
+  - [添加缓存](#添加缓存)
+  - [删除缓存](#删除缓存)
+  - [基本缓存操作](#基本缓存操作)
+- [四、Ehcache 配置](#四ehcache-配置)
+  - [xml 配置方式](#xml-配置方式)
+  - [API 配置方式](#api-配置方式)
+- [五、Spring 集成 Ehcache](#五spring-集成-ehcache)
+  - [绑定 Ehcache](#绑定-ehcache)
+  - [使用 Spring 的缓存注解](#使用-spring-的缓存注解)
+  - [注解基本使用方法](#注解基本使用方法)
+- [参考资料](#参考资料)
 
-## 快速入门
+<!-- /TOC -->
+
+## 一、简介
+
+> Ehcache 虽然也支持分布式模式，但是分布式方案不是很好好，建议只将其作为单机的进程内缓存使用。
+
+### Ehcache 特性
+
+优点
+
+- 快速、简单
+- 支持多种缓存策略：LRU、LFU、FIFO 淘汰算法
+- 缓存数据有两级：内存和磁盘，因此无需担心容量问题
+- 缓存数据会在虚拟机重启的过程中写入磁盘
+- 可以通过 RMI、可插入 API 等方式进行分布式缓存
+- 具有缓存和缓存管理器的侦听接口
+- 支持多缓存管理器实例，以及一个实例的多个缓存区域
+- 提供 Hibernate 的缓存实现
+
+缺点
+
+- **使用磁盘 Cache 的时候非常占用磁盘空间**
+- **不保证数据的安全**
+- 虽然支持分布式缓存，但效率不高（通过组播方式，在不同节点之间同步数据）。
+
+### Ehcache 集群
+
+Ehcache 目前支持五种集群方式：
+
+- RMI
+- JMS
+- JGroup
+- Terracotta
+- Ehcache Server
+
+#### RMI
+
+使用组播方式通知所有节点同步数据。
+
+如果网络有问题，或某台服务宕机，则存在数据无法同步的可能，导致数据不一致。
+
+![Ehcache Image](https://www.ehcache.org/images/documentation/rmi_replication.png)
+
+#### JMS
+
+JMS 类似 MQ，所有节点订阅消息，当某节点缓存发生变化，就向 JMS 发消息，其他节点感知变化后，同步数据。
+
+![Ehcache Image](https://www.ehcache.org/images/documentation/jms_replication.png)
+
+#### Cache Server
+
+![Ehcache Image](https://www.ehcache.org/images/documentation/loadbalancer_hashing.png)
+
+## 二、快速入门
 
 ### 引入 Ehcache
 
-如果你的项目使用 maven 管理，添加以下依赖到你的*pom.xml*中。
+如果你的项目使用 maven 管理，添加以下依赖到你的 pom.xml 中。
 
 ```xml
 <dependency>
@@ -54,11 +111,10 @@ Spring 提供了对于 Ehcache 接口的封装，可以更简便的使用其功�
 </dependency>
 ```
 
-### HelloWorld 范例
+### 添加配置文件
 
-接触一种技术最快最直接的途径总是一个 Hello World 例子，毕竟动手实践印象更深刻，不是吗？
 （1）在 classpath 下添加 `ehcache.xml`
-添加一个名为 *helloworld* 的缓存。
+添加一个名为 _helloworld_ 的缓存。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -89,13 +145,16 @@ Spring 提供了对于 Ehcache 接口的封装，可以更简便的使用其功�
 </ehcache>
 ```
 
-（2）EhcacheDemo.java
-Ehcache 会自动加载 classpath 根目录下名为*ehcache.xml*文件。
+### Ehcache 工作示例
+
+Ehcache 会自动加载 `classpath` 根目录下名为 `ehcache.xml` 文件。
+
 EhcacheDemo 的工作步骤如下：
-在 EhcacheDemo 中，我们引用*ehcache.xml*声明的名为*helloworld*的缓存来创建`Cache`对象；
-然后我们用一个键值对来实例化`Element`对象；
-将`Element`对象添加到`Cache`；
-然后用`Cache`的 get 方法获取`Element`对象。
+
+1. 在 EhcacheDemo 中，我们引用 `ehcache.xml` 声明的名为 _helloworld_ 的缓存来创建`Cache`对象；
+2. 然后我们用一个键值对来实例化`Element`对象；
+3. 将`Element`对象添加到`Cache`；
+4. 然后用`Cache`的 get 方法获取`Element`对象。
 
 ```java
 public class EhcacheDemo {
@@ -130,7 +189,7 @@ public class EhcacheDemo {
 Hello, World!
 ```
 
-### Ehcache 基本操作
+## 三、Ehcache API
 
 `Element`、`Cache`、`CacheManager`是 Ehcache 最重要的 API。
 
@@ -138,11 +197,14 @@ Hello, World!
 - `Cache` - 它是 Ehcache 的核心类，它有多个`Element`，并被`CacheManager`管理。它实现了对缓存的逻辑行为。
 - `CacheManager` - `Cache`的容器对象，并管理着`Cache`的生命周期。CacheManager 支持两种创建模式：单例（Singleton mode）和实例（InstanceMode）。
 
-#### 创建 CacheManager
+### 创建 CacheManager
 
-下面的代码列举了创建`CacheManager`的五种方式。
+下面的代码列举了创建 `CacheManager` 的五种方式。
+
 使用静态方法`create()`会以默认配置来创建单例的`CacheManager`实例。
+
 `newInstance()`方法是一个工厂方法，以默认配置创建一个新的`CacheManager`实例。
+
 此外，`newInstance()`还有几个重载函数，分别可以通过传入`String`、`URL`、`InputStream`参数来加载配置文件，然后创建`CacheManager`实例。
 
 ```java
@@ -174,11 +236,14 @@ try {
 }
 ```
 
-#### 添加缓存
+### 添加缓存
 
-***需要强调一点，`Cache`对象在用`addCache`方法添加到`CacheManager`之前，是无效的。***
+**需要强调一点，`Cache`对象在用`addCache`方法添加到`CacheManager`之前，是无效的。**
+
 使用 CacheManager 的 addCache 方法可以根据缓存名将 ehcache.xml 中声明的 cache 添加到容器中；它也可以直接将 Cache 对象添加到缓存容器中。
+
 `Cache`有多个构造函数，提供了不同方式去加载缓存的配置参数。
+
 有时候，你可能需要使用 API 来动态的添加缓存，下面的例子就提供了这样的范例。
 
 ```java
@@ -210,7 +275,7 @@ Cache testCache = new Cache(
  manager.addCache(testCache);
 ```
 
-#### 删除缓存
+### 删除缓存
 
 删除缓存比较简单，你只需要将指定的缓存名传入`removeCache`方法即可。
 
@@ -219,9 +284,10 @@ CacheManager singletonManager = CacheManager.create();
 singletonManager.removeCache("sampleCache1");
 ```
 
-### 实现基本缓存操作
+### 基本缓存操作
 
 Cache 最重要的两个方法就是 put 和 get，分别用来添加 Element 和获取 Element。
+
 Cache 还提供了一系列的 get、set 方法来设置或获取缓存参数，这里不一一列举，更多 API 操作可参考[官方 API 开发手册](http://www.ehcache.org/generated/2.10.2/pdf/Ehcache_API_Developer_Guide.pdf)。
 
 ```java
@@ -280,11 +346,13 @@ public class CacheOperationTest {
 }
 ```
 
-### 缓存配置
+## 四、Ehcache 配置
 
-Ehcache 支持通过 xml 文件和 API 两种方式进行配置。
+> Ehcache 支持通过 xml 文件和 API 两种方式进行配置。
+>
+> 详情参考：[Ehcache 官方 XML 配置手册](http://www.ehcache.org/documentation/3.8/xml.html)
 
-#### xml 方式
+### xml 配置方式
 
 Ehcache 的`CacheManager`构造函数或工厂方法被调用时，会默认加载 classpath 下名为*ehcache.xml*的配置文件。如果加载失败，会加载 Ehcache jar 包中的*ehcache-failsafe.xml*文件，这个文件中含有简单的默认配置。
 **ehcache.xml 配置参数说明：**
@@ -303,40 +371,7 @@ Ehcache 的`CacheManager`构造函数或工厂方法被调用时，会默认加�
 - **memoryStoreEvictionPolicy**：当达到 maxElementsInMemory 限制时，Ehcache 将会根据指定的策略去清理内存。默认策略是 LRU（最近最少使用）。你可以设置为 FIFO（先进先出）或是 LFU（较少使用）。
 - **clearOnFlush**：内存数量最大时是否清除。
 
-ehcache.xml 的一个范例
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
-
-  <!-- 磁盘缓存位置 -->
-  <diskStore path="java.io.tmpdir/ehcache"/>
-
-  <!-- 默认缓存 -->
-  <defaultCache
-          maxEntriesLocalHeap="10000"
-          eternal="false"
-          timeToIdleSeconds="120"
-          timeToLiveSeconds="120"
-          maxEntriesLocalDisk="10000000"
-          diskExpiryThreadIntervalSeconds="120"
-          memoryStoreEvictionPolicy="LRU">
-    <persistence strategy="localTempSwap"/>
-  </defaultCache>
-
-  <cache name="userCache"
-         maxElementsInMemory="1000"
-         eternal="false"
-         timeToIdleSeconds="3"
-         timeToLiveSeconds="3"
-         maxEntriesLocalDisk="10000000"
-         overflowToDisk="false"
-         memoryStoreEvictionPolicy="LRU"/>
-</ehcache>
-```
-
-#### API 方式
+### API 配置方式
 
 xml 配置的参数也可以直接通过编程方式来动态的进行配置（dynamicConfig 没有设为 false）。
 
@@ -356,11 +391,13 @@ Cache cache = manager.getCache("sampleCache");
 cache.disableDynamicFeatures();
 ```
 
-## Spring 整合 Ehcache
+## 五、Spring 集成 Ehcache
 
 Spring3.1 开始添加了对缓存的支持。和事务功能的支持方式类似，缓存抽象允许底层使用不同的缓存解决方案来进行整合。
+
 Spring4.1 开始支持 JSR-107 注解。
-***注：我本人使用的 Spring 版本为 4.1.4.RELEASE，目前 Spring 版本仅支持 Ehcache2.5 以上版本，但不支持 Ehcache3。***
+
+> **注：我本人使用的 Spring 版本为 4.1.4.RELEASE，目前 Spring 版本仅支持 Ehcache2.5 以上版本，但不支持 Ehcache3。**
 
 ### 绑定 Ehcache
 
@@ -495,9 +532,11 @@ public class BookRepositoryImpl implements BookRepository {
 
 ## 参考资料
 
-- [Ehcache 官网](http://www.ehcache.org/)
-- [Ehcache Github](https://github.com/ehcache/ehcache3)
-- [Ehcache 优缺点以及分布式详解](https://yq.aliyun.com/articles/72885?utm_campaign=wenzhang&utm_medium=article&utm_source=QQ-qun&2017331&utm_content=m_15513)
-- [Ehcache 详细解读](http://raychase.iteye.com/blog/1545906)
-- [注释驱动的 Spring cache 缓存介绍](http://www.ibm.com/developerworks/cn/opensource/os-cn-spring-cache/)
-- [Spring 官方文档第 36 章缓存抽象](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/)
+- **官方**
+  - [Ehcache 官网](http://www.ehcache.org/)
+  - [Ehcache Github](https://github.com/ehcache/ehcache3)
+- **文章**
+  - [Ehcache 优缺点以及分布式详解](https://yq.aliyun.com/articles/72885?utm_campaign=wenzhang&utm_medium=article&utm_source=QQ-qun&2017331&utm_content=m_15513)
+  - [Ehcache 详细解读](http://raychase.iteye.com/blog/1545906)
+  - [注释驱动的 Spring cache 缓存介绍](http://www.ibm.com/developerworks/cn/opensource/os-cn-spring-cache/)
+  - [Spring 官方文档第 36 章缓存抽象](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/)

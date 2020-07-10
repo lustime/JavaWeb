@@ -48,18 +48,18 @@
 
 > 缓存可以说是优化系统性能的第一手段，在各种技术中都会有缓存的应用。
 >
-> 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache-theory.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
+> 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
+
+![](http://dunwu.test.upcdn.net/snap/20200710163555.png)
 
 - [缓存面试题](docs/cache/cache-interview.md) 💯
-- **分布式缓存**
-  - [Redis](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
-  - Memcached
-- **进程内缓存**
-  - [Ehcache](docs/cache/Ehcache.md)
-  - [Caffeine](docs/cache/Caffeine.md)
-- **多级缓存**
-  - j2cache
-  - jetcache
+- [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)
+- [Java 缓存框架](docs/cache/cache-framework.md) - 关键词：Spring Cache、J2Cache、jetcache
+- [Redis 教程](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
+- Memcached
+- [Java 缓存库](docs/cache/cache-libs.md) - 关键词：ConcurrentHashMap、LRUHashMap、Guava Cache、Caffeine、Ehcache
+- [Ehcache](docs/cache/ehcache.md)
+- [Http 缓存](docs/cache/http-cache.md)
 
 ### 微服务
 
