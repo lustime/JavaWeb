@@ -1,13 +1,32 @@
----
-title: MyBatis 指南
-categories: ["java", "javaweb"]
-tags: ["java", "javaweb", "orm"]
-date: 2019-03-06
----
-
 # MyBatis 应用指南
 
 > MyBatis 的前身就是 iBatis ，是一个作用在数据持久层的对象关系映射（Object Relational Mapping，简称 ORM）框架。
+
+![img](http://dunwu.test.upcdn.net/snap/20200716162305.png)
+
+<!-- TOC depthFrom:2 depthTo:3 -->
+
+- [一、Mybatis 简介](#一mybatis-简介)
+  - [什么是 MyBatis](#什么是-mybatis)
+  - [MyBatis vs. Hibernate](#mybatis-vs-hibernate)
+- [二、快速入门](#二快速入门)
+- [三、Mybatis 核心 API](#三mybatis-核心-api)
+  - [SqlSessionFactoryBuilder](#sqlsessionfactorybuilder)
+  - [SqlSessionFactory](#sqlsessionfactory)
+  - [SqlSession](#sqlsession)
+  - [映射器](#映射器)
+- [四、Mybatis 原理](#四mybatis-原理)
+  - [MyBatis 的架构](#mybatis-的架构)
+  - [接口层](#接口层)
+  - [数据处理层](#数据处理层)
+  - [框架支撑层](#框架支撑层)
+  - [引导层](#引导层)
+  - [主要组件](#主要组件)
+- [五、Mybatis 配置](#五mybatis-配置)
+- [六、SQL XML 映射文件](#六sql-xml-映射文件)
+- [参考资料](#参考资料)
+
+<!-- /TOC -->
 
 ## 一、Mybatis 简介
 
@@ -39,7 +58,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 > 核心 API 请参考：「 [Mybatis 官方文档之 Java API](http://www.mybatis.org/mybatis-3/zh/java-api.html) 」
 
-![img](http://dunwu.test.upcdn.net/snap/1556022483200.png!zp)
+![img](http://dunwu.test.upcdn.net/snap/1556022483200.png)
 
 ### SqlSessionFactoryBuilder
 
@@ -47,7 +66,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 **`SqlSessionFactoryBuilder` 负责创建 `SqlSessionFactory` 实例。而 `SqlSessionFactoryBuilder` 则可以从 XML 配置文件或一个预先定制的 `Configuration` 的实例构建出 `SqlSessionFactory` 的实例。**
 
-![img](http://dunwu.test.upcdn.net/snap/1556072725320.png!zp)
+![img](http://dunwu.test.upcdn.net/snap/1556072725320.png)
 
 - **SqlSessionFactoryBuilder 生命周期**
 
@@ -59,7 +78,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 **SqlSessionFactory 负责创建 SqlSession 实例。**
 
-![img](http://dunwu.test.upcdn.net/snap/1556074378879.png!zp)
+![img](http://dunwu.test.upcdn.net/snap/1556074378879.png)
 
 - **SqlSessionFactory 生命周期**
 
@@ -67,7 +86,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 ### SqlSession
 
-![img](http://dunwu.test.upcdn.net/snap/1556105326238.png!zp)
+![img](http://dunwu.test.upcdn.net/snap/1556105326238.png)
 
 - **SqlSession 职责**
 
@@ -155,7 +174,7 @@ Mybatis 支持诸如 @Insert、@Update、@Delete、@Select、@Result 等注解�
 
 ### MyBatis 的架构
 
-![img](http://dunwu.test.upcdn.net/snap/1556104494030.png!zp)
+![img](http://dunwu.test.upcdn.net/snap/1556104494030.png)
 
 ### 接口层
 
@@ -171,7 +190,7 @@ MyBatis 和数据库的交互有两种方式：
 这是传统的传递 Statement Id 和查询参数给 SqlSession 对象，使用 SqlSession 对象完成和数据库的交互；MyBatis 提供了非常方便和简单的 API，供用户实现对数据库的增删改查数据操作，以及对数据库连接信息和 MyBatis 自身配置信息的维护操作。
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybatis两种工作方式之一传统模式.png!zp">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybatis两种工作方式之一传统模式.png">
 </div>
 
 上述使用 MyBatis 的方法，是创建一个和数据库打交道的 SqlSession 对象，然后根据 Statement Id 和参数来操作数据库，这种方式固然很简单和实用，但是它不符合面向对象语言的概念和面向接口编程的编程习惯。由于面向接口的编程是面向对象的大趋势，MyBatis 为了适应这一趋势，增加了第二种使用 MyBatis 支持接口（Interface）调用方式。
@@ -181,7 +200,7 @@ MyBatis 和数据库的交互有两种方式：
 MyBatis 将配置文件中的每一个 `<mapper>` 节点抽象为一个 Mapper 接口，而这个接口中声明的方法和跟 `<mapper>` 节点中的 `<select|update|delete|insert>` 节点相对应，即 `<select|update|delete|insert>` 节点的 id 值为 Mapper 接口中的方法名称，parameterType 值表示 Mapper 对应方法的入参类型，而 resultMap 值则对应了 Mapper 接口表示的返回值类型或者返回结果集的元素类型。
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybatis两种工作方式之一接口模式.png!zp">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybatis两种工作方式之一接口模式.png">
 </div>
 
 根据 MyBatis 的配置规范配置好后，通过 `SqlSession.getMapper(XXXMapper.class)` 方法，MyBatis 会根据相应的接口声明的方法信息，通过动态代理机制生成一个 Mapper 实例，我们使用 Mapper 接口的某一个方法时，MyBatis 会根据这个方法的方法名和参数类型，确定 Statement Id，底层还是通过`SqlSession.select("statementId",parameterObject);` 或者 `SqlSession.update("statementId",parameterObject);` 等等来实现对数据库的操作。
@@ -228,7 +247,7 @@ MyBatis 将数据缓存设计成两级结构，分为一级缓存、二级缓存
 - **二级缓存是 Application 应用级别的缓存**，它的是生命周期很长，跟 Application 的声明周期一样，也就是说它的作用范围是整个 Application 应用。
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybatis缓存架构示意图.png!zp">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybatis缓存架构示意图.png">
 </div>
 
 ##### 一级缓存的工作机制
@@ -236,7 +255,7 @@ MyBatis 将数据缓存设计成两级结构，分为一级缓存、二级缓存
 一级缓存是 Session 会话级别的，一般而言，一个 SqlSession 对象会使用一个 Executor 对象来完成会话操作，Executor 对象会维护一个 Cache 缓存，以提高查询性能。
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/SqlSession一级缓存的工作流程.png!zp">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/SqlSession一级缓存的工作流程.png">
 </div>
 
 ##### 二级缓存的工作机制
@@ -244,7 +263,7 @@ MyBatis 将数据缓存设计成两级结构，分为一级缓存、二级缓存
 如上所言，一个 SqlSession 对象会使用一个 Executor 对象来完成会话操作，MyBatis 的二级缓存机制的关键就是对这个 Executor 对象做文章。如果用户配置了 `"cacheEnabled=true"`，那么 MyBatis 在为 SqlSession 对象创建 Executor 对象时，会对 Executor 对象加上一个装饰者：CachingExecutor，这时 SqlSession 使用 CachingExecutor 对象来完成操作请求。CachingExecutor 对于查询请求，会先判断该查询请求在 Application 级别的二级缓存中是否有缓存结果，如果有查询结果，则直接返回缓存结果；如果缓存中没有，再交给真正的 Executor 对象来完成查询操作，之后 CachingExecutor 会将真正 Executor 返回的查询结果放置到缓存中，然后在返回给用户。
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/使用与未使用二级缓存的区别.png!zp">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/使用与未使用二级缓存的区别.png">
 </div>
 
 #### SQL 语句的配置方式
@@ -276,7 +295,7 @@ MyBatis 将数据缓存设计成两级结构，分为一级缓存、二级缓存
 它们的关系如下图所示：
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybaits流程图2.png!zp">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybaits流程图2.png">
 </div>
 ## 五、Mybatis 配置
 
@@ -329,3 +348,5 @@ XML 映射文件只有几个顶级元素：
   - [深入理解 mybatis 原理](https://blog.csdn.net/luanlouis/article/details/40422941)
   - [mybatis 源码中文注释](https://github.com/tuguangquan/mybatis)
   - [MyBatis Generator 详解](https://blog.csdn.net/isea533/article/details/42102297)
+  - [Mybatis 常见面试题](https://juejin.im/post/5aa646cdf265da237e095da1)
+  - [Mybatis 中强大的 resultMap](https://juejin.im/post/5cee8b61e51d455d88219ea4)

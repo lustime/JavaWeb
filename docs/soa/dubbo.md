@@ -1,4 +1,4 @@
-# Dubbo
+# Dubbo 应用指南
 
 > [Apache Dubbo](https://dubbo.apache.org/zh-cn/) 是一款高性能、轻量级的开源 Java RPC 框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。
 
@@ -184,10 +184,18 @@ Dubbo 支持多种配置方式：
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+    <!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="hello-world-app"  />
+    <!-- 使用 multicast 广播注册中心暴露服务地址 -->
     <dubbo:registry address="multicast://224.5.6.7:1234" />
+    <!-- 用 dubbo 协议在 20880 端口暴露服务 -->
     <dubbo:protocol name="dubbo" port="20880" />
+    <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoServiceLocal" />
+    <!-- 和本地 bean 一样实现服务 -->
+    <bean id="demoService" class="com.alibaba.dubbo.demo.provider.DemoServiceImpl" />
+  
+    <!-- 生成远程服务代理，可以和本地 bean 一样使用 demoService -->
     <dubbo:reference id="demoServiceRemote" interface="com.alibaba.dubbo.demo.DemoService" />
 </beans>
 ```
@@ -357,7 +365,7 @@ Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会�
 
 可以通过 xml、properties、-D 参数三种方式设置。启动时检查
 
-## 六、Dubbo 序列化
+## 六、Dubbo 协议
 
 Dubbo 支持多种通信协议，不同的协议针对不同的序列化方式。
 
@@ -437,12 +445,12 @@ Dubbo 的 Hessian 协议可以和原生 Hessian 服务互操作，即：
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/rpc/dubbo/dubbo集群容错.jpg" />
 </div>
 
-- **Failover** - 失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)。
-- **Failfast** - 快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。
-- **Failsafe** - 失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。
-- **Failback** - 失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。
-- **Forking** - 并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks="2" 来设置最大并行数。
-- **Broadcast** - 播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。
+- **Failover** - **失败自动切换**，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)。
+- **Failfast** - **快速失败**，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。
+- **Failsafe** - **失败安全**，出现异常时，直接忽略。通常用于写入审计日志等操作。
+- **Failback** - **失败自动恢复**，后台记录失败请求，定时重发。通常用于消息通知操作。
+- **Forking** - **并行调用多个服务器**，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks="2" 来设置最大并行数。
+- **Broadcast** - **广播调用所有提供者**，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。
 
 集群容错配置示例：
 

@@ -14,5 +14,6 @@
     <module>javatech-bean</module>
     <module>javatech-json</module>
     <module>javatech-serialize</module>
+    <module>javatech-excel</module>
   </modules>
 </project>

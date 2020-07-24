@@ -2,7 +2,7 @@
 home: true
 heroImage: http://dunwu.test.upcdn.net/common/logo/dunwu-logo.png
 heroText: JAVATECH
-tagline: ☕ **javatech** 汇总了 Java 开发中常见的主流技术的应用、特性、原理。
+tagline: ☕ javatech 汇总了 Java 开发中常见的主流技术的应用、特性、原理。
 actionLink: /
 footer: CC-BY-SA-4.0 Licensed | Copyright © 2018-Now Dunwu
 ---
@@ -38,28 +38,28 @@ footer: CC-BY-SA-4.0 Licensed | Copyright © 2018-Now Dunwu
 >
 > 消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。
 >
-> 如果想深入学习各种消息队列产品，建议先了解一下 [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/mq-theory.md) ，有助于理解消息队列特性的实现和设计思路。
+> 如果想深入学习各种消息队列产品，建议先了解一下 [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/mq.md) ，有助于理解消息队列特性的实现和设计思路。
 
 - [消息队列面试题](mq/mq-interview.md) 💯
 - [Kafka](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/kafka) 📚
 - [RocketMQ](mq/rocketmq.md)
 - [ActiveMQ](mq/activemq.md)
 
-### 缓存
+### [缓存](cache)
 
 > 缓存可以说是优化系统性能的第一手段，在各种技术中都会有缓存的应用。
 >
 > 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
 
-![](http://dunwu.test.upcdn.net/snap/20200710163555.png)
+![img](http://dunwu.test.upcdn.net/snap/20200710163555.png)
 
 - [缓存面试题](cache/cache-interview.md) 💯
 - [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)
-- [Java 缓存框架](cache/cache-framework.md) - 关键词：Spring Cache、J2Cache、jetcache
+- [Java 缓存框架](cache/cache-framework.md) - 关键词：Spring Cache、J2Cache、JetCache
 - [Redis 教程](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
-- Memcached
+- [Memcached 应用指南](cache/memcached.md)
 - [Java 缓存库](cache/cache-libs.md) - 关键词：ConcurrentHashMap、LRUHashMap、Guava Cache、Caffeine、Ehcache
-- [Ehcache](cache/ehcache.md)
+- [Ehcache 应用指南](cache/ehcache.md)
 - [Http 缓存](cache/http-cache.md)
 
 ### 微服务

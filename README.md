@@ -28,7 +28,7 @@
 - [Spring](https://dunwu.github.io/spring-tutorial/) 📚
 - [Spring Boot](https://dunwu.github.io/spring-boot-tutorial/) 📚
 - [Spring Cloud](https://github.com/dunwu/spring-cloud-tutorial) 📚
-- [Mybatis](docs/framework/mybatis.md)
+- [Mybatis](docs/framework/mybatis.md) - 关键词：`SqlSession`、`Mapper`、`Executor`、`StatementHandler`、`TypeHandler`、`ParameterHandler`、`ResultSetHandler`
 - [Netty](docs/soa/netty.md)
 
 ### 消息队列
@@ -37,28 +37,28 @@
 >
 > 消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。
 >
-> 如果想深入学习各种消息队列产品，建议先了解一下 [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/mq-theory.md) ，有助于理解消息队列特性的实现和设计思路。
+> 如果想深入学习各种消息队列产品，建议先了解一下 [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/mq.md) ，有助于理解消息队列特性的实现和设计思路。
 
 - [消息队列面试题](docs/mq/mq-interview.md) 💯
 - [Kafka](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/kafka) 📚
 - [RocketMQ](docs/mq/rocketmq.md)
 - [ActiveMQ](docs/mq/activemq.md)
 
-### 缓存
+### [缓存](docs/cache)
 
 > 缓存可以说是优化系统性能的第一手段，在各种技术中都会有缓存的应用。
 >
 > 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
 
-![](http://dunwu.test.upcdn.net/snap/20200710163555.png)
+![img](http://dunwu.test.upcdn.net/snap/20200710163555.png)
 
 - [缓存面试题](docs/cache/cache-interview.md) 💯
 - [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)
-- [Java 缓存框架](docs/cache/cache-framework.md) - 关键词：Spring Cache、J2Cache、jetcache
+- [Java 缓存框架](docs/cache/cache-framework.md) - 关键词：Spring Cache、J2Cache、JetCache
 - [Redis 教程](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
-- Memcached
+- [Memcached 应用指南](docs/cache/memcached.md)
 - [Java 缓存库](docs/cache/cache-libs.md) - 关键词：ConcurrentHashMap、LRUHashMap、Guava Cache、Caffeine、Ehcache
-- [Ehcache](docs/cache/ehcache.md)
+- [Ehcache 应用指南](docs/cache/ehcache.md)
 - [Http 缓存](docs/cache/http-cache.md)
 
 ### 微服务
@@ -148,7 +148,7 @@
 
 ## 🚪 传送
 
-◾ 🏠 [JAVACORE 首页](https://github.com/dunwu/javacore) ◾ 🎯 [我的博客](https://github.com/dunwu/blog) ◾
+◾ 🏠 [JAVATECH 首页](https://github.com/dunwu/javatech) ◾ 🎯 [我的博客](https://github.com/dunwu/blog) ◾
 
 > 你可能会感兴趣：
 

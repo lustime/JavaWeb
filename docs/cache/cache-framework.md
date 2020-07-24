@@ -1,6 +1,22 @@
 # Java 缓存框架
 
-> 关键词：Spring Cache、J2Cache、jetcache
+> 关键词：Spring Cache、J2Cache、JetCache
+
+<!-- TOC depthFrom:2 depthTo:3 -->
+
+- [一 、JSR 107](#一-jsr-107)
+- [二、Spring Cache](#二spring-cache)
+  - [开启缓存注解](#开启缓存注解)
+  - [spring 缓存注解 API](#spring-缓存注解-api)
+- [三、Spring Boot Cache](#三spring-boot-cache)
+  - [Spring Boot Cache 快速入门](#spring-boot-cache-快速入门)
+- [四、JetCache](#四jetcache)
+  - [jetcache 快速入门](#jetcache-快速入门)
+- [五、j2cache](#五j2cache)
+- [六、总结](#六总结)
+- [参考资料](#参考资料)
+
+<!-- /TOC -->
 
 ## 一 、JSR 107
 
@@ -8,7 +24,7 @@
 
 因此，在很多缓存框架、缓存库中，其 API 都参考了 JSR 107 规范。
 
-![](http://dunwu.test.upcdn.net/snap/20200709174139.png)
+![img](http://dunwu.test.upcdn.net/snap/20200709174139.png)
 
 Java Caching 定义了 5 个核心接口
 
@@ -198,7 +214,7 @@ public class Application {
 
 （4）缓存注解（`@Cacheable`、`@CachePut`、`@CacheEvit` 等）使用方式与 Spring Cache 完全一样
 
-## 四、jetcache
+## 四、JetCache
 
 > JetCache 是一个基于 Java 的缓存系统封装，提供统一的 API 和注解来简化缓存的使用。 JetCache 提供了比 SpringCache 更加强大的注解，可以原生的支持 TTL、两级缓存、分布式自动刷新，还提供了`Cache`接口用于手工缓存操作。 当前有四个实现，`RedisCache`、`TairCache`（此部分未在 github 开源）、`CaffeineCache`(in memory)和一个简易的`LinkedHashMapCache`(in memory)，要添加新的实现也是非常简单的。
 >
@@ -307,7 +323,7 @@ public interface UserService {
 
 ## 五、j2cache
 
-## 总结
+## 六、总结
 
 使用缓存框架，使得开发缓存功能非常便捷。
 

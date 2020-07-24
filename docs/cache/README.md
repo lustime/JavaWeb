@@ -10,11 +10,11 @@
 
 - [缓存面试题](cache-interview.md) 💯
 - [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)
-- [Java 缓存框架](cache-framework.md) - 关键词：Spring Cache、J2Cache、jetcache
+- [Java 缓存框架](cache-framework.md) - 关键词：Spring Cache、J2Cache、JetCache
 - [Redis 教程](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
-- Memcached
+- [Memcached 应用指南](memcached.md)
 - [Java 缓存库](cache-libs.md) - 关键词：ConcurrentHashMap、LRUHashMap、Guava Cache、Caffeine、Ehcache
-- [Ehcache](ehcache.md)
+- [Ehcache 应用指南](ehcache.md)
 - [Http 缓存](http-cache.md)
 
 ## 📚 资料
@@ -23,8 +23,13 @@
 - [Spring Cache 官方文档](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/integration.html#cache)
 - [Spring Boot Cache 特性官方文档](https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/spring-boot-features.html#boot-features-caching)
 - [J2Cache Gitee](https://gitee.com/ld/J2Cache)
-- [jetcache Github](https://github.com/alibaba/jetcache)
-- [jetcache wiki](https://github.com/alibaba/jetcache/wiki/Home_CN)
+- [JetCache Github](https://github.com/alibaba/jetcache)
+- [JetCache wiki](https://github.com/alibaba/jetcache/wiki/Home_CN)
+- [Memcached 官网](https://memcached.org/)
+- [Memcached Github](https://github.com/memcached/memcached/)
+- [Redis 官网](https://redis.io/)
+- [Redis github](https://github.com/antirez/redis)
+- [Redis 官方文档中文版](http://redis.cn/)
 
 ## 🚪 传送
 

@@ -2,6 +2,19 @@
 
 HTTP 缓存分为 2 种，一种是强缓存，另一种是协商缓存。主要作用是可以加快资源获取速度，提升用户体验，减少网络传输，缓解服务端的压力。
 
+<!-- TOC depthFrom:2 depthTo:3 -->
+
+- [Http 强缓存](#http-强缓存)
+  - [Expires](#expires)
+  - [Cache-Control](#cache-control)
+  - [Pragma](#pragma)
+- [协商缓存](#协商缓存)
+  - [ETag/If-None-Match](#etagif-none-match)
+  - [Last-Modified/If-Modified-Since](#last-modifiedif-modified-since)
+- [参考资料](#参考资料)
+
+<!-- /TOC -->
+
 ## Http 强缓存
 
 不需要发送请求到服务端，直接读取浏览器本地缓存，在 Chrome 的 Network 中显示的 HTTP 状态码是 200 ，在 Chrome 中，强缓存又分为 Disk Cache (存放在硬盘中)和 Memory Cache (存放在内存中)，存放的位置是由浏览器控制的。是否强缓存由 `Expires`、`Cache-Control` 和 `Pragma` 3 个 Header 属性共同来控制。
