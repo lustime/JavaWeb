@@ -85,49 +85,51 @@ public class TomcatServer {
         return path;
     }
 
-}
+    static class ExtendedTomcat extends Tomcat {
 
-class ExtendedTomcat extends Tomcat {
+        private static final String RELATIVE_SERVERXML_PATH = "/conf/server.xml";
 
-    private static final String RELATIVE_SERVERXML_PATH = "/conf/server.xml";
-
-    private Logger log = LoggerFactory.getLogger(this.getClass());
-
-    @Override
-    public Server getServer() {
-        if (server != null) {
-            return server;
-        }
-        // 默认不开启JNDI. 开启时, 注意maven必须添加tomcat-dbcp依赖
-        System.setProperty("catalina.useNaming", "false");
-        ExtendedCatalina extendedCatalina = new ExtendedCatalina();
-
-        // 覆盖默认的skip和scan jar包配置
-        System.setProperty(Constants.SKIP_JARS_PROPERTY, "");
-        System.setProperty(Constants.SCAN_JARS_PROPERTY, "");
-
-        Digester digester = extendedCatalina.createStartDigester();
-        digester.push(extendedCatalina);
-        try {
-            server = ((ExtendedCatalina) digester
-                .parse(new File(System.getProperty("catalina.base") + RELATIVE_SERVERXML_PATH))).getServer();
-            // 设置catalina.base和catalna.home
-            this.initBaseDir();
-            return server;
-        } catch (Exception e) {
-            log.error("Error while parsing server.xml", e);
-            throw new RuntimeException("server未创建,请检查server.xml(路径:" + System.getProperty("catalina.base")
-                + RELATIVE_SERVERXML_PATH + ")配置是否正确");
-        }
-    }
-
-    private static class ExtendedCatalina extends Catalina {
+        private Logger log = LoggerFactory.getLogger(this.getClass());
 
         @Override
-        public Digester createStartDigester() {
-            return super.createStartDigester();
+        public Server getServer() {
+            if (server != null) {
+                return server;
+            }
+            // 默认不开启JNDI. 开启时, 注意maven必须添加tomcat-dbcp依赖
+            System.setProperty("catalina.useNaming", "false");
+            ExtendedCatalina extendedCatalina = new ExtendedCatalina();
+
+            // 覆盖默认的skip和scan jar包配置
+            System.setProperty(Constants.SKIP_JARS_PROPERTY, "");
+            System.setProperty(Constants.SCAN_JARS_PROPERTY, "");
+
+            Digester digester = extendedCatalina.createStartDigester();
+            digester.push(extendedCatalina);
+            try {
+                server = ((ExtendedCatalina) digester
+                    .parse(new File(System.getProperty("catalina.base") + RELATIVE_SERVERXML_PATH))).getServer();
+                // 设置catalina.base和catalna.home
+                this.initBaseDir();
+                return server;
+            } catch (Exception e) {
+                log.error("Error while parsing server.xml", e);
+                throw new RuntimeException("server未创建,请检查server.xml(路径:" + System.getProperty("catalina.base")
+                    + RELATIVE_SERVERXML_PATH + ")配置是否正确");
+            }
+        }
+
+        private static class ExtendedCatalina extends Catalina {
+
+            @Override
+            public Digester createStartDigester() {
+                return super.createStartDigester();
+            }
+
         }
 
     }
 
 }
+
+

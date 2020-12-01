@@ -115,7 +115,10 @@ footer: CC-BY-SA-4.0 Licensed | Copyright © 2018-Now Dunwu
 >
 > Nginx 是目前最流行的反向代理服务器，也常用于负载均衡。
 
-- [Tomcat](server/tomcat.md)
+- [Tomcat 应用指南](server/Tomcat应用指南.md)
+- [Tomcat 连接器](server/Tomcat连接器.md)
+- [Tomcat 容器](server/Tomcat容器.md)
+- [Tomcat 优化](server/Tomcat优化.md)
 - [Jetty](server/jetty.md)
 - [Nginx](https://github.com/dunwu/nginx-tutorial) 📚
 
