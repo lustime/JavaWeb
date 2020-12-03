@@ -14,7 +14,10 @@
   - [3.7. @Synchronized](#37-synchronized)
   - [3.8. @SneakyThrows](#38-sneakythrows)
   - [3.9. 示例源码](#39-示例源码)
-- [4. 参考资料](#4-参考资料)
+- [4. Lombok 使用注意点](#4-lombok-使用注意点)
+  - [4.1. 谨慎使用 `@Builder`](#41-谨慎使用-builder)
+  - [4.2. `@Data` 注解和继承](#42-data-注解和继承)
+- [5. 参考资料](#5-参考资料)
 
 <!-- /TOC -->
 
@@ -23,6 +26,8 @@
 Lombok 是一种 Java 实用工具，可用来帮助开发人员消除 Java 的冗长，尤其是对于简单的 Java 对象（POJO）。它通过注释实现这一目的。通过在开发环境中实现 Lombok，开发人员可以节省构建诸如 `hashCode()` 和 `equals()` 、`getter / setter` 这样的方法以及以往用来分类各种 accessor 和 mutator 的大量时间。
 
 ## 2. Lombok 安装
+
+由于 Lombok 仅在编译阶段生成代码，所以使用 Lombok 注解的源代码，在 IDE 中会被高亮显示错误，针对这个问题可以通过安装 IDE 对应的插件来解决。具体的安装方式可以参考：[Setting up Lombok with Eclipse and Intellij](https://www.baeldung.com/lombok-ide)
 
 使 IntelliJ IDEA 支持 Lombok 方式如下：
 
@@ -366,7 +371,171 @@ public void testSneakyThrows() {
 
 > 示例源码：[javalib-bean](https://github.com/dunwu/java-tutorial/tree/master/javalib-bean)
 
-## 4. 参考资料
+## 4. Lombok 使用注意点
+
+### 4.1. 谨慎使用 `@Builder`
+
+在类上标注了 `@Data` 和 `@Builder` 注解的时候，编译时，lombok 优化后的 Class 中会没有默认的构造方法。在反序列化的时候，没有默认构造方法就可能会报错。
+
+【示例】使用 `@Builder` 不当导致 json 反序列化失败
+
+```java
+@Data
+@Builder
+public class BuilderDemo01 {
+
+    private String name;
+
+    public static void main(String[] args) throws JsonProcessingException {
+        BuilderDemo01 demo01 = BuilderDemo01.builder().name("demo01").build();
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(demo01);
+        BuilderDemo01 expectDemo01 = mapper.readValue(json, BuilderDemo01.class);
+        System.out.println(expectDemo01.toString());
+    }
+
+}
+```
+
+运行时会抛出异常：
+
+```
+Exception in thread "main" com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot construct instance of `io.github.dunwu.javatech.bean.lombok.BuilderDemo01` (although at least one Creator exists): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: (String)"{"name":"demo01"}"; line: 1, column: 2]
+	at com.fasterxml.jackson.databind.exc.MismatchedInputException.from(MismatchedInputException.java:63)
+	at com.fasterxml.jackson.databind.DeserializationContext.reportInputMismatch(DeserializationContext.java:1432)
+	at com.fasterxml.jackson.databind.DeserializationContext.handleMissingInstantiator(DeserializationContext.java:1062)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializerBase.deserializeFromObjectUsingNonDefault(BeanDeserializerBase.java:1297)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserializeFromObject(BeanDeserializer.java:326)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserialize(BeanDeserializer.java:159)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4218)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3214)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3182)
+	at io.github.dunwu.javatech.bean.lombok.BuilderDemo01.main(BuilderDemo01.java:22)
+```
+
+【示例】使用 `@Builder` 正确方法
+
+```java
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BuilderDemo02 {
+
+    private String name;
+
+    public static void main(String[] args) throws JsonProcessingException {
+        BuilderDemo02 demo02 = BuilderDemo02.builder().name("demo01").build();
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(demo02);
+        BuilderDemo02 expectDemo02 = mapper.readValue(json, BuilderDemo02.class);
+        System.out.println(expectDemo02.toString());
+    }
+
+}
+```
+
+### 4.2. `@Data` 注解和继承
+
+使用 `@Data` 注解时，则有了 `@EqualsAndHashCode` 注解，那么就会在此类中存在 `equals(Object other)` 和 `hashCode()` 方法，且不会使用父类的属性，这就导致了可能的问题。比如，有多个类有相同的部分属性，把它们定义到父类中，恰好 id（数据库主键）也在父类中，那么就会存在部分对象在比较时，它们并不相等，这是因为：lombok 自动生成的 `equals(Object other)` 和 `hashCode()` 方法判定为相等，从而导致和预期不符。
+
+修复此问题的方法很简单：
+
+- 使用 `@Data` 时，加上 `@EqualsAndHashCode(callSuper=true)` 注解。
+- 使用 `@Getter @Setter @ToString` 代替 `@Data` 并且自定义 `equals(Object other)` 和 `hashCode()` 方法。
+
+【示例】测试 `@Data` 和 `@EqualsAndHashCode`
+
+```java
+@Data
+@ToString(exclude = "age")
+@EqualsAndHashCode(exclude = { "age", "sex" })
+public class Person {
+
+    protected String name;
+
+    protected Integer age;
+
+    protected String sex;
+
+}
+
+@Data
+@EqualsAndHashCode(callSuper = true, exclude = { "address", "city", "state", "zip" })
+public class EqualsAndHashCodeDemo extends Person {
+
+    @NonNull
+    private String name;
+
+    @NonNull
+    private Gender gender;
+
+    private String ssn;
+
+    private String address;
+
+    private String city;
+
+    private String state;
+
+    private String zip;
+
+    public EqualsAndHashCodeDemo(@NonNull String name, @NonNull Gender gender) {
+        this.name = name;
+        this.gender = gender;
+    }
+
+    public EqualsAndHashCodeDemo(@NonNull String name, @NonNull Gender gender,
+        String ssn, String address, String city, String state, String zip) {
+        this.name = name;
+        this.gender = gender;
+        this.ssn = ssn;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+    }
+
+    public enum Gender {
+        Male,
+        Female
+    }
+
+}
+
+@Test
+@DisplayName("测试 @EqualsAndHashCode")
+public void testEqualsAndHashCodeDemo() {
+    EqualsAndHashCodeDemo demo1 =
+        new EqualsAndHashCodeDemo("name1", EqualsAndHashCodeDemo.Gender.Female, "ssn", "xxx", "xxx", "xxx", "xxx");
+    EqualsAndHashCodeDemo demo2 =
+        new EqualsAndHashCodeDemo("name1", EqualsAndHashCodeDemo.Gender.Female, "ssn", "ooo", "ooo", "ooo", "ooo");
+    Assertions.assertEquals(demo1, demo2);
+
+    Person person = new Person();
+    person.setName("张三");
+    person.setAge(20);
+    person.setSex("男");
+
+    Person person2 = new Person();
+    person2.setName("张三");
+    person2.setAge(18);
+    person2.setSex("男");
+
+    Person person3 = new Person();
+    person3.setName("李四");
+    person3.setAge(20);
+    person3.setSex("男");
+
+    Assertions.assertEquals(person2, person);
+    Assertions.assertNotEquals(person3, person);
+}
+```
+
+上面的单元测试可以通过，但如果将 `@EqualsAndHashCode(callSuper = true, exclude = { "address", "city", "state", "zip" })` 注掉就会报错。
+
+## 5. 参考资料
 
 - [Lombok 官网](https://projectlombok.org/)
 - [Lombok Github](https://github.com/rzwitserloot/lombok)

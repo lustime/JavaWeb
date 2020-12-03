@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
-class Parent {}
-
 /**
  * <code>@EqualsAndHashCode</code> 示例
  *

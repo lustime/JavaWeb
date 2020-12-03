@@ -1,5 +1,7 @@
 package io.github.dunwu.javatech.bean.lombok;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Cleanup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -119,6 +121,20 @@ public class LombokTest {
             baos.write(new byte[] { 'Y', 'e', 's' });
             System.out.println(baos.toString());
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    @DisplayName("测试 @Builder")
+    public void testBuilder() {
+        BuilderDemo01 demo01 = BuilderDemo01.builder().name("demo01").build();
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(demo01);
+            BuilderDemo01 expectDemo01 = mapper.readValue(json, BuilderDemo01.class);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
     }
