@@ -54,7 +54,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 > [Mybatis 官方文档之入门](http://www.mybatis.org/mybatis-3/zh/getting-started.html) 已经写得很简洁易懂，不再赘述。
 
-## 3. Mybatis 核心 API
+## 3. Mybatis 生命周期
 
 > 核心 API 请参考：「 [Mybatis 官方文档之 Java API](http://www.mybatis.org/mybatis-3/zh/java-api.html) 」
 
@@ -64,13 +64,13 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 - **SqlSessionFactoryBuilder 职责**
 
-**`SqlSessionFactoryBuilder` 负责创建 `SqlSessionFactory` 实例。而 `SqlSessionFactoryBuilder` 则可以从 XML 配置文件或一个预先定制的 `Configuration` 的实例构建出 `SqlSessionFactory` 的实例。**
+**`SqlSessionFactoryBuilder` 负责创建 `SqlSessionFactory` 实例**。`SqlSessionFactoryBuilder` 可以从 XML 配置文件或一个预先定制的 `Configuration` 的实例构建出 `SqlSessionFactory` 的实例。
 
-![img](http://dunwu.test.upcdn.net/snap/1556072725320.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20210508173040.png)
 
 - **SqlSessionFactoryBuilder 生命周期**
 
-这个类可以被实例化、使用和丢弃，一旦创建了 `SqlSessionFactory`，就不再需要它了。 因此 `SqlSessionFactoryBuilder` 实例的最佳作用域是方法作用域（也就是局部方法变量）。
+这个类可以被实例化、使用和丢弃，一旦创建了 `SqlSessionFactory`，就不再需要它了。 因此 `SqlSessionFactoryBuilder` 实例的最佳作用域是方法作用域（也就是局部方法变量）。你可以重用 `SqlSessionFactoryBuilder` 来创建多个 `SqlSessionFactory` 实例，但最好还是不要一直保留着它，以保证所有的 XML 解析资源可以被释放给更重要的事情。
 
 ### 3.2. SqlSessionFactory
 
@@ -78,7 +78,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 **SqlSessionFactory 负责创建 SqlSession 实例。**
 
-![img](http://dunwu.test.upcdn.net/snap/1556074378879.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20210508175609.png)
 
 - **SqlSessionFactory 生命周期**
 
@@ -86,7 +86,7 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 
 ### 3.3. SqlSession
 
-![img](http://dunwu.test.upcdn.net/snap/1556105326238.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20210508193310.png)
 
 - **SqlSession 职责**
 
@@ -105,11 +105,8 @@ MyBatis 和 Hibernate 都是 Java 世界中比较流行的 ORM 框架。我们�
 编程模式：
 
 ```java
-SqlSession session = sqlSessionFactory.openSession();
-try {
+try (SqlSession session = sqlSessionFactory.openSession()) {
   // 你的应用逻辑代码
-} finally {
-  session.close();
 }
 ```
 
@@ -153,12 +150,9 @@ public interface AuthorMapper {
 编程模式：
 
 ```java
-SqlSession session = sqlSessionFactory.openSession();
-try {
+try (SqlSession session = sqlSessionFactory.openSession()) {
   BlogMapper mapper = session.getMapper(BlogMapper.class);
   // 你的应用逻辑代码
-} finally {
-  session.close();
 }
 ```
 
@@ -174,7 +168,7 @@ Mybatis 支持诸如 `@Insert`、`@Update`、`@Delete`、`@Select`、`@Result` �
 
 ### 4.1. MyBatis 的架构
 
-![img](http://dunwu.test.upcdn.net/snap/1556104494030.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20210508204329.png)
 
 ### 4.2. 接口层
 
@@ -189,9 +183,6 @@ MyBatis 和数据库的交互有两种方式：
 
 这是传统的传递 Statement Id 和查询参数给 SqlSession 对象，使用 SqlSession 对象完成和数据库的交互；MyBatis 提供了非常方便和简单的 API，供用户实现对数据库的增删改查数据操作，以及对数据库连接信息和 MyBatis 自身配置信息的维护操作。
 
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybatis两种工作方式之一传统模式.png">
-</div>
 
 上述使用 MyBatis 的方法，是创建一个和数据库打交道的 SqlSession 对象，然后根据 Statement Id 和参数来操作数据库，这种方式固然很简单和实用，但是它不符合面向对象语言的概念和面向接口编程的编程习惯。由于面向接口的编程是面向对象的大趋势，MyBatis 为了适应这一趋势，增加了第二种使用 MyBatis 支持接口（Interface）调用方式。
 

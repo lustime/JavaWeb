@@ -66,17 +66,16 @@ Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 J
     |-- <userfiles>                # 自定义的资源文件
 ```
 
-`webapp`：工程发布文件夹。其实每个 war 包都可以视为 webapp 的压缩包。
+- `webapp`：工程发布文件夹。其实每个 war 包都可以视为 webapp 的压缩包。
 
-`META-INF`：META-INF 目录用于存放工程自身相关的一些信息，元文件信息，通常由开发工具，环境自动生成。
+- `META-INF`：META-INF 目录用于存放工程自身相关的一些信息，元文件信息，通常由开发工具，环境自动生成。
 
-`WEB-INF`：Java web 应用的安全目录。所谓安全就是客户端无法访问，只有服务端可以访问的目录。
+- `WEB-INF`：Java web 应用的安全目录。所谓安全就是客户端无法访问，只有服务端可以访问的目录。
+- `/WEB-INF/classes`：存放程序所需要的所有 Java class 文件。
 
-`/WEB-INF/classes`：存放程序所需要的所有 Java class 文件。
+- `/WEB-INF/lib`：存放程序所需要的所有 jar 文件。
 
-`/WEB-INF/lib`：存放程序所需要的所有 jar 文件。
-
-`/WEB-INF/web.xml`：web 应用的部署配置文件。它是工程中最重要的配置文件，它描述了 servlet 和组成应用的其它组件，以及应用初始化参数、安全管理约束等。
+- `/WEB-INF/web.xml`：web 应用的部署配置文件。它是工程中最重要的配置文件，它描述了 servlet 和组成应用的其它组件，以及应用初始化参数、安全管理约束等。
 
 ### 1.4. Tomcat 功能
 

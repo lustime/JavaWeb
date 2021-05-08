@@ -1,4 +1,4 @@
-# Java 与 JSON
+# Java 和 JSON 序列化
 
 > JSON（JavaScript Object Notation）是一种基于文本的数据交换格式。几乎所有的编程语言都有很好的库或第三方工具来提供基于 JSON 的 API 支持，因此你可以非常方便地使用任何自己喜欢的编程语言来处理 JSON 数据。
 >
@@ -7,14 +7,12 @@
 <!-- TOC depthFrom:2 depthTo:3 -->
 
 - [1. JSON 简介](#1-json-简介)
-  - [JSON 是什么](#json-是什么)
-  - [优缺点、标准与 schema](#优缺点标准与-schema)
-  - [相关技术以及与 XML 的关系](#相关技术以及与-xml-的关系)
-  - [工具](#工具)
-  - [1.2. Java JSON 库](#12-java-json-库)
-- [JSON 编码指南](#json-编码指南)
-  - [4.1 Google JSON 风格指南](#41-google-json-风格指南)
-  - [4.2 使用 JSON 实现 API](#42-使用-json-实现-api)
+  - [1.1. JSON 是什么](#11-json-是什么)
+  - [1.2. JSON 标准](#12-json-标准)
+  - [1.3. JSON 优缺点](#13-json-优缺点)
+  - [1.4. JSON 工具](#14-json工具)
+  - [1.5. Java JSON 库](#15-java-json-库)
+  - [1.6. JSON 编码指南](#16-json-编码指南)
 - [2. Fastjson 应用](#2-fastjson-应用)
   - [2.1. 添加 maven 依赖](#21-添加-maven-依赖)
   - [2.2. Fastjson API](#22-fastjson-api)
@@ -34,7 +32,7 @@
 
 ## 1. JSON 简介
 
-### JSON 是什么
+### 1.1. JSON 是什么
 
 JSON 起源于 1999 年的 [JS 语言规范 ECMA262 的一个子集](http://javascript.crockford.com/)（即 15.12 章节描述了格式与解析），后来 2003 年作为一个数据格式[ECMA404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)（很囧的序号有不有？）发布。
 2006 年，作为 [rfc4627](http://www.ietf.org/rfc/rfc4627.txt) 发布，这时规范增加到 18 页，去掉没用的部分，十页不到。
@@ -43,30 +41,28 @@ JSON 的应用很广泛，这里有超过 100 种语言下的 JSON 库：[json.o
 
 更多的可以参考这里，[关于 json 的一切](https://github.com/burningtree/awesome-json)。
 
-### 优缺点、标准与 schema
-
-#### 结构与类型
+### 1.2. JSON 标准
 
 这估计是最简单标准规范之一：
 
-- 只有两种结构：对象内的键值对集合结构和数组，对象用 `{}` 表示、内部是”key”:”value”，数组用 `[]` 表示，不同值用逗号分开
-- 基本数值有 7 个： false / null / true / object / array / number / string
+- 只有两种结构：对象内的键值对集合结构和数组，对象用 `{}` 表示、内部是 `"key":"value"`，数组用 `[]` 表示，不同值用逗号分开
+- 基本数值有 7 个： `false` / `null` / `true` / `object` / `array` / `number` / `string`
 - 再加上结构可以嵌套，进而可以用来表达复杂的数据
 - 一个简单实例：
 
 ```json
 {
- "Image": {
-  "Width": 800,
-  "Height": 600,
-  "Title": "View from 15th Floor",
-  "Thumbnail": {
-   "Url": "http://www.example.com/image/481989943",
-   "Height": 125,
-   "Width": "100"
-  },
-  "IDs": [116, 943, 234, 38793]
- }
+  "Image": {
+    "Width": 800,
+    "Height": 600,
+    "Title": "View from 15th Floor",
+    "Thumbnail": {
+      "Url": "http://www.example.com/image/481989943",
+      "Height": 125,
+      "Width": "100"
+    },
+    "IDs": [116, 943, 234, 38793]
+  }
 }
 ```
 
@@ -76,33 +72,31 @@ JSON 的应用很广泛，这里有超过 100 种语言下的 JSON 库：[json.o
 >
 > - [json 的 RFC 文档](http://tools.ietf.org/html/rfc4627)
 
-#### 2.2 优点
+### 1.3. JSON 优缺点
+
+优点：
 
 - 基于纯文本，所以对于人类阅读是很友好的。
 - 规范简单，所以容易处理，开箱即用，特别是 JS 类的 ECMA 脚本里是内建支持的，可以直接作为对象使用。
 - 平台无关性，因为类型和结构都是平台无关的，而且好处理，容易实现不同语言的处理类库，可以作为多个不同异构系统之间的数据传输格式协议，特别是在 HTTP/REST 下的数据格式。
 
-#### 2.3 缺点
-
-缺点也很明显：
+缺点：
 
 - 性能一般，文本表示的数据一般来说比二进制大得多，在数据传输上和解析处理上都要更影响性能。
 - 缺乏 schema，跟同是文本数据格式的 XML 比，在类型的严格性和丰富性上要差很多。XML 可以借由 XSD 或 DTD 来定义复杂的格式，并由此来验证 XML 文档是否符合格式要求，甚至进一步的，可以基于 XSD 来生成具体语言的操作代码，例如 apache xmlbeans。并且这些工具组合到一起，形成一套庞大的生态，例如基于 XML 可以实现 SOAP 和 WSDL，一系列的 ws-\*规范。但是我们也可以看到 JSON 在缺乏规范的情况下，实际上有更大一些的灵活性，特别是近年来 REST 的快速发展，已经有一些 schema 相关的发展(例如[理解 JSON Schema](https://spacetelescope.github.io/understanding-json-schema/index.html)，[使用 JSON Schema](http://usingjsonschema.com/downloads/)， [在线 schema 测试](http://azimi.me/json-schema-view/demo/demo.html))，也有类似于 WSDL 的[WADL](https://www.w3.org/Submission/wadl/)出现。
 
-### 相关技术以及与 XML 的关系
+### 1.4. JSON 工具
 
 - 使用 JSON 实现 RPC（类似 XML-RPC）：[JSON-RPC](http://www.jsonrpc.org/)
 - 使用 JSON 实现 path 查询操作（类似 XML-PATH）：[JsonPATH](https://github.com/json-path/JsonPath)
 - 在线查询工具：[JsonPATH](http://jsonpath.com/)
-
-### 工具
 
 - 格式化工具：[jsbeautifier](http://jsbeautifier.org/)
 - chrome 插件：[5 个 Json View 插件](http://www.cnplugins.com/zhuanti/five-chrome-json-plugins.html)
 - 在线 Mock: [在线 mock](https://www.easy-mock.com/)
 - 其他 Mock：[SoapUI](https://www.soapui.org/rest-testing-mocking/rest-service-mocking.html)可以支持，SwaggerUI 也可以，[RestMock](https://github.com/andrzejchm/RESTMock)也可以。
 
-### 1.2. Java JSON 库
+### 1.5. Java JSON 库
 
 Java 中比较流行的 JSON 库有：
 
@@ -112,14 +106,12 @@ Java 中比较流行的 JSON 库有：
 
 从性能上来看，一般情况下：Fastjson > Jackson > Gson
 
-## JSON 编码指南
+### 1.6. JSON 编码指南
 
-### 4.1 Google JSON 风格指南
-
-遵循好的设计与编码风格，能提前解决 80%的问题:
-
-- 英文版[Google JSON Style Guide](https://google.github.io/styleguide/jsoncstyleguide.xml)：<https://google.github.io/styleguide/jsoncstyleguide.xml>
-- 中文版[Google JSON 风格指南](https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md)：<https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md>
+> 遵循好的设计与编码风格，能提前解决 80%的问题，个人推荐 Google JSON 风格指南。
+>
+> - 英文版[Google JSON Style Guide](https://google.github.io/styleguide/jsoncstyleguide.xml)：<https://google.github.io/styleguide/jsoncstyleguide.xml>
+> - 中文版[Google JSON 风格指南](https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md)：<https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md>
 
 简单摘录如下：
 
@@ -135,8 +127,6 @@ Java 中比较流行的 JSON 库有：
 - 设计好通用的分页参数
 - 设计好异常处理
 
-### 4.2 使用 JSON 实现 API
-
 [JSON API](http://jsonapi.org.cn/format/)与 Google JSON 风格指南有很多可以相互参照之处。
 
 [JSON API](http://jsonapi.org.cn/format/)是数据交互规范，用以定义客户端如何获取与修改资源，以及服务器如何响应对应请求。
@@ -144,8 +134,6 @@ Java 中比较流行的 JSON 库有：
 JSON API 设计用来最小化请求的数量，以及客户端与服务器间传输的数据量。在高效实现的同时，无需牺牲可读性、灵活性和可发现性。
 
 ## 2. Fastjson 应用
-
-> 扩展阅读：更多 API 使用细节可以参考：[JSONField 用法](https://github.com/alibaba/fastjson/wiki/JSONField)
 
 ### 2.1. 添加 maven 依赖
 
@@ -169,34 +157,6 @@ public class Group {
     private Long       id;
     private String     name;
     private List<User> users = new ArrayList<User>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public void addUser(User user) {
-        users.add(user);
-    }
 }
 ```
 
@@ -207,22 +167,6 @@ public class User {
 
     private Long   id;
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
 ```
 
