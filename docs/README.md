@@ -29,7 +29,9 @@ footer: CC-BY-SA-4.0 Licensed | Copyright © 2018-Now Dunwu
 - [Spring](https://dunwu.github.io/spring-tutorial/) 📚
 - [Spring Boot](https://dunwu.github.io/spring-boot-tutorial/) 📚
 - [Spring Cloud](https://github.com/dunwu/spring-cloud-tutorial) 📚
-- [Mybatis](framework/mybatis.md)
+- MyBatis
+  - [Mybatis 应用指南](framework/Mybatis应用指南.md)
+  - [Mybatis 原理](framework/Mybatis原理.md)
 - [Netty](soa/netty.md)
 
 ### 消息队列

@@ -28,7 +28,9 @@
 - [Spring](https://dunwu.github.io/spring-tutorial/) 📚
 - [Spring Boot](https://dunwu.github.io/spring-boot-tutorial/) 📚
 - [Spring Cloud](https://github.com/dunwu/spring-cloud-tutorial) 📚
-- [Mybatis](docs/framework/mybatis.md) - 关键词：`SqlSession`、`Mapper`、`Executor`、`StatementHandler`、`TypeHandler`、`ParameterHandler`、`ResultSetHandler`
+- MyBatis
+  - [Mybatis 应用指南](docs/framework/Mybatis应用指南.md)
+  - [Mybatis 原理](docs/framework/Mybatis原理.md)
 - [Netty](docs/soa/netty.md)
 
 ### 消息队列

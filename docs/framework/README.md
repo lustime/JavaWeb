@@ -2,4 +2,5 @@
 
 - [Spring](https://dunwu.github.io/spring-tutorial/) 📚
 - [Spring Boot](https://dunwu.github.io/spring-boot-tutorial/) 📚
-- [Mybatis](mybatis.md)
+- [Mybatis 应用指南](framework/Mybatis应用指南.md)
+- [Mybatis 原理](framework/Mybatis原理.md)
