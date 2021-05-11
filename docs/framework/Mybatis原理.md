@@ -1,4 +1,4 @@
-# MyBatis 应用指南
+# MyBatis 原理
 
 > MyBatis 的前身就是 iBatis ，是一个作用在数据持久层的对象关系映射（Object Relational Mapping，简称 ORM）框架。
 
@@ -390,11 +390,9 @@ Mybatis 支持诸如 `@Insert`、`@Update`、`@Delete`、`@Select`、`@Result` �
 
 > 详细内容请参考：[Mybatis 官方文档之 sqlSessions](http://www.mybatis.org/mybatis-3/zh/java-api.html#sqlSessions)，其中列举了 Mybatis 支持的注解清单，以及基本用法。
 
-## 3. Mybatis 原理
+## 3.1. MyBatis 的架构
 
-### 3.1. MyBatis 的架构
-
-![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20210508204329.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20210511161809.png)
 
 ### 3.2. 接口层
 
@@ -513,28 +511,47 @@ MyBatis 将数据缓存设计成两级结构，分为一级缓存、二级缓存
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/java/javaweb/standalone/orm/mybatis/mybaits流程图2.png">
 </div>
-## 4. 源码解读
+## 4. SqlSession 内部工作机制
 
-### 4.1. SqlSession 工作流程
+从前文，我们已经了解了，MyBatis 封装了对数据库的访问，把对数据库的会话和事务控制放到了 SqlSession 对象中。那么具体是如何工作的呢？接下来，我们通过源码解读来进行分析。
 
-#### （1）创建 SqlSession 实例
+`SqlSession` 对于 insert、update、delete、select 的内部处理机制基本上大同小异。所以，接下来，我会以一次完整的 select 查询流程为例讲解 `SqlSession` 内部的工作机制。相信读者如果理解了 select 的处理流程，对于其他 CRUD 操作也能做到一通百通。
+
+### SqlSession 和 Mapper
+
+先来回忆一下 Mybatis 完整示例章节的 测试程序部分的代码。
+
+MybatisDemo.java 文件中的代码片段：
 
 ```java
+// 2. 创建一个 SqlSession 实例，进行数据库操作
 SqlSession sqlSession = factory.openSession();
+
+// 3. Mapper 映射并执行
+Long params = 1L;
+List<User> list = sqlSession.selectList("io.github.dunwu.spring.orm.mapper.UserMapper.selectByPrimaryKey", params);
+for (User user : list) {
+    System.out.println("user name: " + user.getName());
+}
 ```
-
-MyBatis 封装了对数据库的访问，把对数据库的会话和事务控制放到了 SqlSession 对象中。
-
-#### （2）Mapper 映射并执行
 
 示例代码中，给 sqlSession 对象的传递一个配置的 Sql 语句的 Statement Id 和参数，然后返回结果
 
-```java
-Long params = 1L;
-List<User> list = sqlSession.selectList("io.github.dunwu.spring.orm.mapper.UserMapper.selectByPrimaryKey", params);
+`io.github.dunwu.spring.orm.mapper.UserMapper.selectByPrimaryKey` 是配置在 `UserMapper.xml` 的 Statement ID，params 是 SQL 参数。
+
+UserMapper.xml 文件中的代码片段：
+
+```xml
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, name, age, address, email
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
 ```
 
-`io.github.dunwu.spring.orm.mapper.UserMapper.selectByPrimaryKey` 是配置在 `UserMapper.xml` 的 Statement ID，params 是参数。
+Mybatis 通过方法的全限定名，将 SqlSession 和 Mapper 相互映射起来。
+
+### SqlSession 和 Executor
 
 `org.apache.ibatis.session.defaults.DefaultSqlSession` 中 `selectList` 方法的源码：
 
@@ -554,13 +571,250 @@ public <E> List<E> selectList(String statement, Object parameter, RowBounds rowB
   try {
     // 1. 根据 Statement Id，在配置对象 Configuration 中查找和配置文件相对应的 MappedStatement
     MappedStatement ms = configuration.getMappedStatement(statement);
-    // 2. 将语句执行委托给执行器 Executor 处理
+    // 2. 将 SQL 语句交由执行器 Executor 处理
     return executor.query(ms, wrapCollection(parameter), rowBounds, Executor.NO_RESULT_HANDLER);
   } catch (Exception e) {
     throw ExceptionFactory.wrapException("Error querying database.  Cause: " + e, e);
   } finally {
     ErrorContext.instance().reset();
   }
+}
+```
+
+说明：
+
+MyBatis 所有的配置信息都维持在 `Configuration` 对象之中。中维护了一个 `Map<String, MappedStatement>` 对象。其中，key 为 Mapper 方法的全限定名（对于本例而言，key 就是 `io.github.dunwu.spring.orm.mapper.UserMapper.selectByPrimaryKey` ），value 为 `MappedStatement` 对象。所以，传入 Statement Id 就可以从 Map 中找到对应的 `MappedStatement`。
+
+`MappedStatement` 维护了一个 Mapper 方法的元数据信息，其数据组织可以参考下面的 debug 截图：
+
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20210511150650.png)
+
+> 小结：
+>
+> 通过 "SqlSession 和 Mapper" 以及 "SqlSession 和 Executor" 这两节，我们已经知道：
+>
+> SqlSession 的职能是：根据 Statement ID, 在 `Configuration` 中获取到对应的 `MappedStatement` 对象，然后调用 `Executor` 来执行具体的操作。
+>
+
+### Executor 工作流程
+
+继续上一节的流程，`SqlSession` 将 SQL 语句交由执行器 `Executor` 处理。`Executor` 又做了哪些事儿呢？
+
+（1）执行器查询入口
+
+```java
+public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+	// 1. 根据传参，动态生成需要执行的 SQL 语句，用 BoundSql 对象表示
+    BoundSql boundSql = ms.getBoundSql(parameter);
+    // 2. 根据传参，创建一个缓存Key
+    CacheKey key = createCacheKey(ms, parameter, rowBounds, boundSql);
+    return query(ms, parameter, rowBounds, resultHandler, key, boundSql);
+ }
+```
+
+执行器查询入口主要做两件事：
+
+- **生成动态 SQL**：根据传参，动态生成需要执行的 SQL 语句，用 BoundSql 对象表示。
+- **管理缓存**：根据传参，创建一个缓存 Key。
+
+（2）执行器查询第二入口
+
+```java
+  @SuppressWarnings("unchecked")
+  @Override
+  public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
+    // 略
+    List<E> list;
+    try {
+      queryStack++;
+      list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+      // 3. 缓存中有值，则直接从缓存中取数据；否则，查询数据库
+      if (list != null) {
+        handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
+      } else {
+        list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
+      }
+    } finally {
+      queryStack--;
+    }
+    // 略
+    return list;
+  }
+```
+
+实际查询方法主要的职能是判断缓存 key 是否能命中缓存：
+
+- 命中，则将缓存中数据返回；
+- 不命中，则查询数据库：
+
+（3）查询数据库
+
+```java
+  private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
+    List<E> list;
+    localCache.putObject(key, EXECUTION_PLACEHOLDER);
+    try {
+      // 4. 执行查询，获取 List 结果，并将查询的结果更新本地缓存中
+      list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
+    } finally {
+      localCache.removeObject(key);
+    }
+    localCache.putObject(key, list);
+    if (ms.getStatementType() == StatementType.CALLABLE) {
+      localOutputParameterCache.putObject(key, parameter);
+    }
+    return list;
+  }
+```
+
+`queryFromDatabase` 方法的职责是调用 doQuery，向数据库发起查询，并将返回的结果更新到本地缓存。
+
+（4）实际查询方法
+
+SimpleExecutor 类的 doQuery()方法实现
+
+```java
+  @Override
+  public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+    Statement stmt = null;
+    try {
+      Configuration configuration = ms.getConfiguration();
+      // 5. 根据既有的参数，创建StatementHandler对象来执行查询操作
+      StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
+      // 6. 创建java.Sql.Statement对象，传递给StatementHandler对象
+      stmt = prepareStatement(handler, ms.getStatementLog());
+      // 7. 调用StatementHandler.query()方法，返回List结果
+      return handler.query(stmt, resultHandler);
+    } finally {
+      closeStatement(stmt);
+    }
+  }
+```
+
+上述的 Executor.query()方法几经转折，最后会创建一个 StatementHandler 对象，然后将必要的参数传递给 StatementHandler，使用 StatementHandler 来完成对数据库的查询，最终返回 List 结果集。
+从上面的代码中我们可以看出，Executor 的功能和作用是：
+
+1. 根据传递的参数，完成 SQL 语句的动态解析，生成 BoundSql 对象，供 StatementHandler 使用；
+
+2. 为查询创建缓存，以提高性能
+
+3. 创建 JDBC 的 Statement 连接对象，传递给 StatementHandler 对象，返回 List 查询结果。
+
+prepareStatement() 方法的实现：
+
+```java
+  private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
+    Statement stmt;
+    Connection connection = getConnection(statementLog);
+    stmt = handler.prepare(connection, transaction.getTimeout());
+    //对创建的Statement对象设置参数，即设置SQL 语句中 ? 设置为指定的参数
+    handler.parameterize(stmt);
+    return stmt;
+  }
+```
+
+对于JDBC的PreparedStatement类型的对象，创建的过程中，我们使用的是SQL语句字符串会包含 若干个? 占位符，我们其后再对占位符进行设值。
+
+### StatementHandler 工作流程
+
+StatementHandler 对象负责设置 Statement 对象中的查询参数、处理 JDBC 返回的 resultSet，将 resultSet 加工为 List 集合返回：
+
+```java
+@Override
+public void parameterize(Statement statement) throws SQLException {
+  //使用ParameterHandler对象来完成对Statement的设值
+  parameterHandler.setParameters((PreparedStatement) statement);
+}
+
+  @Override
+  public void setParameters(PreparedStatement ps) {
+    ErrorContext.instance().activity("setting parameters").object(mappedStatement.getParameterMap().getId());
+    List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+    if (parameterMappings != null) {
+      for (int i = 0; i < parameterMappings.size(); i++) {
+        ParameterMapping parameterMapping = parameterMappings.get(i);
+        if (parameterMapping.getMode() != ParameterMode.OUT) {
+          Object value;
+          String propertyName = parameterMapping.getProperty();
+          if (boundSql.hasAdditionalParameter(propertyName)) { // issue #448 ask first for additional params
+            value = boundSql.getAdditionalParameter(propertyName);
+          } else if (parameterObject == null) {
+            value = null;
+          } else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
+            value = parameterObject;
+          } else {
+            MetaObject metaObject = configuration.newMetaObject(parameterObject);
+            value = metaObject.getValue(propertyName);
+          }
+            
+          // 每一个Mapping都有一个TypeHandler，根据TypeHandler来对preparedStatement进行设置参数
+          TypeHandler typeHandler = parameterMapping.getTypeHandler();
+          JdbcType jdbcType = parameterMapping.getJdbcType();
+          if (value == null && jdbcType == null) {
+            jdbcType = configuration.getJdbcTypeForNull();
+          }
+          try {
+            typeHandler.setParameter(ps, i + 1, value, jdbcType);
+          } catch (TypeException | SQLException e) {
+            throw new TypeException("Could not set parameters for mapping: " + parameterMapping + ". Cause: " + e, e);
+          }
+        }
+      }
+    }
+  }
+```
+
+ParameterHandler的setParameters(Statement)方法负责根据我们输入的参数，对statement对象的 ? 占位符处进行赋值。
+
+```java
+@Override
+public <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException {
+  PreparedStatement ps = (PreparedStatement) statement;
+  ps.execute();
+  // 使用ResultHandler来处理ResultSet
+  return resultSetHandler.handleResultSets(ps);
+}
+```
+
+### ResultSetHandler
+
+```java
+@Override
+public List<Object> handleResultSets(Statement stmt) throws SQLException {
+  ErrorContext.instance().activity("handling results").object(mappedStatement.getId());
+
+  final List<Object> multipleResults = new ArrayList<>();
+
+  int resultSetCount = 0;
+  ResultSetWrapper rsw = getFirstResultSet(stmt);
+
+  List<ResultMap> resultMaps = mappedStatement.getResultMaps();
+  int resultMapCount = resultMaps.size();
+  validateResultMapsCount(rsw, resultMapCount);
+  while (rsw != null && resultMapCount > resultSetCount) {
+    ResultMap resultMap = resultMaps.get(resultSetCount);
+    handleResultSet(rsw, resultMap, multipleResults, null);
+    rsw = getNextResultSet(stmt);
+    cleanUpAfterHandlingResultSet();
+    resultSetCount++;
+  }
+
+  String[] resultSets = mappedStatement.getResultSets();
+  if (resultSets != null) {
+    while (rsw != null && resultSetCount < resultSets.length) {
+      ResultMapping parentMapping = nextResultMaps.get(resultSets[resultSetCount]);
+      if (parentMapping != null) {
+        String nestedResultMapId = parentMapping.getNestedResultMapId();
+        ResultMap resultMap = configuration.getResultMap(nestedResultMapId);
+        handleResultSet(rsw, resultMap, null, parentMapping);
+      }
+      rsw = getNextResultSet(stmt);
+      cleanUpAfterHandlingResultSet();
+      resultSetCount++;
+    }
+  }
+
+  return collapseSingleResultList(multipleResults);
 }
 ```
 
