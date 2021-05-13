@@ -81,7 +81,7 @@ logback 当前分成三个模块：`logback-core`、`logback-classic` 和 `logba
 
 Log4j2 架构：
 
-![img](http://dunwu.test.upcdn.net/cs/java/javalib/log/log4j2-architecture.jpg!zp)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javalib/log/log4j2-architecture.jpg)
 
 ### Log4j vs Logback vs Log4j2
 
@@ -125,7 +125,7 @@ common-logging 的功能是提供日志功能的 API 接口，本身并不提供
 
 [官网地址](http://www.slf4j.org/)
 
-![img](http://dunwu.test.upcdn.net/cs/java/javalib/log/slf4j-to-other-log.png!zp)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javalib/log/slf4j-to-other-log.png)
 
 ### common-logging vs slf4j
 
@@ -165,7 +165,7 @@ logger.debug("id: {}, name: {} ", id, name);
 
 还有一种情况：你的老项目使用了 common-logging，或是直接使用日志实现组件。如果修改老的代码，工作量太大，需要兼容处理。在下文，都将看到各种应对方法。
 
-***注：据我所知，当前仍没有方法可以将 slf4j 桥接到 common-logging。如果我孤陋寡闻了，请不吝赐教。***
+**_注：据我所知，当前仍没有方法可以将 slf4j 桥接到 common-logging。如果我孤陋寡闻了，请不吝赐教。_**
 
 #### slf4j 直接绑定日志组件
 
@@ -173,7 +173,7 @@ logger.debug("id: {}, name: {} ", id, name);
 
 添加依赖到 pom.xml 中即可。
 
-*logback-classic-1.0.13.jar* 会自动将 *slf4j-api-1.7.21.jar* 和 *logback-core-1.0.13.jar* 也添加到你的项目中。
+_logback-classic-1.0.13.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 和 _logback-core-1.0.13.jar_ 也添加到你的项目中。
 
 ```xml
 <dependency>
@@ -187,7 +187,7 @@ logger.debug("id: {}, name: {} ", id, name);
 
 添加依赖到 pom.xml 中即可。
 
-*slf4j-log4j12-1.7.21.jar* 会自动将 *slf4j-api-1.7.21.jar* 和 *log4j-1.2.17.jar* 也添加到你的项目中。
+_slf4j-log4j12-1.7.21.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 和 _log4j-1.2.17.jar_ 也添加到你的项目中。
 
 ```xml
 <dependency>
@@ -201,7 +201,7 @@ logger.debug("id: {}, name: {} ", id, name);
 
 添加依赖到 pom.xml 中即可。
 
-*slf4j-jdk14-1.7.21.jar* 会自动将 *slf4j-api-1.7.21.jar* 也添加到你的项目中。
+_slf4j-jdk14-1.7.21.jar_ 会自动将 _slf4j-api-1.7.21.jar_ 也添加到你的项目中。
 
 ```xml
 <dependency>
@@ -219,7 +219,7 @@ logger.debug("id: {}, name: {} ", id, name);
 
 假如你正在开发应用程序所调用的组件当中已经使用了 common-logging，这时你需要 jcl-over-slf4j.jar 把日志信息输出重定向到 slf4j-api，slf4j-api 再去调用 slf4j 实际依赖的日志组件。这个过程称为桥接。下图是官方的 slf4j 桥接策略图：
 
-![img](http://dunwu.test.upcdn.net/cs/java/javalib/log/slf4j-bind-strategy.png!zp)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javalib/log/slf4j-bind-strategy.png)
 
 从图中应该可以看出，无论你的老项目中使用的是 common-logging 或是直接使用 log4j、java.util.logging，都可以使用对应的桥接 jar 包来解决兼容问题。
 
@@ -257,7 +257,7 @@ logger.debug("id: {}, name: {} ", id, name);
 
 做 java web 开发，基本离不开 spring 框架。很遗憾，spring 使用的日志解决方案是 common-logging + log4j。
 
-所以，你需要一个桥接 jar 包：*logback-ext-spring*。
+所以，你需要一个桥接 jar 包：_logback-ext-spring_。
 
 ```xml
 <dependency>
@@ -435,7 +435,7 @@ log4j2 基本配置形式如下：
 - 要点
   - 它有 `<appender>`、`<logger>`、`<root>` 三个子元素。
 
-![img](http://dunwu.test.upcdn.net/cs/java/javalib/log/logback-configuration.png!zp)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javalib/log/logback-configuration.png)
 
 ### `<appender>`
 
@@ -473,7 +473,7 @@ log4j2 基本配置形式如下：
 - 属性
   - class：设置具体的实例化类。
 
-![img](http://dunwu.test.upcdn.net/cs/java/javalib/log/logback-appender.png!zp)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javalib/log/logback-appender.png)
 
 ### `<logger>`
 

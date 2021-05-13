@@ -9,25 +9,25 @@
 <!-- TOC depthFrom:2 depthTo:3 -->
 
 - [1. Tomcat 简介](#1-tomcat-简介)
-    - [1.1. Tomcat 是什么](#11-tomcat-是什么)
-    - [1.2. Tomcat 重要目录](#12-tomcat-重要目录)
-    - [1.3. web 工程发布目录结构](#13-web-工程发布目录结构)
-    - [1.4. Tomcat 功能](#14-tomcat-功能)
+  - [1.1. Tomcat 是什么](#11-tomcat-是什么)
+  - [1.2. Tomcat 重要目录](#12-tomcat-重要目录)
+  - [1.3. web 工程发布目录结构](#13-web-工程发布目录结构)
+  - [1.4. Tomcat 功能](#14-tomcat-功能)
 - [2. Tomcat 入门](#2-tomcat-入门)
-    - [2.1. 安装](#21-安装)
-    - [2.2. 配置](#22-配置)
-    - [2.3. 启动](#23-启动)
+  - [2.1. 安装](#21-安装)
+  - [2.2. 配置](#22-配置)
+  - [2.3. 启动](#23-启动)
 - [3. Tomcat 架构](#3-tomcat-架构)
-    - [3.1. Service](#31-service)
-    - [3.2. 连接器](#32-连接器)
-    - [3.3. 容器](#33-容器)
+  - [3.1. Service](#31-service)
+  - [3.2. 连接器](#32-连接器)
+  - [3.3. 容器](#33-容器)
 - [4. Tomcat 生命周期](#4-tomcat-生命周期)
-    - [4.1. Tomcat 的启动过程](#41-tomcat-的启动过程)
-    - [4.2. Web 应用的部署方式](#42-web-应用的部署方式)
-    - [4.3. LifeCycle](#43-lifecycle)
-    - [4.4. Connector 流程](#44-connector-流程)
-    - [4.5. Comet](#45-comet)
-    - [4.6. 异步 Servlet](#46-异步-servlet)
+  - [4.1. Tomcat 的启动过程](#41-tomcat-的启动过程)
+  - [4.2. Web 应用的部署方式](#42-web-应用的部署方式)
+  - [4.3. LifeCycle](#43-lifecycle)
+  - [4.4. Connector 流程](#44-connector-流程)
+  - [4.5. Comet](#45-comet)
+  - [4.6. 异步 Servlet](#46-异步-servlet)
 - [5. 参考资料](#5-参考资料)
 
 <!-- /TOC -->
@@ -121,7 +121,7 @@ tar -zxf apache-tomcat-8.5.24.tar.gz
 
 启动后，访问 `http://localhost:8080` ，可以看到 Tomcat 安装成功的测试页面。
 
-![img](http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/tomcat.png!zp)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/tomcat.png)
 
 ### 2.2. 配置
 
@@ -374,7 +374,7 @@ public class SimpleTomcatServer {
 - 设置启动应用的端口、JVM 参数、启动浏览器等。
 - 成功后，可以访问 `http://localhost:8080/`（当然，你也可以在 url 中设置上下文名称）。
 
-![img](http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/tomcat-intellij-run-config.png!zp)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/tomcat-intellij-run-config.png)
 
 > **说明**
 >
@@ -384,7 +384,7 @@ public class SimpleTomcatServer {
 
 ## 3. Tomcat 架构
 
-![](http://dunwu.test.upcdn.net/snap/20201113193431.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20201113193431.png)
 
 Tomcat 要实现 2 个核心功能：
 
@@ -412,7 +412,7 @@ Tomcat 支持的应用层协议有：
 
 Tomcat 支持多种 I/O 模型和应用层协议。为了实现这点，一个容器可能对接多个连接器。但是，单独的连接器或容器都不能对外提供服务，需要把它们组装起来才能工作，组装后这个整体叫作 Service 组件。Tomcat 内可能有多个 Service，通过在 Tomcat 中配置多个 Service，可以实现通过不同的端口号来访问同一台机器上部署的不同应用。
 
-![](http://dunwu.test.upcdn.net/snap/20201111093124.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20201111093124.png)
 
 **一个 Tomcat 实例有一个或多个 Service；一个 Service 有多个 Connector 和 Container**。Connector 和 Container 之间通过标准的 ServletRequest 和 ServletResponse 通信。
 
@@ -428,13 +428,13 @@ Tomcat 支持多种 I/O 模型和应用层协议。为了实现这点，一个�
 
 Tomcat 设计了 3 个组件来实现这 3 个功能，分别是 **`EndPoint`**、**`Processor`** 和 **`Adapter`**。
 
-![](http://dunwu.test.upcdn.net/snap/20201111101440.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20201111101440.png)
 
 组件间通过抽象接口交互。这样做还有一个好处是**封装变化。**这是面向对象设计的精髓，将系统中经常变化的部分和稳定的部分隔离，有助于增加复用性，并降低系统耦合度。网络通信的 I/O 模型是变化的，可能是非阻塞 I/O、异步 I/O 或者 APR。应用层协议也是变化的，可能是 HTTP、HTTPS、AJP。浏览器端发送的请求信息也是变化的。但是整体的处理逻辑是不变的，EndPoint 负责提供字节流给 Processor，Processor 负责提供 Tomcat Request 对象给 Adapter，Adapter 负责提供 ServletRequest 对象给容器。
 
 如果要支持新的 I/O 方案、新的应用层协议，只需要实现相关的具体子类，上层通用的处理逻辑是不变的。由于 I/O 模型和应用层协议可以自由组合，比如 NIO + HTTP 或者 NIO2 + AJP。Tomcat 的设计者将网络通信和应用层协议解析放在一起考虑，设计了一个叫 ProtocolHandler 的接口来封装这两种变化点。各种协议和通信模型的组合有相应的具体实现类。比如：Http11NioProtocol 和 AjpNioProtocol。
 
-![](http://dunwu.test.upcdn.net/snap/20201027091819.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20201027091819.png)
 
 #### ProtocolHandler 组件
 
@@ -454,7 +454,7 @@ EndPoint 是一个接口，对应的抽象实现类是 AbstractEndpoint，而 Ab
 
 Processor 是一个接口，定义了请求的处理等方法。它的抽象实现类 AbstractProcessor 对一些协议共有的属性进行封装，没有对方法进行实现。具体的实现有 AJPProcessor、HTTP11Processor 等，这些具体实现类实现了特定协议的解析方法和请求处理方式。
 
-![](http://dunwu.test.upcdn.net/snap/20201113185929.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20201113185929.png)
 
 从图中我们看到，EndPoint 接收到 Socket 连接后，生成一个 SocketProcessor 任务提交到线程池去处理，SocketProcessor 的 Run 方法会调用 Processor 组件去解析应用层协议，Processor 通过解析生成 Request 对象后，会调用 Adapter 的 Service 方法。
 
@@ -481,7 +481,7 @@ Tomcat 是怎么确定请求是由哪个 Wrapper 容器里的 Servlet 来处理�
 
 举例来说，假如有一个网购系统，有面向网站管理人员的后台管理系统，还有面向终端客户的在线购物系统。这两个系统跑在同一个 Tomcat 上，为了隔离它们的访问域名，配置了两个虚拟域名：`manage.shopping.com`和`user.shopping.com`，网站管理人员通过`manage.shopping.com`域名访问 Tomcat 去管理用户和商品，而用户管理和商品管理是两个单独的 Web 应用。终端客户通过`user.shopping.com`域名去搜索商品和下订单，搜索功能和订单管理也是两个独立的 Web 应用。如下所示，演示了 url 应声 Servlet 的处理流程。
 
-![](http://dunwu.test.upcdn.net/snap/20201113192022.jpg)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20201113192022.jpg)
 
 假如有用户访问一个 URL，比如图中的`http://user.shopping.com:8080/order/buy`，Tomcat 如何将这个 URL 定位到一个 Servlet 呢？
 
@@ -500,7 +500,7 @@ Pipeline-Valve 是责任链模式，责任链模式是指在一个请求处理�
 
 先来了解一下 Valve 和 Pipeline 接口的设计：
 
-![img](http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/Pipeline与Valve.png)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/Pipeline与Valve.png)
 
 - 每一个容器都有一个 Pipeline 对象，只要触发这个 Pipeline 的第一个 Valve，这个容器里 Pipeline 中的 Valve 就都会被调用到。但是，不同容器的 Pipeline 是怎么链式触发的呢，比如 Engine 中 Pipeline 需要调用下层容器 Host 中的 Pipeline。
 - 这是因为 Pipeline 中还有个 getBasic 方法。这个 BasicValve 处于 Valve 链表的末端，它是 Pipeline 中必不可少的一个 Valve，负责调用下层容器的 Pipeline 里的第一个 Valve。
@@ -509,7 +509,7 @@ Pipeline-Valve 是责任链模式，责任链模式是指在一个请求处理�
 - 各层容器对应的 basic valve 分别是 `StandardEngineValve`、`StandardHostValve`、 `StandardContextValve`、`StandardWrapperValve`。
 - 由于 Valve 是一个处理点，因此 invoke 方法就是来处理请求的。注意到 Valve 中有 getNext 和 setNext 方法，因此我们大概可以猜到有一个链表将 Valve 链起来了。
 
-![](http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/请求处理过程.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/请求处理过程.png)
 
 整个调用过程由连接器中的 Adapter 触发的，它会调用 Engine 的第一个 Valve：
 
@@ -521,7 +521,7 @@ connector.getService().getContainer().getPipeline().getFirst().invoke(request, r
 
 ### 4.1. Tomcat 的启动过程
 
-![](http://dunwu.test.upcdn.net/snap/20201118145455.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20201118145455.png)
 
 1. Tomcat 是一个 Java 程序，它的运行从执行 `startup.sh` 脚本开始。`startup.sh` 会启动一个 JVM 来运行 Tomcat 的启动类 `Bootstrap`。
 2. `Bootstrap` 会初始化 Tomcat 的类加载器并实例化 `Catalina`。
@@ -741,12 +741,12 @@ ContextConfig 解析 web.xml 顺序：
 
 ### 4.3. LifeCycle
 
-![](http://dunwu.test.upcdn.net/snap/20201118105012.png)
+![](https://raw.githubusercontent.com/dunwu/images/dev/snap/20201118105012.png)
 
 #### 4.2.3. 请求处理过程
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/请求处理过程.png" width="600">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/请求处理过程.png" width="600">
 </div>
 
 1. 根据 server.xml 配置的指定的 connector 以及端口监听 http、或者 ajp 请求
@@ -757,25 +757,25 @@ ContextConfig 解析 web.xml 顺序：
 ### 4.4. Connector 流程
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/connector.png!zp" width="600">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/connector.png!zp" width="600">
 </div>
 
 #### 4.3.1. 阻塞 IO
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/阻塞IO.png!zp" width="600">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/阻塞IO.png!zp" width="600">
 </div>
 
 #### 4.3.2. 非阻塞 IO
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/非阻塞IO.png!zp" width="600">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/非阻塞IO.png!zp" width="600">
 </div>
 
 #### 4.3.3. IO 多路复用
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/IO多路复用.png!zp" width="600">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/IO多路复用.png!zp" width="600">
 </div>
 
 阻塞与非阻塞的区别在于进行读操作和写操作的系统调用时，如果此时内核态没有数据可读或者没有缓冲空间可写时，是否阻塞。
@@ -785,7 +785,7 @@ IO 多路复用的好处在于可同时监听多个 socket 的可读和可写事
 #### 4.3.4. Tomcat 各类 Connector 对比
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/Tomcat各类Connector对比.jpg!zp" width="500">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/Tomcat各类Connector对比.jpg!zp" width="500">
 </div>
 
 - JIO：用 java.io 编写的 TCP 模块，阻塞 IO
@@ -806,7 +806,7 @@ Apache Portable Runtime 是一个高度可移植的库，它是 Apache HTTP Serv
 **NIO 处理相关类**
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/NIO处理相关类.jpg!zp" width="500">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/NIO处理相关类.jpg!zp" width="500">
 </div>
 
 Poller 线程从 EventQueue 获取 PollerEvent，并执行 PollerEvent 的 run 方法，调用 Selector 的 select 方法，如果有可读的 Socket 则创建 Http11NioProcessor，放入到线程池中执行；
@@ -839,7 +839,7 @@ Note：
 ### 4.6. 异步 Servlet
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/传统Servlet处理流程.png!zp" >
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/传统Servlet处理流程.png!zp" >
 </div>
 
 传统流程：
@@ -849,7 +849,7 @@ Note：
 - 最后，根据处理的结果提交响应，Servlet 线程结束
 
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/tools/tomcat/异步Servlet处理流程.png!zp" >
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/java/javaweb/tools/tomcat/异步Servlet处理流程.png!zp" >
 </div>
 
 异步处理流程：

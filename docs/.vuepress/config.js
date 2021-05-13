@@ -15,7 +15,7 @@ module.exports = {
     },
   },
   themeConfig: {
-    logo: 'images/dunwu-logo-100.png',
+    logo: 'https://raw.githubusercontent.com/dunwu/images/dev/common/dunwu-logo-200.png',
     repo: 'dunwu/javatech',
     repoLabel: 'Github',
     docsDir: 'docs',
@@ -42,12 +42,8 @@ module.exports = {
             link: '/mq/',
           },
           {
-            text: '搜索引擎',
-            link: '/search/',
-          },
-          {
-            text: '存储',
-            link: '/storage/',
+            text: 'LIB库',
+            link: '/lib/',
           },
           {
             text: '微服务',
@@ -127,6 +123,17 @@ module.exports = {
       {
         serviceWorker: true,
         updatePopup: true,
+      },
+    ],
+    [
+      '@vuepress/last-updated',
+      {
+        transformer: (timestamp, lang) => {
+          // 不要忘了安装 moment
+          const moment = require('moment')
+          moment.locale(lang)
+          return moment(timestamp).fromNow()
+        },
       },
     ],
     ['@vuepress/medium-zoom', true],

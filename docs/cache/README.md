@@ -4,7 +4,7 @@
 >
 > 如果想深入学习缓存，建议先了解一下 [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。
 
-![img](http://dunwu.test.upcdn.net/snap/20200710163555.png)
+![img](https://raw.githubusercontent.com/dunwu/images/dev/snap/20200710163555.png)
 
 ## 📖 内容
 
