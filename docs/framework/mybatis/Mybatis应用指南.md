@@ -385,11 +385,11 @@ public class ExamplePlugin implements Interceptor {
 - **官方**
   - [Mybatis Github](https://github.com/mybatis/mybatis-3)
   - [Mybatis 官网](http://www.mybatis.org/mybatis-3/)
-  - [MyBatis Generator](https://github.com/mybatis/generator)
-  - [Spring 集成](https://github.com/mybatis/spring)
-  - [Spring Boot 集成](https://github.com/mybatis/spring-boot-starter)
+  - [MyBatis 官方代码生成（mybatis-generator）](https://github.com/mybatis/generator)
+  - [MyBatis 官方集成 Spring（mybatis-spring）](https://github.com/mybatis/spring)
+  - [Mybatis 官方集成 Spring Boot（mybatis-spring-boot）](https://github.com/mybatis/spring-boot-starter)
 - **扩展插件**
-  - [mybatis-plus](https://github.com/baomidou/mybatis-plus) - CRUD 扩展插件、代码生成器、分页器等多功能
+  - [MyBatis-Plus](https://github.com/baomidou/mybatis-plus) - CRUD 扩展插件、代码生成器、分页器等多功能
   - [Mapper](https://github.com/abel533/Mapper) - CRUD 扩展插件
   - [Mybatis-PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) - Mybatis 通用分页插件
 - **文章**

@@ -11,7 +11,7 @@
 - [缓存面试题](cache-interview.md) 💯
 - [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)
 - [Java 缓存框架](cache-framework.md) - 关键词：Spring Cache、J2Cache、JetCache
-- [Redis 教程](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
+- [Redis 教程](https://dunwu.github.io/db-tutorial/nosql/redis/) 📚
 - [Memcached 应用指南](memcached.md)
 - [Java 缓存库](cache-libs.md) - 关键词：ConcurrentHashMap、LRUHashMap、Guava Cache、Caffeine、Ehcache
 - [Ehcache 应用指南](ehcache.md)

@@ -47,7 +47,7 @@ module.exports = {
           },
           {
             text: '微服务',
-            link: '/soa/',
+            link: '/microservice/',
           },
           {
             text: '安全',

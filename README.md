@@ -11,7 +11,7 @@
 
 <h1 align="center">JAVATECH</h1>
 
-> ☕ **javatech** 汇总了 Java 后端开发中常见的主流技术的应用、特性、原理。
+> ☕ **JavaTech** 汇总了 Java 后端开发中常见的主流技术的应用、特性、原理。
 >
 > - 🔁 项目同步维护：[Github](https://github.com/dunwu/javatech/) | [Gitee](https://gitee.com/turnon/javatech/)
 > - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javatech/) | [Gitee Pages](http://turnon.gitee.io/javatech/)
@@ -23,17 +23,17 @@
 
 ## 📖 内容
 
-### 框架
+### [框架](docs/framework)
 
 - [Spring](https://dunwu.github.io/spring-tutorial/) 📚
 - [Spring Boot](https://dunwu.github.io/spring-boot-tutorial/) 📚
 - [Spring Cloud](https://github.com/dunwu/spring-cloud-tutorial) 📚
-- MyBatis
-  - [Mybatis 应用指南](docs/framework/Mybatis应用指南.md)
-  - [Mybatis 原理](docs/framework/Mybatis原理.md)
-- [Netty](docs/soa/netty.md)
+- [MyBatis](docs/framework/mybatis)
+  - [Mybatis 应用指南](docs/framework/mybatis/Mybatis应用指南.md)
+  - [Mybatis 原理](docs/framework/mybatis/Mybatis原理.md)
+- [Netty](docs/framework/netty.md)
 
-### 消息队列
+### [消息队列](docs/mq)
 
 > 消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。
 >
@@ -41,8 +41,9 @@
 >
 > 如果想深入学习各种消息队列产品，建议先了解一下 [消息队列基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/mq.md) ，有助于理解消息队列特性的实现和设计思路。
 
-- [消息队列面试题](docs/mq/mq-interview.md) 💯
-- [Kafka](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/kafka) 📚
+- [消息队列基本原理](docs/mq/消息队列基本原理.md)
+- [消息队列面试题](docs/mq/消息队列面试.md) 💯
+- [Kafka](https://dunwu.github.io/bigdata-tutorial/kafka) 📚
 - [RocketMQ](docs/mq/rocketmq.md)
 - [ActiveMQ](docs/mq/activemq.md)
 
@@ -57,15 +58,15 @@
 - [缓存面试题](docs/cache/cache-interview.md) 💯
 - [缓存基本原理](https://github.com/dunwu/blog/blob/master/source/_posts/theory/cache.md)
 - [Java 缓存框架](docs/cache/cache-framework.md) - 关键词：Spring Cache、J2Cache、JetCache
-- [Redis 教程](https://github.com/dunwu/db-tutorial/tree/master/docs/nosql/redis) 📚
+- [Redis 教程](https://dunwu.github.io/db-tutorial/nosql/redis/) 📚
 - [Memcached 应用指南](docs/cache/memcached.md)
 - [Java 缓存库](docs/cache/cache-libs.md) - 关键词：ConcurrentHashMap、LRUHashMap、Guava Cache、Caffeine、Ehcache
 - [Ehcache 应用指南](docs/cache/ehcache.md)
 - [Http 缓存](docs/cache/http-cache.md)
 
-### 微服务
+### [微服务](docs/microservice)
 
-- [Dubbo](docs/soa/dubbo.md)
+- [Dubbo](docs/microservice/dubbo.md)
 - [**Spring Cloud**](https://github.com/dunwu/spring-cloud-tutorial) 📚
   - Eureka
   - Consul
@@ -73,7 +74,7 @@
   - Zuul
   - Gateway
 - 通信
-  - [Netty](docs/soa/netty.md)
+  - [Netty](docs/framework/netty.md)
 
 ### 搜索引擎
 
@@ -92,7 +93,7 @@
 - Solr
 - Lucene
 
-### 安全
+### [安全](docs/security)
 
 > Java 领域比较流行的安全框架就是 shiro 和 spring-security。
 >
@@ -103,14 +104,14 @@
 - [Shiro](docs/security/shiro.md)
 - [Spring Security](docs/security/spring-security.md)
 
-### 测试
+### [测试](docs/test)
 
 - [Junit](docs/test/junit.md)
 - [Mockito](docs/test/mockito.md)
 - [JMH](docs/test/jmh.md)
 - [Jmeter](docs/test/jmeter.md)
 
-### 服务器
+### [服务器](docs/server)
 
 > Tomcat 和 Jetty 都是 Java 比较流行的轻量级服务器。
 >
@@ -123,22 +124,22 @@
 - [Jetty](docs/server/jetty.md)
 - [Nginx](https://github.com/dunwu/nginx-tutorial) 📚
 
-### 大数据
+### [大数据](https://dunwu.github.io/bigdata-tutorial)
 
-> 大数据技术点以归档在：[bigdata-tutorial](https://github.com/dunwu/bigdata-tutorial)
+> 大数据技术点以归档在：[bigdata-tutorial](https://dunwu.github.io/bigdata-tutorial)
 
-- [Hdfs](https://github.com/dunwu/bigdata-tutorial/blob/master/docs/hdfs) 📚
-- [Hbase](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/hbase) 📚
-- [Hive](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/hive) 📚
-- [MapReduce](https://github.com/dunwu/bigdata-tutorial/blob/master/docs/mapreduce/mapreduce.md)
-- [Yarn](https://github.com/dunwu/bigdata-tutorial/blob/master/docs/yarn.md)
-- [ZooKeeper](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/zookeeper) 📚
-- [Kafka](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/kafka) 📚
+- [Hdfs](https://dunwu.github.io/bigdata-tutorial/hdfs) 📚
+- [Hbase](https://dunwu.github.io/bigdata-tutorial/hbase) 📚
+- [Hive](https://dunwu.github.io/bigdata-tutorial/hive) 📚
+- [MapReduce](https://dunwu.github.io/bigdata-tutorial/mapreduce)
+- [Yarn](https://dunwu.github.io/bigdata-tutorial/yarn)
+- [ZooKeeper](https://dunwu.github.io/bigdata-tutorial/zookeeper) 📚
+- [Kafka](https://dunwu.github.io/bigdata-tutorial/kafka) 📚
 - Spark
 - Storm
-- [Flink](https://github.com/dunwu/bigdata-tutorial/tree/master/docs/flink)
+- [Flink](https://dunwu.github.io/bigdata-tutorial/tree/master/docs/flink)
 
-### LIB
+### [LIB](docs/lib)
 
 - [日志](docs/lib/javalib-log.md) - log4j2、logback、log4j、Slf4j
 - [序列化](docs/lib/serialized/)
